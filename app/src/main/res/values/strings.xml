@@ -3,4 +3,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="login_user_error">Ingrese su usuario</string>
+    <string name="login_pass_error">Ingrese su clave</string>
+
 </resources>
