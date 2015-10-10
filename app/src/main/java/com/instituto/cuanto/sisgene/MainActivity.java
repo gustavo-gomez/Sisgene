@@ -1,5 +1,6 @@
 package com.instituto.cuanto.sisgene;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.instituto.cuanto.sisgene.fragment.ListViewTipoPregunta1Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,10 +55,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             //validar usuario y clave con WebService
-            if(camposOK)
+       /*     if(camposOK)
             {
 
             }
+        */
+            //////Se llama a fragmengto, cambiar de lugar cuando se defina el orden
+            Intent intent = new Intent(MainActivity.this, PreguntasActivity.class);
+            startActivity(intent);
+            //////
 
         }
     };
