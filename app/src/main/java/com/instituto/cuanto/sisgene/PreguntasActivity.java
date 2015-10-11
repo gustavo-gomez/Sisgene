@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.instituto.cuanto.sisgene.fragment.ListViewTipoPregunta1Fragment;
+import com.instituto.cuanto.sisgene.fragment.PreguntasFragment;
 
 /**
  * Created by Gustavo on 09/10/2015.
@@ -18,7 +19,7 @@ public class PreguntasActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.preguntaslayout);
+        setContentView(R.layout.activitypreguntas);
 
         btnSiguiente = (Button)findViewById(R.id.btnSiguiente);
         lyFragmentoListaPreguntas = (LinearLayout)findViewById(R.id.lyFragmentoListaPreguntas);
@@ -28,7 +29,7 @@ public class PreguntasActivity extends AppCompatActivity{
         android.app.FragmentManager fragmentManager = getFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        ListViewTipoPregunta1Fragment listViewTipoPregunta1Fragment = new ListViewTipoPregunta1Fragment();
+        PreguntasFragment listViewTipoPregunta1Fragment = new PreguntasFragment();
         fragmentTransaction.add(lyFragmentoListaPreguntas.getId(), listViewTipoPregunta1Fragment);
         fragmentTransaction.addToBackStack(null).commit();
 

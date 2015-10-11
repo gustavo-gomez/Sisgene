@@ -15,6 +15,7 @@ import com.instituto.cuanto.sisgene.fragment.ListViewTipoPregunta1Fragment;
 public class MainActivity extends AppCompatActivity {
 
     Button btnAceptar, btnSalir;
+    Button btnLlenardatos;
     EditText etNombreUsuario, etClave;
     TextView tvNombreUsuarioError, tvClaveError;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnAceptar = (Button)findViewById(R.id.btnAceptar);
         btnSalir = (Button)findViewById(R.id.btnSalir);
+        btnLlenardatos = (Button)findViewById(R.id.btnLlenardatos);
         etNombreUsuario = (EditText)findViewById(R.id.etNombreUsuario);
         etClave = (EditText)findViewById(R.id.etClave);
         tvNombreUsuarioError = (TextView)findViewById(R.id.tvNombreUsuarioError);
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnAceptar.setOnClickListener(btnAceptarsetOnClickListener);
         btnSalir.setOnClickListener(btnSalirsetOnClickListener);
+        btnLlenardatos.setOnClickListener(btnLlenardatossetOnClickListener);
     }
 
     View.OnClickListener btnAceptarsetOnClickListener = new View.OnClickListener() {
@@ -72,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             finish();
+        }
+    };
+
+    View.OnClickListener btnLlenardatossetOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this, DatosEncuestadosActivity.class);
+            startActivity(intent);
+            //////
         }
     };
 

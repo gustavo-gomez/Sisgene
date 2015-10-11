@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="arrayGradoInstruccion">
+        <item>Sin Nivel</item>
+        <item>Educación Inicial</item>
+        <item>Primaria Incompleta</item>
+        <item>Primaria Completa</item>
+        <item>Secundaria Incompleta</item>
+        <item>Secundaria Completa</item>
+        <item>Superior no Universitaria Incompleta</item>
+        <item>Superior no Universitaria Completa</item>
+        <item>Superior Universitaria Incompleta</item>
+        <item>Superior Universitaria Completa</item>
+        <item>Post Grado Universitario</item>
+    </string-array>
+
+</resources>
+

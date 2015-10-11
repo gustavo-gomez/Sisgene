@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.R;
@@ -19,7 +18,7 @@ import java.util.List;
 public class ListViewTipoPregunta1Adapter extends ArrayAdapter<ListViewTipoPregunta1Item> {
 
     public ListViewTipoPregunta1Adapter(Context context, List<ListViewTipoPregunta1Item> items) {
-        super(context, R.layout.listitem_pregunta_tipo1, items);
+        super(context, R.layout.listitem_fragment_pregunta_tipo1, items);
     }
 
     @Override
@@ -29,7 +28,7 @@ public class ListViewTipoPregunta1Adapter extends ArrayAdapter<ListViewTipoPregu
         if(convertView == null) {
             // inflate the GridView item layout
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.listitem_pregunta_tipo1, parent, false);
+            convertView = inflater.inflate(R.layout.listitem_fragment_pregunta_tipo1, parent, false);
 
             // initialize the view holder
             viewHolder = new ViewHolder();
