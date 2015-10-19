@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_texto">#000000</color>
+    <color name="color_cabecera">#CDCDCD</color>
+    <color name="color_fondo_boton">#c21315</color>
+    <color name="color_fondo_pantalla">#F2F1F1</color>
+    <color name="color_texto_cabecera">#616161</color>
+    <color name="color_texto_boton">#FFFFFF </color>
+    <color name="color_fondo_formulario">#F2F1F1</color>
+</resources>

@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
+        android:background="@color/color_fondo_pantalla"
         android:orientation="vertical"
         android:paddingBottom="30dp"
         android:paddingTop="30dp">
@@ -22,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-
             android:orientation="vertical">
 
             <ImageView
@@ -36,20 +36,20 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="SISGENE"
+                android:textColor="@color/color_texto"
                 android:textSize="@dimen/abc_text_size_title_material"
-                android:textColor="#000000"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="SISTEMA GENERADOR DE ENCUESTAS"
-                    android:textColor="#000000"/>
+                    android:textColor="@color/color_texto" />
 
             </LinearLayout>
         </LinearLayout>
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Codigo de Usuario"
-                    android:textColor="#000000"/>
+                    android:textColor="@color/color_texto" />
 
                 <EditText
                     android:id="@+id/etNombreUsuario"
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Contraseña"
-                    android:textColor="#000000"/>
+                    android:textColor="@color/color_texto" />
 
                 <EditText
                     android:id="@+id/etClave"
@@ -128,15 +128,21 @@
                     android:id="@+id/btnAceptar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
                     android:layout_weight="1"
-                    android:text="ACEPTAR" />
+                    android:background="@color/color_fondo_boton"
+                    android:text="ACEPTAR"
+                    android:textColor="@color/color_texto_boton" />
 
                 <Button
                     android:id="@+id/btnCerrar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
                     android:layout_weight="1"
-                    android:text="SALIR" />
+                    android:background="@color/color_fondo_boton"
+                    android:text="SALIR"
+                    android:textColor="@color/color_texto_boton" />
 
             </LinearLayout>
 

@@ -20,19 +20,19 @@ public class PreguntasActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activityprincipal);
-/*
+
         btnSiguiente = (Button)findViewById(R.id.btnSiguiente);
         lyFragmentoListaPreguntas = (LinearLayout)findViewById(R.id.lyFragmentoListaPreguntas);
-*/
+
         //La primera vez carga la primera pregunta
-/*
+
         android.app.FragmentManager fragmentManager = getFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         PreguntasFragment listViewTipoPregunta1Fragment = new PreguntasFragment();
         fragmentTransaction.add(lyFragmentoListaPreguntas.getId(), listViewTipoPregunta1Fragment);
         fragmentTransaction.addToBackStack(null).commit();
-*/
+
         //btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
 
     }

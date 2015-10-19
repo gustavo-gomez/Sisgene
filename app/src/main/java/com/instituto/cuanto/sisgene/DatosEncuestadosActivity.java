@@ -14,8 +14,9 @@ import com.instituto.cuanto.sisgene.fragment.PreguntasFragment;
 public class DatosEncuestadosActivity extends AppCompatActivity {
 
     LinearLayout lyPreguntasEncuestados;
-    Spinner spGradoInstruccion;
 
+    String datos="gustavo";
+    boolean boolDatosEncuestados[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +24,23 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_datos_encuestados);
 
         lyPreguntasEncuestados = (LinearLayout)findViewById(R.id.lyPreguntasEncuestados);
-        spGradoInstruccion = (Spinner)findViewById(R.id.spGradoInstruccion);
+
+        //Obtener los datos que se van a mostrar
+        boolDatosEncuestados = new boolean[]{true, true, true, true, true, true, true, true, true, true, true,
+                true, true, true, true, true, true, true, true,};
+
+        Bundle bundle = new Bundle();
+        bundle.putString("message", datos);
+        bundle.putBooleanArray("datosboolDatosEncuestados", boolDatosEncuestados);
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         DatosEncuestadosFragment datosEncuestadosFragment = new DatosEncuestadosFragment();
+
+        datosEncuestadosFragment.setArguments(bundle);
+
         fragmentTransaction.add(lyPreguntasEncuestados.getId(), datosEncuestadosFragment);
         fragmentTransaction.addToBackStack(null).commit();
-
     }
 }

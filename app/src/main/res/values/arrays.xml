@@ -15,5 +15,24 @@
         <item>Post Grado Universitario</item>
     </string-array>
 
+    <string-array name="arrayEstadoCivil">
+        <item>Soltero</item>
+        <item>Casado</item>
+        <item>Divorciado</item>
+        <item>Viudo</item>
+        <item>Conviviente</item>
+    </string-array>
+
+    <string-array name="arrayArea">
+        <item>Urbana</item>
+        <item>Rural</item>
+    </string-array>
+
+    <string-array name="arrayCondicion">
+        <item>Titular</item>
+        <item>Reemplazo</item>
+    </string-array>
+
+
 </resources>
 
