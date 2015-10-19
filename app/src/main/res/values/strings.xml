@@ -8,4 +8,10 @@
     <string name="login_user_error">Ingrese su usuario</string>
     <string name="login_pass_error">Ingrese su clave</string>
 
+    <string-array name="lista_estadoenvio">
+        <item>SELECCIONE</item>
+        <item>ENVIADO</item>
+        <item>NO ENVIADO</item>
+    </string-array>
+
 </resources>
