@@ -120,6 +120,7 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
     View.OnClickListener btAceptar_datosUsuariosetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //validar que se haya ingresado datos en los campos que estén visibles
 
         }
     };
