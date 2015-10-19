@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:paddingBottom="30dp"
+            android:paddingTop="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logocuanto" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="SISGENE"
+                    android:textSize="@dimen/abc_text_size_title_material"
+                    android:textColor="#000000"/>
+
+
+                <TextView
+                    android:layout_width="269dp"
+                    android:layout_height="wrap_content"
+                    android:text="SISTEMA GENERADOR DE ENCUESTAS"
+                    android:textColor="#000000"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ejecutar Encuesta"
+                        android:id="@+id/btnEjecutar"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="47dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Exportar Data"
+                        android:id="@+id/btnExportar"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Salir"
+                        android:id="@+id/btnSalir"
+                        android:layout_marginTop="23dp"
+                        android:layout_below="@+id/btnExportar"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+</RelativeLayout>

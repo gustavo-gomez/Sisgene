@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="EXPORTAR DATOS"
+        android:id="@+id/txExportar"
+        android:textColor="#000000"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Buscar por:"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/txExportar"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="39dp"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Fechas :"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_marginTop="12dp"
+        android:textColor="#000000"/>
+
+    <EditText
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etFechaIni"
+        android:layout_marginTop="11dp"
+        android:hint="dd/mm/yyyy"
+        android:layout_below="@+id/textView6"
+        android:layout_alignStart="@+id/textView6" />
+
+    <EditText
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etFechaFin"
+        android:hint="dd/mm/yyy"
+        android:layout_alignTop="@+id/etFechaIni"
+        android:layout_toStartOf="@+id/txExportar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Estado :"
+        android:id="@+id/textView4"
+        android:textColor="#000000"
+        android:layout_below="@+id/textView5"
+        android:layout_toEndOf="@+id/txExportar"
+        android:layout_marginStart="43dp" />
+
+    <Spinner
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_alignBottom="@+id/etFechaFin"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/textView6"
+        android:entries="@array/lista_estadoenvio"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BUSCAR"
+        android:id="@+id/btnBuscar"
+        android:layout_below="@+id/spinner"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:text="ENVIAR"
+        android:id="@+id/btnEnviar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/etFechaFin"
+        android:layout_marginStart="39dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:text="Salir"
+        android:id="@+id/btnSalir"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/txExportar" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lstEncuestas"
+        android:layout_below="@+id/btnBuscar"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/btnEnviar" />
+
+</RelativeLayout>

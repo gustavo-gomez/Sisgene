@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+
+        <ImageView
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logocuanto"
+            android:layout_alignParentTop="true"
+            android:id="@+id/imageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Supervisor :"
+            android:id="@+id/txSupervisor"
+            android:layout_marginStart="150dp"
+            android:layout_marginBottom="14dp"
+            android:layout_alignBottom="@+id/imageView"
+            android:layout_toEndOf="@+id/imageView"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Encuestador :"
+            android:id="@+id/txEncuestador"
+            android:layout_below="@+id/txSupervisor"
+            android:layout_alignStart="@+id/txSupervisor"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Fecha :"
+            android:id="@+id/textView2"
+            android:layout_alignBaseline="@+id/txSupervisor"
+            android:layout_alignBottom="@+id/txSupervisor"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="120dp"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Hora :"
+            android:id="@+id/textView3"
+            android:layout_below="@+id/txSupervisor"
+            android:layout_alignStart="@+id/textView2"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/txHoraValor"
+            android:layout_marginStart="18dp"
+            android:layout_below="@+id/txSupervisor"
+            android:layout_toEndOf="@+id/textView3"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/txFechaValor"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_alignStart="@+id/txHoraValor"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/txEncuestadorValor"
+            android:textColor="#000000"
+            android:text="aaaaaaa"
+            android:layout_alignTop="@+id/txEncuestador"
+            android:layout_toEndOf="@+id/txEncuestador"
+            android:layout_marginStart="18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/txSupervisorValor"
+            android:textColor="#000000"
+            android:text="bbbbbbb"
+            android:layout_alignBaseline="@+id/txSupervisor"
+            android:layout_alignBottom="@+id/txSupervisor"
+            android:layout_alignStart="@+id/txEncuestadorValor" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EJECUTAR ENCUESTA"
+            android:id="@+id/textView"
+            android:layout_marginEnd="104dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:typeface="normal"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:text="Nueva Encuesta"
+            android:id="@+id/btnNuevaEncuesta"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/btnSalir"
+            android:layout_marginEnd="50dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:text="Salir"
+            android:id="@+id/btnSalir"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_marginEnd="164dp" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/btnBuscar" >
+        </ScrollView>
+
+        <ListView
+            android:id="@+id/lvListaEncuesta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/btnNuevaEncuesta">
+        </ListView>
+
+    </RelativeLayout>
+
+</LinearLayout>
