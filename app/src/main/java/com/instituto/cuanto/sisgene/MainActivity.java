@@ -72,12 +72,14 @@ public class MainActivity extends AppCompatActivity {
                 tvClaveError.setText(getResources().getString(R.string.login_pass_error));
                 camposOK = false;
             }
-
+            Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
+            startActivity(intent);
             //validar usuario y clave con WebService
-            if(camposOK)
+            /*if(camposOK)
             {
-                new RestCosumeAsyncTask().execute();
+                //new RestCosumeAsyncTask().execute();
             }
+            */
         }
     };
 

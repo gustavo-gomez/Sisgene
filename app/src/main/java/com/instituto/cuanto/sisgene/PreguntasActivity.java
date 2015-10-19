@@ -19,7 +19,6 @@ public class PreguntasActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activityprincipal);
 
         btnSiguiente = (Button)findViewById(R.id.btnSiguiente);
         lyFragmentoListaPreguntas = (LinearLayout)findViewById(R.id.lyFragmentoListaPreguntas);

@@ -9,83 +9,89 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:paddingBottom="30dp"
+        android:paddingTop="30dp">
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+
             android:orientation="vertical"
-            android:paddingBottom="30dp"
-            android:paddingTop="30dp">
+            android:weightSum="1">
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logocuanto" />
 
-                android:orientation="vertical"
-                android:weightSum="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="SISGENE"
+                android:textColor="#000000"
+                android:textSize="@dimen/abc_text_size_title_material" />
 
-                <ImageView
-                    android:layout_width="match_parent"
+
+            <TextView
+                android:layout_width="269dp"
+                android:layout_height="wrap_content"
+                android:text="SISTEMA GENERADOR DE ENCUESTAS"
+                android:textColor="#000000" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btnEjecutar"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/logocuanto" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="47dp"
+                    android:background="@color/color_fondo_boton"
+                    android:text="Ejecutar Encuesta"
+                    android:textColor="@color/color_texto_boton" />
 
-                <TextView
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btnExportar"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center"
-                    android:text="SISGENE"
-                    android:textSize="@dimen/abc_text_size_title_material"
-                    android:textColor="#000000"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/color_fondo_boton"
+                    android:text="Exportar Data"
+                    android:textColor="@color/color_texto_boton" />
 
-
-                <TextView
-                    android:layout_width="269dp"
+                <Button
+                    android:id="@+id/btnSalir"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SISTEMA GENERADOR DE ENCUESTAS"
-                    android:textColor="#000000"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Button
-                        style="?android:attr/buttonStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ejecutar Encuesta"
-                        android:id="@+id/btnEjecutar"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="47dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentEnd="true" />
-
-                    <Button
-                        style="?android:attr/buttonStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Exportar Data"
-                        android:id="@+id/btnExportar"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentEnd="true" />
-
-                    <Button
-                        style="?android:attr/buttonStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Salir"
-                        android:id="@+id/btnSalir"
-                        android:layout_marginTop="23dp"
-                        android:layout_below="@+id/btnExportar"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentEnd="true" />
-                </RelativeLayout>
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/btnExportar"
+                    android:layout_marginTop="23dp"
+                    android:background="@color/color_fondo_boton"
+                    android:text="Salir"
+                    android:textColor="@color/color_texto_boton" />
+            </RelativeLayout>
 
 
-            </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

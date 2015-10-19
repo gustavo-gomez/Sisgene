@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.constantes.Constants;
 import com.instituto.cuanto.sisgene.util.ListViewAdapter;
+import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,10 +26,11 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
     TextView fechaValor;
     TextView supervisorValor;
     TextView encuestadorValor;
-    int hora=0, minuto=0, segundo=0,dia,mes,ano;
+    Button btnNuevaEncuesta;
+    int hora = 0, minuto = 0, segundo = 0;
     Thread iniReloj = null;
     Runnable r;
-    String min,hor,seg;
+    String min, hor, seg;
     String curTime;
     boolean isUpdate = false;
 
@@ -45,8 +47,10 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         fechaValor = (TextView) findViewById(R.id.txFechaValor);
         encuestadorValor = (TextView) findViewById(R.id.txEncuestadorValor);
         supervisorValor = (TextView) findViewById(R.id.txSupervisorValor);
+        btnNuevaEncuesta = (Button) findViewById(R.id.btnNuevaEncuesta);
+        btnSalir = (Button) findViewById(R.id.btnSalir);
 
-        fechaValor.setText(obtenerFecha());
+        fechaValor.setText(Util.obtenerFecha());
         r = new RefreshClock();
         iniReloj = new Thread(r);
         iniReloj.start();
@@ -54,13 +58,14 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         encuestadorValor.setText("Jesus Cahuana Auquipuma");
         supervisorValor.setText("Juan Arango Pineda");
 
-        ListView listView=(ListView)findViewById(R.id.lvListaEncuesta);
+        ListView listView = (ListView) findViewById(R.id.lvListaEncuesta);
         populateList();
-        ListViewAdapter adapter=new ListViewAdapter(this, list);
+        ListViewAdapter adapter = new ListViewAdapter(this, list);
         listView.setAdapter(adapter);
 
-        btnSalir    = (Button)findViewById(R.id.btnSalir);
+
         btnSalir.setOnClickListener(btnSalirsetOnClickListener);
+        btnNuevaEncuesta.setOnClickListener(btnNuevaEncuestasetOnClickListener);
     }
 
     @Override
@@ -72,6 +77,15 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(PrincipalEncuestaActivity.this, PrincipalActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    View.OnClickListener btnNuevaEncuestasetOnClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(PrincipalEncuestaActivity.this, DatosEncuestadosActivity.class);
             startActivity(intent);
         }
     };
@@ -97,31 +111,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         });
     }
 
-    private String obtenerFecha(){
-        Calendar c = new GregorianCalendar();
-
-        String sDia="",sMes="";
-
-        dia = c.get(Calendar.DAY_OF_MONTH);
-        mes = c.get(Calendar.MONTH)+1;
-        ano = c.get(Calendar.YEAR);
-
-        if(dia<10){
-            sDia = "0"+dia;
-        }else{
-            sDia = ""+dia;
-        }
-
-        if(mes<10){
-            sMes = "0"+mes;
-        }else{
-            sMes = ""+mes;
-        }
-
-        return sDia+"/"+sMes+"/"+ano;
-    }
-
-    private void updateTime(){
+    private void updateTime() {
 
         Calendar c = Calendar.getInstance();
         hora = c.get(Calendar.HOUR_OF_DAY);
@@ -131,48 +121,48 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
 
     }
 
-    private void settingNewClock(){
-        segundo +=1;
+    private void settingNewClock() {
+        segundo += 1;
 
         setZeroClock();
 
-        if(segundo >=0 & segundo <=59){
+        if (segundo >= 0 & segundo <= 59) {
 
-        }else {
+        } else {
             segundo = 0;
-            minuto +=1;
+            minuto += 1;
         }
-        if(minuto >=0 & minuto <=59){
+        if (minuto >= 0 & minuto <= 59) {
 
-        }else{
+        } else {
             minuto = 0;
-            hora +=1;
+            hora += 1;
         }
-        if(hora >= 0 & hora <= 24){
+        if (hora >= 0 & hora <= 24) {
 
-        }else{
+        } else {
             hora = 0;
         }
 
     }
 
-    private void setZeroClock(){
-        if(hora >=0 & hora <=9){
+    private void setZeroClock() {
+        if (hora >= 0 & hora <= 9) {
             hor = "0";
-        }else{
+        } else {
             hor = "";
         }
 
-        if(minuto >=0 & minuto <=9){
+        if (minuto >= 0 & minuto <= 9) {
             min = ":0";
-        }else{
+        } else {
             min = ":";
         }
 
-        if(segundo >=0 & segundo <=9){
+        if (segundo >= 0 & segundo <= 9) {
             seg = ":0";
 
-        }else{
+        } else {
             seg = ":";
         }
     }
@@ -180,9 +170,9 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
     private void populateList() {
         // TODO Auto-generated method stub
 
-        list=new ArrayList<HashMap<String,String>>();
+        list = new ArrayList<HashMap<String, String>>();
 
-        HashMap<String,String> temp=new HashMap<String, String>();
+        HashMap<String, String> temp = new HashMap<String, String>();
         temp.put(Constants.FIRST_COLUMN, "ENCUESTADOR");
         temp.put(Constants.SECOND_COLUMN, "N° ENCUESTA");
         temp.put(Constants.THIRD_COLUMN, "FE. DESARROLLO");
@@ -192,7 +182,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         temp.put(Constants.SEVEN_COLUMN, "NOMBRES");
         list.add(temp);
 
-        HashMap<String,String> temp2=new HashMap<String, String>();
+        HashMap<String, String> temp2 = new HashMap<String, String>();
         temp2.put(Constants.FIRST_COLUMN, "Jesus Cahuana");
         temp2.put(Constants.SECOND_COLUMN, "101");
         temp2.put(Constants.THIRD_COLUMN, "10/10/2015");
@@ -202,7 +192,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         temp2.put(Constants.SEVEN_COLUMN, "Juan");
         list.add(temp2);
 
-        HashMap<String,String> temp3=new HashMap<String, String>();
+        HashMap<String, String> temp3 = new HashMap<String, String>();
         temp3.put(Constants.FIRST_COLUMN, "Jesus Cahuana");
         temp3.put(Constants.SECOND_COLUMN, "102");
         temp3.put(Constants.THIRD_COLUMN, "10/10/2015");
@@ -212,7 +202,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         temp3.put(Constants.SEVEN_COLUMN, "Juan");
         list.add(temp3);
 
-        HashMap<String,String> temp4=new HashMap<String, String>();
+        HashMap<String, String> temp4 = new HashMap<String, String>();
         temp4.put(Constants.FIRST_COLUMN, "Jesus Cahuana");
         temp4.put(Constants.SECOND_COLUMN, "103");
         temp4.put(Constants.THIRD_COLUMN, "10/10/2015");
@@ -225,17 +215,17 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
 
     }
 
-    class RefreshClock implements Runnable{
+    class RefreshClock implements Runnable {
         // @Override
         @SuppressWarnings("unused")
         public void run() {
-            while(!Thread.currentThread().isInterrupted()){
+            while (!Thread.currentThread().isInterrupted()) {
                 try {
                     initClock();
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                }catch(Exception e){
+                } catch (Exception e) {
                 }
             }
         }
