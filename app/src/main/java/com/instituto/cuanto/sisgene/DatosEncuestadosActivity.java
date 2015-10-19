@@ -16,6 +16,7 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
     LinearLayout lyPreguntasEncuestados;
     Spinner spGradoInstruccion;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,5 +31,6 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
         DatosEncuestadosFragment datosEncuestadosFragment = new DatosEncuestadosFragment();
         fragmentTransaction.add(lyPreguntasEncuestados.getId(), datosEncuestadosFragment);
         fragmentTransaction.addToBackStack(null).commit();
+
     }
 }
