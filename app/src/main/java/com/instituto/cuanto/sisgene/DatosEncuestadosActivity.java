@@ -1,5 +1,6 @@
 package com.instituto.cuanto.sisgene;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -111,7 +112,8 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
         lyTelefono.setVisibility(View.VISIBLE);
         lyCelular.setVisibility(View.VISIBLE);
         lyEmail.setVisibility(View.VISIBLE);
-
+        lyspArea.setVisibility(View.VISIBLE);
+        lyspCondicion.setVisibility(View.VISIBLE);
 
 
         btAceptar_datosUsuario.setOnClickListener(btAceptar_datosUsuariosetOnClickListener);
@@ -122,6 +124,9 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
         public void onClick(View v) {
             //validar que se haya ingresado datos en los campos que estén visibles
 
+            //Iniciar Encuesta
+            Intent intent = new Intent(DatosEncuestadosActivity.this, PreguntasActivity.class);
+            startActivity(intent);
         }
     };
 }
