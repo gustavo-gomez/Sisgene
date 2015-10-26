@@ -14,7 +14,6 @@ import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 /**
@@ -48,7 +47,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         encuestadorValor = (TextView) findViewById(R.id.txEncuestadorValor);
         supervisorValor = (TextView) findViewById(R.id.txSupervisorValor);
         btnNuevaEncuesta = (Button) findViewById(R.id.btnNuevaEncuesta);
-        btnSalir = (Button) findViewById(R.id.btnSalir);
+        btnSalir = (Button) findViewById(R.id.btnResumen);
 
         fechaValor.setText(Util.obtenerFecha());
         r = new RefreshClock();
