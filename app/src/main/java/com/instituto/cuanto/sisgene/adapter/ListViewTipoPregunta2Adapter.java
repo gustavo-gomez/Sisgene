@@ -8,16 +8,16 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.R;
-import com.instituto.cuanto.sisgene.entities.ListViewTipoPregunta1Item;
+import com.instituto.cuanto.sisgene.entities.ListViewTipoPregunta2Item;
 
 import java.util.List;
 
 /**
  * Created by Gustavo on 10/10/2015.
  */
-public class ListViewTipoPregunta2Adapter extends ArrayAdapter<ListViewTipoPregunta1Item> {
+public class ListViewTipoPregunta2Adapter extends ArrayAdapter<ListViewTipoPregunta2Item> {
 
-    public ListViewTipoPregunta2Adapter(Context context, List<ListViewTipoPregunta1Item> items) {
+    public ListViewTipoPregunta2Adapter(Context context, List<ListViewTipoPregunta2Item> items) {
         super(context, R.layout.listitem_fragment_pregunta_tipo2, items);
     }
 
@@ -41,7 +41,7 @@ public class ListViewTipoPregunta2Adapter extends ArrayAdapter<ListViewTipoPregu
         }
 
         // update the item view
-        ListViewTipoPregunta1Item item = getItem(position);
+        ListViewTipoPregunta2Item item = getItem(position);
         //viewHolder.ivIcon.setImageDrawable(item.icon);
         viewHolder.tvNombreEntrevistado.setText(item.nombreEntrevistado);
 

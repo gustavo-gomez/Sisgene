@@ -23,8 +23,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginLeft="5dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
@@ -246,8 +246,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilNombres"
@@ -273,8 +272,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilApellidoPaterno"
@@ -299,8 +297,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilApellidoMaterno"
@@ -326,8 +323,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilDni"
@@ -354,8 +350,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilDepartamento"
@@ -380,8 +375,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilProvincia"
@@ -406,8 +400,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilDistrito"
@@ -432,8 +425,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilCentroPoblado"
@@ -458,8 +450,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilConglomeradoN"
@@ -471,7 +462,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
-                                android:hint="Comglomerado N°"
+                                android:hint="Conglomerado N°"
                                 android:inputType="number"
                                 android:maxLength="4"
                                 android:singleLine="true"
@@ -490,10 +481,56 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/lyspArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="Área"
+                            android:textColor="@color/color_texto" />
+
+                        <Spinner
+                            android:id="@+id/spArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:drawSelectorOnTop="true"
+                            android:entries="@array/arrayArea" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lyspCondicion"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="Condición"
+                            android:textColor="@color/color_texto" />
+
+                        <Spinner
+                            android:id="@+id/spCondicion"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:drawSelectorOnTop="true"
+                            android:entries="@array/arrayCondicion" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/lyZonaAER"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:visibility="gone"
+
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -522,8 +559,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilManzanaN"
@@ -549,8 +585,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilViviendaN"
@@ -576,8 +611,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilHogarN"
@@ -603,8 +637,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilDireccion"
@@ -629,8 +662,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilTelefono"
@@ -656,8 +688,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilCelular"
@@ -684,8 +715,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilEmail"
@@ -698,61 +728,13 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:hint="Correo Electrónico"
+                                android:inputType="textEmailAddress"
                                 android:singleLine="true"
                                 android:textColor="@color/color_texto"
                                 android:textSize="14sp"
                                 android:textStyle="normal" />
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lyspArea"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:text="Área"
-                            android:textColor="@color/color_texto" />
-
-                        <Spinner
-                            android:id="@+id/spArea"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:drawSelectorOnTop="true"
-                            android:entries="@array/arrayArea" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lyspCondicion"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:text="Condición"
-                            android:textColor="@color/color_texto" />
-
-                        <Spinner
-                            android:id="@+id/spCondicion"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:drawSelectorOnTop="true"
-                            android:entries="@array/arrayCondicion" />
-                    </LinearLayout>
-
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
