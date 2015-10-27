@@ -46,13 +46,16 @@
         android:layout_alignStart="@+id/txExportar" />
 
     <Button
-        android:layout_width="wrap_content"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100sp"
         android:layout_height="wrap_content"
         android:text="BUSCAR"
         android:id="@+id/btnBuscar"
         android:layout_below="@+id/textView4"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="66dp" />
+        android:layout_marginEnd="66dp"
+        android:background="@color/color_fondo_boton"
+        android:textColor="@color/color_texto_boton"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -62,7 +65,9 @@
         android:id="@+id/btnSalir"
         android:layout_marginBottom="22dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/spnEncuestadores" />
+        android:layout_alignEnd="@+id/spnEncuestadores"
+        android:background="@color/color_fondo_boton"
+        android:textColor="@color/color_texto_boton"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -72,7 +77,9 @@
         android:id="@+id/btnResumen"
         android:layout_below="@+id/lstEncuestas"
         android:layout_alignEnd="@+id/textView4"
-        android:layout_marginEnd="28dp" />
+        android:layout_marginEnd="28dp"
+        android:background="@color/color_fondo_boton"
+        android:textColor="@color/color_texto_boton"/>
 
     <ListView
         android:layout_width="wrap_content"

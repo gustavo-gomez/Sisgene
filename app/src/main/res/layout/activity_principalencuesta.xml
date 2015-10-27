@@ -127,7 +127,9 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="50dp"
             android:layout_toStartOf="@+id/btnSalir"
-            android:text="Nueva Encuesta" />
+            android:text="NUEVA ENCUESTA"
+            android:background="@color/color_fondo_boton"
+            android:textColor="@color/color_texto_boton"/>
 
         <Button
             android:id="@+id/btnSalir"
@@ -137,7 +139,9 @@
             android:layout_alignEnd="@+id/textView"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="164dp"
-            android:text="Salir" />
+            android:text="SALIR"
+            android:background="@color/color_fondo_boton"
+            android:textColor="@color/color_texto_boton"/>
 
         <ScrollView
             android:id="@+id/scrollView"

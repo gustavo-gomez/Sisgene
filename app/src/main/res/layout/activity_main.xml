@@ -79,7 +79,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:maxLength="10" />
+                    android:maxLength="10"
+                    android:hint="Usuario"/>
             </LinearLayout>
 
             <TextView
@@ -108,7 +109,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="textPassword"
-                    android:maxLength="10" />
+                    android:maxLength="10"
+                    android:hint="Contraseña"/>
             </LinearLayout>
 
             <TextView
