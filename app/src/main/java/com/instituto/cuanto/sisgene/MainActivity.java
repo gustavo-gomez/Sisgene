@@ -75,17 +75,18 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
             startActivity(intent);
             //validar usuario y clave con WebService
-            /*if(camposOK)
+            if(camposOK)
             {
                 //new RestCosumeAsyncTask().execute();
             }
-            */
+
         }
     };
 
     View.OnClickListener btnSalirsetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
             finish();
         }
     };
@@ -181,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 //////Se llama a fragmengto, cambiar de lugar cuando se defina el orden
                 Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
                 startActivity(intent);
+
                 //////
             }
 
