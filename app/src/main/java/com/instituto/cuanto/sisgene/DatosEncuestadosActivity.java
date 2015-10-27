@@ -125,7 +125,7 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
             //validar que se haya ingresado datos en los campos que estén visibles
 
             //Iniciar Encuesta
-            Intent intent = new Intent(DatosEncuestadosActivity.this, Pregunta1Activity.class);
+            Intent intent = new Intent(DatosEncuestadosActivity.this, PreguntasActivity.class);
             startActivity(intent);
         }
     };

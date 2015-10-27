@@ -35,7 +35,7 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
         txtDate.setOnClickListener(tdFechaIniOnClickListener);
         txtDate2.setOnClickListener(tdFechaFinOnClickListener);
 
-        btnSalir = (Button)findViewById(R.id.btnResumen);
+        btnSalir = (Button)findViewById(R.id.btnSalir);
         btnSalir.setOnClickListener(btnSalirsetOnClickListener);
 
         //Recargando lista

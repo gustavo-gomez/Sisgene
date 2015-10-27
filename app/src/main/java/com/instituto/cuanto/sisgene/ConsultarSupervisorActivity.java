@@ -47,7 +47,7 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
         //btnResumen.setOnClickListener(btnSalirsetOnClickListener);
 
         txtSupervisor = (TextView)findViewById(R.id.txtSupervisor);
-        spnEncuestadores = (Spinner) findViewById(R.id.spnEncustadores);
+        spnEncuestadores = (Spinner) findViewById(R.id.spnEncuestadores);
 
         //Recargando lista
         ListView listView=(ListView)findViewById(R.id.lstEncuestas);

@@ -47,7 +47,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         encuestadorValor = (TextView) findViewById(R.id.txEncuestadorValor);
         supervisorValor = (TextView) findViewById(R.id.txSupervisorValor);
         btnNuevaEncuesta = (Button) findViewById(R.id.btnNuevaEncuesta);
-        btnSalir = (Button) findViewById(R.id.btnResumen);
+        btnSalir = (Button) findViewById(R.id.btnSalir);
 
         fechaValor.setText(Util.obtenerFecha());
         r = new RefreshClock();

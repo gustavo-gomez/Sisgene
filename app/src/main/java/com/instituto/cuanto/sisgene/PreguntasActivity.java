@@ -43,7 +43,7 @@ public class PreguntasActivity extends AppCompatActivity{
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(PreguntasActivity.this, Pregunta1Activity.class);
+            Intent intent = new Intent(PreguntasActivity.this, PreguntasActivity.class);
             startActivity(intent);
             /*
             fragmentManager = getFragmentManager();
@@ -51,6 +51,13 @@ public class PreguntasActivity extends AppCompatActivity{
             ListViewTipoPregunta2Fragment listViewTipoPregunta2Fragment = new ListViewTipoPregunta2Fragment();
             fragmentTransaction.replace(lyFragmentoListaPreguntas.getId(), listViewTipoPregunta2Fragment);
             fragmentTransaction.commit();*/
+
+            fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            System.out.println("sdacsadasdasdvsavfdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+            ListViewTipoPregunta2Fragment listViewTipoPregunta2Fragment = new ListViewTipoPregunta2Fragment();
+            fragmentTransaction.replace(lyFragmentoListaPreguntas.getId(), listViewTipoPregunta2Fragment);
+            fragmentTransaction.commit();
         }
     };
 

@@ -30,7 +30,7 @@ public class PrincipalActivity extends AppCompatActivity {
 
         btnEjecutar = (Button)findViewById(R.id.btnEjecutar);
         btnExportar = (Button)findViewById(R.id.btnExportar);
-        btnSalir    = (Button)findViewById(R.id.btnResumen);
+        btnSalir    = (Button)findViewById(R.id.btnSalir);
         btnConsultar    = (Button)findViewById(R.id.btnConsultar);
 
         btnEjecutar.setOnClickListener(btnEjecutarsetOnClickListener);
