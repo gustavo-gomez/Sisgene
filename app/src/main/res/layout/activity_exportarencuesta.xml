@@ -73,12 +73,14 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="100sp"
         android:layout_height="wrap_content"
         android:text="BUSCAR"
         android:id="@+id/btnBuscar"
         android:layout_alignTop="@+id/spinner"
-        android:layout_toEndOf="@+id/spinner" />
+        android:layout_toEndOf="@+id/spinner"
+        android:background="@color/color_fondo_boton"
+        android:textColor="@color/color_texto_boton"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -88,16 +90,20 @@
         android:id="@+id/btnEnviar"
         android:layout_marginStart="27dp"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/etFechaIni" />
+        android:layout_toEndOf="@+id/etFechaIni"
+        android:background="@color/color_fondo_boton"
+        android:textColor="@color/color_texto_boton"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:text="Salir"
+        android:text="SALIR"
         android:id="@+id/btnSalir"
         android:layout_below="@+id/lstEncuestas"
-        android:layout_toEndOf="@+id/etFechaFin" />
+        android:layout_toEndOf="@+id/etFechaFin"
+        android:background="@color/color_fondo_boton"
+        android:textColor="@color/color_texto_boton"/>
 
     <ListView
         android:layout_width="wrap_content"

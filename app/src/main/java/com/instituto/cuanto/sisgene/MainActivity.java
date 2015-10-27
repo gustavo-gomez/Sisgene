@@ -3,6 +3,7 @@ package com.instituto.cuanto.sisgene;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.instituto.cuanto.sisgene.bean.Encuestador;
+import com.instituto.cuanto.sisgene.bean.Usuario;
+import com.instituto.cuanto.sisgene.dao.DataBaseHelper;
+import com.instituto.cuanto.sisgene.dao.LoginDAO;
 import com.instituto.cuanto.sisgene.forms.LoginRequest;
 import com.instituto.cuanto.sisgene.forms.LoginResponse;
 
@@ -26,7 +30,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     EditText etNombreUsuario, etClave;
     TextView tvNombreUsuarioError, tvClaveError, tvErroLogin;
     Spinner listaRol;
-
+  //  private DataBaseHelper dataBaseHelper;
     String respuestaWS;
     Gson gson = new Gson();
 
@@ -86,6 +92,13 @@ public class MainActivity extends AppCompatActivity {
             //validar usuario y clave con WebService
             String rolAcceso = listaRol.getSelectedItem().toString();
 
+
+            //Prueba conectando BD
+
+            //conectarBD();
+
+            //Fin prueba conectando BD
+
             if(camposOK)
             {
                 if(rolAcceso.equals("ENCUESTADOR")){
@@ -96,6 +109,28 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+    public void conectarBD(){
+        //DataBaseHelper db2 = new DataBaseHelper(this, "sisgene_bd", null, 1);
+/*
+        try {
+            dataBaseHelper = new DataBaseHelper(MainActivity.this);
+            dataBaseHelper.createDataBase();
+            dataBaseHelper.openDataBase();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }*/
+
+        Cursor cursor = null;
+        Usuario usu = null;
+        List<Usuario> usuarios = new ArrayList<Usuario>();
+
+
+        LoginDAO loginDAO = new LoginDAO();
+       // List<Usuario> lstUsuario
+        usu      = loginDAO.obtenerUsuario(MainActivity.this);
+        System.out.println(" Usuario ----> "+usu.getNombre() + " CLAVE : "+usu.getApellido());
+    }
 
     View.OnClickListener btnCerrarsetOnClickListener = new View.OnClickListener() {
         @Override
