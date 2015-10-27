@@ -93,28 +93,6 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
         tvGrupo.setText("Grupo 02");
         tvNombreUsuario.setText("Jesus Cahuana");
 
-        //modificar segun los datos visibles desde la base de datos, se está poniendo que todos los campos sean visibles
-        lyNombres.setVisibility(View.VISIBLE);
-        lyNombres.setVisibility(View.VISIBLE);
-        lyApellidoPaterno.setVisibility(View.VISIBLE);
-        lyApellidoMaterno.setVisibility(View.VISIBLE);
-        lyDni.setVisibility(View.VISIBLE);
-        lyDepartamento.setVisibility(View.VISIBLE);
-        lyProvincia.setVisibility(View.VISIBLE);
-        lyDistrito.setVisibility(View.VISIBLE);
-        lyCentroPoblado.setVisibility(View.VISIBLE);
-        lyConglomeradoN.setVisibility(View.VISIBLE);
-        lyZonaAER.setVisibility(View.VISIBLE);
-        lyManzanaN.setVisibility(View.VISIBLE);
-        lyViviendaN.setVisibility(View.VISIBLE);
-        lyHogarN.setVisibility(View.VISIBLE);
-        lyDireccion.setVisibility(View.VISIBLE);
-        lyTelefono.setVisibility(View.VISIBLE);
-        lyCelular.setVisibility(View.VISIBLE);
-        lyEmail.setVisibility(View.VISIBLE);
-        lyspArea.setVisibility(View.VISIBLE);
-        lyspCondicion.setVisibility(View.VISIBLE);
-
 
         btAceptar_datosUsuario.setOnClickListener(btAceptar_datosUsuariosetOnClickListener);
     }
@@ -122,11 +100,79 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
     View.OnClickListener btAceptar_datosUsuariosetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //validar que se haya ingresado datos en los campos que estén visibles
+            //validar que se haya ingresado todos los campos
 
-            //Iniciar Encuesta
-            Intent intent = new Intent(DatosEncuestadosActivity.this, PreguntasActivity.class);
-            startActivity(intent);
+
+            validarCamposDatosUsuarios();
+            /* {
+
+                //guardar campos para guardar en la base de datos
+                tilNombres.getEditText().toString().trim()
+                tilNombres.getEditText().toString().trim()
+                tilApellidoPaterno.getEditText().toString().trim()
+                tilApellidoMaterno.getEditText().toString().trim()
+                tilDni.getEditText().toString().trim()
+                tilDepartamento.getEditText().toString().trim()
+                tilProvincia.getEditText().toString().trim()
+                tilDistrito.getEditText().toString().trim()
+                tilCentroPoblado.getEditText().toString().trim()
+                tilConglomeradoN.getEditText().toString().trim()
+                tilZonaAER.getEditText().toString().trim()
+                tilManzanaN.getEditText().toString().trim()
+                tilViviendaN.getEditText().toString().trim()
+                tilHogarN.getEditText().toString().trim()
+                tilDireccion.getEditText().toString().trim()
+                tilTelefono.getEditText().toString().trim()
+                tilCelular.getEditText().toString().trim()
+                tilEmail.getEditText().toString().trim()
+
+
+            }*/
+
+             //Iniciar Encuesta
+
         }
     };
+
+    void validarCamposDatosUsuarios() {
+        boolean isComplete = true;
+
+        tilNombres.setErrorEnabled(false);
+        tilApellidoPaterno.setErrorEnabled(false);
+        tilApellidoMaterno.setErrorEnabled(false);
+        tilDni.setErrorEnabled(false);
+        tilDireccion.setErrorEnabled(false);
+
+        if (tilNombres.getEditText().getText().toString().trim().length() <= 0) {
+            tilNombres.setErrorEnabled(true);
+            tilNombres.setError("Ingrese Nombre");
+            isComplete = false;
+        }
+        if (tilApellidoPaterno.getEditText().getText().toString().trim().length() <= 0) {
+            tilApellidoPaterno.setErrorEnabled(true);
+            tilApellidoPaterno.setError("Ingrese Apellido Paterno");
+            isComplete = false;
+        }
+        if (tilApellidoMaterno.getEditText().getText().toString().trim().length() <= 0) {
+            tilApellidoMaterno.setErrorEnabled(true);
+            tilApellidoMaterno.setError("Ingrese Apellido Materno");
+            isComplete = false;
+        }
+        if (tilDni.getEditText().getText().toString().trim().length() != 8) {
+            tilDni.setError("Ingrese un DNI válido");
+            tilDni.setErrorEnabled(true);
+            isComplete = false;
+        }
+        if (tilDireccion.getEditText().getText().toString().trim().length() <= 0) {
+            tilDireccion.setError("Ingrese Dirección");
+            tilDireccion.setErrorEnabled(true);
+            isComplete = false;
+        }
+        if(isComplete)
+        {
+            Intent intent = new Intent(DatosEncuestadosActivity.this, PreguntasActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 }
