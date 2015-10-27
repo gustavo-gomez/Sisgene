@@ -158,29 +158,36 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.hide();
 
             System.out.println("RESPWS : "+respuestaWS);
-            LoginResponse loginResponse = gson.fromJson(respuestaWS, LoginResponse.class);
 
-            if(loginResponse.getResponse_code().equals("00")){
-                estado = true;
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("user", nomUsu); // Storing boolean - true/false
-                editor.putString("nombres", loginResponse.getUsuario().getNombre() + " "+ loginResponse.getUsuario().getApellido()); // Storing string
-                editor.putString("rol", "ENCUESTADOR"); // Storing integer
-                editor.commit();
+            if(respuestaWS != null) {
+
+                LoginResponse loginResponse = gson.fromJson(respuestaWS, LoginResponse.class);
+
+                if (loginResponse.getResponse_code().equals("00")) {
+                    estado = true;
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("user", nomUsu); // Storing boolean - true/false
+                    editor.putString("nombres", loginResponse.getUsuario().getNombre() + " " + loginResponse.getUsuario().getApellido()); // Storing string
+                    editor.putString("rol", "ENCUESTADOR"); // Storing integer
+                    editor.commit();
+                } else {
+                    //tvErroLogin.setText(loginResponse.getMessage());
+                    Toast.makeText(MainActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (estado) {
+                    //////Se llama a fragmengto, cambiar de lugar cuando se defina el orden
+                    Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
+                    startActivity(intent);
+                    //////
+                }
+
             }else{
-                //tvErroLogin.setText(loginResponse.getMessage());
-                Toast.makeText(MainActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "El dispositivo no cuenta con conexión a INTERNET", Toast.LENGTH_LONG).show();
                 return;
             }
-
-            if(estado) {
-                //////Se llama a fragmengto, cambiar de lugar cuando se defina el orden
-                Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
-                startActivity(intent);
-                //////
-            }
-
 
         }
     }
@@ -238,30 +245,37 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.hide();
 
             System.out.println("RESPWS : "+respuestaWS);
-            LoginResponse loginResponse = gson.fromJson(respuestaWS, LoginResponse.class);
 
-            if(loginResponse.getResponse_code().equals("00")){
-                estado = true;
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("user", nomUsu);
-                editor.putString("nombres",  loginResponse.getUsuario().getNombre() + " "+ loginResponse.getUsuario().getApellido());
-                editor.putString("rol", "SUPERVISOR");
-                editor.putString("lstEncuestadores", juntar(loginResponse.getEncuestadores()));
-                editor.commit();
+            if(respuestaWS != null) {
+
+                LoginResponse loginResponse = gson.fromJson(respuestaWS, LoginResponse.class);
+
+                if (loginResponse.getResponse_code().equals("00")) {
+                    estado = true;
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("user", nomUsu);
+                    editor.putString("nombres", loginResponse.getUsuario().getNombre() + " " + loginResponse.getUsuario().getApellido());
+                    editor.putString("rol", "SUPERVISOR");
+                    editor.putString("lstEncuestadores", juntar(loginResponse.getEncuestadores()));
+                    editor.commit();
+                } else {
+                    //tvErroLogin.setText(loginResponse.getMessage());
+                    Toast.makeText(MainActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (estado) {
+                    //////Se llama a fragmengto, cambiar de lugar cuando se defina el orden
+                    Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
+                    startActivity(intent);
+                    //////
+                }
+
             }else{
-                //tvErroLogin.setText(loginResponse.getMessage());
-                Toast.makeText(MainActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "El dispositivo no cuenta con conexión a INTERNET", Toast.LENGTH_LONG).show();
                 return;
             }
-
-            if(estado) {
-                //////Se llama a fragmengto, cambiar de lugar cuando se defina el orden
-                Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
-                startActivity(intent);
-                //////
-            }
-
 
         }
 
