@@ -8,6 +8,14 @@
     <string name="login_user_error">Ingrese su usuario</string>
     <string name="login_pass_error">Ingrese su clave</string>
 
+    <string name="tipoPreguntaUnica">UN</string>
+    <string name="tipoPreguntaMultiple">MU</string>
+    <string name="tipoPreguntaAbierta">AB</string>
+    <string name="tipoPreguntaMatSimple">MS</string>
+    <string name="tipoPreguntaMatMultiple">MM</string>
+    <string name="tipoPreguntaMixta">MI</string>
+
+
     <string-array name="lista_estadoenvio">
         <item>SELECCIONE</item>
         <item>ENVIADO</item>
