@@ -55,7 +55,7 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.tipopreguntaabiertaitem_layout, parent, false);
+            convertView = inflater.inflate(R.layout.tipopreguntaabiertaitem_layou, parent, false);
             mViewHolder = new MyViewHolder(convertView);
             convertView.setTag(mViewHolder);
         } else {
