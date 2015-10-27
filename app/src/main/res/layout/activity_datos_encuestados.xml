@@ -750,7 +750,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@color/color_fondo_boton"
-            android:text="Aceptar"
+            android:text="Aceptar e Iniciar Encuesta"
             android:textColor="@color/color_texto_boton" />
     </RelativeLayout>
 </LinearLayout>

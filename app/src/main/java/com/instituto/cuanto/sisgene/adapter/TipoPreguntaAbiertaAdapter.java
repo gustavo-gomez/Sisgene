@@ -10,33 +10,36 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.R;
-import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
+import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 
 import java.util.ArrayList;
 
 /**
  * Created by Gustavo on 27/10/2015.
  */
-public class TipoPreguntaUnicaAdapter extends BaseAdapter {
+public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
 
-    ArrayList<TipoPreguntaUnicaItem> myList = new ArrayList<TipoPreguntaUnicaItem>();
+    ArrayList<TipoPreguntaAbiertaItem> myList = new ArrayList<TipoPreguntaAbiertaItem>();
     LayoutInflater inflater;
     Context context;
 
 
-    public TipoPreguntaUnicaAdapter(Context context, ArrayList<TipoPreguntaUnicaItem> myList) {
+    public TipoPreguntaAbiertaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myList) {
         this.myList = myList;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
     }
-
+    public void limpiarLista() {
+        myList.clear();
+        notifyDataSetChanged();
+    }
     @Override
     public int getCount() {
         return myList.size();
     }
 
     @Override
-    public TipoPreguntaUnicaItem getItem(int position) {
+    public TipoPreguntaAbiertaItem getItem(int position) {
         return myList.get(position);
     }
 
@@ -50,17 +53,17 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.tipoPreguntaUnicaItem_layout, parent, false);
+            convertView = inflater.inflate(R.layout.tipoPreguntaAbiertaItem_layout, parent, false);
             mViewHolder = new MyViewHolder(convertView);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-        final TipoPreguntaUnicaItem currentTipoPreguntaUnicaItem = getItem(position);
+        final TipoPreguntaAbiertaItem currentTipoPreguntaAbiertaItem = getItem(position);
 
-        mViewHolder.tvTitle.setText(currentTipoPreguntaUnicaItem.getTitle());
-        mViewHolder.tvDesc.setText(currentTipoPreguntaUnicaItem.getDescription());
+        mViewHolder.tvTitle.setText(currentTipoPreguntaAbiertaItem.getTitle());
+        mViewHolder.tvDesc.setText(currentTipoPreguntaAbiertaItem.getDescription());
 
         final int i = position;
         mViewHolder.tvDesc.addTextChangedListener(new TextWatcher() {
@@ -77,7 +80,7 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
             @Override
             public void afterTextChanged(Editable s) {
                 //((ListItem) myItems.get(i)).caption = s.toString();
-                currentTipoPreguntaUnicaItem.setDescription(s.toString());
+                currentTipoPreguntaAbiertaItem.setDescription(s.toString());
             }
         });
 
@@ -89,7 +92,7 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
 
         public MyViewHolder(View item) {
             tvTitle = (TextView) item.findViewById(R.id.tvNombreEntrevistado);
-            tvDesc = (TextView) item.findViewById(R.id.etRespuestaPregunta);
+            tvDesc = (TextView) item.findViewById(R.id.etrespuestapregunta);
         }
     }
 

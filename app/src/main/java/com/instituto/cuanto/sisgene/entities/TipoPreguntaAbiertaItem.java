@@ -3,7 +3,7 @@ package com.instituto.cuanto.sisgene.entities;
 /**
  * Created by Gustavo on 27/10/2015.
  */
-public class TipoPreguntaUnicaItem {
+public class TipoPreguntaAbiertaItem {
     String Description;
     String title;
 
