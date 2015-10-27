@@ -35,23 +35,6 @@
         android:layout_marginTop="12dp"
         android:textColor="#000000"/>
 
-    <EditText
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
-        android:id="@+id/etFechaIni"
-        android:hint="dd/mm/yyyy"
-        android:layout_below="@+id/textView6"
-        android:layout_toEndOf="@+id/textView5" />
-
-    <EditText
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
-        android:id="@+id/etFechaFin"
-        android:hint="dd/mm/yyy"
-        android:layout_alignTop="@+id/etFechaIni"
-        android:layout_toEndOf="@+id/etFechaIni"
-        android:layout_marginStart="71dp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,72 +43,60 @@
         android:id="@+id/textView4"
         android:textColor="#000000"
         android:layout_below="@+id/textView5"
-        android:layout_toEndOf="@+id/txExportar"
-        android:layout_marginStart="43dp" />
-
-    <Spinner
-        android:layout_width="250sp"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:entries="@array/lista_estadoenvio"
-        android:layout_alignTop="@+id/etFechaFin"
-        android:layout_alignStart="@+id/textView4" />
+        android:layout_alignStart="@+id/txExportar" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="BUSCAR"
         android:id="@+id/btnBuscar"
-        android:layout_alignTop="@+id/spinner"
-        android:layout_toEndOf="@+id/spinner" />
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="66dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:text="ENVIAR"
-        android:id="@+id/btnEnviar"
-        android:layout_marginStart="27dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/etFechaIni" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
-        android:text="Salir"
+        android:text="SALIR"
         android:id="@+id/btnSalir"
+        android:layout_marginBottom="22dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/spnEncuestadores" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:text="RESUMEN"
+        android:id="@+id/btnResumen"
         android:layout_below="@+id/lstEncuestas"
-        android:layout_toEndOf="@+id/etFechaFin" />
+        android:layout_alignEnd="@+id/textView4"
+        android:layout_marginEnd="28dp" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lstEncuestas"
-        android:layout_above="@+id/btnEnviar"
-        android:layout_toStartOf="@+id/btnBuscar"
-        android:layout_below="@+id/btnBuscar"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/btnSalir"
+        android:layout_below="@+id/btnBuscar" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="desde"
-        android:id="@+id/textView7"
-        android:layout_alignBaseline="@+id/etFechaIni"
-        android:layout_alignBottom="@+id/etFechaIni"
-        android:layout_alignEnd="@+id/textView5"
-        android:layout_marginEnd="16dp" />
+        android:text="Juan Perez"
+        android:id="@+id/txtSupervisor"
+        android:layout_below="@+id/textView6"
+        android:layout_toEndOf="@+id/textView6" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Spinner
+        android:layout_width="200sp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="hasta"
-        android:id="@+id/textView8"
-        android:layout_alignTop="@+id/textView7"
-        android:layout_toEndOf="@+id/etFechaIni"
-        android:layout_marginStart="13dp" />
+        android:id="@+id/spnEncuestadores"
+        android:layout_marginStart="36dp"
+        android:layout_alignTop="@+id/textView6"
+        android:layout_toEndOf="@+id/textView4" />
+
 
 </RelativeLayout>

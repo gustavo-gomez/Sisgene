@@ -1,16 +1,17 @@
 package com.instituto.cuanto.sisgene;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.constantes.Constants;
-import com.instituto.cuanto.sisgene.util.DateDialog;
 import com.instituto.cuanto.sisgene.util.ListViewAdapter;
 
 import java.util.ArrayList;
@@ -19,24 +20,34 @@ import java.util.HashMap;
 /**
  * Created by Jesus on 18/10/2015.
  */
-public class ExportarEncuestaActivity extends AppCompatActivity {
+public class ConsultarSupervisorActivity extends AppCompatActivity {
 
-    Button btnSalir;
+    Button btnSalir,btnResumen;
     private ArrayList<HashMap<String, String>> list;
+    TextView txtSupervisor;
+    Spinner spnEncuestadores;
+
+    String rolUsu;
+    String nombreUsu;
+    String userUsu;
+    String listEncuestadores;
+
+    ArrayAdapter<String> lstEnc;
+    String [] arrEncuestadores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exportarencuesta);
-
-        EditText txtDate = (EditText) findViewById(R.id.etFechaIni);
-        EditText txtDate2 = (EditText) findViewById(R.id.etFechaFin);
-
-        txtDate.setOnClickListener(tdFechaIniOnClickListener);
-        txtDate2.setOnClickListener(tdFechaFinOnClickListener);
+        setContentView(R.layout.activity_consultarsupervisor);
 
         btnSalir = (Button)findViewById(R.id.btnSalir);
         btnSalir.setOnClickListener(btnSalirsetOnClickListener);
+
+        btnResumen = (Button)findViewById(R.id.btnResumen);
+        //btnResumen.setOnClickListener(btnSalirsetOnClickListener);
+
+        txtSupervisor = (TextView)findViewById(R.id.txtSupervisor);
+        spnEncuestadores = (Spinner) findViewById(R.id.spnEncuestadores);
 
         //Recargando lista
         ListView listView=(ListView)findViewById(R.id.lstEncuestas);
@@ -44,38 +55,40 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
         ListViewAdapter adapter=new ListViewAdapter(this, list);
         listView.setAdapter(adapter);
 
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        userUsu = pref.getString("user", null);
+        nombreUsu = pref.getString("nombres", null);
+        rolUsu = pref.getString("rol", null);
+        listEncuestadores = pref.getString("lstEncuestadores", null);
+
+        arrEncuestadores = obtenerListaEncuestadores(listEncuestadores);
+        lstEnc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrEncuestadores);
+
+        spnEncuestadores.setAdapter(lstEnc);
+
+        txtSupervisor.setText(nombreUsu);
+
     }
 
     View.OnClickListener btnSalirsetOnClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(ExportarEncuestaActivity.this, PrincipalActivity.class);
+            Intent intent = new Intent(ConsultarSupervisorActivity.this, PrincipalActivity.class);
             startActivity(intent);
         }
     };
 
+    public String[] obtenerListaEncuestadores(String cadena){
+
+        String [] response = cadena.split(",");
+
+        return response;
+    }
+
     @Override
     public void onBackPressed() {
     }
-
-    View.OnClickListener tdFechaIniOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            DateDialog dialog = new DateDialog(v);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            dialog.show(ft, "DatePicker");
-        }
-    };
-
-    View.OnClickListener tdFechaFinOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            DateDialog dialog = new DateDialog(v);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            dialog.show(ft, "DatePicker");
-        }
-    };
 
     private void populateList() {
         // TODO Auto-generated method stub

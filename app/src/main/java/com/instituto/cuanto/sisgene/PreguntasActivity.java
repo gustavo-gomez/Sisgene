@@ -1,5 +1,6 @@
 package com.instituto.cuanto.sisgene;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -41,6 +42,16 @@ public class PreguntasActivity extends AppCompatActivity{
     View.OnClickListener btnSiguientesetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            Intent intent = new Intent(PreguntasActivity.this, PreguntasActivity.class);
+            startActivity(intent);
+            /*
+            fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            ListViewTipoPregunta2Fragment listViewTipoPregunta2Fragment = new ListViewTipoPregunta2Fragment();
+            fragmentTransaction.replace(lyFragmentoListaPreguntas.getId(), listViewTipoPregunta2Fragment);
+            fragmentTransaction.commit();*/
+
             fragmentManager = getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             ListViewTipoPregunta2Fragment listViewTipoPregunta2Fragment = new ListViewTipoPregunta2Fragment();

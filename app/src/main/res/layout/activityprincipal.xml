@@ -48,45 +48,60 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="0.78">
 
                 <Button
                     android:id="@+id/btnEjecutar"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="47dp"
                     android:background="@color/color_fondo_boton"
                     android:text="Ejecutar Encuesta"
-                    android:textColor="@color/color_texto_boton" />
+                    android:textColor="@color/color_texto_boton"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentEnd="true" />
 
                 <Button
                     android:id="@+id/btnExportar"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
                     android:background="@color/color_fondo_boton"
                     android:text="Exportar Data"
-                    android:textColor="@color/color_texto_boton" />
+                    android:textColor="@color/color_texto_boton"
+                    android:layout_below="@+id/btnEjecutar"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="19dp"
+                    android:layout_alignParentEnd="true" />
 
                 <Button
                     android:id="@+id/btnSalir"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/btnExportar"
-                    android:layout_marginTop="23dp"
                     android:background="@color/color_fondo_boton"
                     android:text="Salir"
-                    android:textColor="@color/color_texto_boton" />
+                    android:textColor="@color/color_texto_boton"
+                    android:layout_below="@+id/btnConsultar"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="18dp"
+                    android:layout_alignParentEnd="true" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:id="@+id/btnConsultar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_fondo_boton"
+                    android:text="Consultar Encuestas"
+                    android:textColor="@color/color_texto_boton"
+                    android:layout_below="@+id/btnExportar"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="18dp"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
 

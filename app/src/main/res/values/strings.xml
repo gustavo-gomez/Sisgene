@@ -14,4 +14,9 @@
         <item>NO ENVIADO</item>
     </string-array>
 
+    <string-array name="lista_rol">
+        <item>ENCUESTADOR</item>
+        <item>SUPERVISOR</item>
+    </string-array>
+
 </resources>
