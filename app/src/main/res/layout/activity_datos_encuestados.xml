@@ -263,7 +263,7 @@
                                 android:singleLine="true"
                                 android:textColor="@color/color_texto"
                                 android:textSize="14sp"
-                                android:textStyle="normal" />
+                                android:textStyle="normal"/>
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
 

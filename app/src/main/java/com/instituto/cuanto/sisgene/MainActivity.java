@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import com.instituto.cuanto.sisgene.bean.Encuestador;
 import com.instituto.cuanto.sisgene.bean.Usuario;
 import com.instituto.cuanto.sisgene.dao.DataBaseHelper;
-import com.instituto.cuanto.sisgene.dao.LoginDAO;
+import com.instituto.cuanto.sisgene.dao.loginDAO;
 import com.instituto.cuanto.sisgene.forms.LoginRequest;
 import com.instituto.cuanto.sisgene.forms.LoginResponse;
 
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         List<Usuario> usuarios = new ArrayList<Usuario>();
 
 
-        LoginDAO loginDAO = new LoginDAO();
+        loginDAO loginDAO = new loginDAO();
        // List<Usuario> lstUsuario
         usu      = loginDAO.obtenerUsuario(MainActivity.this);
         System.out.println(" Usuario ----> "+usu.getNombre() + " CLAVE : "+usu.getApellido());
