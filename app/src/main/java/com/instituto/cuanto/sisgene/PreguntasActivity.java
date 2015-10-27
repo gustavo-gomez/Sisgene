@@ -1,5 +1,6 @@
 package com.instituto.cuanto.sisgene;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,16 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaAbiertaAdapter;
+import com.instituto.cuanto.sisgene.entities.Pregunta;
 import com.instituto.cuanto.sisgene.entities.PreguntaOpcion;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 
-import java.lang.ref.SoftReference;
-import java.lang.reflect.Array;
-import java.nio.ReadOnlyBufferException;
 import java.util.ArrayList;
 
 /**
@@ -30,9 +29,12 @@ public class PreguntasActivity extends AppCompatActivity {
     Button btnSiguiente;
     LinearLayout lyFragmentoListaPreguntas;
     //android.app.FragmentManager fragmentManager;
-    ListView lvRespuestas_tipoUnica;
+    ListView lvRespuestas_tipoGeneral;
     static ArrayList<String> arrayList;
     TipoPreguntaAbiertaAdapter tipoPreguntaAbiertaAdapter;
+    ArrayList<String> nombresEncuestados = null;
+    ArrayList<TipoPreguntaAbiertaItem> miListaTipoPreguntaAbiertaAdapter;
+    Context context = PreguntasActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +42,12 @@ public class PreguntasActivity extends AppCompatActivity {
         setContentView(R.layout.activitypreguntas);
 
         arrayList = new ArrayList<>();
+        nombresEncuestados = new ArrayList<>();
         btnSiguiente = (Button) findViewById(R.id.btnSiguiente);
         lyFragmentoListaPreguntas = (LinearLayout) findViewById(R.id.lyFragmentoListaPreguntas);
-        lvRespuestas_tipoUnica = (ListView) findViewById(R.id.lvRespuestas_tipoUnica);
-
+        lvRespuestas_tipoGeneral = (ListView) findViewById(R.id.lvRespuestas_tipoGeneral);
+        tipoPreguntaAbiertaAdapter = new TipoPreguntaAbiertaAdapter();
+        miListaTipoPreguntaAbiertaAdapter = new ArrayList<>();
         //Se lee la primera pregunta que retorna un objeto de tipo PreguntaOpcion
         PreguntaOpcion preguntaOpcion = new PreguntaOpcion();
         //preguntar a las base de datos
@@ -53,7 +57,8 @@ public class PreguntasActivity extends AppCompatActivity {
         String tipoPregunta = "UN";
 
         //obteniendo numero maximo de personas que deben responder las preguntas
-        int numEncuestado = preguntaOpcion.getPre_idPadre().getPre_num_max_allegados();
+        //int numEncuestado = preguntaOpcion.getPre_idPadre().getPre_num_max_allegados();
+        int numEncuestado = 15;
 
         if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
             tipoPreguntaAbiertaAdapter.limpiarLista();
@@ -120,32 +125,32 @@ public class PreguntasActivity extends AppCompatActivity {
                 "Pedro", "javier"
         };
         if (numEncuestado != 1) {
-            obtenerNombresEncuestados(15);
+            obtenerNombresEncuestados(numEncuestado);
         }
-/*
-        for (int i = 0; i < title.length; i++) {
-            // Create a new object for each list item
-            TipoPreguntaAbiertaItem ld = new TipoPreguntaAbiertaItem();
-            ld.setTitle(Nombres[i]);
-            myList.add(ld);
 
+        for (int i = 0; i < nombresEncuestados.size(); i++) {
+            TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = new TipoPreguntaAbiertaItem();
+            tipoPreguntaAbiertaItem.setTitle(nombresEncuestados.get(i));
+            tipoPreguntaAbiertaItem.setDescription("");
+            miListaTipoPreguntaAbiertaAdapter.add(tipoPreguntaAbiertaItem);
         }
-      */
+        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, miListaTipoPreguntaAbiertaAdapter));
     }
 
     public void obtenerNombresEncuestados(int num) {
 
-        ArrayList<String> nombresEncuestados = null;
-        final ArrayList<EditText> editTexts = null;
-        ArrayList<TextView> textViews = null;
+
+        final ArrayList<EditText> editTexts = new ArrayList<>();
+        final ArrayList<TextView> textViews = new ArrayList<>();
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(PreguntasActivity.this);
+        ScrollView scrollView = new ScrollView(PreguntasActivity.this);
         final LinearLayout lyinput = new LinearLayout(PreguntasActivity.this);
         lyinput.setOrientation(LinearLayout.VERTICAL);
-        for (int i = 0; i <= num; i++) {
+        for (int i = 0; i < num; i++) {
 
             final TextView tvinput = new TextView(PreguntasActivity.this);
-            tvinput.setText("Nombre " + i + ":  ");
+            tvinput.setText("Nombre " + (i + 1) + ":  ");
             tvinput.setTextSize(20);
 
             final EditText etinput = new EditText(PreguntasActivity.this);
@@ -155,18 +160,21 @@ public class PreguntasActivity extends AppCompatActivity {
             editTexts.add(etinput);
         }
 
-        for (int i = 0; i <= num; i++) {
+        for (int i = 0; i < num; i++) {
             lyinput.addView(textViews.get(i));
             lyinput.addView(editTexts.get(i));
         }
-        alert.setTitle("Ingrese el nombre de las "+num+" personas");
-        alert.setView(lyinput);
+        alert.setTitle("Ingrese el nombre de las " + num + " personas");
+        scrollView.addView(lyinput);
+        alert.setView(scrollView);
 
 
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                String value = editTexts.get(3).getText().toString().trim();
-                Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < editTexts.size(); i++) {
+                    nombresEncuestados.add(editTexts.get(i).getText().toString().trim());
+                }
             }
         });
 
@@ -176,8 +184,6 @@ public class PreguntasActivity extends AppCompatActivity {
             }
         });
         alert.setCancelable(false).show();
-
-        //return nombresEncuestados;
     }
 
 }

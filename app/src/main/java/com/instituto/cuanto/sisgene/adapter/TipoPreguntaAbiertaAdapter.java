@@ -23,15 +23,17 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
     LayoutInflater inflater;
     Context context;
 
-
+    public TipoPreguntaAbiertaAdapter(){}
     public TipoPreguntaAbiertaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myList) {
         this.myList = myList;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
     }
     public void limpiarLista() {
-        myList.clear();
-        notifyDataSetChanged();
+        if(myList.size()!=0) {
+            myList.clear();
+            notifyDataSetChanged();
+        }
     }
     @Override
     public int getCount() {
@@ -53,7 +55,7 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.tipoPreguntaAbiertaItem_layout, parent, false);
+            convertView = inflater.inflate(R.layout.tipopreguntaabiertaitem_layout, parent, false);
             mViewHolder = new MyViewHolder(convertView);
             convertView.setTag(mViewHolder);
         } else {
@@ -92,7 +94,7 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
 
         public MyViewHolder(View item) {
             tvTitle = (TextView) item.findViewById(R.id.tvNombreEntrevistado);
-            tvDesc = (TextView) item.findViewById(R.id.etrespuestapregunta);
+            tvDesc = (TextView) item.findViewById(R.id.etRespuestaPregunta);
         }
     }
 
