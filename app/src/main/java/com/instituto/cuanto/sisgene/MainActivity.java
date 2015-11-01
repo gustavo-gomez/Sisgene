@@ -109,28 +109,35 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
+    /*
+//METODO DE PRUEBA PARA CONEXION
     public void conectarBD(){
-        //DataBaseHelper db2 = new DataBaseHelper(this, "sisgene_bd", null, 1);
-/*
-        try {
-            dataBaseHelper = new DataBaseHelper(MainActivity.this);
-            dataBaseHelper.createDataBase();
-            dataBaseHelper.openDataBase();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }*/
 
-        Cursor cursor = null;
-        Usuario usu = null;
-        List<Usuario> usuarios = new ArrayList<Usuario>();
+            Cursor cursor = null;
+            Usuario usu = null;
+            String[] valores_recuperar = {"tip_nombre", "tip_descripcion"};
+            DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+            String a="",b="";
 
+            try {
+                cursor = dataBaseHelper.db.query("tipo_documento", valores_recuperar, null, null, null, null, null);
 
-        loginDAO loginDAO = new loginDAO();
-       // List<Usuario> lstUsuario
-        usu      = loginDAO.obtenerUsuario(MainActivity.this);
-        System.out.println(" Usuario ----> "+usu.getNombre() + " CLAVE : "+usu.getApellido());
-    }
+                if (cursor.moveToFirst()) {
+                    usu = new Usuario();
+                    do {
+                        a = cursor.isNull(cursor.getColumnIndex("tip_nombre")) ? "" : cursor.getString(cursor.getColumnIndex("tip_nombre"));
+                        b = cursor.isNull(cursor.getColumnIndex("tip_descripcion")) ? "" : cursor.getString(cursor.getColumnIndex("tip_descripcion"));
+                    } while (cursor.moveToNext()) ;
+                }
+
+                System.out.println(" Usuario ----> "+a + " CLAVE : "+b);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                if (cursor != null)
+                    cursor.close();
+            }
+    }*/
 
     View.OnClickListener btnCerrarsetOnClickListener = new View.OnClickListener() {
         @Override
