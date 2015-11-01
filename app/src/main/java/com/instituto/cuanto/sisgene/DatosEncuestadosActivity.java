@@ -102,10 +102,7 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //validar que se haya ingresado todos los campos
-
             validarCamposDatosUsuarios();
-            //Iniciar Encuesta
-
         }
     };
 
