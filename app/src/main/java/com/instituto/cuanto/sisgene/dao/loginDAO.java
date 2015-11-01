@@ -18,7 +18,7 @@ public class loginDAO {
         Usuario usu = null;
         String[] valores_recuperar = {"usu_usuario", "usu_clave"};
         DataBaseHelper dataBaseHelper;
-
+/*
         try {
             dataBaseHelper = new DataBaseHelper(context);
             dataBaseHelper.createDataBase();
@@ -42,7 +42,7 @@ public class loginDAO {
         } finally {
             if (cursor != null)
                 cursor.close();
-        }
+        }*/
         return usu;
     }
 }
