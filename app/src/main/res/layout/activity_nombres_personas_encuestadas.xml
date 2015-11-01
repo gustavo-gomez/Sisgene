@@ -218,51 +218,76 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Numero de Personas "
-            android:textSize="20dp" />
+            android:layout_height="0dp"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btMenosNumPersonas"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:text="-" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Numero de Personas "
+                android:textSize="20dp" />
 
-        <TextView
-            android:id="@+id/tvNumeroPersonas"
+            <Button
+                android:id="@+id/btMenosNumPersonas"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/tvNumeroPersonas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:editable="false"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/color_texto"
+                android:textSize="25dp" />
+
+            <Button
+                android:id="@+id/btMasNumPersonas"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:text="+" />
+
+            <Button
+                android:id="@+id/btAceptarNumeroPersonas"
+                style="@style/Widget.Design.FloatingActionButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_fondo_boton"
+                android:text="ACEPTAR"
+                android:textColor="@color/color_texto_boton" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:editable="false"
-            android:gravity="center"
-            android:text="0"
-            android:textColor="@color/color_texto"
-            android:textSize="25dp" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btMasNumPersonas"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:text="+" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="NOMBRES Y APELLIDOS DE LOS ENCUESTADOS"
+                android:textColor="@color/color_texto"
+                android:textSize="20dp" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btAceptarNumeroPersonas"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:background="@color/color_fondo_boton"
-            android:text="ACEPTAR"
-            android:textColor="@color/color_texto_boton" />
+
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -302,7 +327,7 @@
                         android:id="@+id/edNombre1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 1" />
                 </LinearLayout>
@@ -326,7 +351,7 @@
                         android:id="@+id/edNombre2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 2" />
                 </LinearLayout>
@@ -350,7 +375,7 @@
                         android:id="@+id/edNombre3"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 3" />
                 </LinearLayout>
@@ -374,7 +399,7 @@
                         android:id="@+id/edNombre4"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 4" />
                 </LinearLayout>
@@ -398,7 +423,7 @@
                         android:id="@+id/edNombre5"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 5" />
                 </LinearLayout>
@@ -422,7 +447,8 @@
                         android:id="@+id/edNombre6"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:hint="Nombre 6"
+                        android:layout_weight="2"
                         android:gravity="center" />
                 </LinearLayout>
 
@@ -445,7 +471,7 @@
                         android:id="@+id/edNombre7"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 7" />
                 </LinearLayout>
@@ -469,7 +495,7 @@
                         android:id="@+id/edNombre8"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 8" />
                 </LinearLayout>
@@ -493,7 +519,7 @@
                         android:id="@+id/edNombre9"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 9" />
                 </LinearLayout>
@@ -517,7 +543,7 @@
                         android:id="@+id/edNombre10"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 10" />
                 </LinearLayout>
@@ -542,7 +568,7 @@
                         android:id="@+id/edNombre11"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 11" />
                 </LinearLayout>
@@ -566,7 +592,7 @@
                         android:id="@+id/edNombre12"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 12" />
                 </LinearLayout>
@@ -590,7 +616,7 @@
                         android:id="@+id/edNombre13"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 13" />
                 </LinearLayout>
@@ -614,7 +640,7 @@
                         android:id="@+id/edNombre14"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 14" />
                 </LinearLayout>
@@ -638,7 +664,7 @@
                         android:id="@+id/edNombre15"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 15" />
                 </LinearLayout>
@@ -662,7 +688,7 @@
                         android:id="@+id/edNombre16"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 16" />
                 </LinearLayout>
@@ -686,7 +712,7 @@
                         android:id="@+id/edNombre17"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 17" />
                 </LinearLayout>
@@ -710,7 +736,7 @@
                         android:id="@+id/edNombre18"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 18" />
                 </LinearLayout>
@@ -734,7 +760,7 @@
                         android:id="@+id/edNombre19"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 19" />
                 </LinearLayout>
@@ -758,7 +784,7 @@
                         android:id="@+id/edNombre20"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="Nombre 20" />
                 </LinearLayout>

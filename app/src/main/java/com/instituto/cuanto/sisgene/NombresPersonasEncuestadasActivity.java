@@ -30,6 +30,8 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
     ArrayList<EditText> nombresEdits;
     Button btAceptar_nombresEncuestados;
     ArrayList<String> nombresEncuestados;
+    public static String KEY_ARG_NOMBRES_ENCUESTADOS = "KEY_ARG_NOMBRES_ENCUESTADOS";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,9 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         new AlertDialog.Builder(NombresPersonasEncuestadasActivity.this).setTitle("Mensaje").setMessage("En esta seccion ingrese la " +
                 "cantidad de personas que se va a encuestar (SIN CONSIDERAR al jefe de familia)")
                 .setNeutralButton("Aceptar", alertaAceptarOnClickListener).setCancelable(false).show();
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(DatosCabeceraActivity.KEY_ARG_NOMBRE_JEFE)) {
+            nombresEncuestados = getIntent().getStringArrayListExtra(DatosCabeceraActivity.KEY_ARG_NOMBRE_JEFE);
+        }
     }
 
     DialogInterface.OnClickListener alertaAceptarOnClickListener = new DialogInterface.OnClickListener() {
@@ -158,7 +163,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int valor = Integer.parseInt(tvNumeroPersonas.getText().toString());
-            if (valor > 1) {
+            if (valor > 0) {
                 tvNumeroPersonas.setText(String.valueOf(valor - 1));
             }
             btAceptar_nombresEncuestados.setClickable(false);
@@ -183,12 +188,22 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                 nombresLayouts.get(i).setVisibility(View.GONE);
 
             numerodePersonasEncuestadas = Integer.parseInt(tvNumeroPersonas.getText().toString());
-            for (int i = 0; i < numerodePersonasEncuestadas - 1; i++)
+
+            //Si se ingresan 0 personas, se manda solo el nombre del jefe de familia
+            if (numerodePersonasEncuestadas == 0) {
+                Intent intent = new Intent(NombresPersonasEncuestadasActivity.this, PreguntasActivity.class);
+                intent.putStringArrayListExtra("NOMBRES_ENCUESTADOS", nombresEncuestados);
+                intent.putExtra(KEY_ARG_NOMBRES_ENCUESTADOS, nombresEncuestados);
+                startActivity(intent);
+                finish();
+            }
+
+            for (int i = 0; i < numerodePersonasEncuestadas; i++)
                 nombresLayouts.get(i).setVisibility(View.VISIBLE);
             btAceptar_nombresEncuestados.setClickable(true);
 
             Toast.makeText(NombresPersonasEncuestadasActivity.this, "Ingrese el nombre de las " +
-                    + numerodePersonasEncuestadas +" personas ", Toast.LENGTH_LONG).show();
+                    +numerodePersonasEncuestadas + " personas ", Toast.LENGTH_LONG).show();
         }
 
     };
@@ -196,18 +211,21 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
     View.OnClickListener btAceptar_nombresEncuestadossetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            boolean isCorrect = false;
-
-            for (int i = 0; i < numerodePersonasEncuestadas - 1; i++) {
+            int isCorrect = 0;//OK
+            //se recorren los campos para verificar que no esten vacios
+            for (int i = 0; i < numerodePersonasEncuestadas; i++) {
                 if (nombresEdits.get(i).getText().toString().trim().length() == 0) {
                     nombresEdits.get(i).setError("Ingrese nombre");
-                    break;
-                } else {
-                    nombresEncuestados.add(nombresEdits.get(i).getText().toString().trim());
-                    isCorrect = true;
+                    isCorrect++;
                 }
             }
-            if (isCorrect) {
+            if (isCorrect == 0) {//No hay ningun capo vacio
+                for (int i = 0; i < numerodePersonasEncuestadas; i++)
+                    nombresEncuestados.add(nombresEdits.get(i).getText().toString().trim());
+
+                for (int i = 0; i < numerodePersonasEncuestadas + 1; i++) {
+                    System.out.println("nombre: " + i + " : " + nombresEncuestados.get(i));
+                }
                 Intent intent = new Intent(NombresPersonasEncuestadasActivity.this, PreguntasActivity.class);
                 intent.putStringArrayListExtra("NOMBRES_ENCUESTADOS", nombresEncuestados);
                 startActivity(intent);

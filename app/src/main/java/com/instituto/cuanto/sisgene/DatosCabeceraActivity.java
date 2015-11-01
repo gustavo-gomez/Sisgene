@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.util.Util;
 
+import java.util.ArrayList;
+
 /**
  * Created by Gustavo on 10/10/2015.
  */
@@ -25,12 +27,14 @@ public class DatosCabeceraActivity extends AppCompatActivity {
     Spinner spArea, spCondicion, spDepartamento, spProvincia, spDistrito;
     LinearLayout lyspArea, lyspCondicion;
     Button btAceptar_datosUsuario;
+    ArrayList<String> nombresEncuestados;
+    public static String KEY_ARG_NOMBRE_JEFE = "KEY_ARG_NOMBRE_JEFE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dato_encuestado);
-
+        nombresEncuestados = new ArrayList<>();
         tvCodigoEncuesta = (TextView) findViewById(R.id.tvCodigoEncuesta);
         tvNombreSupervisor = (TextView) findViewById(R.id.tvNombreSupervisor);
         tvNombreUsuario = (TextView) findViewById(R.id.tvNombreUsuario);
@@ -128,7 +132,11 @@ public class DatosCabeceraActivity extends AppCompatActivity {
             isComplete = false;
         }
         if (isComplete) {
+            nombresEncuestados.add(etNombres.getText().toString().trim() + etApellidoPaterno.getText().toString().trim() +
+                    etApellidoMaterno.getText().toString().trim());
+
             Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);
+            intent.putExtra(KEY_ARG_NOMBRE_JEFE, nombresEncuestados);
             startActivity(intent);
             finish();
         }
