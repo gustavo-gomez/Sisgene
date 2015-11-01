@@ -97,16 +97,31 @@ public class MainActivity extends AppCompatActivity {
 
             //conectarBD();
 
-            //Fin prueba conectando BD
-
+           //Fin prueba conectando BD
             if(camposOK)
             {
+                /*
                 if(rolAcceso.equals("ENCUESTADOR")){
                     new RestCosumeAsyncTask().execute();
                 }else{
                     new RestCosumeAsyncTask2().execute();
                 }
+                */
+                String nomUsu = etNombreUsuario.getText().toString().trim();
+                String clvUsu = etClave.getText().toString().trim();
+
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("user", nomUsu); // Storing boolean - true/false
+                //editor.putString("nombres", loginResponse.getUsuario().getNombre() + " " + loginResponse.getUsuario().getApellido()); // Storing string
+                editor.putString("rol", "ENCUESTADOR"); // Storing integer
+                editor.commit();
+                Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
+                startActivity(intent);
+                finish();
             }
+
+
         }
     };
 
@@ -216,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
                     //////Se llama a fragmengto, cambiar de lugar cuando se defina el orden
                     Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
                     startActivity(intent);
+                    finish();
                     //////
                 }
 
@@ -304,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
                     //////Se llama a fragmengto, cambiar de lugar cuando se defina el orden
                     Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
                     startActivity(intent);
+                    finish();
                     //////
                 }
 

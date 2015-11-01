@@ -248,23 +248,23 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilNombres"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Nombres" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:ellipsize="end"
-                                android:hint="Nombres"
-                                android:maxLength="50"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal"/>
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etNombres"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:ellipsize="end"
+                            android:hint="Nombres"
+                            android:maxLength="50"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -274,22 +274,22 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilApellidoPaterno"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Apellido Paterno" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:ellipsize="end"
-                                android:hint="Apellido Paterno"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etApellidoPaterno"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:ellipsize="end"
+                            android:hint="Apellido Paterno"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -299,22 +299,21 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilApellidoMaterno"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:text="Apellido Materno" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:ellipsize="end"
-                                android:hint="Apellido Materno"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etApellidoMaterno"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:ellipsize="end"
+                            android:hint="Apellido Materno"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
 
@@ -325,24 +324,24 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilDni"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="DNI" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="DNI"
-                                android:inputType="number"
-                                android:maxLength="8"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etDni"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:hint="DNI"
+                            android:inputType="number"
+                            android:maxLength="8"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -352,22 +351,18 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilDepartamento"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Departamento" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Departamento"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <Spinner
+                            android:id="@+id/spDepartamento"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/arrayDepartamentos"
+                            android:textColor="@color/color_texto"></Spinner>
                     </LinearLayout>
 
                     <LinearLayout
@@ -377,22 +372,16 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilProvincia"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Provincia" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Provincia"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <Spinner
+                            android:id="@+id/spProvincia"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></Spinner>
                     </LinearLayout>
 
                     <LinearLayout
@@ -402,22 +391,17 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilDistrito"
+                        <TextView
+                            android:id="@+id/tvDistrito"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Distrito" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Distrito"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <Spinner
+                            android:id="@+id/spDistrito"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></Spinner>
                     </LinearLayout>
 
                     <LinearLayout
@@ -427,22 +411,22 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilCentroPoblado"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Centro Poblado" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Centro Poblado"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etCentroPoblado"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:hint="Centro Poblado"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -452,24 +436,24 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilConglomeradoN"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Conglomerado N°" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Conglomerado N°"
-                                android:inputType="number"
-                                android:maxLength="4"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etConglomeradoN"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:hint="Conglomerado N°"
+                            android:inputType="number"
+                            android:maxLength="4"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -530,28 +514,27 @@
                         android:id="@+id/lyZonaAER"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilZonaAER"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Zona N°/AER N°" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Zona N°/AER N°"
-                                android:inputType="number"
-                                android:maxLength="4"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etZonaAER"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:hint="Zona N°/AER N°"
+                            android:inputType="number"
+                            android:maxLength="4"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -561,23 +544,23 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilManzanaN"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Manzana N°" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Manzana N°"
-                                android:maxLength="4"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etManzanaN"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:hint="Manzana N°"
+                            android:maxLength="4"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -587,23 +570,22 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilViviendaN"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Vivienda N°"
-                                android:maxLength="4"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etViviendaN"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:hint="Vivienda N°"
+                            android:maxLength="4"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -613,23 +595,23 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilHogarN"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Hogar N°" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Hogar N°"
-                                android:maxLength="4"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etHogarN"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:hint="Hogar N°"
+                            android:maxLength="4"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -639,22 +621,22 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilDireccion"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Hogar N°" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Nombre de Avenida, Calle, Jirón, Pasaje, etc"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etDireccion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:hint="Nombre de Avenida, Calle, Jirón, Pasaje, etc"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -664,23 +646,23 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilTelefono"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Telefono" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Telefono"
-                                android:inputType="number"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etTelefono"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:hint="Telefono"
+                            android:inputType="number"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -690,24 +672,24 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilCelular"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Celular" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Celular"
-                                android:inputType="number"
-                                android:maxLength="10"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etCelular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:hint="Celular"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -717,30 +699,30 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tilEmail"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="4dp"
+                            android:text="Correo Electrónico" />
 
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:hint="Correo Electrónico"
-                                android:inputType="textEmailAddress"
-                                android:singleLine="true"
-                                android:textColor="@color/color_texto"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-                        </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/etEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:hint="Correo Electrónico"
+                            android:inputType="textEmailAddress"
+                            android:singleLine="true"
+                            android:textColor="@color/color_texto"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -748,9 +730,19 @@
             android:id="@+id/btAceptar_datosUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
             android:background="@color/color_fondo_boton"
             android:text="Aceptar e Iniciar Encuesta"
             android:textColor="@color/color_texto_boton" />
-    </RelativeLayout>
+
+        <Button
+            android:id="@+id/btSalir_datosUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/color_fondo_boton"
+            android:text="CANCELAR"
+            android:textColor="@color/color_texto_boton" />
+
+    </LinearLayout>
 </LinearLayout>

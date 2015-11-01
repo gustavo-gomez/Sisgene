@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,11 +20,11 @@ import com.instituto.cuanto.sisgene.util.Util;
 public class DatosEncuestadosActivity extends AppCompatActivity {
 
     TextView tvCodigoEncuesta, tvNombreSupervisor, tvNombreUsuario, tvGrupo, tvFecha, tvFechaVigenciaInicio, tvFechaVigenciaFinal;
-    TextInputLayout tilNombres, tilApellidoPaterno, tilApellidoMaterno, tilDni, tilDepartamento, tilProvincia, tilDistrito, tilCentroPoblado;
-    TextInputLayout tilConglomeradoN, tilZonaAER, tilManzanaN, tilViviendaN, tilHogarN, tilDireccion, tilTelefono, tilCelular, tilEmail;
+    EditText etNombres, etApellidoPaterno, etApellidoMaterno, etDni, etCentroPoblado;
+    EditText etConglomeradoN, etZonaAER, etManzanaN, etViviendaN, etHogarN, etDireccion, etTelefono, etCelular, etEmail;
     LinearLayout lyNombres, lyApellidoPaterno, lyApellidoMaterno, lyDni, lyDepartamento, lyProvincia, lyDistrito, lyCentroPoblado;
     LinearLayout lyConglomeradoN, lyZonaAER, lyManzanaN, lyViviendaN, lyHogarN, lyDireccion, lyTelefono, lyCelular, lyEmail;
-    Spinner spArea, spCondicion;
+    Spinner spArea, spCondicion, spDepartamento, spProvincia, spDistrito;
     LinearLayout lyspArea, lyspCondicion;
     Button btAceptar_datosUsuario;
 
@@ -40,23 +41,20 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
         tvFechaVigenciaInicio = (TextView) findViewById(R.id.tvFechaVigenciaInicio);
         tvFechaVigenciaFinal = (TextView) findViewById(R.id.tvFechaVigenciaFinal);
 
-        tilNombres = (TextInputLayout) findViewById(R.id.tilNombres);
-        tilApellidoPaterno = (TextInputLayout) findViewById(R.id.tilApellidoPaterno);
-        tilApellidoMaterno = (TextInputLayout) findViewById(R.id.tilApellidoMaterno);
-        tilDni = (TextInputLayout) findViewById(R.id.tilDni);
-        tilDepartamento = (TextInputLayout) findViewById(R.id.tilDepartamento);
-        tilProvincia = (TextInputLayout) findViewById(R.id.tilProvincia);
-        tilDistrito = (TextInputLayout) findViewById(R.id.tilDistrito);
-        tilCentroPoblado = (TextInputLayout) findViewById(R.id.tilCentroPoblado);
-        tilConglomeradoN = (TextInputLayout) findViewById(R.id.tilConglomeradoN);
-        tilZonaAER = (TextInputLayout) findViewById(R.id.tilZonaAER);
-        tilManzanaN = (TextInputLayout) findViewById(R.id.tilManzanaN);
-        tilViviendaN = (TextInputLayout) findViewById(R.id.tilViviendaN);
-        tilHogarN = (TextInputLayout) findViewById(R.id.tilHogarN);
-        tilDireccion = (TextInputLayout) findViewById(R.id.tilDireccion);
-        tilTelefono = (TextInputLayout) findViewById(R.id.tilTelefono);
-        tilCelular = (TextInputLayout) findViewById(R.id.tilCelular);
-        tilEmail = (TextInputLayout) findViewById(R.id.tilEmail);
+        etNombres = (EditText) findViewById(R.id.etNombres);
+        etApellidoPaterno = (EditText) findViewById(R.id.etApellidoPaterno);
+        etApellidoMaterno = (EditText) findViewById(R.id.etApellidoMaterno);
+        etDni = (EditText) findViewById(R.id.etDni);
+        etCentroPoblado = (EditText) findViewById(R.id.etCentroPoblado);
+        etConglomeradoN = (EditText) findViewById(R.id.etConglomeradoN);
+        etZonaAER = (EditText) findViewById(R.id.etZonaAER);
+        etManzanaN = (EditText) findViewById(R.id.etManzanaN);
+        etViviendaN = (EditText) findViewById(R.id.etViviendaN);
+        etHogarN = (EditText) findViewById(R.id.etHogarN);
+        etDireccion = (EditText) findViewById(R.id.etDireccion);
+        etTelefono = (EditText) findViewById(R.id.etTelefono);
+        etCelular = (EditText) findViewById(R.id.etCelular);
+        etEmail = (EditText) findViewById(R.id.etEmail);
 
         lyNombres = (LinearLayout) findViewById(R.id.lyNombres);
         lyApellidoPaterno = (LinearLayout) findViewById(R.id.lyApellidoPaterno);
@@ -79,6 +77,9 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
         btAceptar_datosUsuario = (Button) findViewById(R.id.btAceptar_datosUsuario);
         spArea = (Spinner) findViewById(R.id.spArea);
         spCondicion = (Spinner) findViewById(R.id.spCondicion);
+        spDepartamento = (Spinner) findViewById(R.id.spDepartamento);
+        spProvincia = (Spinner) findViewById(R.id.spProvincia);
+        spDistrito = (Spinner) findViewById(R.id.spDistrito);
 
         lyspArea = (LinearLayout) findViewById(R.id.lyspArea);
         lyspCondicion = (LinearLayout) findViewById(R.id.lyspCondicion);
@@ -102,34 +103,8 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
         public void onClick(View v) {
             //validar que se haya ingresado todos los campos
 
-
             validarCamposDatosUsuarios();
-            /* {
-
-                //guardar campos para guardar en la base de datos
-                tilNombres.getEditText().toString().trim()
-                tilNombres.getEditText().toString().trim()
-                tilApellidoPaterno.getEditText().toString().trim()
-                tilApellidoMaterno.getEditText().toString().trim()
-                tilDni.getEditText().toString().trim()
-                tilDepartamento.getEditText().toString().trim()
-                tilProvincia.getEditText().toString().trim()
-                tilDistrito.getEditText().toString().trim()
-                tilCentroPoblado.getEditText().toString().trim()
-                tilConglomeradoN.getEditText().toString().trim()
-                tilZonaAER.getEditText().toString().trim()
-                tilManzanaN.getEditText().toString().trim()
-                tilViviendaN.getEditText().toString().trim()
-                tilHogarN.getEditText().toString().trim()
-                tilDireccion.getEditText().toString().trim()
-                tilTelefono.getEditText().toString().trim()
-                tilCelular.getEditText().toString().trim()
-                tilEmail.getEditText().toString().trim()
-
-
-            }*/
-
-             //Iniciar Encuesta
+            //Iniciar Encuesta
 
         }
     };
@@ -137,39 +112,27 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
     void validarCamposDatosUsuarios() {
         boolean isComplete = true;
 
-        tilNombres.setErrorEnabled(false);
-        tilApellidoPaterno.setErrorEnabled(false);
-        tilApellidoMaterno.setErrorEnabled(false);
-        tilDni.setErrorEnabled(false);
-        tilDireccion.setErrorEnabled(false);
-
-        if (tilNombres.getEditText().getText().toString().trim().length() <= 0) {
-            tilNombres.setErrorEnabled(true);
-            tilNombres.setError("Ingrese Nombre");
+        if (etNombres.getText().toString().trim().length() <= 0) {
+            etNombres.setError("Ingrese Nombre");
             isComplete = false;
         }
-        if (tilApellidoPaterno.getEditText().getText().toString().trim().length() <= 0) {
-            tilApellidoPaterno.setErrorEnabled(true);
-            tilApellidoPaterno.setError("Ingrese Apellido Paterno");
+        if (etApellidoPaterno.getText().toString().trim().length() <= 0) {
+            etApellidoPaterno.setError("Ingrese Apellido Paterno");
             isComplete = false;
         }
-        if (tilApellidoMaterno.getEditText().getText().toString().trim().length() <= 0) {
-            tilApellidoMaterno.setErrorEnabled(true);
-            tilApellidoMaterno.setError("Ingrese Apellido Materno");
+        if (etApellidoMaterno.getText().toString().trim().length() <= 0) {
+            etApellidoMaterno.setError("Ingrese Apellido Materno");
             isComplete = false;
         }
-        if (tilDni.getEditText().getText().toString().trim().length() != 8) {
-            tilDni.setError("Ingrese un DNI válido");
-            tilDni.setErrorEnabled(true);
+        if (etDni.getText().toString().trim().length() != 8) {
+            etDni.setError("Ingrese un DNI válido");
             isComplete = false;
         }
-        if (tilDireccion.getEditText().getText().toString().trim().length() <= 0) {
-            tilDireccion.setError("Ingrese Dirección");
-            tilDireccion.setErrorEnabled(true);
+        if (etDireccion.getText().toString().trim().length() <= 0) {
+            etDireccion.setError("Ingrese Dirección");
             isComplete = false;
         }
-        if(isComplete)
-        {
+        if (isComplete) {
             Intent intent = new Intent(DatosEncuestadosActivity.this, PreguntasActivity.class);
             startActivity(intent);
             finish();
