@@ -1,28 +1,18 @@
 package com.instituto.cuanto.sisgene;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaAbiertaAdapter;
-import com.instituto.cuanto.sisgene.entities.Pregunta;
-import com.instituto.cuanto.sisgene.entities.PreguntaOpcion;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Gustavo on 09/10/2015.
@@ -30,19 +20,13 @@ import java.util.List;
 public class PreguntasActivity extends AppCompatActivity {
 
     Button btnSiguiente;
-    //LinearLayout lyFragmentoListaPreguntas;
-    //android.app.FragmentManager fragmentManager;
     ListView lvRespuestas_tipoGeneral;
-    static ArrayList<String> arrayList;
     TipoPreguntaAbiertaAdapter tipoPreguntaAbiertaAdapter;
     static ArrayList<String> nombresEncuestados;
-    ArrayList<TipoPreguntaAbiertaItem> miListaTipoPreguntaAbiertaAdapter;
+    ArrayList<TipoPreguntaAbiertaItem> miListaTipoPreguntaAbierta;
     Context context = PreguntasActivity.this;
-    static boolean dataLista = false;
-    AlertDialog.Builder alert;
+
     int numPregunta = -1;
-    final ArrayList<EditText> editTexts = new ArrayList<>();
-    final ArrayList<TextView> textViews = new ArrayList<>();
     ScrollView scrollView;
     TextView tvEnunciadoPregunta;
     TextView tvOpcionesPregunta;
@@ -52,7 +36,6 @@ public class PreguntasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitypreguntas);
 
-        arrayList = new ArrayList<>();
         nombresEncuestados = new ArrayList<>();
         btnSiguiente = (Button) findViewById(R.id.btnSiguiente);
         //lyFragmentoListaPreguntas = (LinearLayout) findViewById(R.id.lyFragmentoListaPreguntas);
@@ -60,13 +43,28 @@ public class PreguntasActivity extends AppCompatActivity {
         tvEnunciadoPregunta = (TextView) findViewById(R.id.tvEnunciadoPregunta);
         tvOpcionesPregunta = (TextView) findViewById(R.id.tvOpcionesPregunta);
         tipoPreguntaAbiertaAdapter = new TipoPreguntaAbiertaAdapter();
-        miListaTipoPreguntaAbiertaAdapter = new ArrayList<>();
+        miListaTipoPreguntaAbierta = new ArrayList<>();
         scrollView = new ScrollView(PreguntasActivity.this);
-        alert = new AlertDialog.Builder(this);
 
-        //Se lee la informacion de la primera pregunta
-        String tipoPregunta="AB";
+
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(NombresPersonasEncuestadasActivity.KEY_ARG_NOMBRES_ENCUESTADOS)) {
+            System.out.println("se obtienen datos");
+            nombresEncuestados = getIntent().getStringArrayListExtra(NombresPersonasEncuestadasActivity.KEY_ARG_NOMBRES_ENCUESTADOS);
+        }
+
+        btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
+
+        leerTipoPreguntaxPregunta();
+
+    }
+
+    private void leerTipoPreguntaxPregunta() {
+        //eliminar cuando se haya hecho la consulta a la base de datos
+        String tipoPregunta = "AB";
         int numEncuestado = 0;
+
+        //Realizar la consulta a base de datos para obtener la siguiente pregunta
+
 
         //Tipo de pregunta Unica
         if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
@@ -82,6 +80,7 @@ public class PreguntasActivity extends AppCompatActivity {
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
             tipoPreguntaAbiertaAdapter.limpiarLista();
             poblarLista_TipoPreguntaAbierta(numEncuestado);
+
             //Tipo de pregunta Matriz Simple
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMatSimple))) {
             tipoPreguntaAbiertaAdapter.limpiarLista();
@@ -94,98 +93,47 @@ public class PreguntasActivity extends AppCompatActivity {
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
             tipoPreguntaAbiertaAdapter.limpiarLista();
         }
-
-        btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
     }
 
     View.OnClickListener btnSiguientesetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            poblarLista_TipoPreguntaAbierta(12);
+            System.out.println("antes: " + miListaTipoPreguntaAbierta.size());
+            //miListaTipoPreguntaAbierta.remove(0);
+
+            tipoPreguntaAbiertaAdapter.limpiarLista();
+            System.out.println("despues: " + miListaTipoPreguntaAbierta.size());
+            //poblarLista_TipoPreguntaAbierta(12);
         }
     };
 
-    public void obtenerNombresEncuestados(int num) {
-
-
-        /*
-        final LinearLayout lyinput = new LinearLayout(PreguntasActivity.this);
-        lyinput.setOrientation(LinearLayout.VERTICAL);
-        for (int i = 0; i < num; i++) {
-
-            final TextView tvinput = new TextView(PreguntasActivity.this);
-            tvinput.setText("Nombre " + (i + 1) + ":  ");
-            tvinput.setTextSize(20);
-
-            final EditText etinput = new EditText(PreguntasActivity.this);
-            etinput.setWidth(1000);
-
-            textViews.add(tvinput);
-            editTexts.add(etinput);
-        }
-
-        for (int i = 0; i < num; i++) {
-            lyinput.addView(textViews.get(i));
-            lyinput.addView(editTexts.get(i));
-        }
-        //alert.setTitle("Ingrese el nombre de las " + num + " personas");
-        scrollView.addView(lyinput);
-        //alert.setView(scrollView);
-        //new ProgressAsyncTask().execute();
-
-
-        alert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();
-                System.out.println("campos: " + editTexts.size());
-                for (int i = 0; i < editTexts.size(); i++) {
-                    nombresEncuestados.add(editTexts.get(i).getText().toString().trim());
-                }
-                System.out.println("len nombresEncuestados: " + nombresEncuestados.size());
-                for (int i = 0; i < nombresEncuestados.size(); i++) {
-                    System.out.println("campo: " + nombresEncuestados.get(i));
-                }
-                System.out.println("len nombresEncuestados: " + nombresEncuestados.size());
-                dataLista = true;
-                dialog.dismiss();
-            }
-
-        });
-
-        //alert.setCancelable(false).setView(scrollView).show();
-        */
-    }
-
-
     private void poblarLista_TipoPreguntaAbierta(int numEncuestado) {
 
-        if (numEncuestado != 1) {
-            obtenerNombresEncuestados(numEncuestado);
-            System.out.println("len nombresEncuestados: ");
-        }
+        //if (numEncuestado != 1) {
+        //     obtenerNombresEncuestados(numEncuestado);
+        //   System.out.println("len nombresEncuestados: ");
+        // }
         System.out.println("cargar datos");
         System.out.println("datos: " + nombresEncuestados.size());
 
-        if (numPregunta == 0) {
-            for (int i = 0; i < nombresEncuestados.size(); i++) {
 
-                TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = new TipoPreguntaAbiertaItem();
-                tipoPreguntaAbiertaItem.setTitle(nombresEncuestados.get(i));
+        for (int i = 0; i < nombresEncuestados.size(); i++) {
 
-                miListaTipoPreguntaAbiertaAdapter.add(tipoPreguntaAbiertaItem);
-            }
+            TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = new TipoPreguntaAbiertaItem();
+            tipoPreguntaAbiertaItem.setTitle(nombresEncuestados.get(i));
+            tipoPreguntaAbiertaItem.setDescription(nombresEncuestados.get(i));
 
+            miListaTipoPreguntaAbierta.add(tipoPreguntaAbiertaItem);
         }
-
-
+        System.out.println("miListaTipoPreguntaAbierta: "+ miListaTipoPreguntaAbierta.size());
         //colocar las aternativas
         //tvOpcionesPregunta.setText(datosOpc);
 
         //colocar el enunciado de la preguna
         //tvEnunciadoPregunta.setText();
 
-        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, miListaTipoPreguntaAbiertaAdapter));
+        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, miListaTipoPreguntaAbierta));
         System.out.println("num pregunta: " + numPregunta);
-        tipoPreguntaAbiertaAdapter.limpiarLista();
+        //tipoPreguntaAbiertaAdapter.limpiarLista();
     }
 }

@@ -227,9 +227,10 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                     System.out.println("nombre: " + i + " : " + nombresEncuestados.get(i));
                 }
                 Intent intent = new Intent(NombresPersonasEncuestadasActivity.this, PreguntasActivity.class);
-                intent.putStringArrayListExtra("NOMBRES_ENCUESTADOS", nombresEncuestados);
+                intent.putStringArrayListExtra(KEY_ARG_NOMBRES_ENCUESTADOS, nombresEncuestados);
                 startActivity(intent);
                 finish();
+
             }
         }
     };

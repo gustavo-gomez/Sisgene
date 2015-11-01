@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.R;
@@ -18,30 +17,26 @@ import java.util.ArrayList;
 /**
  * Created by Gustavo on 27/10/2015.
  */
-public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
+public class TipoPreguntaUnicaAdapter extends BaseAdapter {
 
     ArrayList<TipoPreguntaAbiertaItem> myList = new ArrayList<TipoPreguntaAbiertaItem>();
     LayoutInflater inflater;
     Context context;
 
-    public TipoPreguntaAbiertaAdapter() {
-    }
-
-    public TipoPreguntaAbiertaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myList) {
+    public TipoPreguntaUnicaAdapter(){}
+    public TipoPreguntaUnicaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myList) {
         this.myList = myList;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
     }
-
     public void limpiarLista() {
         int dim = myList.size();
-        System.out.println("dim myList:" + dim);
-        //for (int i = 0; i < dim; i++)
-//            myList.remove(0);
+
+        for (int i = 0; i < dim; i++)
+            myList.remove(0);
 
         notifyDataSetChanged();
     }
-
     @Override
     public int getCount() {
         return myList.size();
@@ -63,9 +58,7 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.tipopreguntaabiertaitem_layout, parent, false);
-            mViewHolder = new MyViewHolder();
-            mViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvNombreEncuestado);
-            mViewHolder.etRpta = (EditText) convertView.findViewById(R.id.etRespuestaPreguntaEncuestado);
+            mViewHolder = new MyViewHolder(convertView);
             convertView.setTag(mViewHolder);
             notifyDataSetChanged();
         } else {
@@ -75,10 +68,10 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
         final TipoPreguntaAbiertaItem currentTipoPreguntaAbiertaItem = getItem(position);
 
         mViewHolder.tvTitle.setText(currentTipoPreguntaAbiertaItem.getTitle());
-        mViewHolder.etRpta.setHint(currentTipoPreguntaAbiertaItem.getDescription());
+        //mViewHolder.tvDesc.setText(currentTipoPreguntaAbiertaItem.getDescription());
 
         final int i = position;
-        mViewHolder.etRpta.addTextChangedListener(new TextWatcher() {
+        mViewHolder.tvDesc.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -100,9 +93,12 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
     }
 
     private class MyViewHolder {
-        TextView tvTitle;
-        EditText etRpta;
+        TextView tvTitle, tvDesc;
 
+        public MyViewHolder(View item) {
+            tvTitle = (TextView) item.findViewById(R.id.tvNombreEncuestado);
+            tvDesc = (TextView) item.findViewById(R.id.etRespuestaPreguntaEncuestado);
+        }
     }
 
 }

@@ -24,7 +24,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
     EditText etConglomeradoN, etZonaAER, etManzanaN, etViviendaN, etHogarN, etDireccion, etTelefono, etCelular, etEmail;
     LinearLayout lyNombres, lyApellidoPaterno, lyApellidoMaterno, lyDni, lyDepartamento, lyProvincia, lyDistrito, lyCentroPoblado;
     LinearLayout lyConglomeradoN, lyZonaAER, lyManzanaN, lyViviendaN, lyHogarN, lyDireccion, lyTelefono, lyCelular, lyEmail;
-    Spinner spArea, spCondicion, spDepartamento, spProvincia, spDistrito;
+    Spinner spArea, spCondicion;
     LinearLayout lyspArea, lyspCondicion;
     Button btAceptar_datosUsuario;
     ArrayList<String> nombresEncuestados;
@@ -62,9 +62,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         lyApellidoPaterno = (LinearLayout) findViewById(R.id.lyApellidoPaterno);
         lyApellidoMaterno = (LinearLayout) findViewById(R.id.lyApellidoMaterno);
         lyDni = (LinearLayout) findViewById(R.id.lyDni);
-        lyDepartamento = (LinearLayout) findViewById(R.id.lyDepartamento);
-        lyProvincia = (LinearLayout) findViewById(R.id.lyProvincia);
-        lyDistrito = (LinearLayout) findViewById(R.id.lyDistrito);
+
         lyCentroPoblado = (LinearLayout) findViewById(R.id.lyCentroPoblado);
         lyConglomeradoN = (LinearLayout) findViewById(R.id.lyConglomeradoN);
         lyZonaAER = (LinearLayout) findViewById(R.id.lyZonaAER);
@@ -79,10 +77,6 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         btAceptar_datosUsuario = (Button) findViewById(R.id.btAceptar_datosUsuario);
         spArea = (Spinner) findViewById(R.id.spArea);
         spCondicion = (Spinner) findViewById(R.id.spCondicion);
-        spDepartamento = (Spinner) findViewById(R.id.spDepartamento);
-        spProvincia = (Spinner) findViewById(R.id.spProvincia);
-        spDistrito = (Spinner) findViewById(R.id.spDistrito);
-
         lyspArea = (LinearLayout) findViewById(R.id.lyspArea);
         lyspCondicion = (LinearLayout) findViewById(R.id.lyspCondicion);
 
@@ -132,7 +126,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
             isComplete = false;
         }
         if (isComplete) {
-            nombresEncuestados.add(etNombres.getText().toString().trim() + etApellidoPaterno.getText().toString().trim() +
+            nombresEncuestados.add(etNombres.getText().toString().trim() + " " + etApellidoPaterno.getText().toString().trim() + " " +
                     etApellidoMaterno.getText().toString().trim());
 
             Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);

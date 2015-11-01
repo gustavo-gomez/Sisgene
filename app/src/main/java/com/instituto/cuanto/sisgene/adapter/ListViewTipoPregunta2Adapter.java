@@ -33,7 +33,7 @@ public class ListViewTipoPregunta2Adapter extends ArrayAdapter<ListViewTipoPregu
             // initialize the view holder
             viewHolder = new ViewHolder();
             // viewHolder.ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
-            viewHolder.tvNombreEntrevistado = (TextView) convertView.findViewById(R.id.tvNombreEntrevistado);
+            viewHolder.tvNombreEntrevistado = (TextView) convertView.findViewById(R.id.tvNombreEncuestado);
             convertView.setTag(viewHolder);
         } else {
             // recycle the already inflated view

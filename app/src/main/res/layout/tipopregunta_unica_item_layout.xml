@@ -17,13 +17,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:textColor="@color/color_texto"
             android:fontFamily="sans-serif-medium"
             android:textStyle="normal|bold|italic" />
     </LinearLayout>
 
+
     <Spinner
-        android:id="@+id/spRespuestaPregunta"
+        android:id="@+id/spRespuestaPreguntaEncuestado"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5" />
+        android:layout_weight="1" />
 </LinearLayout>
