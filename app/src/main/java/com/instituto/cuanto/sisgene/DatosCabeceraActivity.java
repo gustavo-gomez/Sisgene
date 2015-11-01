@@ -2,7 +2,6 @@ package com.instituto.cuanto.sisgene;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,13 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.instituto.cuanto.sisgene.fragment.PreguntasFragment;
 import com.instituto.cuanto.sisgene.util.Util;
 
 /**
  * Created by Gustavo on 10/10/2015.
  */
-public class DatosEncuestadosActivity extends AppCompatActivity {
+public class DatosCabeceraActivity extends AppCompatActivity {
 
     TextView tvCodigoEncuesta, tvNombreSupervisor, tvNombreUsuario, tvGrupo, tvFecha, tvFechaVigenciaInicio, tvFechaVigenciaFinal;
     EditText etNombres, etApellidoPaterno, etApellidoMaterno, etDni, etCentroPoblado;
@@ -31,7 +29,7 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_datos_encuestados);
+        setContentView(R.layout.activity_dato_encuestado);
 
         tvCodigoEncuesta = (TextView) findViewById(R.id.tvCodigoEncuesta);
         tvNombreSupervisor = (TextView) findViewById(R.id.tvNombreSupervisor);
@@ -130,7 +128,7 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
             isComplete = false;
         }
         if (isComplete) {
-            Intent intent = new Intent(DatosEncuestadosActivity.this, PreguntasActivity.class);
+            Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);
             startActivity(intent);
             finish();
         }
