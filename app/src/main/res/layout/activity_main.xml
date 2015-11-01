@@ -58,7 +58,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <LinearLayout
@@ -79,8 +79,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:maxLength="10"
-                    android:hint="Usuario"/>
+                    android:hint="Usuario"
+                    android:maxLength="10" />
             </LinearLayout>
 
             <TextView
@@ -108,9 +108,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:hint="Contraseña"
                     android:inputType="textPassword"
-                    android:maxLength="10"
-                    android:hint="Contraseña"/>
+                    android:maxLength="10" />
             </LinearLayout>
 
             <TextView
@@ -130,18 +130,42 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Contraseña"
+                    android:text="Rol"
                     android:textColor="@color/color_texto" />
 
                 <Spinner
+                    android:id="@+id/spRol"
                     android:layout_width="142dp"
                     android:layout_height="38dp"
-                    android:id="@+id/spRol"
-                    android:layout_below="@+id/textView4"
                     android:layout_alignEnd="@+id/btnSalir"
+                    android:layout_below="@+id/textView4"
                     android:layout_toEndOf="@+id/textView4"
-                    android:entries="@array/lista_rol"
-                    android:layout_weight="0.18" />
+                    android:layout_weight="0.18"
+                    android:entries="@array/lista_rol" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyNombreEncuesta"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Codigo de Encuesta"
+                    android:textColor="@color/color_texto" />
+
+                <EditText
+                    android:id="@+id/etCodigoEncuesta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Usuario"
+                    android:maxLength="10" />
             </LinearLayout>
 
             <LinearLayout
