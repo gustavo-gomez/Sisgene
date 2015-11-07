@@ -19,32 +19,32 @@ import java.util.ArrayList;
  */
 public class TipoPreguntaUnicaAdapter extends BaseAdapter {
 
-    ArrayList<TipoPreguntaAbiertaItem> myList = new ArrayList<TipoPreguntaAbiertaItem>();
+    ArrayList<TipoPreguntaAbiertaItem> myListPreguntaUnica = new ArrayList<TipoPreguntaAbiertaItem>();
     LayoutInflater inflater;
     Context context;
 
     public TipoPreguntaUnicaAdapter(){}
-    public TipoPreguntaUnicaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myList) {
-        this.myList = myList;
+    public TipoPreguntaUnicaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myListPreguntaUnica) {
+        this.myListPreguntaUnica = myListPreguntaUnica;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
     }
     public void limpiarLista() {
-        int dim = myList.size();
+        int dim = myListPreguntaUnica.size();
 
         for (int i = 0; i < dim; i++)
-            myList.remove(0);
+            myListPreguntaUnica.remove(0);
 
         notifyDataSetChanged();
     }
     @Override
     public int getCount() {
-        return myList.size();
+        return myListPreguntaUnica.size();
     }
 
     @Override
     public TipoPreguntaAbiertaItem getItem(int position) {
-        return myList.get(position);
+        return myListPreguntaUnica.get(position);
     }
 
     @Override

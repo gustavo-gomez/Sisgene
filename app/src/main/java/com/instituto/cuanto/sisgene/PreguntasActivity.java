@@ -21,9 +21,10 @@ public class PreguntasActivity extends AppCompatActivity {
 
     Button btnSiguiente;
     ListView lvRespuestas_tipoGeneral;
-    TipoPreguntaAbiertaAdapter tipoPreguntaAbiertaAdapter;
+    //TipoPreguntaAbiertaAdapter tipoPreguntaAbiertaAdapter;
+
     static ArrayList<String> nombresEncuestados;
-    ArrayList<TipoPreguntaAbiertaItem> miListaTipoPreguntaAbierta;
+    //ArrayList<TipoPreguntaAbiertaItem> miListaTipoPreguntaAbierta;
     Context context = PreguntasActivity.this;
 
     int numPregunta = -1;
@@ -42,8 +43,8 @@ public class PreguntasActivity extends AppCompatActivity {
         lvRespuestas_tipoGeneral = (ListView) findViewById(R.id.lvRespuestas_tipoGeneral);
         tvEnunciadoPregunta = (TextView) findViewById(R.id.tvEnunciadoPregunta);
         tvOpcionesPregunta = (TextView) findViewById(R.id.tvOpcionesPregunta);
-        tipoPreguntaAbiertaAdapter = new TipoPreguntaAbiertaAdapter();
-        miListaTipoPreguntaAbierta = new ArrayList<>();
+        TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter = new TipoPreguntaAbiertaAdapter();
+        //miListaTipoPreguntaAbierta = new ArrayList<>();
         scrollView = new ScrollView(PreguntasActivity.this);
 
 
@@ -68,44 +69,57 @@ public class PreguntasActivity extends AppCompatActivity {
 
         //Tipo de pregunta Unica
         if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
-            tipoPreguntaAbiertaAdapter.limpiarLista();
+            //tipoPreguntaAbiertaAdapter.limpiarLista();
 
 
             //Tipo de pregunta Multiple
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
-            tipoPreguntaAbiertaAdapter.limpiarLista();
+            //tipoPreguntaAbiertaAdapter.limpiarLista();
 
 
             //Tipo de pregunta abierta
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
-            tipoPreguntaAbiertaAdapter.limpiarLista();
+            //TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
             poblarLista_TipoPreguntaAbierta(numEncuestado);
 
             //Tipo de pregunta Matriz Simple
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMatSimple))) {
-            tipoPreguntaAbiertaAdapter.limpiarLista();
+            //tipoPreguntaAbiertaAdapter.limpiarLista();
 
             //Tipo de pregunta Matriz Multiple
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMatMultiple))) {
-            tipoPreguntaAbiertaAdapter.limpiarLista();
+            //tipoPreguntaAbiertaAdapter.limpiarLista();
 
             //Tipo de pregunta Mixta
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
-            tipoPreguntaAbiertaAdapter.limpiarLista();
+            // tipoPreguntaAbiertaAdapter.limpiarLista();
         }
     }
 
     View.OnClickListener btnSiguientesetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            System.out.println("antes: " + miListaTipoPreguntaAbierta.size());
+            System.out.println("antes: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
             //miListaTipoPreguntaAbierta.remove(0);
-
-            tipoPreguntaAbiertaAdapter.limpiarLista();
-            System.out.println("despues: " + miListaTipoPreguntaAbierta.size());
+            leerRespuestas();
+            System.out.println("respuestas leidas -   se borra la lista");
+            TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
+            TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.notifyDataSetChanged();
+            System.out.println("despues: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
             //poblarLista_TipoPreguntaAbierta(12);
         }
     };
+
+    private void leerRespuestas() {
+        System.out.println("len datos size: "+ TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
+        System.out.println("len datos count: "+ TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getCount());
+
+        for (int i = 0; i < TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size(); i++) {
+            TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
+            System.out.println("nombre: " + tipoPreguntaAbiertaItem.getTitle());
+            System.out.println("respuesta: " + tipoPreguntaAbiertaItem.getDescription());
+        }
+    }
 
     private void poblarLista_TipoPreguntaAbierta(int numEncuestado) {
 
@@ -123,16 +137,16 @@ public class PreguntasActivity extends AppCompatActivity {
             tipoPreguntaAbiertaItem.setTitle(nombresEncuestados.get(i));
             tipoPreguntaAbiertaItem.setDescription(nombresEncuestados.get(i));
 
-            miListaTipoPreguntaAbierta.add(tipoPreguntaAbiertaItem);
+            TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.add(tipoPreguntaAbiertaItem);
         }
-        System.out.println("miListaTipoPreguntaAbierta: "+ miListaTipoPreguntaAbierta.size());
+        System.out.println("miListaTipoPreguntaAbierta: "+ TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
         //colocar las aternativas
         //tvOpcionesPregunta.setText(datosOpc);
 
         //colocar el enunciado de la preguna
         //tvEnunciadoPregunta.setText();
 
-        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, miListaTipoPreguntaAbierta));
+        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
         System.out.println("num pregunta: " + numPregunta);
         //tipoPreguntaAbiertaAdapter.limpiarLista();
     }

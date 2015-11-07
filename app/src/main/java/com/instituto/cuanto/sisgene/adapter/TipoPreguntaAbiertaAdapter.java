@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.instituto.cuanto.sisgene.PreguntasActivity;
 import com.instituto.cuanto.sisgene.R;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 
@@ -20,36 +21,38 @@ import java.util.ArrayList;
  */
 public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
 
-    ArrayList<TipoPreguntaAbiertaItem> myList = new ArrayList<TipoPreguntaAbiertaItem>();
+    public static ArrayList<TipoPreguntaAbiertaItem> myListPreguntaAbierta = new ArrayList<TipoPreguntaAbiertaItem>();
     LayoutInflater inflater;
     Context context;
+    public static TipoPreguntaAbiertaAdapter tipoPreguntaAbiertaAdapter;
 
     public TipoPreguntaAbiertaAdapter() {
     }
 
-    public TipoPreguntaAbiertaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myList) {
-        this.myList = myList;
+    public TipoPreguntaAbiertaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myListPreguntaAbierta) {
+        this.myListPreguntaAbierta = myListPreguntaAbierta;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
     }
 
     public void limpiarLista() {
-        int dim = myList.size();
-        System.out.println("dim myList:" + dim);
+        int dim = myListPreguntaAbierta.size();
+        System.out.println("dim myListPreguntaAbierta:" + myListPreguntaAbierta.size());
         //for (int i = 0; i < dim; i++)
-//            myList.remove(0);
+        myListPreguntaAbierta.remove(0);
 
-        notifyDataSetChanged();
+        tipoPreguntaAbiertaAdapter.notifyDataSetChanged();
+        System.out.println("dim myListPreguntaAbierta despues:" + myListPreguntaAbierta.size());
     }
 
     @Override
     public int getCount() {
-        return myList.size();
+        return myListPreguntaAbierta.size();
     }
 
     @Override
     public TipoPreguntaAbiertaItem getItem(int position) {
-        return myList.get(position);
+        return myListPreguntaAbierta.get(position);
     }
 
     @Override
