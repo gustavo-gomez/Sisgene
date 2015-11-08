@@ -186,7 +186,7 @@ public class PreguntasActivity extends AppCompatActivity {
     }
 
     private void poblarLista_TipoPreguntaUnica(boolean encuestarTodos) {
-        HashMap<Integer,String> alternativas = new HashMap<>();
+        HashMap<Integer, String> alternativas = new HashMap<>();
         for (int i=0;i<5;i++) {
             alternativas.put(i+1, "Opcion "+(i+1));
         }
