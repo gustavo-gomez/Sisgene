@@ -1,18 +1,21 @@
 package com.instituto.cuanto.sisgene.adapter;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.instituto.cuanto.sisgene.R;
-import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
+import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
+import com.instituto.cuanto.sisgene.mwtools.ExpandableHeightListview;
 
 import java.util.ArrayList;
 
@@ -21,7 +24,7 @@ import java.util.ArrayList;
  */
 public class TipoPreguntaMixtaAdapter extends BaseAdapter {
 
-    public static ArrayList<TipoPreguntaMixtaItem> myListPreguntaMixta = new ArrayList<TipoPreguntaMixtaItem>();
+    public static ArrayList<TipoPreguntaMixtaItem> myListPreguntaMixta = new ArrayList<>();
     LayoutInflater inflater;
     Context context;
     public static TipoPreguntaMixtaAdapter tipoPreguntaMixtaAdapter;
@@ -36,13 +39,14 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
     }
 
     public void limpiarLista() {
+
         int dim = myListPreguntaMixta.size();
-        System.out.println("dim myListPreguntaAbierta:" + myListPreguntaMixta.size());
-        for (int i = 0; i < dim; i++){
-            myListPreguntaMixta.remove(0);
-        }
+        System.out.println("dim myListPreguntaMixta:" + myListPreguntaMixta.size());
+            for (int i = 0; i < dim; i++) {
+                myListPreguntaMixta.remove(0);
+            }
         tipoPreguntaMixtaAdapter.notifyDataSetChanged();
-        System.out.println("dim myListPreguntaAbierta despues:" + myListPreguntaMixta.size());
+        System.out.println("dim myListPreguntaMixta despues:" + myListPreguntaMixta.size());
     }
 
     @Override
@@ -65,47 +69,36 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.tipopreguntaabiertaitem_layout, parent, false);
+            convertView = inflater.inflate(R.layout.tipo_pregunta_mixta_layout, parent, false);
             mViewHolder = new MyViewHolder();
             mViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvNombreEncuestado);
-            mViewHolder.etRpta = (EditText) convertView.findViewById(R.id.etRespuestaPreguntaEncuestado);
+            mViewHolder.listRespuesta = (ExpandableHeightListview) convertView.findViewById(R.id.listView);
             convertView.setTag(mViewHolder);
             notifyDataSetChanged();
         } else {
             mViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-        final TipoPreguntaMixtaItem currentTipoPreguntaAbiertaItem = getItem(position);
+        final TipoPreguntaMixtaItem currentTipoPreguntaMixtaItem = getItem(position);
 
-        //mViewHolder.tvTitle.setText(currentTipoPreguntaAbiertaItem.getTitle());
-        //mViewHolder.etRpta.setHint(currentTipoPreguntaAbiertaItem.getDescription());
-
-        final int i = position;
-        mViewHolder.etRpta.addTextChangedListener(new TextWatcher() {
+        mViewHolder.tvTitle.setText(currentTipoPreguntaMixtaItem.getTitle());
+        //se carga el listview con los datos de las alternativas
+        mViewHolder.listRespuesta.setAdapter(new CheckboxesAdapter(context, currentTipoPreguntaMixtaItem.getAlternativasAsArrayList()));
+        mViewHolder.listRespuesta.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //((ListItem) myItems.get(i)).caption = s.toString();
-                //currentTipoPreguntaAbiertaItem.setDescription(s.toString());
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(context,
+                        myListPreguntaMixta.get(position).getTitle(), Toast.LENGTH_SHORT)
+                        .show();
             }
         });
-
         return convertView;
     }
 
     private class MyViewHolder {
         TextView tvTitle;
-        EditText etRpta;
-        
+        ExpandableHeightListview listRespuesta;
     }
 
 }

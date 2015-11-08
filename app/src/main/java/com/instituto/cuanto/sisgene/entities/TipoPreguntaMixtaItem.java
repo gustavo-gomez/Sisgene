@@ -20,18 +20,6 @@ public class TipoPreguntaMixtaItem {
         this.alternativas = alternativas;
     }
 
-    public String[] getAlternativasAsArray(){
-        String[] result = new String[alternativas.size()];
-        Iterator it = alternativas.keySet().iterator();
-        int i = 0;
-        while(it.hasNext()){
-            Integer key = (int) it.next();
-            result[i] = (String)alternativas.get(key);
-            i++;
-        }
-        return result;
-    }
-
     public ArrayList<Integer> getRespuestas() {
         return respuestas;
     }
@@ -46,5 +34,19 @@ public class TipoPreguntaMixtaItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public ArrayList<MixtaAlternativa> getAlternativasAsArrayList() {
+        ArrayList<MixtaAlternativa> ma = new ArrayList<>();
+        Iterator it = alternativas.keySet().iterator();
+        while(it.hasNext()){
+            Integer key = (int) it.next();
+            MixtaAlternativa temp = new MixtaAlternativa();
+            temp.setTitle((String) alternativas.get(key));
+            temp.setValue(false);
+            System.out.println("Alternativa " + temp.getTitle());
+            ma.add(temp);
+        }
+        return ma;
     }
 }

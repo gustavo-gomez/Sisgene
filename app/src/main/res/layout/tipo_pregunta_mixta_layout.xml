@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <CheckBox
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New CheckBox"
-        android:id="@+id/checkBox" />
+        android:text="New Text"
+        android:id="@+id/tvNombreEncuestado" />
 
-    <EditText
+    <com.instituto.cuanto.sisgene.mwtools.ExpandableHeightListview
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:id="@+id/editText"
-        android:visibility="gone"/>
+        android:background="@color/color_fondo_pantalla"
+        android:scrollbars="none"
+        android:orientation="vertical"
+        android:fadingEdge="none" />
 </LinearLayout>
