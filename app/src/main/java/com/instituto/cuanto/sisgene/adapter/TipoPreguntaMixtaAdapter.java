@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.R;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
+import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  */
 public class TipoPreguntaMixtaAdapter extends BaseAdapter {
 
-    public static ArrayList<TipoPreguntaMixtaItem> myListPreguntaMixta = new ArrayList<TipoPreguntaAbiertaItem>();
+    public static ArrayList<TipoPreguntaMixtaItem> myListPreguntaMixta = new ArrayList<TipoPreguntaMixtaItem>();
     LayoutInflater inflater;
     Context context;
     public static TipoPreguntaMixtaAdapter tipoPreguntaMixtaAdapter;
@@ -28,7 +29,7 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
     public TipoPreguntaMixtaAdapter() {
     }
 
-    public TipoPreguntaMixtaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myListPreguntaMixta) {
+    public TipoPreguntaMixtaAdapter(Context context, ArrayList<TipoPreguntaMixtaItem> myListPreguntaMixta) {
         this.myListPreguntaMixta = myListPreguntaMixta;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
@@ -74,10 +75,10 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
             mViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-        final TipoPreguntaAbiertaItem currentTipoPreguntaAbiertaItem = getItem(position);
+        final TipoPreguntaMixtaItem currentTipoPreguntaAbiertaItem = getItem(position);
 
-        mViewHolder.tvTitle.setText(currentTipoPreguntaAbiertaItem.getTitle());
-        mViewHolder.etRpta.setHint(currentTipoPreguntaAbiertaItem.getDescription());
+        //mViewHolder.tvTitle.setText(currentTipoPreguntaAbiertaItem.getTitle());
+        //mViewHolder.etRpta.setHint(currentTipoPreguntaAbiertaItem.getDescription());
 
         final int i = position;
         mViewHolder.etRpta.addTextChangedListener(new TextWatcher() {
@@ -94,7 +95,7 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
             @Override
             public void afterTextChanged(Editable s) {
                 //((ListItem) myItems.get(i)).caption = s.toString();
-                currentTipoPreguntaAbiertaItem.setDescription(s.toString());
+                //currentTipoPreguntaAbiertaItem.setDescription(s.toString());
             }
         });
 
@@ -104,7 +105,7 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
     private class MyViewHolder {
         TextView tvTitle;
         EditText etRpta;
-
+        
     }
 
 }

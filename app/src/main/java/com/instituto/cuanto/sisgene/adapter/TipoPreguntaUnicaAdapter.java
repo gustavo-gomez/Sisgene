@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
@@ -27,7 +28,6 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
     LayoutInflater inflater;
     Context context;
     public static TipoPreguntaUnicaAdapter tipoPreguntaUnicaAdapter;
-    public static List<String> arrayValoresAlternativas = new ArrayList<>();
 
     public TipoPreguntaUnicaAdapter() {
     }
@@ -42,8 +42,9 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
 
         int dim = myListPreguntaUnica.size();
         System.out.println("dim myListPreguntaUnica:" + myListPreguntaUnica.size());
-        for (int i = 0; i < dim; i++)
-            myListPreguntaUnica.remove(i);
+        if (dim != 0)
+            for (int i = 0; i < dim; i++)
+                myListPreguntaUnica.remove(i);
 
         tipoPreguntaUnicaAdapter.notifyDataSetChanged();
         System.out.println("dim myListPreguntaUnica despues:" + myListPreguntaUnica.size());
@@ -84,12 +85,25 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
         mViewHolder.tvTitle.setText(currentTipoPreguntaUnicaItem.getTitle());
         //se carga el spinnner con los datos de las alternativas
         ArrayAdapter<String> arrayValoresAlternativasAdapter = new ArrayAdapter<String>(context,
-                android.R.layout.simple_spinner_item, arrayValoresAlternativas);
+                android.R.layout.simple_spinner_item, currentTipoPreguntaUnicaItem.getAlternativasAsArray());
 
         arrayValoresAlternativasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         mViewHolder.spRespuesta.setAdapter(arrayValoresAlternativasAdapter);
 
+        mViewHolder.spRespuesta.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                }
+        );
         return convertView;
     }
 
