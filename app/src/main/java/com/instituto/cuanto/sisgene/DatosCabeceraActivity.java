@@ -2,7 +2,6 @@ package com.instituto.cuanto.sisgene;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,28 +10,31 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.instituto.cuanto.sisgene.fragment.PreguntasFragment;
 import com.instituto.cuanto.sisgene.util.Util;
+
+import java.util.ArrayList;
 
 /**
  * Created by Gustavo on 10/10/2015.
  */
-public class DatosEncuestadosActivity extends AppCompatActivity {
+public class DatosCabeceraActivity extends AppCompatActivity {
 
     TextView tvCodigoEncuesta, tvNombreSupervisor, tvNombreUsuario, tvGrupo, tvFecha, tvFechaVigenciaInicio, tvFechaVigenciaFinal;
     EditText etNombres, etApellidoPaterno, etApellidoMaterno, etDni, etCentroPoblado;
     EditText etConglomeradoN, etZonaAER, etManzanaN, etViviendaN, etHogarN, etDireccion, etTelefono, etCelular, etEmail;
     LinearLayout lyNombres, lyApellidoPaterno, lyApellidoMaterno, lyDni, lyDepartamento, lyProvincia, lyDistrito, lyCentroPoblado;
     LinearLayout lyConglomeradoN, lyZonaAER, lyManzanaN, lyViviendaN, lyHogarN, lyDireccion, lyTelefono, lyCelular, lyEmail;
-    Spinner spArea, spCondicion, spDepartamento, spProvincia, spDistrito;
+    Spinner spArea, spCondicion;
     LinearLayout lyspArea, lyspCondicion;
     Button btAceptar_datosUsuario;
+    ArrayList<String> nombresEncuestados;
+    public static String KEY_ARG_NOMBRE_JEFE = "KEY_ARG_NOMBRE_JEFE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_datos_encuestados);
-
+        setContentView(R.layout.activity_dato_encuestado);
+        nombresEncuestados = new ArrayList<>();
         tvCodigoEncuesta = (TextView) findViewById(R.id.tvCodigoEncuesta);
         tvNombreSupervisor = (TextView) findViewById(R.id.tvNombreSupervisor);
         tvNombreUsuario = (TextView) findViewById(R.id.tvNombreUsuario);
@@ -60,9 +62,7 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
         lyApellidoPaterno = (LinearLayout) findViewById(R.id.lyApellidoPaterno);
         lyApellidoMaterno = (LinearLayout) findViewById(R.id.lyApellidoMaterno);
         lyDni = (LinearLayout) findViewById(R.id.lyDni);
-        lyDepartamento = (LinearLayout) findViewById(R.id.lyDepartamento);
-        lyProvincia = (LinearLayout) findViewById(R.id.lyProvincia);
-        lyDistrito = (LinearLayout) findViewById(R.id.lyDistrito);
+
         lyCentroPoblado = (LinearLayout) findViewById(R.id.lyCentroPoblado);
         lyConglomeradoN = (LinearLayout) findViewById(R.id.lyConglomeradoN);
         lyZonaAER = (LinearLayout) findViewById(R.id.lyZonaAER);
@@ -77,10 +77,6 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
         btAceptar_datosUsuario = (Button) findViewById(R.id.btAceptar_datosUsuario);
         spArea = (Spinner) findViewById(R.id.spArea);
         spCondicion = (Spinner) findViewById(R.id.spCondicion);
-        spDepartamento = (Spinner) findViewById(R.id.spDepartamento);
-        spProvincia = (Spinner) findViewById(R.id.spProvincia);
-        spDistrito = (Spinner) findViewById(R.id.spDistrito);
-
         lyspArea = (LinearLayout) findViewById(R.id.lyspArea);
         lyspCondicion = (LinearLayout) findViewById(R.id.lyspCondicion);
 
@@ -130,7 +126,11 @@ public class DatosEncuestadosActivity extends AppCompatActivity {
             isComplete = false;
         }
         if (isComplete) {
-            Intent intent = new Intent(DatosEncuestadosActivity.this, PreguntasActivity.class);
+            nombresEncuestados.add(etNombres.getText().toString().trim() + " " + etApellidoPaterno.getText().toString().trim() + " " +
+                    etApellidoMaterno.getText().toString().trim());
+
+            Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);
+            intent.putExtra(KEY_ARG_NOMBRE_JEFE, nombresEncuestados);
             startActivity(intent);
             finish();
         }

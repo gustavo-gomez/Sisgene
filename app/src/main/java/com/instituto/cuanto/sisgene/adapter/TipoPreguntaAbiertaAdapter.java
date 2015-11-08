@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.instituto.cuanto.sisgene.PreguntasActivity;
 import com.instituto.cuanto.sisgene.R;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 
@@ -19,30 +21,38 @@ import java.util.ArrayList;
  */
 public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
 
-    ArrayList<TipoPreguntaAbiertaItem> myList = new ArrayList<TipoPreguntaAbiertaItem>();
+    public static ArrayList<TipoPreguntaAbiertaItem> myListPreguntaAbierta = new ArrayList<TipoPreguntaAbiertaItem>();
     LayoutInflater inflater;
     Context context;
+    public static TipoPreguntaAbiertaAdapter tipoPreguntaAbiertaAdapter;
 
-    public TipoPreguntaAbiertaAdapter(){}
-    public TipoPreguntaAbiertaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myList) {
-        this.myList = myList;
+    public TipoPreguntaAbiertaAdapter() {
+    }
+
+    public TipoPreguntaAbiertaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myListPreguntaAbierta) {
+        this.myListPreguntaAbierta = myListPreguntaAbierta;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
     }
+
     public void limpiarLista() {
-        if(myList.size()!=0) {
-            myList.clear();
-            notifyDataSetChanged();
-        }
+        int dim = myListPreguntaAbierta.size();
+        System.out.println("dim myListPreguntaAbierta:" + myListPreguntaAbierta.size());
+        //for (int i = 0; i < dim; i++)
+        myListPreguntaAbierta.remove(0);
+
+        tipoPreguntaAbiertaAdapter.notifyDataSetChanged();
+        System.out.println("dim myListPreguntaAbierta despues:" + myListPreguntaAbierta.size());
     }
+
     @Override
     public int getCount() {
-        return myList.size();
+        return myListPreguntaAbierta.size();
     }
 
     @Override
     public TipoPreguntaAbiertaItem getItem(int position) {
-        return myList.get(position);
+        return myListPreguntaAbierta.get(position);
     }
 
     @Override
@@ -55,8 +65,10 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.tipopreguntaabiertaitem_layou, parent, false);
-            mViewHolder = new MyViewHolder(convertView);
+            convertView = inflater.inflate(R.layout.tipopreguntaabiertaitem_layout, parent, false);
+            mViewHolder = new MyViewHolder();
+            mViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvNombreEncuestado);
+            mViewHolder.etRpta = (EditText) convertView.findViewById(R.id.etRespuestaPreguntaEncuestado);
             convertView.setTag(mViewHolder);
             notifyDataSetChanged();
         } else {
@@ -66,10 +78,10 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
         final TipoPreguntaAbiertaItem currentTipoPreguntaAbiertaItem = getItem(position);
 
         mViewHolder.tvTitle.setText(currentTipoPreguntaAbiertaItem.getTitle());
-        mViewHolder.tvDesc.setText(currentTipoPreguntaAbiertaItem.getDescription());
+        mViewHolder.etRpta.setHint(currentTipoPreguntaAbiertaItem.getDescription());
 
         final int i = position;
-        mViewHolder.tvDesc.addTextChangedListener(new TextWatcher() {
+        mViewHolder.etRpta.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -91,12 +103,9 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
     }
 
     private class MyViewHolder {
-        TextView tvTitle, tvDesc;
+        TextView tvTitle;
+        EditText etRpta;
 
-        public MyViewHolder(View item) {
-            tvTitle = (TextView) item.findViewById(R.id.tvNombreEntrevistado);
-            tvDesc = (TextView) item.findViewById(R.id.etRespuestaPregunta);
-        }
     }
 
 }

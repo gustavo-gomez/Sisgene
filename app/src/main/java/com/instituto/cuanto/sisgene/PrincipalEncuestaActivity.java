@@ -104,7 +104,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(PrincipalEncuestaActivity.this, DatosEncuestadosActivity.class);
+            Intent intent = new Intent(PrincipalEncuestaActivity.this, DatosCabeceraActivity.class);
             startActivity(intent);
         }
     };

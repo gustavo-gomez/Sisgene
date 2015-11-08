@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }else{
-                Toast.makeText(MainActivity.this, "El dispositivo no cuenta con conexión a INTERNET", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "El dispositivo no cuenta con conexión a INTERNET", Toast.LENGTH_LONG).show();
                 return;
             }
 

@@ -24,11 +24,16 @@
         <activity
             android:name=".PreguntasActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".NombresPersonasEncuestadasActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <activity
-            android:name=".DatosEncuestadosActivity"
+            android:name=".DatosCabeceraActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape"></activity>
 

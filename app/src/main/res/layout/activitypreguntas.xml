@@ -27,7 +27,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lyFragmentoListaPreguntas"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
@@ -51,8 +50,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:layout_margin="2dp"
             android:background="@color/color_fondo_boton"
             android:text="SIGUIENTE"
+            android:textColor="@color/color_texto_boton" />
+
+        <Button
+            android:id="@+id/btnGuardarEncuesta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="2dp"
+            android:background="@color/color_fondo_boton"
+            android:text="GUARDAR"
             android:textColor="@color/color_texto_boton" />
 
     </LinearLayout>
