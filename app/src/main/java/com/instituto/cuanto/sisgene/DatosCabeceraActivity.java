@@ -172,7 +172,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                         finish();
                 }
             } else {
-                Toast.makeText(DatosCabeceraActivity.this, "Error al insertar en base de datos", Toast.LENGTH_LONG).setDuration(Toast.);
+                Toast.makeText(DatosCabeceraActivity.this, "Error al insertar en base de datos", Toast.LENGTH_LONG).show();
                 finish();
             }
         }

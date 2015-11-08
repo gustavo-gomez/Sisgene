@@ -333,7 +333,13 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                             " " + apellidosMatEdits.get(i).getText().toString().trim());
 
                     //guardar todos los nombres en la base de datos
-                    //personaDAO
+                    boolean insertarAllegado = personaDAO.insertarAllegado(NombresPersonasEncuestadasActivity.this, nombresEdits.get(i).getText().toString().trim(),
+                            apellidosPatEdits.get(i).getText().toString().trim(), apellidosMatEdits.get(i).getText().toString().trim());
+                    if (insertarAllegado == false) {
+                        Toast.makeText(NombresPersonasEncuestadasActivity.this, "Ingrese el nombre de las " +
+                                +numerodePersonasEncuestadas + " personas ", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
                 }
 
                 for (int i = 0; i < numerodePersonasEncuestadas + 1; i++) {
