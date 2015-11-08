@@ -62,7 +62,7 @@ public class PreguntasActivity extends AppCompatActivity {
     private void leerTipoPreguntaxPregunta() {
         //eliminar cuando se haya hecho la consulta a la base de datos
         String tipoPregunta = "UN";
-        boolean encuestarTodos = false;
+        boolean encuestarTodos = true;
 
         //Realizar la consulta a base de datos para obtener la siguiente pregunta
 
@@ -104,6 +104,7 @@ public class PreguntasActivity extends AppCompatActivity {
             leerRespuestas();
             System.out.println("respuestas leidas -   se borra la lista");
             TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
+
             lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
             System.out.println("despues: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
             //poblarLista_TipoPreguntaAbierta(12);
