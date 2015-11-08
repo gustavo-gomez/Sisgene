@@ -40,7 +40,6 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
         System.out.println("dim myListPreguntaAbierta:" + myListPreguntaAbierta.size());
         //for (int i = 0; i < dim; i++)
         myListPreguntaAbierta.remove(0);
-
         tipoPreguntaAbiertaAdapter.notifyDataSetChanged();
         System.out.println("dim myListPreguntaAbierta despues:" + myListPreguntaAbierta.size());
     }

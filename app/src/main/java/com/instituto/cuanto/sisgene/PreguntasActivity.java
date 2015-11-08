@@ -104,7 +104,7 @@ public class PreguntasActivity extends AppCompatActivity {
             leerRespuestas();
             System.out.println("respuestas leidas -   se borra la lista");
             TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
-            TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.notifyDataSetChanged();
+            lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
             System.out.println("despues: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
             //poblarLista_TipoPreguntaAbierta(12);
         }
