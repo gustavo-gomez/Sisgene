@@ -27,7 +27,7 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
     LayoutInflater inflater;
     Context context;
     public static TipoPreguntaUnicaAdapter tipoPreguntaUnicaAdapter;
-    public static List<String> arrayValoresAlternativas;
+    public static List<String> arrayValoresAlternativas = new ArrayList<>();
 
     public TipoPreguntaUnicaAdapter() {
     }
@@ -36,15 +36,14 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
         this.myListPreguntaUnica = myListPreguntaUnica;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
-            arrayValoresAlternativas = new ArrayList<>();
     }
 
     public void limpiarLista() {
 
         int dim = myListPreguntaUnica.size();
         System.out.println("dim myListPreguntaUnica:" + myListPreguntaUnica.size());
-        //for (int i = 0; i < dim; i++)
-        myListPreguntaUnica.remove(0);
+        for (int i = 0; i < dim; i++)
+            myListPreguntaUnica.remove(i);
 
         tipoPreguntaUnicaAdapter.notifyDataSetChanged();
         System.out.println("dim myListPreguntaUnica despues:" + myListPreguntaUnica.size());

@@ -57,17 +57,16 @@ public class PreguntasActivity extends AppCompatActivity {
 
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
 
-        leerTipoPreguntaxPregunta();
+
+        String tipoPregunta = "AB";
+        leerTipoPreguntaxPregunta(tipoPregunta);
 
     }
 
-    private void leerTipoPreguntaxPregunta() {
+    private void leerTipoPreguntaxPregunta(String tipoPregunta) {
         //eliminar cuando se haya hecho la consulta a la base de datos
-        String tipoPregunta = "UN";
+
         boolean encuestarTodos = true;
-
-        //Realizar la consulta a base de datos para obtener la siguiente pregunta
-
 
         //Tipo de pregunta Unica
         if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
@@ -109,6 +108,8 @@ public class PreguntasActivity extends AppCompatActivity {
 
             lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
             System.out.println("despues: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
+
+            leerTipoPreguntaxPregunta("UN");
             //poblarLista_TipoPreguntaAbierta(12);
         }
     };
