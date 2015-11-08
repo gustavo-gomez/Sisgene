@@ -28,14 +28,13 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
     LayoutInflater inflater;
     Context context;
     public static TipoPreguntaMixtaAdapter tipoPreguntaMixtaAdapter;
+    private Boolean mixta;
 
-    public TipoPreguntaMixtaAdapter() {
-    }
-
-    public TipoPreguntaMixtaAdapter(Context context, ArrayList<TipoPreguntaMixtaItem> myListPreguntaMixta) {
+    public TipoPreguntaMixtaAdapter(Context context, ArrayList<TipoPreguntaMixtaItem> myListPreguntaMixta, Boolean mixta) {
         this.myListPreguntaMixta = myListPreguntaMixta;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
+        this.mixta = mixta;
     }
 
     public void limpiarLista() {
@@ -66,7 +65,7 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MyViewHolder mViewHolder;
+        final MyViewHolder mViewHolder;
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.tipo_pregunta_mixta_layout, parent, false);
@@ -83,16 +82,8 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
 
         mViewHolder.tvTitle.setText(currentTipoPreguntaMixtaItem.getTitle());
         //se carga el listview con los datos de las alternativas
-        mViewHolder.listRespuesta.setAdapter(new CheckboxesAdapter(context, currentTipoPreguntaMixtaItem.getAlternativasAsArrayList()));
-        mViewHolder.listRespuesta.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(context,
-                        myListPreguntaMixta.get(position).getTitle(), Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
+        mViewHolder.listRespuesta.setAdapter(new CheckboxesAdapter(context, currentTipoPreguntaMixtaItem.getAlternativasAsArrayList(), mixta));
+
         return convertView;
     }
 

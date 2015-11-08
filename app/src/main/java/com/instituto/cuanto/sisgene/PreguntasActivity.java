@@ -81,7 +81,7 @@ public class PreguntasActivity extends AppCompatActivity {
             //Tipo de pregunta Multiple
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
             //tipoPreguntaAbiertaAdapter.limpiarLista();
-
+            poblarLista_TipoPreguntaMixta(encuestarTodos,false);
 
             //Tipo de pregunta abierta
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
@@ -99,7 +99,7 @@ public class PreguntasActivity extends AppCompatActivity {
             //Tipo de pregunta Mixta
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
             // tipoPreguntaAbiertaAdapter.limpiarLista();
-            poblarLista_TipoPreguntaMixta(encuestarTodos);
+            poblarLista_TipoPreguntaMixta(encuestarTodos,true);
         }
     }
 
@@ -209,7 +209,7 @@ public class PreguntasActivity extends AppCompatActivity {
         System.out.println("num pregunta: " + numPregunta);
     }
 
-    private void poblarLista_TipoPreguntaMixta(boolean encuestarTodos) {
+    private void poblarLista_TipoPreguntaMixta(boolean encuestarTodos,boolean mixta) {
         HashMap<Integer,String> alternativas = new HashMap<>();
         for (int i=0;i<5;i++) {
             alternativas.put(i + 1, "Opcion " + (i + 1));
@@ -225,7 +225,7 @@ public class PreguntasActivity extends AppCompatActivity {
                 break;
         }
         System.out.println("miListaTipoPreguntaMixta: " + TipoPreguntaMixtaAdapter.myListPreguntaMixta.size());
-        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaMixtaAdapter(context, TipoPreguntaMixtaAdapter.myListPreguntaMixta));
+        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaMixtaAdapter(context, TipoPreguntaMixtaAdapter.myListPreguntaMixta,mixta));
         System.out.println("num pregunta: " + numPregunta);
     }
 }

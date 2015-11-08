@@ -28,11 +28,12 @@ public class CheckboxesAdapter extends BaseAdapter implements
     private LayoutInflater layoutInflater;
     private ArrayList<MixtaAlternativa> myListaCheckboxes;
     private Context context;
-
-    public CheckboxesAdapter(Context context, ArrayList<MixtaAlternativa> myListaCheckboxes) {
+    private Boolean mixta;
+    public CheckboxesAdapter(Context context, ArrayList<MixtaAlternativa> myListaCheckboxes, Boolean mixta) {
         this.myListaCheckboxes = myListaCheckboxes;
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
+        this.mixta = mixta;
     }
 
     @Override
@@ -69,7 +70,7 @@ public class CheckboxesAdapter extends BaseAdapter implements
         holder.checkBox.setText(row.getTitle());
         holder.checkBox.setChecked(row.getValue());
         holder.checkBox.setOnClickListener(this);
-        if(position==getCount()-1){
+        if(position==getCount()-1 && mixta){
             holder.editText.setVisibility(View.VISIBLE);
         }else{
             holder.editText.setVisibility(View.GONE);
@@ -82,6 +83,7 @@ public class CheckboxesAdapter extends BaseAdapter implements
         CheckBox checkBox = (CheckBox) v;
         int position = (Integer) v.getTag();
         getItem(position).setValue(checkBox.isChecked());
+        System.out.println("selecciono: " + position);
     }
 
     private static class Holder {
