@@ -33,6 +33,7 @@ public class PreguntasActivity extends AppCompatActivity {
     ScrollView scrollView;
     TextView tvEnunciadoPregunta;
     TextView tvOpcionesPregunta;
+    String tipoPreguntaActual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +58,9 @@ public class PreguntasActivity extends AppCompatActivity {
 
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
 
-
+        //leer todos los datos de la primera pregunta
         String tipoPregunta = "AB";
+        tipoPreguntaActual = tipoPregunta;
         leerTipoPreguntaxPregunta(tipoPregunta);
 
     }
@@ -100,21 +102,44 @@ public class PreguntasActivity extends AppCompatActivity {
     View.OnClickListener btnSiguientesetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            System.out.println("antes: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
+            //System.out.println("antes: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
             //miListaTipoPreguntaAbierta.remove(0);
-            leerRespuestas();
-            System.out.println("respuestas leidas -   se borra la lista");
-            TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
 
-            lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
-            System.out.println("despues: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
+            leerDatos();
+
+            leerRespuestasTipoAbierta();
+            System.out.println("respuestas leidas -   se borra la lista");
+
+            //TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
+            //TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.limpiarLista();
+
+            //lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
+            //System.out.println("despues: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
 
             leerTipoPreguntaxPregunta("UN");
-            //poblarLista_TipoPreguntaAbierta(12);
         }
     };
 
-    private void leerRespuestas() {
+    private void leerDatos() {
+        //Leer los dato segun el tipo de pregunta actual
+
+
+        if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
+
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
+
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
+            leerRespuestasTipoAbierta();
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatSimple))) {
+
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatMultiple))) {
+
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
+
+        }
+    }
+
+    private void leerRespuestasTipoAbierta() {
         System.out.println("len datos size: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
         System.out.println("len datos count: " + TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getCount());
 
@@ -122,6 +147,17 @@ public class PreguntasActivity extends AppCompatActivity {
             TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
             System.out.println("nombre: " + tipoPreguntaAbiertaItem.getTitle());
             System.out.println("respuesta: " + tipoPreguntaAbiertaItem.getDescription());
+        }
+    }
+
+    private void leerRespuestasTipoUnica() {
+        System.out.println("len datos size: " + TipoPreguntaUnicaAdapter.myListPreguntaUnica.size());
+        System.out.println("len datos count: " + TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.getCount());
+
+        for (int i = 0; i < TipoPreguntaUnicaAdapter.myListPreguntaUnica.size(); i++) {
+            TipoPreguntaUnicaItem tipoPreguntaUnicaItem = TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.getItem(i);
+            System.out.println("nombre: " + tipoPreguntaUnicaItem.getTitle());
+            System.out.println("respuesta: " + tipoPreguntaUnicaItem.getRespuesta());
         }
     }
 

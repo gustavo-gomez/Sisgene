@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
@@ -42,8 +43,9 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
 
         int dim = myListPreguntaUnica.size();
         System.out.println("dim myListPreguntaUnica:" + myListPreguntaUnica.size());
-        for (int i = 0; i < dim; i++)
-            myListPreguntaUnica.remove(i);
+        if (dim != 0)
+            for (int i = 0; i < dim; i++)
+                myListPreguntaUnica.remove(i);
 
         tipoPreguntaUnicaAdapter.notifyDataSetChanged();
         System.out.println("dim myListPreguntaUnica despues:" + myListPreguntaUnica.size());
@@ -90,6 +92,19 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
 
         mViewHolder.spRespuesta.setAdapter(arrayValoresAlternativasAdapter);
 
+        mViewHolder.spRespuesta.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                }
+        );
         return convertView;
     }
 
