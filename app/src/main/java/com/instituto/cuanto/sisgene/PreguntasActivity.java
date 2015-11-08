@@ -47,6 +47,7 @@ public class PreguntasActivity extends AppCompatActivity {
         tvEnunciadoPregunta = (TextView) findViewById(R.id.tvEnunciadoPregunta);
         tvOpcionesPregunta = (TextView) findViewById(R.id.tvOpcionesPregunta);
         TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter = new TipoPreguntaAbiertaAdapter();
+        TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter = new TipoPreguntaUnicaAdapter();
         //miListaTipoPreguntaAbierta = new ArrayList<>();
         scrollView = new ScrollView(PreguntasActivity.this);
 
@@ -60,7 +61,6 @@ public class PreguntasActivity extends AppCompatActivity {
 
         //leer todos los datos de la primera pregunta
         String tipoPregunta = "AB";
-        tipoPreguntaActual = tipoPregunta;
         leerTipoPreguntaxPregunta(tipoPregunta);
 
     }
@@ -69,7 +69,7 @@ public class PreguntasActivity extends AppCompatActivity {
         //eliminar cuando se haya hecho la consulta a la base de datos
 
         boolean encuestarTodos = true;
-
+        tipoPreguntaActual = tipoPregunta;
         //Tipo de pregunta Unica
         if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
             //tipoPreguntaAbiertaAdapter.limpiarLista();
@@ -125,7 +125,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
 
         if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
-
+            leerRespuestasTipoUnica();
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
 
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
@@ -152,12 +152,11 @@ public class PreguntasActivity extends AppCompatActivity {
 
     private void leerRespuestasTipoUnica() {
         System.out.println("len datos size: " + TipoPreguntaUnicaAdapter.myListPreguntaUnica.size());
-        System.out.println("len datos count: " + TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.getCount());
 
         for (int i = 0; i < TipoPreguntaUnicaAdapter.myListPreguntaUnica.size(); i++) {
             TipoPreguntaUnicaItem tipoPreguntaUnicaItem = TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.getItem(i);
-            System.out.println("nombre: " + tipoPreguntaUnicaItem.getTitle());
-            System.out.println("respuesta: " + tipoPreguntaUnicaItem.getRespuesta());
+            System.out.println("nombre unica: " + tipoPreguntaUnicaItem.getTitle());
+            System.out.println("respuesta unica: " + tipoPreguntaUnicaItem.getRespuesta());
         }
     }
 
