@@ -40,36 +40,18 @@
         android:layout_height="wrap_content"
         android:id="@+id/etFechaIni"
         android:hint="dd/mm/yyyy"
-        android:layout_below="@+id/textView6"
-        android:layout_toEndOf="@+id/textView5" />
+        android:layout_below="@+id/textView5"
+        android:layout_toStartOf="@+id/textView8"
+        android:layout_marginEnd="20dp" />
 
     <EditText
         android:layout_width="150sp"
         android:layout_height="wrap_content"
         android:id="@+id/etFechaFin"
         android:hint="dd/mm/yyy"
+        android:layout_marginStart="13dp"
         android:layout_alignTop="@+id/etFechaIni"
-        android:layout_toEndOf="@+id/etFechaIni"
-        android:layout_marginStart="71dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Estado :"
-        android:id="@+id/textView4"
-        android:textColor="#000000"
-        android:layout_below="@+id/textView5"
-        android:layout_toEndOf="@+id/txExportar"
-        android:layout_marginStart="43dp" />
-
-    <Spinner
-        android:layout_width="250sp"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:entries="@array/lista_estadoenvio"
-        android:layout_alignTop="@+id/etFechaFin"
-        android:layout_alignStart="@+id/textView4" />
+        android:layout_alignStart="@+id/txExportar" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -77,10 +59,11 @@
         android:layout_height="wrap_content"
         android:text="BUSCAR"
         android:id="@+id/btnBuscar"
-        android:layout_alignTop="@+id/spinner"
-        android:layout_toEndOf="@+id/spinner"
         android:background="@color/color_fondo_boton"
-        android:textColor="@color/color_texto_boton"/>
+        android:textColor="@color/color_texto_boton"
+        android:layout_marginEnd="45dp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentEnd="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -88,11 +71,10 @@
         android:layout_height="wrap_content"
         android:text="ENVIAR"
         android:id="@+id/btnEnviar"
-        android:layout_marginStart="27dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/etFechaIni"
         android:background="@color/color_fondo_boton"
-        android:textColor="@color/color_texto_boton"/>
+        android:textColor="@color/color_texto_boton"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/etFechaFin" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -100,10 +82,10 @@
         android:layout_height="wrap_content"
         android:text="SALIR"
         android:id="@+id/btnSalir"
-        android:layout_below="@+id/lstEncuestas"
-        android:layout_toEndOf="@+id/etFechaFin"
         android:background="@color/color_fondo_boton"
-        android:textColor="@color/color_texto_boton"/>
+        android:textColor="@color/color_texto_boton"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/txExportar" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -122,8 +104,7 @@
         android:id="@+id/textView7"
         android:layout_alignBaseline="@+id/etFechaIni"
         android:layout_alignBottom="@+id/etFechaIni"
-        android:layout_alignEnd="@+id/textView5"
-        android:layout_marginEnd="16dp" />
+        android:layout_toEndOf="@+id/textView5" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -131,8 +112,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="hasta"
         android:id="@+id/textView8"
+        android:layout_marginEnd="10dp"
         android:layout_alignTop="@+id/textView7"
-        android:layout_toEndOf="@+id/etFechaIni"
-        android:layout_marginStart="13dp" />
+        android:layout_toStartOf="@+id/txExportar" />
 
 </RelativeLayout>

@@ -6,18 +6,12 @@ package com.instituto.cuanto.sisgene.bean;
 public class Usuario {
 
     private String nombre;
-    private String apellido;
+    private String ap_paterno;
+    private String ap_materno;
+    private String rol;
 
     public Usuario(){
         //Constructor
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
     }
 
     public String getNombre() {
@@ -26,5 +20,29 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getAp_paterno() {
+        return ap_paterno;
+    }
+
+    public void setAp_paterno(String ap_paterno) {
+        this.ap_paterno = ap_paterno;
+    }
+
+    public String getAp_materno() {
+        return ap_materno;
+    }
+
+    public void setAp_materno(String ap_materno) {
+        this.ap_materno = ap_materno;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

@@ -51,6 +51,7 @@ public class ListViewAdapter extends BaseAdapter{
 		TextView txtFive;
 		TextView txtSix;
 		TextView txtSeven;
+		TextView txtEight;
 	}
 	
 	@Override
@@ -73,6 +74,7 @@ public class ListViewAdapter extends BaseAdapter{
 			holder.txtFive		= (TextView) convertView.findViewById(R.id.TextFive);
 			holder.txtSix		= (TextView) convertView.findViewById(R.id.TextSix);
 			holder.txtSeven		= (TextView) convertView.findViewById(R.id.TextSeven);
+			holder.txtEight		= (TextView) convertView.findViewById(R.id.TextEight);
 			
 			convertView.setTag(holder);
 		}else{
@@ -88,6 +90,7 @@ public class ListViewAdapter extends BaseAdapter{
 		holder.txtFive.setText(map.get(Constants.FIVE_COLUMN));
 		holder.txtSix.setText(map.get(Constants.SIX_COLUMN));
 		holder.txtSeven.setText(map.get(Constants.SEVEN_COLUMN));
+		holder.txtEight.setText(map.get(Constants.EIGHT_COLUMN));
 		
 		return convertView;
 	}

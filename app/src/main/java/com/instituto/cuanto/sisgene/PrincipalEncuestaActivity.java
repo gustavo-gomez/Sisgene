@@ -1,6 +1,7 @@
 package com.instituto.cuanto.sisgene;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,11 +9,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.instituto.cuanto.sisgene.bean.CabeceraRespuesta;
 import com.instituto.cuanto.sisgene.constantes.Constants;
+import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.util.ListViewAdapter;
 import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -37,6 +41,10 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
 
     Button btnSalir;
 
+    String rolUsu;
+    String nombreUsu;
+    String userUsu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +62,20 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         iniReloj = new Thread(r);
         iniReloj.start();
 
-        encuestadorValor.setText("Jesus Cahuana Auquipuma");
-        supervisorValor.setText("Juan Arango Pineda");
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        userUsu = pref.getString("user", null);
+        nombreUsu = pref.getString("nombres", null);
+        rolUsu = pref.getString("rol", null);
+
+        if(rolUsu.equals("ENCUESTADOR")){
+            encuestadorValor.setText(nombreUsu);
+            supervisorValor.setText("NOMBRE SUPERVISOR..");
+        }
+
+        if(rolUsu.equals("SUPERVISOR")){
+            encuestadorValor.setText("");
+            supervisorValor.setText(nombreUsu);
+        }
 
         ListView listView = (ListView) findViewById(R.id.lvListaEncuesta);
         populateList();
@@ -174,43 +194,29 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         HashMap<String, String> temp = new HashMap<String, String>();
         temp.put(Constants.FIRST_COLUMN, "ENCUESTADOR");
         temp.put(Constants.SECOND_COLUMN, "N° ENCUESTA");
-        temp.put(Constants.THIRD_COLUMN, "FE. DESARROLLO");
-        temp.put(Constants.FOURTH_COLUMN, "ESTADO");
-        temp.put(Constants.FIVE_COLUMN, "AP. PATERNO");
-        temp.put(Constants.SIX_COLUMN, "AP. MATERNO");
-        temp.put(Constants.SEVEN_COLUMN, "NOMBRES");
+        temp.put(Constants.THIRD_COLUMN, "FE. DESAR");
+        temp.put(Constants.FOURTH_COLUMN, "ENCUESTADO");
+        temp.put(Constants.FIVE_COLUMN, "H. INICIO");
+        temp.put(Constants.SIX_COLUMN, "H. TERMINO");
+        temp.put(Constants.SEVEN_COLUMN, "TIEMPO");
+        temp.put(Constants.EIGHT_COLUMN, "ESTADO");
         list.add(temp);
 
-        HashMap<String, String> temp2 = new HashMap<String, String>();
-        temp2.put(Constants.FIRST_COLUMN, "Jesus Cahuana");
-        temp2.put(Constants.SECOND_COLUMN, "101");
-        temp2.put(Constants.THIRD_COLUMN, "10/10/2015");
-        temp2.put(Constants.FOURTH_COLUMN, "Completo");
-        temp2.put(Constants.FIVE_COLUMN, "Lopez");
-        temp2.put(Constants.SIX_COLUMN, "Arias");
-        temp2.put(Constants.SEVEN_COLUMN, "Juan");
-        list.add(temp2);
+        CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
+        List<CabeceraRespuesta> listaCabeceraResp = cabeceraRespDAO.obtenerCabeceraRespuestas(PrincipalEncuestaActivity.this);
 
-        HashMap<String, String> temp3 = new HashMap<String, String>();
-        temp3.put(Constants.FIRST_COLUMN, "Jesus Cahuana");
-        temp3.put(Constants.SECOND_COLUMN, "102");
-        temp3.put(Constants.THIRD_COLUMN, "10/10/2015");
-        temp3.put(Constants.FOURTH_COLUMN, "Completo");
-        temp3.put(Constants.FIVE_COLUMN, "Perez");
-        temp3.put(Constants.SIX_COLUMN, "Yucra");
-        temp3.put(Constants.SEVEN_COLUMN, "Juan");
-        list.add(temp3);
-
-        HashMap<String, String> temp4 = new HashMap<String, String>();
-        temp4.put(Constants.FIRST_COLUMN, "Jesus Cahuana");
-        temp4.put(Constants.SECOND_COLUMN, "103");
-        temp4.put(Constants.THIRD_COLUMN, "10/10/2015");
-        temp4.put(Constants.FOURTH_COLUMN, "Completo");
-        temp4.put(Constants.FIVE_COLUMN, "Cahuana");
-        temp4.put(Constants.SIX_COLUMN, "Auquipuma");
-        temp4.put(Constants.SEVEN_COLUMN, "Michel");
-        list.add(temp4);
-
+        for(CabeceraRespuesta cabeceraResp: listaCabeceraResp){
+            HashMap<String, String> temp2 = new HashMap<String, String>();
+            temp2.put(Constants.FIRST_COLUMN, cabeceraResp.getUserEncuestador());
+            temp2.put(Constants.SECOND_COLUMN, cabeceraResp.getNumEncuesta());
+            temp2.put(Constants.THIRD_COLUMN, cabeceraResp.getFechaDesarrollo());
+            temp2.put(Constants.FOURTH_COLUMN, cabeceraResp.getNombreEncuestado()+" "+cabeceraResp.getApMaternoEncuestado()+" "+cabeceraResp.getApPaternoEncuestado());
+            temp2.put(Constants.FIVE_COLUMN, cabeceraResp.getHoraInicio());
+            temp2.put(Constants.SIX_COLUMN, cabeceraResp.getHoraFin());
+            temp2.put(Constants.SEVEN_COLUMN, cabeceraResp.getTiempo());
+            temp2.put(Constants.EIGHT_COLUMN, cabeceraResp.getTiempo());
+            list.add(temp2);
+        }
 
     }
 

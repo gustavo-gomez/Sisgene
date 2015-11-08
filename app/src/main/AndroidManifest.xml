@@ -52,6 +52,11 @@
             android:label="@string/app_name"
             android:screenOrientation="landscape"></activity>
 
+        <activity
+            android:name=".ModificarEncuestaActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"></activity>
+
 
     </application>
 

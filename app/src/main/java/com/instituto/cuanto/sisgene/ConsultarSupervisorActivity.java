@@ -5,26 +5,31 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.instituto.cuanto.sisgene.bean.CabeceraRespuesta;
 import com.instituto.cuanto.sisgene.constantes.Constants;
+import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.util.ListViewAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Jesus on 18/10/2015.
  */
 public class ConsultarSupervisorActivity extends AppCompatActivity {
 
-    Button btnSalir,btnResumen;
+    Button btnSalir,btnResumen, btnBuscar;
     private ArrayList<HashMap<String, String>> list;
     TextView txtSupervisor;
+    ListView listView;
     Spinner spnEncuestadores;
 
     String rolUsu;
@@ -33,7 +38,8 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
     String listEncuestadores;
 
     ArrayAdapter<String> lstEnc;
-    String [] arrEncuestadores;
+
+    String estadoEnvi="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,28 +49,37 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
         btnSalir = (Button)findViewById(R.id.btnSalir);
         btnSalir.setOnClickListener(btnSalirsetOnClickListener);
 
+        btnBuscar = (Button)findViewById(R.id.btnBuscar);
+        btnBuscar.setOnClickListener(btnBuscarsetOnClickListener);
+
         btnResumen = (Button)findViewById(R.id.btnResumen);
         //btnResumen.setOnClickListener(btnSalirsetOnClickListener);
 
         txtSupervisor = (TextView)findViewById(R.id.txtSupervisor);
-        spnEncuestadores = (Spinner) findViewById(R.id.spnEncuestadores);
+        spnEncuestadores = (Spinner) findViewById(R.id.spnEstados);
 
         //Recargando lista
-        ListView listView=(ListView)findViewById(R.id.lstEncuestas);
+        listView=(ListView)findViewById(R.id.lstEncuestas);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
+
+                if(posicion != 0){
+                    System.out.println("POSITION: "+posicion);
+                    System.out.println("LONGITUD: "+id);
+                    System.out.println("CLLLLLIIIIICKKKKKKK");
+                    Intent intent = new Intent(ConsultarSupervisorActivity.this, ModificarEncuestaActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
         populateList();
-        ListViewAdapter adapter=new ListViewAdapter(this, list);
-        listView.setAdapter(adapter);
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         userUsu = pref.getString("user", null);
         nombreUsu = pref.getString("nombres", null);
         rolUsu = pref.getString("rol", null);
-        listEncuestadores = pref.getString("lstEncuestadores", null);
-
-        arrEncuestadores = obtenerListaEncuestadores(listEncuestadores);
-        lstEnc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrEncuestadores);
-
-        spnEncuestadores.setAdapter(lstEnc);
 
         txtSupervisor.setText(nombreUsu);
 
@@ -79,12 +94,27 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
         }
     };
 
-    public String[] obtenerListaEncuestadores(String cadena){
+    View.OnClickListener btnBuscarsetOnClickListener = new View.OnClickListener() {
 
-        String [] response = cadena.split(",");
+        @Override
+        public void onClick(View v) {
+            listView =(ListView)findViewById(R.id.lstEncuestas);
 
-        return response;
-    }
+            String estEnviado = spnEncuestadores.getSelectedItem().toString();
+
+            if(estEnviado.equals("ENVIADO")){
+                estadoEnvi = "1";
+            }
+            if(estEnviado.equals("NO ENVIADO")){
+                estadoEnvi = "0";
+            }
+            if(estEnviado.equals("SELECCIONE")){
+                estadoEnvi = "";
+            }
+
+            populateList();
+        }
+    };
 
     @Override
     public void onBackPressed() {
@@ -93,48 +123,37 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
     private void populateList() {
         // TODO Auto-generated method stub
 
-        list=new ArrayList<HashMap<String,String>>();
+        list = new ArrayList<HashMap<String, String>>();
 
-        HashMap<String,String> temp=new HashMap<String, String>();
+        HashMap<String, String> temp = new HashMap<String, String>();
         temp.put(Constants.FIRST_COLUMN, "ENCUESTADOR");
         temp.put(Constants.SECOND_COLUMN, "N° ENCUESTA");
-        temp.put(Constants.THIRD_COLUMN, "FE. DESARROLLO");
-        temp.put(Constants.FOURTH_COLUMN, "ESTADO");
-        temp.put(Constants.FIVE_COLUMN, "AP. PATERNO");
-        temp.put(Constants.SIX_COLUMN, "AP. MATERNO");
-        temp.put(Constants.SEVEN_COLUMN, "NOMBRES");
+        temp.put(Constants.THIRD_COLUMN, "FE. DESAR");
+        temp.put(Constants.FOURTH_COLUMN, "ENCUESTADO");
+        temp.put(Constants.FIVE_COLUMN, "H. INICIO");
+        temp.put(Constants.SIX_COLUMN, "H. TERMINO");
+        temp.put(Constants.SEVEN_COLUMN, "TIEMPO");
+        temp.put(Constants.EIGHT_COLUMN, "ESTADO");
         list.add(temp);
 
-        HashMap<String,String> temp2=new HashMap<String, String>();
-        temp2.put(Constants.FIRST_COLUMN, "Jesus Cahuana");
-        temp2.put(Constants.SECOND_COLUMN, "101");
-        temp2.put(Constants.THIRD_COLUMN, "10/10/2015");
-        temp2.put(Constants.FOURTH_COLUMN, "No enviado");
-        temp2.put(Constants.FIVE_COLUMN, "Lopez");
-        temp2.put(Constants.SIX_COLUMN, "Arias");
-        temp2.put(Constants.SEVEN_COLUMN, "Juan");
-        list.add(temp2);
+        CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
+        List<CabeceraRespuesta> listaCabeceraResp = cabeceraRespDAO.obtenerCabeceraRespuestas(ConsultarSupervisorActivity.this,estadoEnvi);
 
-        HashMap<String,String> temp3=new HashMap<String, String>();
-        temp3.put(Constants.FIRST_COLUMN, "Jesus Cahuana");
-        temp3.put(Constants.SECOND_COLUMN, "102");
-        temp3.put(Constants.THIRD_COLUMN, "10/10/2015");
-        temp3.put(Constants.FOURTH_COLUMN, "No Enviado");
-        temp3.put(Constants.FIVE_COLUMN, "Perez");
-        temp3.put(Constants.SIX_COLUMN, "Yucra");
-        temp3.put(Constants.SEVEN_COLUMN, "Juan");
-        list.add(temp3);
+        for(CabeceraRespuesta cabeceraResp: listaCabeceraResp){
+            HashMap<String, String> temp2 = new HashMap<String, String>();
+            temp2.put(Constants.FIRST_COLUMN, cabeceraResp.getUserEncuestador());
+            temp2.put(Constants.SECOND_COLUMN, cabeceraResp.getNumEncuesta());
+            temp2.put(Constants.THIRD_COLUMN, cabeceraResp.getFechaDesarrollo());
+            temp2.put(Constants.FOURTH_COLUMN, cabeceraResp.getNombreEncuestado()+" "+cabeceraResp.getApMaternoEncuestado()+" "+cabeceraResp.getApPaternoEncuestado());
+            temp2.put(Constants.FIVE_COLUMN, cabeceraResp.getHoraInicio());
+            temp2.put(Constants.SIX_COLUMN, cabeceraResp.getHoraFin());
+            temp2.put(Constants.SEVEN_COLUMN, cabeceraResp.getTiempo());
+            temp2.put(Constants.EIGHT_COLUMN, cabeceraResp.getEstado());
+            list.add(temp2);
+        }
 
-        HashMap<String,String> temp4=new HashMap<String, String>();
-        temp4.put(Constants.FIRST_COLUMN, "Jesus Cahuana");
-        temp4.put(Constants.SECOND_COLUMN, "103");
-        temp4.put(Constants.THIRD_COLUMN, "10/10/2015");
-        temp4.put(Constants.FOURTH_COLUMN, "No enviado");
-        temp4.put(Constants.FIVE_COLUMN, "Cahuana");
-        temp4.put(Constants.SIX_COLUMN, "Auquipuma");
-        temp4.put(Constants.SEVEN_COLUMN, "Michel");
-        list.add(temp4);
-
+        ListViewAdapter adapter=new ListViewAdapter(this, list);
+        listView.setAdapter(adapter);
 
     }
 }

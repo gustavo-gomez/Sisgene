@@ -25,31 +25,5 @@ public class DataBaseHelper extends SQLiteAssetHelper {
         db = getWritableDatabase();
     }
 
-    public Usuario obtenerUsuario(Context context) {
-        Cursor cursor = null;
-        Usuario usu = null;
-        String[] valores_recuperar = {"usu_usuario", "usu_clave"};
-        DataBaseHelper dataBaseHelper;
-
-
-        try {
-            cursor = db.query("usuario", valores_recuperar, null, null, null, null, null);
-
-            if (cursor.moveToFirst()) {
-                usu = new Usuario();
-                do {
-                    usu.setNombre(cursor.isNull(cursor.getColumnIndex("usu_usuario")) ? "" : cursor.getString(cursor.getColumnIndex("usu_usuario")));
-                    usu.setApellido(cursor.isNull(cursor.getColumnIndex("usu_clave")) ? "" : cursor.getString(cursor.getColumnIndex("usu_clave")));
-                } while (cursor.moveToNext()) ;
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-        return usu;
-    }
-
 
 }

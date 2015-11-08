@@ -9,4 +9,5 @@ public class Constants {
 	public static final String FIVE_COLUMN="Five";
 	public static final String SIX_COLUMN="Six";
 	public static final String SEVEN_COLUMN="Seven";
+	public static final String EIGHT_COLUMN="Eight";
 }

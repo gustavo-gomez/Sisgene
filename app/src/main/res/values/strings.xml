@@ -25,6 +25,7 @@
     <string-array name="lista_rol">
         <item>ENCUESTADOR</item>
         <item>SUPERVISOR</item>
+        <item>ADMINISTRADOR</item>
     </string-array>
 
 </resources>

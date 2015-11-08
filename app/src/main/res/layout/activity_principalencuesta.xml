@@ -156,9 +156,9 @@
             android:id="@+id/lvListaEncuesta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/btnNuevaEncuesta"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView"></ListView>
+            android:layout_above="@+id/btnNuevaEncuesta"
+            android:layout_below="@+id/scrollView"></ListView>
 
     </RelativeLayout>
 

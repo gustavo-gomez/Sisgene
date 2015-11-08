@@ -44,6 +44,7 @@ public class PrincipalActivity extends AppCompatActivity {
         rolUsu = pref.getString("rol", null);
 
         if(rolUsu.equals("ENCUESTADOR")){
+            btnExportar.setVisibility(View.INVISIBLE);
             btnConsultar.setVisibility(View.INVISIBLE);
         }
 
