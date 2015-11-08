@@ -28,7 +28,6 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
     LayoutInflater inflater;
     Context context;
     public static TipoPreguntaUnicaAdapter tipoPreguntaUnicaAdapter;
-    public static List<String> arrayValoresAlternativas = new ArrayList<>();
 
     public TipoPreguntaUnicaAdapter() {
     }
@@ -86,7 +85,7 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
         mViewHolder.tvTitle.setText(currentTipoPreguntaUnicaItem.getTitle());
         //se carga el spinnner con los datos de las alternativas
         ArrayAdapter<String> arrayValoresAlternativasAdapter = new ArrayAdapter<String>(context,
-                android.R.layout.simple_spinner_item, arrayValoresAlternativas);
+                android.R.layout.simple_spinner_item, currentTipoPreguntaUnicaItem.getAlternativasAsArray());
 
         arrayValoresAlternativasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 

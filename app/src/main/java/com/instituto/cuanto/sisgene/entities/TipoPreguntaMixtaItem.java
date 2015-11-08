@@ -7,9 +7,9 @@ import java.util.Iterator;
 /**
  * Created by Gustavo on 27/10/2015.
  */
-public class TipoPreguntaUnicaItem {
+public class TipoPreguntaMixtaItem {
+    ArrayList<Integer> respuestas;
     HashMap<Integer,String> alternativas;
-    int respuesta;
     String title;
 
     public HashMap<Integer, String> getAlternativas() {
@@ -32,12 +32,12 @@ public class TipoPreguntaUnicaItem {
         return result;
     }
 
-    public int getRespuesta() {
-        return respuesta;
+    public ArrayList<Integer> getRespuestas() {
+        return respuestas;
     }
 
-    public void setRespuesta(int respuesta) {
-        this.respuesta = respuesta;
+    public void setRespuestas(ArrayList<Integer> respuestas) {
+        this.respuestas = respuestas;
     }
 
     public String getTitle() {

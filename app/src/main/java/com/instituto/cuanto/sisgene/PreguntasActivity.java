@@ -15,6 +15,7 @@ import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Gustavo on 09/10/2015.
@@ -185,16 +186,16 @@ public class PreguntasActivity extends AppCompatActivity {
     }
 
     private void poblarLista_TipoPreguntaUnica(boolean encuestarTodos) {
-        String[] arrayAlternativas = {"Opcion 1 ", "Opcion 2", "Opcion 3", "Opcion 4", "Opcion 5"};
-
-        for (int i = 0; i < arrayAlternativas.length; i++) {
-            TipoPreguntaUnicaAdapter.arrayValoresAlternativas.add(arrayAlternativas[i]);
+        HashMap<Integer,String> alternativas = new HashMap<>();
+        for (int i=0;i<5;i++) {
+            alternativas.put(i+1, "Opcion "+(i+1));
         }
 
         //cargar datos a la lista
         for (int i = 0; i < nombresEncuestados.size(); i++) {
             TipoPreguntaUnicaItem tipoPreguntaUnicaItem = new TipoPreguntaUnicaItem();
             tipoPreguntaUnicaItem.setTitle(nombresEncuestados.get(i));
+            tipoPreguntaUnicaItem.setAlternativas(alternativas);
             TipoPreguntaUnicaAdapter.myListPreguntaUnica.add(tipoPreguntaUnicaItem);
             if (i == 0 && encuestarTodos == false)
                 break;
