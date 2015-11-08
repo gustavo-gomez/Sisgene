@@ -63,7 +63,7 @@ public class PreguntasActivity extends AppCompatActivity {
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
 
         //leer todos los datos de la primera pregunta
-        String tipoPregunta = "AB";
+        String tipoPregunta = "UN";
         leerTipoPreguntaxPregunta(tipoPregunta);
 
     }
@@ -81,7 +81,7 @@ public class PreguntasActivity extends AppCompatActivity {
             //Tipo de pregunta Multiple
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
             //tipoPreguntaAbiertaAdapter.limpiarLista();
-            poblarLista_TipoPreguntaMixta(encuestarTodos,false);
+            poblarLista_TipoPreguntaMixta(encuestarTodos, false);
 
             //Tipo de pregunta abierta
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
@@ -99,7 +99,7 @@ public class PreguntasActivity extends AppCompatActivity {
             //Tipo de pregunta Mixta
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
             // tipoPreguntaAbiertaAdapter.limpiarLista();
-            poblarLista_TipoPreguntaMixta(encuestarTodos,true);
+            poblarLista_TipoPreguntaMixta(encuestarTodos, true);
         }
     }
 
@@ -110,14 +110,13 @@ public class PreguntasActivity extends AppCompatActivity {
             //miListaTipoPreguntaAbierta.remove(0);
 
             leerDatos();
-            leerRespuestasTipoAbierta();
             System.out.println("respuestas leidas -   se borra la lista");
 
             //TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
             //TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.limpiarLista();
 
             //lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
-            //System.out.println("despues: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
+            //System.out.println("despues: " + TipoPreguntFaAbiertaAdapter.myListPreguntaAbierta.size());
 
             leerTipoPreguntaxPregunta("MI");
         }
@@ -130,7 +129,7 @@ public class PreguntasActivity extends AppCompatActivity {
         if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
             leerRespuestasTipoUnica();
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
-
+            leerRespuestasTipoMultiple();
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
             leerRespuestasTipoAbierta();
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatSimple))) {
@@ -138,7 +137,7 @@ public class PreguntasActivity extends AppCompatActivity {
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatMultiple))) {
 
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
-
+            leerRespuestasTipoMixta();
         }
     }
 
@@ -154,6 +153,27 @@ public class PreguntasActivity extends AppCompatActivity {
     }
 
     private void leerRespuestasTipoUnica() {
+        System.out.println("len datos size: " + TipoPreguntaUnicaAdapter.myListPreguntaUnica.size());
+
+        for (int i = 0; i < TipoPreguntaUnicaAdapter.myListPreguntaUnica.size(); i++) {
+            TipoPreguntaUnicaItem tipoPreguntaUnicaItem = TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.getItem(i);
+            System.out.println("nombre unica: " + tipoPreguntaUnicaItem.getTitle());
+            System.out.println("respuesta unica: " + tipoPreguntaUnicaItem.getRespuesta());
+        }
+    }
+
+    private void leerRespuestasTipoMultiple() {
+        System.out.println("len datos size: " + TipoPreguntaUnicaAdapter.myListPreguntaUnica.size());
+
+        for (int i = 0; i < TipoPreguntaUnicaAdapter.myListPreguntaUnica.size(); i++) {
+            TipoPreguntaUnicaItem tipoPreguntaUnicaItem = TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.getItem(i);
+            System.out.println("nombre unica: " + tipoPreguntaUnicaItem.getTitle());
+            System.out.println("respuesta unica: " + tipoPreguntaUnicaItem.getRespuesta());
+        }
+    }
+
+
+    private void leerRespuestasTipoMixta() {
         System.out.println("len datos size: " + TipoPreguntaUnicaAdapter.myListPreguntaUnica.size());
 
         for (int i = 0; i < TipoPreguntaUnicaAdapter.myListPreguntaUnica.size(); i++) {
@@ -189,8 +209,8 @@ public class PreguntasActivity extends AppCompatActivity {
 
     private void poblarLista_TipoPreguntaUnica(boolean encuestarTodos) {
         HashMap<Integer, String> alternativas = new HashMap<>();
-        for (int i=0;i<5;i++) {
-            alternativas.put(i+1, "Opcion "+(i+1));
+        for (int i = 0; i < 5; i++) {
+            alternativas.put(i + 1, "Opcion " + (i + 1));
         }
 
         //cargar datos a la lista
@@ -208,9 +228,9 @@ public class PreguntasActivity extends AppCompatActivity {
         System.out.println("num pregunta: " + numPregunta);
     }
 
-    private void poblarLista_TipoPreguntaMixta(boolean encuestarTodos,boolean mixta) {
-        HashMap<Integer,String> alternativas = new HashMap<>();
-        for (int i=0;i<5;i++) {
+    private void poblarLista_TipoPreguntaMixta(boolean encuestarTodos, boolean mixta) {
+        HashMap<Integer, String> alternativas = new HashMap<>();
+        for (int i = 0; i < 5; i++) {
             alternativas.put(i + 1, "Opcion " + (i + 1));
         }
 
@@ -224,7 +244,7 @@ public class PreguntasActivity extends AppCompatActivity {
                 break;
         }
         System.out.println("miListaTipoPreguntaMixta: " + TipoPreguntaMixtaAdapter.myListPreguntaMixta.size());
-        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaMixtaAdapter(context, TipoPreguntaMixtaAdapter.myListPreguntaMixta,mixta));
+        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaMixtaAdapter(context, TipoPreguntaMixtaAdapter.myListPreguntaMixta, mixta));
         System.out.println("num pregunta: " + numPregunta);
     }
 }
