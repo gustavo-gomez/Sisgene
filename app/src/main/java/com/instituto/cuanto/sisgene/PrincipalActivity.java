@@ -43,10 +43,10 @@ public class PrincipalActivity extends AppCompatActivity {
         nombreUsu = pref.getString("nombres", null);
         rolUsu = pref.getString("rol", null);
 
-        if(rolUsu.equals("ENCUESTADOR")){
+        /*if(rolUsu.equals("ENCUESTADOR")){
             btnExportar.setVisibility(View.INVISIBLE);
             btnConsultar.setVisibility(View.INVISIBLE);
-        }
+        }*/
 
     }
 

@@ -6,30 +6,33 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.R;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
+import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Gustavo on 27/10/2015.
  */
 public class TipoPreguntaUnicaAdapter extends BaseAdapter {
 
-    public static ArrayList<TipoPreguntaAbiertaItem> myListPreguntaUnica = new ArrayList<>();
+    public static ArrayList<TipoPreguntaUnicaItem> myListPreguntaUnica = new ArrayList<>();
     LayoutInflater inflater;
     Context context;
-    public static TipoPreguntaUnicaAdapter tipoPreguntaAbiertaAdapter;
-    public static String[] arrayvaloresAlternativas = new String[]{};
+    public static TipoPreguntaUnicaAdapter tipoPreguntaUnicaAdapter;
 
     public TipoPreguntaUnicaAdapter() {
     }
 
-    public TipoPreguntaUnicaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myListPreguntaUnica) {
+    public TipoPreguntaUnicaAdapter(Context context, ArrayList<TipoPreguntaUnicaItem> myListPreguntaUnica) {
         this.myListPreguntaUnica = myListPreguntaUnica;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
@@ -39,10 +42,11 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
 
         int dim = myListPreguntaUnica.size();
         System.out.println("dim myListPreguntaUnica:" + myListPreguntaUnica.size());
-        //for (int i = 0; i < dim; i++)
-        myListPreguntaUnica.remove(0);
 
-        tipoPreguntaAbiertaAdapter.notifyDataSetChanged();
+        for (int i = 0; i < dim; i++) {
+            myListPreguntaUnica.remove(0);
+        }
+        tipoPreguntaUnicaAdapter.notifyDataSetChanged();
         System.out.println("dim myListPreguntaUnica despues:" + myListPreguntaUnica.size());
     }
 
@@ -52,7 +56,7 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
     }
 
     @Override
-    public TipoPreguntaAbiertaItem getItem(int position) {
+    public TipoPreguntaUnicaItem getItem(int position) {
         return myListPreguntaUnica.get(position);
     }
 
@@ -66,8 +70,8 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.tipopreguntaabiertaitem_layout, parent, false);
-            mViewHolder = new MyViewHolder(convertView);
+            convertView = inflater.inflate(R.layout.tipopregunta_unica_item_layout, parent, false);
+            mViewHolder = new MyViewHolder();
             mViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvNombreEncuestado);
             mViewHolder.spRespuesta = (Spinner) convertView.findViewById(R.id.spRespuestaPreguntaEncuestado);
             convertView.setTag(mViewHolder);
@@ -76,20 +80,36 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
             mViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-        final TipoPreguntaAbiertaItem currentTipoPreguntaAbiertaItem = getItem(position);
+        final TipoPreguntaUnicaItem currentTipoPreguntaUnicaItem = getItem(position);
 
-        mViewHolder.tvTitle.setText(currentTipoPreguntaAbiertaItem.getTitle());
-        //mViewHolder.tvDesc.setText(currentTipoPreguntaAbiertaItem.getDescription());
+        mViewHolder.tvTitle.setText(currentTipoPreguntaUnicaItem.getTitle());
+        //se carga el spinnner con los datos de las alternativas
+        ArrayAdapter<String> arrayValoresAlternativasAdapter = new ArrayAdapter<String>(context,
+                android.R.layout.simple_spinner_item, currentTipoPreguntaUnicaItem.getAlternativasAsArray());
+
+        arrayValoresAlternativasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mViewHolder.spRespuesta.setAdapter(arrayValoresAlternativasAdapter);
+
+        mViewHolder.spRespuesta.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        currentTipoPreguntaUnicaItem.setRespuesta(parent.getSelectedItemPosition());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                }
+        );
         return convertView;
     }
 
     private class MyViewHolder {
         TextView tvTitle;
         Spinner spRespuesta;
-
-        public MyViewHolder(View item) {
-
-        }
     }
 
 }

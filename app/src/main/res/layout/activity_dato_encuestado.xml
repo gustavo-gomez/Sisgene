@@ -38,14 +38,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Código de Encuesta"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvCodigoEncuesta"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="17sp" />
 
             </LinearLayout>
 
@@ -60,14 +62,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Nombre Supervisor"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvNombreSupervisor"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="17sp" />
 
             </LinearLayout>
 
@@ -82,14 +86,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Nombre Usuario"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvNombreUsuario"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="17sp" />
 
             </LinearLayout>
 
@@ -104,14 +110,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Grupo"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvGrupo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="17sp" />
 
             </LinearLayout>
 
@@ -140,7 +148,8 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="Fecha"
-                        android:textColor="@color/color_texto" />
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tvFecha"
@@ -148,7 +157,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center_vertical"
-                        android:textColor="@color/color_texto" />
+                        android:textColor="@color/color_texto"
+                        android:textSize="17sp" />
 
                 </LinearLayout>
 
@@ -176,7 +186,8 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:text="Final"
-                            android:textColor="@color/color_texto" />
+                            android:textColor="@color/color_texto"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/tvFechaVigenciaInicio"
@@ -184,7 +195,8 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textColor="@color/color_texto" />
+                            android:textColor="@color/color_texto"
+                            android:textSize="17sp" />
 
                     </LinearLayout>
 
@@ -199,7 +211,8 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:text="Inicio"
-                            android:textColor="@color/color_texto" />
+                            android:textColor="@color/color_texto"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/tvFechaVigenciaFinal"
@@ -207,7 +220,8 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textColor="@color/color_texto" />
+                            android:textColor="@color/color_texto"
+                            android:textSize="17sp" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -263,7 +277,7 @@
                             android:maxLength="50"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -288,7 +302,7 @@
                             android:hint="Apellido Paterno"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -312,7 +326,7 @@
                             android:hint="Apellido Materno"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -340,68 +354,8 @@
                             android:maxLength="8"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lyDepartamento"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Departamento" />
-
-                        <Spinner
-                            android:id="@+id/spDepartamento"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:entries="@array/arrayDepartamentos"
-                            android:textColor="@color/color_texto"></Spinner>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lyProvincia"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Provincia" />
-
-                        <Spinner
-                            android:id="@+id/spProvincia"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"></Spinner>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lyDistrito"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvDistrito"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Distrito" />
-
-                        <Spinner
-                            android:id="@+id/spDistrito"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"></Spinner>
                     </LinearLayout>
 
                     <LinearLayout
@@ -425,7 +379,7 @@
                             android:hint="Centro Poblado"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -452,62 +406,8 @@
                             android:maxLength="4"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/lyspArea"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:text="Área"
-                            android:textColor="@color/color_texto" />
-
-                        <Spinner
-                            android:id="@+id/spArea"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:drawSelectorOnTop="true"
-                            android:entries="@array/arrayArea" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lyspCondicion"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:text="Condición"
-                            android:textColor="@color/color_texto" />
-
-                        <Spinner
-                            android:id="@+id/spCondicion"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:drawSelectorOnTop="true"
-                            android:entries="@array/arrayCondicion" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -533,7 +433,7 @@
                             android:maxLength="4"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -559,9 +459,73 @@
                             android:maxLength="4"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/lyspArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="Área"
+                            android:textColor="@color/color_texto" />
+
+                        <Spinner
+                            android:id="@+id/spArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:drawSelectorOnTop="true"
+                            android:entries="@array/arrayArea"
+                            android:gravity="center" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lyspCondicion"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="Condición"
+                            android:textColor="@color/color_texto" />
+
+                        <Spinner
+                            android:id="@+id/spCondicion"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:drawSelectorOnTop="true"
+                            android:entries="@array/arrayCondicion"
+                            android:gravity="center" />
+                    </LinearLayout>
+
 
                     <LinearLayout
                         android:id="@+id/lyViviendaN"
@@ -584,7 +548,7 @@
                             android:maxLength="4"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -610,7 +574,7 @@
                             android:maxLength="4"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -625,7 +589,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Hogar N°" />
+                            android:text="Dirección de la vivienda" />
 
                         <EditText
                             android:id="@+id/etDireccion"
@@ -635,7 +599,7 @@
                             android:hint="Nombre de Avenida, Calle, Jirón, Pasaje, etc"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -661,7 +625,7 @@
                             android:inputType="number"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -688,7 +652,7 @@
                             android:maxLength="10"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -714,7 +678,7 @@
                             android:inputType="textEmailAddress"
                             android:singleLine="true"
                             android:textColor="@color/color_texto"
-                            android:textSize="14sp"
+                            android:textSize="17sp"
                             android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
@@ -724,7 +688,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="right">
 
         <Button
             android:id="@+id/btAceptar_datosUsuario"

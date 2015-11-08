@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.instituto.cuanto.sisgene.util.Util;
 
@@ -22,7 +23,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
     TextView tvCodigoEncuesta, tvNombreSupervisor, tvNombreUsuario, tvGrupo, tvFecha, tvFechaVigenciaInicio, tvFechaVigenciaFinal;
     EditText etNombres, etApellidoPaterno, etApellidoMaterno, etDni, etCentroPoblado;
     EditText etConglomeradoN, etZonaAER, etManzanaN, etViviendaN, etHogarN, etDireccion, etTelefono, etCelular, etEmail;
-    LinearLayout lyNombres, lyApellidoPaterno, lyApellidoMaterno, lyDni, lyDepartamento, lyProvincia, lyDistrito, lyCentroPoblado;
+    LinearLayout lyNombres, lyApellidoPaterno, lyApellidoMaterno, lyDni, lyCentroPoblado;
     LinearLayout lyConglomeradoN, lyZonaAER, lyManzanaN, lyViviendaN, lyHogarN, lyDireccion, lyTelefono, lyCelular, lyEmail;
     Spinner spArea, spCondicion;
     LinearLayout lyspArea, lyspCondicion;
@@ -128,11 +129,35 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         if (isComplete) {
             nombresEncuestados.add(etNombres.getText().toString().trim() + " " + etApellidoPaterno.getText().toString().trim() + " " +
                     etApellidoMaterno.getText().toString().trim());
+            //captura de todos los datos
+            etNombres.getText().toString().trim();
+            etNombres.getText().toString().trim();
+            etApellidoPaterno.getText().toString().trim();
+            etApellidoMaterno.getText().toString().trim();
+            etDni.getText().toString().trim();
+            etCentroPoblado.getText().toString().trim();
+            etConglomeradoN.getText().toString().trim();
+            etZonaAER.getText().toString().trim();
+            etManzanaN.getText().toString().trim();
+            etViviendaN.getText().toString().trim();
+            etHogarN.getText().toString().trim();
+            etDireccion.getText().toString().trim();
+            etTelefono.getText().toString().trim();
+            etCelular.getText().toString().trim();
+            etEmail.getText().toString().trim();
+            spArea.getSelectedItem().toString();
+            spCondicion.getSelectedItem().toString();
 
-            Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);
-            intent.putExtra(KEY_ARG_NOMBRE_JEFE, nombresEncuestados);
-            startActivity(intent);
-            finish();
+            //Insercion en base de datos
+            //if(insertarDatosBD == true)
+            {
+                Toast.makeText(DatosCabeceraActivity.this, "Datos almacenados correctamente", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);
+                intent.putExtra(KEY_ARG_NOMBRE_JEFE, nombresEncuestados);
+                startActivity(intent);
+                finish();
+            }
+
         }
     }
 }

@@ -82,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
             String rolAcceso = listaRol.getSelectedItem().toString();
             UsuarioDAO usuarioDAO = new UsuarioDAO();
 
+            Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
+            startActivity(intent);
+            finish();
+            /*
             if(camposOK)
             {
                 int cantidadData = usuarioDAO.obtenerCantidadUsuarios(MainActivity.this);
@@ -112,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
+            */
         }
     };
 
