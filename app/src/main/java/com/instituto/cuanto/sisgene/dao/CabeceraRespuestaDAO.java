@@ -278,8 +278,9 @@ public class CabeceraRespuestaDAO {
 
 
         try {
-            String sql = " INSERT INTO cab_enc_rpta (caer_nconglomerado,caer_nzona_aer,caer_nmanzana,caer_nvivienda,caer_nhogar,caer_nombre_centropoblado)" +
-                    " VALUES (?,?,?,?,?,?)";
+            String sql = " INSERT INTO cab_enc_rpta (caer_nconglomerado,caer_nzona_aer,caer_nmanzana," +
+                    "caer_nvivienda,caer_nhogar,caer_nombre_centropoblado,per_id)" +
+                    " VALUES (?,?,?,?,?,?,?)";
 
             dataBaseHelper.db.execSQL(sql,arg);
 

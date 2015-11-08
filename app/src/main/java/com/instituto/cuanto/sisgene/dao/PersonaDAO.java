@@ -100,4 +100,28 @@ public class PersonaDAO {
 
     }
 
+    public boolean insertarAllegado(Context context, String nombre, String appaterno, String apmaterno){
+        Cursor cursor   = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        String arg[] = {nombre,appaterno,apmaterno};
+        boolean response = false;
+
+        try {
+            String sql = " INSERT INTO allegado (all_nombres,all_appaterno,all_apmaterno,)" +
+                    " VALUES(?,?,?,?,?,?,?)";
+
+            dataBaseHelper.db.execSQL(sql,arg);
+
+            response = true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return response;
+    }
+
+
 }

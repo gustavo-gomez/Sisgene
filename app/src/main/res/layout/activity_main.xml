@@ -156,7 +156,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Codigo de Encuesta"
+                    android:text="Cod. Encuesta"
                     android:textColor="@color/color_texto" />
 
                 <EditText
