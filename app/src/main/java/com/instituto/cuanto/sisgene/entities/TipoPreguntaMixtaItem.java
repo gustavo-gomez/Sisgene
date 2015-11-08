@@ -44,7 +44,6 @@ public class TipoPreguntaMixtaItem {
             MixtaAlternativa temp = new MixtaAlternativa();
             temp.setTitle((String) alternativas.get(key));
             temp.setValue(false);
-            System.out.println("Alternativa " + temp.getTitle());
             ma.add(temp);
         }
         return ma;

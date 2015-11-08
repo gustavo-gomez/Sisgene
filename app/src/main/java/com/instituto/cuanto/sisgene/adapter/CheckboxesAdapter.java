@@ -22,11 +22,10 @@ import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
 /**
  * Created by USUARIO on 08/11/2015.
  */
-public class CheckboxesAdapter extends BaseAdapter implements
-        View.OnClickListener {
+public class CheckboxesAdapter extends BaseAdapter implements View.OnClickListener{
 
     private LayoutInflater layoutInflater;
-    private ArrayList<MixtaAlternativa> myListaCheckboxes;
+    public ArrayList<MixtaAlternativa> myListaCheckboxes;
     private Context context;
     private Boolean mixta;
     public CheckboxesAdapter(Context context, ArrayList<MixtaAlternativa> myListaCheckboxes, Boolean mixta) {

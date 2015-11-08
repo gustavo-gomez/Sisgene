@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.instituto.cuanto.sisgene.PreguntasActivity;
 import com.instituto.cuanto.sisgene.R;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 
@@ -66,7 +65,7 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.tipopreguntaabiertaitem_layout, parent, false);
+            convertView = inflater.inflate(R.layout.tipo_pregunta_abierta_item_layout, parent, false);
             mViewHolder = new MyViewHolder();
             mViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvNombreEncuestado);
             mViewHolder.etRpta = (EditText) convertView.findViewById(R.id.etRespuestaPreguntaEncuestado);

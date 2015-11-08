@@ -1,8 +1,6 @@
 package com.instituto.cuanto.sisgene.adapter;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +11,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.R;
-import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Gustavo on 27/10/2015.
@@ -70,7 +66,7 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.tipopregunta_unica_item_layout, parent, false);
+            convertView = inflater.inflate(R.layout.tipo_pregunta_unica_item_layout, parent, false);
             mViewHolder = new MyViewHolder();
             mViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvNombreEncuestado);
             mViewHolder.spRespuesta = (Spinner) convertView.findViewById(R.id.spRespuestaPreguntaEncuestado);
