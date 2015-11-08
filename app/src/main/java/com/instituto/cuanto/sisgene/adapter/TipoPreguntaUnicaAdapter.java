@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.R;
@@ -19,24 +20,32 @@ import java.util.ArrayList;
  */
 public class TipoPreguntaUnicaAdapter extends BaseAdapter {
 
-    ArrayList<TipoPreguntaAbiertaItem> myListPreguntaUnica = new ArrayList<TipoPreguntaAbiertaItem>();
+    public static ArrayList<TipoPreguntaAbiertaItem> myListPreguntaUnica = new ArrayList<>();
     LayoutInflater inflater;
     Context context;
+    public static TipoPreguntaUnicaAdapter tipoPreguntaAbiertaAdapter;
+    public static String[] arrayvaloresAlternativas = new String[]{};
 
-    public TipoPreguntaUnicaAdapter(){}
+    public TipoPreguntaUnicaAdapter() {
+    }
+
     public TipoPreguntaUnicaAdapter(Context context, ArrayList<TipoPreguntaAbiertaItem> myListPreguntaUnica) {
         this.myListPreguntaUnica = myListPreguntaUnica;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
     }
+
     public void limpiarLista() {
+
         int dim = myListPreguntaUnica.size();
+        System.out.println("dim myListPreguntaUnica:" + myListPreguntaUnica.size());
+        //for (int i = 0; i < dim; i++)
+        myListPreguntaUnica.remove(0);
 
-        for (int i = 0; i < dim; i++)
-            myListPreguntaUnica.remove(0);
-
-        notifyDataSetChanged();
+        tipoPreguntaAbiertaAdapter.notifyDataSetChanged();
+        System.out.println("dim myListPreguntaUnica despues:" + myListPreguntaUnica.size());
     }
+
     @Override
     public int getCount() {
         return myListPreguntaUnica.size();
@@ -59,6 +68,8 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.tipopreguntaabiertaitem_layout, parent, false);
             mViewHolder = new MyViewHolder(convertView);
+            mViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvNombreEncuestado);
+            mViewHolder.spRespuesta = (Spinner) convertView.findViewById(R.id.spRespuestaPreguntaEncuestado);
             convertView.setTag(mViewHolder);
             notifyDataSetChanged();
         } else {
@@ -69,35 +80,15 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
 
         mViewHolder.tvTitle.setText(currentTipoPreguntaAbiertaItem.getTitle());
         //mViewHolder.tvDesc.setText(currentTipoPreguntaAbiertaItem.getDescription());
-
-        final int i = position;
-        mViewHolder.tvDesc.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //((ListItem) myItems.get(i)).caption = s.toString();
-                currentTipoPreguntaAbiertaItem.setDescription(s.toString());
-            }
-        });
-
         return convertView;
     }
 
     private class MyViewHolder {
-        TextView tvTitle, tvDesc;
+        TextView tvTitle;
+        Spinner spRespuesta;
 
         public MyViewHolder(View item) {
-            tvTitle = (TextView) item.findViewById(R.id.tvNombreEncuestado);
-            tvDesc = (TextView) item.findViewById(R.id.etRespuestaPreguntaEncuestado);
+
         }
     }
 

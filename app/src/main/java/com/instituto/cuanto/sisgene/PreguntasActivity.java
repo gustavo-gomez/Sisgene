@@ -61,8 +61,8 @@ public class PreguntasActivity extends AppCompatActivity {
 
     private void leerTipoPreguntaxPregunta() {
         //eliminar cuando se haya hecho la consulta a la base de datos
-        String tipoPregunta = "AB";
-        int numEncuestado = 0;
+        String tipoPregunta = "UN";
+        boolean encuestarTodos = false;
 
         //Realizar la consulta a base de datos para obtener la siguiente pregunta
 
@@ -70,7 +70,7 @@ public class PreguntasActivity extends AppCompatActivity {
         //Tipo de pregunta Unica
         if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
             //tipoPreguntaAbiertaAdapter.limpiarLista();
-
+            poblarLista_TipoPreguntaUnica(encuestarTodos);
 
             //Tipo de pregunta Multiple
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
@@ -80,7 +80,7 @@ public class PreguntasActivity extends AppCompatActivity {
             //Tipo de pregunta abierta
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
             //TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
-            poblarLista_TipoPreguntaAbierta(numEncuestado);
+            poblarLista_TipoPreguntaAbierta(encuestarTodos);
 
             //Tipo de pregunta Matriz Simple
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMatSimple))) {
@@ -111,8 +111,8 @@ public class PreguntasActivity extends AppCompatActivity {
     };
 
     private void leerRespuestas() {
-        System.out.println("len datos size: "+ TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
-        System.out.println("len datos count: "+ TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getCount());
+        System.out.println("len datos size: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
+        System.out.println("len datos count: " + TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getCount());
 
         for (int i = 0; i < TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size(); i++) {
             TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
@@ -121,25 +121,42 @@ public class PreguntasActivity extends AppCompatActivity {
         }
     }
 
-    private void poblarLista_TipoPreguntaAbierta(int numEncuestado) {
+    private void poblarLista_TipoPreguntaAbierta(boolean encuestarTodos) {
 
-        //if (numEncuestado != 1) {
-        //     obtenerNombresEncuestados(numEncuestado);
-        //   System.out.println("len nombresEncuestados: ");
-        // }
-        System.out.println("cargar datos");
-        System.out.println("datos: " + nombresEncuestados.size());
-
-
+        //cargar datos a la lista
         for (int i = 0; i < nombresEncuestados.size(); i++) {
-
             TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = new TipoPreguntaAbiertaItem();
             tipoPreguntaAbiertaItem.setTitle(nombresEncuestados.get(i));
             tipoPreguntaAbiertaItem.setDescription(nombresEncuestados.get(i));
 
             TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.add(tipoPreguntaAbiertaItem);
+            if (i == 0 && encuestarTodos == false)
+                break;
         }
-        System.out.println("miListaTipoPreguntaAbierta: "+ TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
+        System.out.println("miListaTipoPreguntaAbierta: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
+        //colocar las aternativas
+        //tvOpcionesPregunta.setText(datosOpc);
+
+        //colocar el enunciado de la preguna
+        //tvEnunciadoPregunta.setText();
+
+        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
+        System.out.println("num pregunta: " + numPregunta);
+        //tipoPreguntaAbiertaAdapter.limpiarLista();
+    }
+
+    private void poblarLista_TipoPreguntaUnica(boolean encuestarTodos) {
+        //cargar datos a la lista
+        for (int i = 0; i < nombresEncuestados.size(); i++) {
+            TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = new TipoPreguntaAbiertaItem();
+            tipoPreguntaAbiertaItem.setTitle(nombresEncuestados.get(i));
+            tipoPreguntaAbiertaItem.setDescription(nombresEncuestados.get(i));
+
+            TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.add(tipoPreguntaAbiertaItem);
+            if (i == 0 && encuestarTodos == false)
+                break;
+        }
+        System.out.println("miListaTipoPreguntaAbierta: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
         //colocar las aternativas
         //tvOpcionesPregunta.setText(datosOpc);
 
