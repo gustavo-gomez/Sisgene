@@ -14,11 +14,12 @@ import java.util.List;
  */
 public class CabeceraRespuestaDAO {
 
-    public CabeceraRespuestaDAO(){}
+    public CabeceraRespuestaDAO() {
+    }
 
-    public List<CabeceraRespuesta> obtenerCabeceraRespuestas(Context context){
+    public List<CabeceraRespuesta> obtenerCabeceraRespuestas(Context context) {
         CabeceraRespuesta cabeceraResp = null;
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         List<CabeceraRespuesta> listaCabeceraRespuesta = new ArrayList<CabeceraRespuesta>();
 
@@ -30,7 +31,7 @@ public class CabeceraRespuestaDAO {
                     " from cab_enc_rpta cer" +
                     " inner join persona per on cer.per_id = per.per_id" +
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
-                    " inner join usuario usu on usp.usu_id = usu.usu_id ",null);
+                    " inner join usuario usu on usp.usu_id = usu.usu_id ", null);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -47,7 +48,7 @@ public class CabeceraRespuestaDAO {
                     cabeceraResp.setEstado(cursor.getString(9));
 
                     listaCabeceraRespuesta.add(cabeceraResp);
-                } while (cursor.moveToNext()) ;
+                } while (cursor.moveToNext());
             }
 
             return listaCabeceraRespuesta;
@@ -62,9 +63,9 @@ public class CabeceraRespuestaDAO {
 
     }
 
-    public List<CabeceraRespuesta> obtenerCabeceraRespuestas(Context context, String fIni, String fFin){
+    public List<CabeceraRespuesta> obtenerCabeceraRespuestas(Context context, String fIni, String fFin) {
         CabeceraRespuesta cabeceraResp = null;
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         List<CabeceraRespuesta> listaCabeceraRespuesta = new ArrayList<CabeceraRespuesta>();
 
@@ -78,14 +79,14 @@ public class CabeceraRespuestaDAO {
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
                     " inner join usuario usu on usp.usu_id = usu.usu_id " +
                     " where usu.usu_estado = '1'";
-            if(!fIni.equals("")){
-                sql = sql + " and cer.caer_fencuesta >= "+fIni;
+            if (!fIni.equals("")) {
+                sql = sql + " and cer.caer_fencuesta >= " + fIni;
             }
-            if(!fFin.equals("")){
-                sql = sql + " and cer.caer_fencuesta <= "+fFin;
+            if (!fFin.equals("")) {
+                sql = sql + " and cer.caer_fencuesta <= " + fFin;
             }
 
-            cursor = dataBaseHelper.db.rawQuery(sql,null);
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -102,7 +103,7 @@ public class CabeceraRespuestaDAO {
                     cabeceraResp.setEstado(cursor.getString(9));
 
                     listaCabeceraRespuesta.add(cabeceraResp);
-                } while (cursor.moveToNext()) ;
+                } while (cursor.moveToNext());
             }
 
             return listaCabeceraRespuesta;
@@ -117,9 +118,9 @@ public class CabeceraRespuestaDAO {
 
     }
 
-    public List<CabeceraRespuesta> obtenerCabeceraRespuestas(Context context, String estadoEnviado){
+    public List<CabeceraRespuesta> obtenerCabeceraRespuestas(Context context, String estadoEnviado) {
         CabeceraRespuesta cabeceraResp = null;
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         List<CabeceraRespuesta> listaCabeceraRespuesta = new ArrayList<CabeceraRespuesta>();
 
@@ -133,11 +134,11 @@ public class CabeceraRespuestaDAO {
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
                     " inner join usuario usu on usp.usu_id = usu.usu_id " +
                     " where usu.usu_estado = '1'";
-            if(!estadoEnviado.equals("")){
-                sql = sql + " and cer.caer_benviado >= '"+estadoEnviado+"' ";
+            if (!estadoEnviado.equals("")) {
+                sql = sql + " and cer.caer_benviado >= '" + estadoEnviado + "' ";
             }
 
-            cursor = dataBaseHelper.db.rawQuery(sql,null);
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -154,7 +155,7 @@ public class CabeceraRespuestaDAO {
                     cabeceraResp.setEstado(cursor.getString(9));
 
                     listaCabeceraRespuesta.add(cabeceraResp);
-                } while (cursor.moveToNext()) ;
+                } while (cursor.moveToNext());
             }
 
             return listaCabeceraRespuesta;
@@ -169,9 +170,9 @@ public class CabeceraRespuestaDAO {
 
     }
 
-    public List<CabeceraRespuesta> obtenerCabeceraRespuesta(Context context, String estadoEnviado){
+    public List<CabeceraRespuesta> obtenerCabeceraRespuesta(Context context, String estadoEnviado) {
         CabeceraRespuesta cabeceraResp = null;
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         List<CabeceraRespuesta> listaCabeceraRespuesta = new ArrayList<CabeceraRespuesta>();
 
@@ -180,18 +181,18 @@ public class CabeceraRespuestaDAO {
             String sql = " select usu.usu_usuario, cer.caer_numero_encuesta, cer.caer_fencuesta, " +
                     " per.per_nombres, per.per_appaterno, " +
                     " per.per_apmaterno, cer.caer_hora_inicio, cer.caer_hora_fin,cer.caer_tiempo, cer.caer_benviado, " +
-                    " per.per_num_documento,per.per_telefono,per.per_celular,per_correo,cer.caer_nconglomerado,cer.caer_nzona_aer,"+
-                    " cer.caer_nmanzana,cer.caer_nvivienda,cer.caer_nhogar,cer.caer_nombre_centropoblado, per.per_id, cer.caer_id"+
+                    " per.per_num_documento,per.per_telefono,per.per_celular,per_correo,cer.caer_nconglomerado,cer.caer_nzona_aer," +
+                    " cer.caer_nmanzana,cer.caer_nvivienda,cer.caer_nhogar,cer.caer_nombre_centropoblado, per.per_id, cer.caer_id" +
                     " from cab_enc_rpta cer" +
                     " inner join persona per on cer.per_id = per.per_id" +
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
                     " inner join usuario usu on usp.usu_id = usu.usu_id " +
                     " where usu.usu_estado = '1'";
-            if(!estadoEnviado.equals("")){
-                sql = sql + " and cer.caer_benviado >= '"+estadoEnviado+"' ";
+            if (!estadoEnviado.equals("")) {
+                sql = sql + " and cer.caer_benviado >= '" + estadoEnviado + "' ";
             }
 
-            cursor = dataBaseHelper.db.rawQuery(sql,null);
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -220,7 +221,7 @@ public class CabeceraRespuestaDAO {
                     cabeceraResp.setIdCabeceraEnc(cursor.getInt(21));
 
                     listaCabeceraRespuesta.add(cabeceraResp);
-                } while (cursor.moveToNext()) ;
+                } while (cursor.moveToNext());
             }
 
             return listaCabeceraRespuesta;
@@ -236,11 +237,11 @@ public class CabeceraRespuestaDAO {
     }
 
     public boolean actualizarCabEnc(Context context, String conglomerado, String zona, String manzana,
-                                    String vivienda, String hogar, String centropoblado, int per_id){
-        Cursor cursor   = null;
+                                    String vivienda, String hogar, String centropoblado, int per_id) {
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String idPers = per_id+"";
-        String arg[] = {conglomerado,zona,manzana,vivienda,hogar,centropoblado,idPers};
+        String idPers = per_id + "";
+        String arg[] = {conglomerado, zona, manzana, vivienda, hogar, centropoblado, idPers};
         boolean response = false;
 
 
@@ -254,7 +255,7 @@ public class CabeceraRespuestaDAO {
                     " caer_nombre_centropoblado = ? " +
                     " WHERE caer_id = ?";
 
-            dataBaseHelper.db.execSQL(sql,arg);
+            dataBaseHelper.db.execSQL(sql, arg);
 
             response = true;
         } catch (Exception ex) {
@@ -269,19 +270,19 @@ public class CabeceraRespuestaDAO {
     }
 
     public boolean insertarCabEnc(Context context, String conglomerado, String zona, String manzana,
-                                    String vivienda, String hogar, String centropoblado, int per_id){
-        Cursor cursor   = null;
+                                  String vivienda, String hogar, String centropoblado, int per_id) {
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String idPers = per_id+"";
-        String arg[] = {conglomerado,zona,manzana,vivienda,hogar,centropoblado,idPers};
+        String idPers = per_id + "";
+        String arg[] = {conglomerado, zona, manzana, vivienda, hogar, centropoblado, idPers};
         boolean response = false;
 
 
         try {
-            String sql = " INSERT INTO cab_enc_rpta (caer_nconglomerado,caer_nzona_aer,caer_nmanzana,caer_nvivienda,caer_nhogar,caer_nombre_centropoblado)" +
-                    " VALUES (?,?,?,?,?,?)";
+            String sql = " INSERT INTO cab_enc_rpta (caer_nconglomerado,caer_nzona_aer,caer_nmanzana,caer_nvivienda," +
+                    "caer_nhogar,caer_nombre_centropoblado)" + " VALUES (?,?,?,?,?,?)";
 
-            dataBaseHelper.db.execSQL(sql,arg);
+            dataBaseHelper.db.execSQL(sql, arg);
 
             response = true;
         } catch (Exception ex) {

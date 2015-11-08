@@ -1,5 +1,6 @@
 package com.instituto.cuanto.sisgene;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
+import com.instituto.cuanto.sisgene.dao.PersonaDAO;
 import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
@@ -35,6 +38,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dato_encuestado);
+
         nombresEncuestados = new ArrayList<>();
         tvCodigoEncuesta = (TextView) findViewById(R.id.tvCodigoEncuesta);
         tvNombreSupervisor = (TextView) findViewById(R.id.tvNombreSupervisor);
@@ -130,34 +134,48 @@ public class DatosCabeceraActivity extends AppCompatActivity {
             nombresEncuestados.add(etNombres.getText().toString().trim() + " " + etApellidoPaterno.getText().toString().trim() + " " +
                     etApellidoMaterno.getText().toString().trim());
             //captura de todos los datos
-            etNombres.getText().toString().trim();
-            etNombres.getText().toString().trim();
-            etApellidoPaterno.getText().toString().trim();
-            etApellidoMaterno.getText().toString().trim();
-            etDni.getText().toString().trim();
-            etCentroPoblado.getText().toString().trim();
-            etConglomeradoN.getText().toString().trim();
-            etZonaAER.getText().toString().trim();
-            etManzanaN.getText().toString().trim();
-            etViviendaN.getText().toString().trim();
-            etHogarN.getText().toString().trim();
+
             etDireccion.getText().toString().trim();
-            etTelefono.getText().toString().trim();
-            etCelular.getText().toString().trim();
-            etEmail.getText().toString().trim();
+
             spArea.getSelectedItem().toString();
             spCondicion.getSelectedItem().toString();
 
-            //Insercion en base de datos
-            //if(insertarDatosBD == true)
-            {
-                Toast.makeText(DatosCabeceraActivity.this, "Datos almacenados correctamente", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);
-                intent.putExtra(KEY_ARG_NOMBRE_JEFE, nombresEncuestados);
-                startActivity(intent);
+            PersonaDAO personaDAO = new PersonaDAO();
+            //Insercion de los daros del jefe de familia
+            boolean insertoPersona = personaDAO.insertarPersona(DatosCabeceraActivity.this, etNombres.getText().toString().trim(), etApellidoPaterno.getText().toString().trim()
+                    , etApellidoMaterno.getText().toString().trim(), etDni.getText().toString().trim(), etTelefono.getText().toString().trim(),
+                    etCelular.getText().toString().trim(), etEmail.getText().toString().trim());
+
+            CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
+
+            if (insertoPersona == true) {
+                int personaId = personaDAO.obtenerUltIdPersona(DatosCabeceraActivity.this);
+                if (personaId == 0) {
+                    Toast.makeText(DatosCabeceraActivity.this, "Error al obtener el id de Usuario", Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    boolean insertarCabecera = cabeceraRespuestaDAO.insertarCabEnc(DatosCabeceraActivity.this,
+                            etConglomeradoN.getText().toString().trim(),
+                            etZonaAER.getText().toString().trim(),
+                            etManzanaN.getText().toString().trim(),
+                            etViviendaN.getText().toString().trim(),
+                            etHogarN.getText().toString().trim(),
+                            etCentroPoblado.getText().toString().trim(),
+                            personaId);
+                    if (insertarCabecera == true) {
+                        Toast.makeText(DatosCabeceraActivity.this, "Datos almacenados correctamente", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);
+                        intent.putExtra(KEY_ARG_NOMBRE_JEFE, nombresEncuestados);
+                        startActivity(intent);
+                        finish();
+                    } else
+                        finish();
+                }
+            } else {
+                Toast.makeText(DatosCabeceraActivity.this, "Error al insertar en base de datos", Toast.LENGTH_LONG).show();
                 finish();
             }
-
         }
     }
 }
+

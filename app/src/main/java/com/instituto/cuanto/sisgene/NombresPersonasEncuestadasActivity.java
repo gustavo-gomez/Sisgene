@@ -23,6 +23,13 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
             lyNombre11, lyNombre12, lyNombre13, lyNombre14, lyNombre15, lyNombre16, lyNombre17, lyNombre18, lyNombre19, lyNombre20;
     EditText etNombre1, etNombre2, etNombre3, etNombre4, etNombre5, etNombre6, etNombre7, etNombre8, etNombre9, etNombre10,
             etNombre11, etNombre12, etNombre13, etNombre14, etNombre15, etNombre16, etNombre17, etNombre18, etNombre19, etNombre20;
+    EditText edApellidoPat1, edApellidoPat2, edApellidoPat3, edApellidoPat4, edApellidoPat5, edApellidoPat6, edApellidoPat7, edApellidoPat8,
+            edApellidoPat9, edApellidoPat10, edApellidoPat11, edApellidoPat12, edApellidoPat13, edApellidoPat14, edApellidoPat15, edApellidoPat16,
+            edApellidoPat17, edApellidoPat18, edApellidoPat19, edApellidoPat20;
+    EditText edApellidoMat1, edApellidoMat2, edApellidoMat3, edApellidoMat4, edApellidoMat5, edApellidoMat6, edApellidoMat7, edApellidoMat8,
+            edApellidoMat9, edApellidoMat10, edApellidoMat11, edApellidoMat12, edApellidoMat13, edApellidoMat14, edApellidoMat15, edApellidoMat16,
+            edApellidoMat17, edApellidoMat18, edApellidoMat19, edApellidoMat20;
+
     TextView tvNumeroPersonas;
     Button btMenosNumPersonas, btMasNumPersonas, btAceptarNumeroPersonas;
     int numerodePersonasEncuestadas;
@@ -37,6 +44,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nombres_personas_encuestadas);
+
         numerodePersonasEncuestadas = 0;
         nombresLayouts = new ArrayList<>();
         nombresEdits = new ArrayList<>();
@@ -83,6 +91,48 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         etNombre18 = (EditText) findViewById(R.id.edNombre18);
         etNombre19 = (EditText) findViewById(R.id.edNombre19);
         etNombre20 = (EditText) findViewById(R.id.edNombre20);
+
+        edApellidoPat1 = (EditText) findViewById(R.id.edApellidoPat1);
+        edApellidoPat2 = (EditText) findViewById(R.id.edApellidoPat2);
+        edApellidoPat3 = (EditText) findViewById(R.id.edApellidoPat3);
+        edApellidoPat4 = (EditText) findViewById(R.id.edApellidoPat4);
+        edApellidoPat5 = (EditText) findViewById(R.id.edApellidoPat5);
+        edApellidoPat6 = (EditText) findViewById(R.id.edApellidoPat6);
+        edApellidoPat7 = (EditText) findViewById(R.id.edApellidoPat7);
+        edApellidoPat8 = (EditText) findViewById(R.id.edApellidoPat8);
+        edApellidoPat9 = (EditText) findViewById(R.id.edApellidoPat9);
+        edApellidoPat10 = (EditText) findViewById(R.id.edApellidoPat10);
+        edApellidoPat11 = (EditText) findViewById(R.id.edApellidoPat11);
+        edApellidoPat12 = (EditText) findViewById(R.id.edApellidoMat12);
+        edApellidoPat13 = (EditText) findViewById(R.id.edApellidoPat13);
+        edApellidoPat14 = (EditText) findViewById(R.id.edApellidoPat14);
+        edApellidoPat15 = (EditText) findViewById(R.id.edApellidoPat15);
+        edApellidoPat16 = (EditText) findViewById(R.id.edApellidoPat16);
+        edApellidoPat17 = (EditText) findViewById(R.id.edApellidoPat17);
+        edApellidoPat18 = (EditText) findViewById(R.id.edApellidoPat18);
+        edApellidoPat19 = (EditText) findViewById(R.id.edApellidoPat19);
+        edApellidoPat20 = (EditText) findViewById(R.id.edApellidoPat20);
+
+        edApellidoMat1 = (EditText) findViewById(R.id.edApellidoMat1);
+        edApellidoMat2 = (EditText) findViewById(R.id.edApellidoMat2);
+        edApellidoMat3 = (EditText) findViewById(R.id.edApellidoMat3);
+        edApellidoMat4 = (EditText) findViewById(R.id.edApellidoMat4);
+        edApellidoMat5 = (EditText) findViewById(R.id.edApellidoMat5);
+        edApellidoMat6 = (EditText) findViewById(R.id.edApellidoMat6);
+        edApellidoMat7 = (EditText) findViewById(R.id.edApellidoMat7);
+        edApellidoMat8 = (EditText) findViewById(R.id.edApellidoMat8);
+        edApellidoMat9 = (EditText) findViewById(R.id.edApellidoMat9);
+        edApellidoMat10 = (EditText) findViewById(R.id.edApellidoMat10);
+        edApellidoMat11 = (EditText) findViewById(R.id.edApellidoMat11);
+        edApellidoMat12 = (EditText) findViewById(R.id.edApellidoMat12);
+        edApellidoMat13 = (EditText) findViewById(R.id.edApellidoMat13);
+        edApellidoMat14 = (EditText) findViewById(R.id.edApellidoMat14);
+        edApellidoMat15 = (EditText) findViewById(R.id.edApellidoMat15);
+        edApellidoMat16 = (EditText) findViewById(R.id.edApellidoMat16);
+        edApellidoMat17 = (EditText) findViewById(R.id.edApellidoMat17);
+        edApellidoMat18 = (EditText) findViewById(R.id.edApellidoMat18);
+        edApellidoMat19 = (EditText) findViewById(R.id.edApellidoMat19);
+        edApellidoMat20 = (EditText) findViewById(R.id.edApellidoMat20);
 
         btAceptar_nombresEncuestados = (Button) findViewById(R.id.btAceptar_nombresEncuestados);
 
