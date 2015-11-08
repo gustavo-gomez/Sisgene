@@ -35,6 +35,8 @@ public class PreguntasActivity extends AppCompatActivity {
     int numPregunta = -1;
     ScrollView scrollView;
     TextView tvEnunciadoPregunta;
+    TextView tvSeccion;
+    TextView tvSubSeccion;
     TextView tvOpcionesPregunta;
     String tipoPreguntaActual;
 
@@ -49,11 +51,12 @@ public class PreguntasActivity extends AppCompatActivity {
         lvRespuestas_tipoGeneral = (ListView) findViewById(R.id.lvRespuestas_tipoGeneral);
         tvEnunciadoPregunta = (TextView) findViewById(R.id.tvEnunciadoPregunta);
         tvOpcionesPregunta = (TextView) findViewById(R.id.tvOpcionesPregunta);
+        tvSeccion = (TextView) findViewById(R.id.tvSeccion);
+        tvSubSeccion = (TextView) findViewById(R.id.tvSubSeccion);
         TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter = new TipoPreguntaAbiertaAdapter();
         TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter = new TipoPreguntaUnicaAdapter();
         //miListaTipoPreguntaAbierta = new ArrayList<>();
         scrollView = new ScrollView(PreguntasActivity.this);
-
 
         if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(NombresPersonasEncuestadasActivity.KEY_ARG_NOMBRES_ENCUESTADOS)) {
             System.out.println("se obtienen datos");
@@ -61,11 +64,9 @@ public class PreguntasActivity extends AppCompatActivity {
         }
 
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
-
         //leer todos los datos de la primera pregunta
         String tipoPregunta = "UN";
         leerTipoPreguntaxPregunta(tipoPregunta);
-
     }
 
     private void leerTipoPreguntaxPregunta(String tipoPregunta) {
@@ -196,11 +197,6 @@ public class PreguntasActivity extends AppCompatActivity {
                 break;
         }
         System.out.println("miListaTipoPreguntaAbierta: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
-        //colocar las aternativas
-        //tvOpcionesPregunta.setText(datosOpc);
-
-        //colocar el enunciado de la preguna
-        //tvEnunciadoPregunta.setText();
 
         lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
         System.out.println("num pregunta: " + numPregunta);

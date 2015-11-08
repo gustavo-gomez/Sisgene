@@ -317,11 +317,11 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                     isCorrect++;
                 }
                 if (apellidosPatEdits.get(i).getText().toString().trim().length() == 0) {
-                    nombresEdits.get(i).setError("Ingrese Apellido Paterno");
+                    apellidosPatEdits.get(i).setError("Ingrese Apellido Paterno");
                     isCorrect++;
                 }
                 if (apellidosMatEdits.get(i).getText().toString().trim().length() == 0) {
-                    nombresEdits.get(i).setError("Ingrese Apellido Materno");
+                    apellidosMatEdits.get(i).setError("Ingrese Apellido Materno");
                     isCorrect++;
                 }
             }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
+import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
 import com.instituto.cuanto.sisgene.dao.PersonaDAO;
 import com.instituto.cuanto.sisgene.util.Util;
 
@@ -87,16 +88,23 @@ public class DatosCabeceraActivity extends AppCompatActivity {
 
         tvFecha.setText(Util.obtenerFecha());
 
+        llenarDatosCabecera();
+        btAceptar_datosUsuario.setOnClickListener(btAceptar_datosUsuariosetOnClickListener);
+    }
+
+    private void llenarDatosCabecera() {
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
+
+        String codEncuesta = encuestaDAO.obtenerCodigoEncuesta(DatosCabeceraActivity.this);
+        if (codEncuesta != null)
+            tvCodigoEncuesta.setText(codEncuesta);
+
         //modificar
         tvFechaVigenciaInicio.setText(Util.obtenerFecha());
         tvFechaVigenciaFinal.setText(Util.obtenerFecha());
-        tvCodigoEncuesta.setText("ABC001");
         tvNombreSupervisor.setText("Gustavo Gómez");
         tvGrupo.setText("Grupo 02");
         tvNombreUsuario.setText("Jesus Cahuana");
-
-
-        btAceptar_datosUsuario.setOnClickListener(btAceptar_datosUsuariosetOnClickListener);
     }
 
     View.OnClickListener btAceptar_datosUsuariosetOnClickListener = new View.OnClickListener() {
