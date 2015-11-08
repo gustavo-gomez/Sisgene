@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.instituto.cuanto.sisgene.dao.PersonaDAO;
+
 import java.util.ArrayList;
 
 /**
@@ -35,6 +37,8 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
     int numerodePersonasEncuestadas;
     ArrayList<LinearLayout> nombresLayouts;
     ArrayList<EditText> nombresEdits;
+    ArrayList<EditText> apellidosPatEdits;
+    ArrayList<EditText> apellidosMatEdits;
     Button btAceptar_nombresEncuestados;
     ArrayList<String> nombresEncuestados;
     public static String KEY_ARG_NOMBRES_ENCUESTADOS = "KEY_ARG_NOMBRES_ENCUESTADOS";
@@ -48,6 +52,8 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         numerodePersonasEncuestadas = 0;
         nombresLayouts = new ArrayList<>();
         nombresEdits = new ArrayList<>();
+        apellidosPatEdits = new ArrayList<>();
+        apellidosMatEdits = new ArrayList<>();
         nombresEncuestados = new ArrayList<>();
 
         lyNombre1 = (LinearLayout) findViewById(R.id.lyNombre1);
@@ -206,6 +212,48 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         nombresEdits.add(etNombre19);
         nombresEdits.add(etNombre20);
 
+
+        apellidosPatEdits.add(edApellidoPat1);
+        apellidosPatEdits.add(edApellidoPat2);
+        apellidosPatEdits.add(edApellidoPat3);
+        apellidosPatEdits.add(edApellidoPat4);
+        apellidosPatEdits.add(edApellidoPat5);
+        apellidosPatEdits.add(edApellidoPat6);
+        apellidosPatEdits.add(edApellidoPat7);
+        apellidosPatEdits.add(edApellidoPat8);
+        apellidosPatEdits.add(edApellidoPat9);
+        apellidosPatEdits.add(edApellidoPat10);
+        apellidosPatEdits.add(edApellidoPat11);
+        apellidosPatEdits.add(edApellidoPat12);
+        apellidosPatEdits.add(edApellidoPat13);
+        apellidosPatEdits.add(edApellidoPat14);
+        apellidosPatEdits.add(edApellidoPat15);
+        apellidosPatEdits.add(edApellidoPat16);
+        apellidosPatEdits.add(edApellidoPat17);
+        apellidosPatEdits.add(edApellidoPat18);
+        apellidosPatEdits.add(edApellidoPat19);
+        apellidosPatEdits.add(edApellidoPat20);
+
+        apellidosMatEdits.add(edApellidoMat1);
+        apellidosMatEdits.add(edApellidoMat2);
+        apellidosMatEdits.add(edApellidoMat3);
+        apellidosMatEdits.add(edApellidoMat4);
+        apellidosMatEdits.add(edApellidoMat5);
+        apellidosMatEdits.add(edApellidoMat6);
+        apellidosMatEdits.add(edApellidoMat7);
+        apellidosMatEdits.add(edApellidoMat8);
+        apellidosMatEdits.add(edApellidoMat9);
+        apellidosMatEdits.add(edApellidoMat10);
+        apellidosMatEdits.add(edApellidoMat11);
+        apellidosMatEdits.add(edApellidoMat12);
+        apellidosMatEdits.add(edApellidoMat13);
+        apellidosMatEdits.add(edApellidoMat14);
+        apellidosMatEdits.add(edApellidoMat15);
+        apellidosMatEdits.add(edApellidoMat16);
+        apellidosMatEdits.add(edApellidoMat17);
+        apellidosMatEdits.add(edApellidoMat18);
+        apellidosMatEdits.add(edApellidoMat19);
+        apellidosMatEdits.add(edApellidoMat20);
     }
 
 
@@ -268,13 +316,28 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                     nombresEdits.get(i).setError("Ingrese nombre");
                     isCorrect++;
                 }
+                if (apellidosPatEdits.get(i).getText().toString().trim().length() == 0) {
+                    nombresEdits.get(i).setError("Ingrese Apellido Paterno");
+                    isCorrect++;
+                }
+                if (apellidosMatEdits.get(i).getText().toString().trim().length() == 0) {
+                    nombresEdits.get(i).setError("Ingrese Apellido Materno");
+                    isCorrect++;
+                }
             }
+            PersonaDAO personaDAO = new PersonaDAO();
             if (isCorrect == 0) {//No hay ningun capo vacio
-                for (int i = 0; i < numerodePersonasEncuestadas; i++)
-                    nombresEncuestados.add(nombresEdits.get(i).getText().toString().trim());
+                for (int i = 0; i < numerodePersonasEncuestadas; i++) {
+                    //guardar los nombres en un array
+                    nombresEncuestados.add(nombresEdits.get(i).getText().toString().trim() + " " + apellidosPatEdits.get(i).getText().toString().trim() +
+                            " " + apellidosMatEdits.get(i).getText().toString().trim());
+
+                    //guardar todos los nombres en la base de datos
+                    //personaDAO
+                }
 
                 for (int i = 0; i < numerodePersonasEncuestadas + 1; i++) {
-                    System.out.println("nombre: " + i + " : " + nombresEncuestados.get(i));
+                    System.out.println("nombre " + i + " : " + nombresEncuestados.get(i));
                 }
                 Intent intent = new Intent(NombresPersonasEncuestadasActivity.this, PreguntasActivity.class);
                 intent.putStringArrayListExtra(KEY_ARG_NOMBRES_ENCUESTADOS, nombresEncuestados);
