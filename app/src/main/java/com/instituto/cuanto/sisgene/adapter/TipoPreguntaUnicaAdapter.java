@@ -42,10 +42,10 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
 
         int dim = myListPreguntaUnica.size();
         System.out.println("dim myListPreguntaUnica:" + myListPreguntaUnica.size());
-        if (dim != 0)
-            for (int i = 0; i < dim; i++)
-                myListPreguntaUnica.remove(i);
 
+        for (int i = 0; i < dim; i++) {
+            myListPreguntaUnica.remove(0);
+        }
         tipoPreguntaUnicaAdapter.notifyDataSetChanged();
         System.out.println("dim myListPreguntaUnica despues:" + myListPreguntaUnica.size());
     }
