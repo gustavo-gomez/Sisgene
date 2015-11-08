@@ -77,4 +77,37 @@ public class UsuarioDAO {
 
     }
 
+    public String obtenerGrupoPorUsuario(Context context, String user){
+
+        Cursor cursor   = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        String arg[] = {user};
+        String response="";
+
+        try {
+
+            cursor = dataBaseHelper.db.rawQuery(" select gr.gru_numero" +
+                    " from usuario usu" +
+                    " inner join grupo gr on usu.usu_id = gr.usu_idsupervisor" +
+                    " where usu.usu_usuario = ?",arg);
+
+            if (cursor.moveToFirst()) {
+
+                response = cursor.getString(0);
+
+            }
+
+            return response;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return null;
+
+    }
+
 }

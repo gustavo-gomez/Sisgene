@@ -154,7 +154,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="0.61"
                         android:text="Grupo"
                         android:textColor="@color/color_texto" />
 
@@ -162,7 +162,7 @@
                         android:id="@+id/tvGrupo"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="1.44"
                         android:textColor="@color/color_texto" />
 
                 </LinearLayout>
@@ -176,7 +176,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="26dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.76"
                         android:gravity="center_vertical"
                         android:text="Fecha"
                         android:textColor="@color/color_texto" />
@@ -185,7 +185,7 @@
                         android:id="@+id/tvFecha"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="2"
+                        android:layout_weight="1.81"
                         android:gravity="center_vertical"
                         android:textColor="@color/color_texto" />
 
@@ -200,7 +200,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="26dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.87"
                         android:gravity="center_vertical"
                         android:text="Hora"
                         android:textColor="@color/color_texto" />
@@ -209,7 +209,7 @@
                         android:id="@+id/tvHora"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="2"
+                        android:layout_weight="2.03"
                         android:gravity="center_vertical"
                         android:textColor="@color/color_texto" />
 
@@ -602,7 +602,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btAceptar_datosUsuario"
+            android:id="@+id/btnEditar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -611,7 +611,7 @@
             android:textColor="@color/color_texto_boton" />
 
         <Button
-            android:id="@+id/btSalir_datosUsuario"
+            android:id="@+id/btnCancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
