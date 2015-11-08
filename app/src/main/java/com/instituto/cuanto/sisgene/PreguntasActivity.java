@@ -10,7 +10,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaAbiertaAdapter;
+import com.instituto.cuanto.sisgene.adapter.TipoPreguntaUnicaAdapter;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
+import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
 
 import java.util.ArrayList;
 
@@ -62,7 +64,7 @@ public class PreguntasActivity extends AppCompatActivity {
     private void leerTipoPreguntaxPregunta() {
         //eliminar cuando se haya hecho la consulta a la base de datos
         String tipoPregunta = "UN";
-        boolean encuestarTodos = false;
+        boolean encuestarTodos = true;
 
         //Realizar la consulta a base de datos para obtener la siguiente pregunta
 
@@ -146,25 +148,23 @@ public class PreguntasActivity extends AppCompatActivity {
     }
 
     private void poblarLista_TipoPreguntaUnica(boolean encuestarTodos) {
+        String[] arrayAlternativas = {"Opcion 1 ", "Opcion 2", "Opcion 3", "Opcion 4", "Opcion 5"};
+
+        for (int i = 0; i < arrayAlternativas.length; i++) {
+            TipoPreguntaUnicaAdapter.arrayValoresAlternativas.add(arrayAlternativas[i]);
+        }
+
         //cargar datos a la lista
         for (int i = 0; i < nombresEncuestados.size(); i++) {
-            TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = new TipoPreguntaAbiertaItem();
-            tipoPreguntaAbiertaItem.setTitle(nombresEncuestados.get(i));
-            tipoPreguntaAbiertaItem.setDescription(nombresEncuestados.get(i));
-
-            TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.add(tipoPreguntaAbiertaItem);
+            TipoPreguntaUnicaItem tipoPreguntaUnicaItem = new TipoPreguntaUnicaItem();
+            tipoPreguntaUnicaItem.setTitle(nombresEncuestados.get(i));
+            TipoPreguntaUnicaAdapter.myListPreguntaUnica.add(tipoPreguntaUnicaItem);
             if (i == 0 && encuestarTodos == false)
                 break;
         }
-        System.out.println("miListaTipoPreguntaAbierta: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
-        //colocar las aternativas
-        //tvOpcionesPregunta.setText(datosOpc);
+        System.out.println("miListaTipoPreguntaUnica: " + TipoPreguntaUnicaAdapter.myListPreguntaUnica.size());
 
-        //colocar el enunciado de la preguna
-        //tvEnunciadoPregunta.setText();
-
-        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
+        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaUnicaAdapter(context, TipoPreguntaUnicaAdapter.myListPreguntaUnica));
         System.out.println("num pregunta: " + numPregunta);
-        //tipoPreguntaAbiertaAdapter.limpiarLista();
     }
 }
