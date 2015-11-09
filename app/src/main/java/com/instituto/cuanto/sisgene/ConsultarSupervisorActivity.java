@@ -65,10 +65,10 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
 
                 if(posicion != 0){
-                    System.out.println("POSITION: "+posicion);
-                    System.out.println("LONGITUD: "+id);
-                    System.out.println("CLLLLLIIIIICKKKKKKK");
+                    System.out.println("POSITION: " + posicion);
                     Intent intent = new Intent(ConsultarSupervisorActivity.this, ModificarEncuestaActivity.class);
+                    intent.putExtra("posicion", posicion + "");
+                    intent.putExtra("estadoEnvi", estadoEnvi);
                     startActivity(intent);
                 }
             }

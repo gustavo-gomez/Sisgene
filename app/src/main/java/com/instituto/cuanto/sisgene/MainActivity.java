@@ -7,11 +7,13 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.instituto.cuanto.sisgene.bean.Encuestador;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     EditText etNombreUsuario, etClave;
     TextView tvNombreUsuarioError, tvClaveError, tvErroLogin;
     Spinner listaRol;
+    LinearLayout lyCodigo;
   //  private DataBaseHelper dataBaseHelper;
     String respuestaWS;
     Gson gson = new Gson();
@@ -51,7 +54,21 @@ public class MainActivity extends AppCompatActivity {
         tvNombreUsuarioError = (TextView)findViewById(R.id.tvNombreUsuarioError);
         tvClaveError = (TextView)findViewById(R.id.tvClaveError);
         listaRol = (Spinner)findViewById(R.id.spRol);
+        lyCodigo = (LinearLayout) findViewById(R.id.lyNombreEncuesta);
 
+        listaRol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i == 2){
+                    lyCodigo.setVisibility(View.VISIBLE);
+                }else{
+                    lyCodigo.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
 
         btnAceptar.setOnClickListener(btnAceptarsetOnClickListener);
         btnCerrar.setOnClickListener(btnCerrarsetOnClickListener);
@@ -82,10 +99,7 @@ public class MainActivity extends AppCompatActivity {
             String rolAcceso = listaRol.getSelectedItem().toString();
             UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-            Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
-            startActivity(intent);
-            finish();
-            /*
+
             if(camposOK)
             {
                 int cantidadData = usuarioDAO.obtenerCantidadUsuarios(MainActivity.this);
@@ -116,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-            */
         }
     };
 
@@ -145,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 String sId = gson.toJson(log);
                 String urlTemp = URLEncoder.encode(sId, "UTF-8");
 
-                HttpGet get = new HttpGet("http://192.168.1.35:8081/SISGENE_LOCAL/service/obtenerGSON/"+urlTemp);
+                HttpGet get = new HttpGet("http://192.168.1.44:8081/SISGENE_LOCAL/service/obtenerGSON/"+urlTemp);
                 get.setHeader("Content-type", "application/json");
 
                 HttpResponse resp = httpClient.execute(get);

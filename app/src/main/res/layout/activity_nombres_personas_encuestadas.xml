@@ -25,6 +25,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
+            android:background="@color/color_fondo_pantalla"
             android:orientation="vertical">
 
             <LinearLayout
@@ -126,6 +127,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/color_texto_boton"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -321,7 +323,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 1" />
+                        android:text="Persona 1" />
 
                     <EditText
                         android:id="@+id/edNombre1"
@@ -329,7 +331,33 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 1" />
+                        android:hint="Nombre 1"
+                        android:inputType="text"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 1"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Materno 1"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -353,7 +381,29 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 2" />
+                        android:hint="Nombre 2"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 2"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 2"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -377,7 +427,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 3" />
+                        android:hint="Nombre 3"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 3"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 3"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -401,7 +476,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 4" />
+                        android:hint="Nombre 4"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 4"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 4"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -425,7 +525,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 5" />
+                        android:hint="Nombre 5"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 5"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 5"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -447,9 +572,34 @@
                         android:id="@+id/edNombre6"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:hint="Nombre 6"
                         android:layout_weight="2"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:hint="Nombre 6"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 6"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 6"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -473,7 +623,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 7" />
+                        android:hint="Nombre 7"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 7"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 7"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -497,7 +672,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 8" />
+                        android:hint="Nombre 8"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 8"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 8"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -521,7 +721,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 9" />
+                        android:hint="Nombre 9"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat9"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 9"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat9"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 9"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -545,7 +770,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 10" />
+                        android:hint="Nombre 10"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat10"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 10"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat10"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 10"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -570,7 +820,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 11" />
+                        android:hint="Nombre 11"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat11"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 11"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat11"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 11"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -594,7 +869,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 12" />
+                        android:hint="Nombre 12"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat12"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 12"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat12"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 12"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -618,7 +918,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 13" />
+                        android:hint="Nombre 13"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat13"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 13"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat13"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 13"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -642,7 +967,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 14" />
+                        android:hint="Nombre 14"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 14"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 14"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -666,7 +1016,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 15" />
+                        android:hint="Nombre 15"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat15"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 15"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat15"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 15"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -690,7 +1065,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 16" />
+                        android:hint="Nombre 16"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat16"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 16"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat16"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 16"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -714,7 +1114,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 17" />
+                        android:hint="Nombre 17"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat17"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 17"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat17"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 17"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -738,7 +1163,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 18" />
+                        android:hint="Nombre 18"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat18"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 18"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat18"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 18"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -762,7 +1212,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 19" />
+                        android:hint="Nombre 19"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat19"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 19"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat19"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 19"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -786,7 +1261,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:hint="Nombre 20" />
+                        android:hint="Nombre 20"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoPat20"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Paterno 20"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edApellidoMat20"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:hint="Apellido Marterno 20"
+                        android:maxLength="50"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
             </LinearLayout>
