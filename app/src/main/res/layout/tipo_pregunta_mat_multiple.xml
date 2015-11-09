@@ -3,8 +3,18 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <GridLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvNombreEncuestado" />
+
+    <com.instituto.cuanto.sisgene.mwtools.ExpandableHeightGridview
+        android:id="@+id/gridView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/grid"/>
+        android:layout_height="wrap_content"
+        android:background="@color/color_fondo_pantalla"
+        android:scrollbars="none"
+        android:orientation="vertical"
+        android:fadingEdge="none" />
 </LinearLayout>

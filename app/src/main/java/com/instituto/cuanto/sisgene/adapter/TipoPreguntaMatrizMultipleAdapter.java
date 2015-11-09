@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.instituto.cuanto.sisgene.R;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
+import com.instituto.cuanto.sisgene.mwtools.ExpandableHeightGridview;
 import com.instituto.cuanto.sisgene.mwtools.ExpandableHeightListview;
 
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class TipoPreguntaMatrizMultipleAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.tipo_pregunta_mat_multiple, parent, false);
             mViewHolder = new MyViewHolder();
             mViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvNombreEncuestado);
-            mViewHolder.grid = (GridView) convertView.findViewById(R.id.grid);
+            mViewHolder.grid = (ExpandableHeightGridview) convertView.findViewById(R.id.gridView);
             convertView.setTag(mViewHolder);
             notifyDataSetChanged();
         } else {
@@ -85,7 +86,7 @@ public class TipoPreguntaMatrizMultipleAdapter extends BaseAdapter {
 
     private class MyViewHolder {
         TextView tvTitle;
-        GridView grid;
+        ExpandableHeightGridview grid;
     }
 
 }

@@ -41,9 +41,8 @@ public class GridAdapter extends BaseAdapter {
     public String getItem(int position) {
         String data;
         int fila = position/(myListaGrid.getHorizontal().size()+1);
-
         if(position==0){
-            data = myListaGrid.getTitle();
+            data = "Tipo de Servicio";
         }else {
             if(position%(myListaGrid.getHorizontal().size()+1)==0){
                 data = myListaGrid.getVertical().get(fila);
