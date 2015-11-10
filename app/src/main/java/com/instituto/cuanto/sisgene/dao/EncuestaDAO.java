@@ -16,7 +16,34 @@ public class EncuestaDAO {
 
     public EncuestaDAO(){}
 
-    public EncuestaPregunta obtenerCodigoEncuesta(Context context){
+    public String obtenerCodigoEncuesta(Context context){
+
+        String response = "";
+
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        try {
+            cursor = dataBaseHelper.db.rawQuery("select cae_codigo from caratula_encuesta",null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    response = cursor.getString(0);
+                } while (cursor.moveToNext()) ;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return response;
+
+    }
+
+    public EncuestaPregunta obtenerPreguntaEncuesta(Context context){
 
         Cursor cursor   = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
@@ -79,7 +106,7 @@ public class EncuestaDAO {
 
     }
 
-    public EncuestaPregunta obtenerCodigoEncuesta(Context context, int idPregunta){
+    public EncuestaPregunta obtenerPreguntaEncuesta(Context context, int idPregunta){
 
         Cursor cursor   = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
