@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.instituto.cuanto.sisgene.dao.PersonaDAO;
+
 import java.util.ArrayList;
 
 /**
@@ -23,11 +25,20 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
             lyNombre11, lyNombre12, lyNombre13, lyNombre14, lyNombre15, lyNombre16, lyNombre17, lyNombre18, lyNombre19, lyNombre20;
     EditText etNombre1, etNombre2, etNombre3, etNombre4, etNombre5, etNombre6, etNombre7, etNombre8, etNombre9, etNombre10,
             etNombre11, etNombre12, etNombre13, etNombre14, etNombre15, etNombre16, etNombre17, etNombre18, etNombre19, etNombre20;
+    EditText edApellidoPat1, edApellidoPat2, edApellidoPat3, edApellidoPat4, edApellidoPat5, edApellidoPat6, edApellidoPat7, edApellidoPat8,
+            edApellidoPat9, edApellidoPat10, edApellidoPat11, edApellidoPat12, edApellidoPat13, edApellidoPat14, edApellidoPat15, edApellidoPat16,
+            edApellidoPat17, edApellidoPat18, edApellidoPat19, edApellidoPat20;
+    EditText edApellidoMat1, edApellidoMat2, edApellidoMat3, edApellidoMat4, edApellidoMat5, edApellidoMat6, edApellidoMat7, edApellidoMat8,
+            edApellidoMat9, edApellidoMat10, edApellidoMat11, edApellidoMat12, edApellidoMat13, edApellidoMat14, edApellidoMat15, edApellidoMat16,
+            edApellidoMat17, edApellidoMat18, edApellidoMat19, edApellidoMat20;
+
     TextView tvNumeroPersonas;
     Button btMenosNumPersonas, btMasNumPersonas, btAceptarNumeroPersonas;
     int numerodePersonasEncuestadas;
     ArrayList<LinearLayout> nombresLayouts;
     ArrayList<EditText> nombresEdits;
+    ArrayList<EditText> apellidosPatEdits;
+    ArrayList<EditText> apellidosMatEdits;
     Button btAceptar_nombresEncuestados;
     ArrayList<String> nombresEncuestados;
     public static String KEY_ARG_NOMBRES_ENCUESTADOS = "KEY_ARG_NOMBRES_ENCUESTADOS";
@@ -37,9 +48,12 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nombres_personas_encuestadas);
+
         numerodePersonasEncuestadas = 0;
         nombresLayouts = new ArrayList<>();
         nombresEdits = new ArrayList<>();
+        apellidosPatEdits = new ArrayList<>();
+        apellidosMatEdits = new ArrayList<>();
         nombresEncuestados = new ArrayList<>();
 
         lyNombre1 = (LinearLayout) findViewById(R.id.lyNombre1);
@@ -83,6 +97,48 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         etNombre18 = (EditText) findViewById(R.id.edNombre18);
         etNombre19 = (EditText) findViewById(R.id.edNombre19);
         etNombre20 = (EditText) findViewById(R.id.edNombre20);
+
+        edApellidoPat1 = (EditText) findViewById(R.id.edApellidoPat1);
+        edApellidoPat2 = (EditText) findViewById(R.id.edApellidoPat2);
+        edApellidoPat3 = (EditText) findViewById(R.id.edApellidoPat3);
+        edApellidoPat4 = (EditText) findViewById(R.id.edApellidoPat4);
+        edApellidoPat5 = (EditText) findViewById(R.id.edApellidoPat5);
+        edApellidoPat6 = (EditText) findViewById(R.id.edApellidoPat6);
+        edApellidoPat7 = (EditText) findViewById(R.id.edApellidoPat7);
+        edApellidoPat8 = (EditText) findViewById(R.id.edApellidoPat8);
+        edApellidoPat9 = (EditText) findViewById(R.id.edApellidoPat9);
+        edApellidoPat10 = (EditText) findViewById(R.id.edApellidoPat10);
+        edApellidoPat11 = (EditText) findViewById(R.id.edApellidoPat11);
+        edApellidoPat12 = (EditText) findViewById(R.id.edApellidoMat12);
+        edApellidoPat13 = (EditText) findViewById(R.id.edApellidoPat13);
+        edApellidoPat14 = (EditText) findViewById(R.id.edApellidoPat14);
+        edApellidoPat15 = (EditText) findViewById(R.id.edApellidoPat15);
+        edApellidoPat16 = (EditText) findViewById(R.id.edApellidoPat16);
+        edApellidoPat17 = (EditText) findViewById(R.id.edApellidoPat17);
+        edApellidoPat18 = (EditText) findViewById(R.id.edApellidoPat18);
+        edApellidoPat19 = (EditText) findViewById(R.id.edApellidoPat19);
+        edApellidoPat20 = (EditText) findViewById(R.id.edApellidoPat20);
+
+        edApellidoMat1 = (EditText) findViewById(R.id.edApellidoMat1);
+        edApellidoMat2 = (EditText) findViewById(R.id.edApellidoMat2);
+        edApellidoMat3 = (EditText) findViewById(R.id.edApellidoMat3);
+        edApellidoMat4 = (EditText) findViewById(R.id.edApellidoMat4);
+        edApellidoMat5 = (EditText) findViewById(R.id.edApellidoMat5);
+        edApellidoMat6 = (EditText) findViewById(R.id.edApellidoMat6);
+        edApellidoMat7 = (EditText) findViewById(R.id.edApellidoMat7);
+        edApellidoMat8 = (EditText) findViewById(R.id.edApellidoMat8);
+        edApellidoMat9 = (EditText) findViewById(R.id.edApellidoMat9);
+        edApellidoMat10 = (EditText) findViewById(R.id.edApellidoMat10);
+        edApellidoMat11 = (EditText) findViewById(R.id.edApellidoMat11);
+        edApellidoMat12 = (EditText) findViewById(R.id.edApellidoMat12);
+        edApellidoMat13 = (EditText) findViewById(R.id.edApellidoMat13);
+        edApellidoMat14 = (EditText) findViewById(R.id.edApellidoMat14);
+        edApellidoMat15 = (EditText) findViewById(R.id.edApellidoMat15);
+        edApellidoMat16 = (EditText) findViewById(R.id.edApellidoMat16);
+        edApellidoMat17 = (EditText) findViewById(R.id.edApellidoMat17);
+        edApellidoMat18 = (EditText) findViewById(R.id.edApellidoMat18);
+        edApellidoMat19 = (EditText) findViewById(R.id.edApellidoMat19);
+        edApellidoMat20 = (EditText) findViewById(R.id.edApellidoMat20);
 
         btAceptar_nombresEncuestados = (Button) findViewById(R.id.btAceptar_nombresEncuestados);
 
@@ -156,6 +212,48 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         nombresEdits.add(etNombre19);
         nombresEdits.add(etNombre20);
 
+
+        apellidosPatEdits.add(edApellidoPat1);
+        apellidosPatEdits.add(edApellidoPat2);
+        apellidosPatEdits.add(edApellidoPat3);
+        apellidosPatEdits.add(edApellidoPat4);
+        apellidosPatEdits.add(edApellidoPat5);
+        apellidosPatEdits.add(edApellidoPat6);
+        apellidosPatEdits.add(edApellidoPat7);
+        apellidosPatEdits.add(edApellidoPat8);
+        apellidosPatEdits.add(edApellidoPat9);
+        apellidosPatEdits.add(edApellidoPat10);
+        apellidosPatEdits.add(edApellidoPat11);
+        apellidosPatEdits.add(edApellidoPat12);
+        apellidosPatEdits.add(edApellidoPat13);
+        apellidosPatEdits.add(edApellidoPat14);
+        apellidosPatEdits.add(edApellidoPat15);
+        apellidosPatEdits.add(edApellidoPat16);
+        apellidosPatEdits.add(edApellidoPat17);
+        apellidosPatEdits.add(edApellidoPat18);
+        apellidosPatEdits.add(edApellidoPat19);
+        apellidosPatEdits.add(edApellidoPat20);
+
+        apellidosMatEdits.add(edApellidoMat1);
+        apellidosMatEdits.add(edApellidoMat2);
+        apellidosMatEdits.add(edApellidoMat3);
+        apellidosMatEdits.add(edApellidoMat4);
+        apellidosMatEdits.add(edApellidoMat5);
+        apellidosMatEdits.add(edApellidoMat6);
+        apellidosMatEdits.add(edApellidoMat7);
+        apellidosMatEdits.add(edApellidoMat8);
+        apellidosMatEdits.add(edApellidoMat9);
+        apellidosMatEdits.add(edApellidoMat10);
+        apellidosMatEdits.add(edApellidoMat11);
+        apellidosMatEdits.add(edApellidoMat12);
+        apellidosMatEdits.add(edApellidoMat13);
+        apellidosMatEdits.add(edApellidoMat14);
+        apellidosMatEdits.add(edApellidoMat15);
+        apellidosMatEdits.add(edApellidoMat16);
+        apellidosMatEdits.add(edApellidoMat17);
+        apellidosMatEdits.add(edApellidoMat18);
+        apellidosMatEdits.add(edApellidoMat19);
+        apellidosMatEdits.add(edApellidoMat20);
     }
 
 
@@ -218,13 +316,34 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                     nombresEdits.get(i).setError("Ingrese nombre");
                     isCorrect++;
                 }
+                if (apellidosPatEdits.get(i).getText().toString().trim().length() == 0) {
+                    apellidosPatEdits.get(i).setError("Ingrese Apellido Paterno");
+                    isCorrect++;
+                }
+                if (apellidosMatEdits.get(i).getText().toString().trim().length() == 0) {
+                    apellidosMatEdits.get(i).setError("Ingrese Apellido Materno");
+                    isCorrect++;
+                }
             }
+            PersonaDAO personaDAO = new PersonaDAO();
             if (isCorrect == 0) {//No hay ningun capo vacio
-                for (int i = 0; i < numerodePersonasEncuestadas; i++)
-                    nombresEncuestados.add(nombresEdits.get(i).getText().toString().trim());
+                for (int i = 0; i < numerodePersonasEncuestadas; i++) {
+                    //guardar los nombres en un array
+                    nombresEncuestados.add(nombresEdits.get(i).getText().toString().trim() + " " + apellidosPatEdits.get(i).getText().toString().trim() +
+                            " " + apellidosMatEdits.get(i).getText().toString().trim());
+
+                    //guardar todos los nombres en la base de datos
+                    boolean insertarAllegado = personaDAO.insertarAllegado(NombresPersonasEncuestadasActivity.this, nombresEdits.get(i).getText().toString().trim(),
+                            apellidosPatEdits.get(i).getText().toString().trim(), apellidosMatEdits.get(i).getText().toString().trim());
+                    if (insertarAllegado == false) {
+                        Toast.makeText(NombresPersonasEncuestadasActivity.this, "Ingrese el nombre de las " +
+                                +numerodePersonasEncuestadas + " personas ", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                }
 
                 for (int i = 0; i < numerodePersonasEncuestadas + 1; i++) {
-                    System.out.println("nombre: " + i + " : " + nombresEncuestados.get(i));
+                    System.out.println("nombre " + i + " : " + nombresEncuestados.get(i));
                 }
                 Intent intent = new Intent(NombresPersonasEncuestadasActivity.this, PreguntasActivity.class);
                 intent.putStringArrayListExtra(KEY_ARG_NOMBRES_ENCUESTADOS, nombresEncuestados);

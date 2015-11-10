@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 String jsonEnviar = gson.toJson(validarRequest);
                 String urlTemp = URLEncoder.encode(jsonEnviar, "UTF-8");
 
-                HttpGet get = new HttpGet("http://192.168.1.35:8081/SISGENE_LOCAL/service/obtenerGSON/"+urlTemp);
+                HttpGet get = new HttpGet("http://192.168.1.44:8081/SISGENE_LOCAL/service/obtenerGSON/"+urlTemp);
                 get.setHeader("Content-type", "application/json");
 
                 HttpResponse resp = httpClient.execute(get);
