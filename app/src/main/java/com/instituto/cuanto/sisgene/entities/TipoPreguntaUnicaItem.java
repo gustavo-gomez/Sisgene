@@ -9,8 +9,9 @@ import java.util.Iterator;
  */
 public class TipoPreguntaUnicaItem {
     HashMap<Integer,String> alternativas;
-    int respuesta;
-    String title;
+    private String respuesta;
+    private String title;
+    private int pos;
 
     public HashMap<Integer, String> getAlternativas() {
         return alternativas;
@@ -32,11 +33,11 @@ public class TipoPreguntaUnicaItem {
         return result;
     }
 
-    public int getRespuesta() {
+    public String getRespuesta() {
         return respuesta;
     }
 
-    public void setRespuesta(int respuesta) {
+    public void setRespuesta(String respuesta) {
         this.respuesta = respuesta;
     }
 
@@ -46,5 +47,13 @@ public class TipoPreguntaUnicaItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
     }
 }
