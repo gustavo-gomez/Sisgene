@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -19,15 +22,15 @@ import java.util.ArrayList;
 /**
  * Created by Luis Benavides on 27/10/2015.
  */
-public class TipoPreguntaMatrizMultipleAdapter extends BaseAdapter {
+public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
 
     public static ArrayList<TipoPreguntaMatrizItem> myListPreguntaMatriz = new ArrayList<>();
     LayoutInflater inflater;
     Context context;
-    public static TipoPreguntaMatrizMultipleAdapter tipoPreguntaMatrizAdapter;
+    public static TipoPreguntaMatrizSimpleAdapter tipoPreguntaMatrizAdapter;
     private Boolean mixta;
 
-    public TipoPreguntaMatrizMultipleAdapter(Context context, ArrayList<TipoPreguntaMatrizItem> myListPreguntaMatriz) {
+    public TipoPreguntaMatrizSimpleAdapter(Context context, ArrayList<TipoPreguntaMatrizItem> myListPreguntaMatriz) {
         this.myListPreguntaMatriz = myListPreguntaMatriz;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
@@ -95,22 +98,31 @@ public class TipoPreguntaMatrizMultipleAdapter extends BaseAdapter {
     private void fillTableLayout(final TipoPreguntaMatrizItem currentTipoPreguntaMatrizItem){
         for (int i = 0; i <currentTipoPreguntaMatrizItem.getHorizontal().size() ; i++) {
             TableRow tableRow = new TableRow(context);
+            final RadioGroup group = new RadioGroup(context);
+            final LinearLayout linear= new LinearLayout(context);
             for (int j = 0; j < currentTipoPreguntaMatrizItem.getVertical().size(); j++) {
                 if (i != 0 && j != 0) {
-                    final CheckBox checkbox = new CheckBox(context);
-                    checkbox.setText("");
-                    checkbox.setChecked(false);
-                    checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                            if(checkbox.isChecked()){
-                                System.out.println("Checked");
-                            }else{
-                                System.out.println("Un-Checked");
+                    final RadioButton radio = new RadioButton(context);
+                    radio.setText("");
+                    radio.setChecked(false);
+                    radio.setPadding(40, 20, 20, 20);
+                    group.addView(radio);
+                    if(group.getChildCount()+1==currentTipoPreguntaMatrizItem.getVertical().size()){
+                        group.setOrientation(RadioGroup.HORIZONTAL);
+                        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+                        {
+                            public void onCheckedChanged(RadioGroup rGroup, int checkedId)
+                            {
+                                RadioButton checkedRadioButton = (RadioButton)rGroup.findViewById(checkedId);
+                                boolean isChecked = checkedRadioButton.isChecked();
+                                if (isChecked)
+                                {
+                                    System.out.println("Checked:" + isChecked);
+                                }
                             }
-                        }
-                    });
-                    tableRow.addView(checkbox);
+                        });
+                        tableRow.addView(group);
+                    }
                 } else {
                     TextView textView = new TextView(context);
                     if (i == 0 && j == 0) {
@@ -121,7 +133,11 @@ public class TipoPreguntaMatrizMultipleAdapter extends BaseAdapter {
                     if (i == 0 && j != 0) {
                         textView.setText(currentTipoPreguntaMatrizItem.getHorizontal().get(j - 1));
                         textView.setPadding(20, 20, 20, 20);
-                        tableRow.addView(textView);
+                        linear.addView(textView);
+                        if(linear.getChildCount()+1==currentTipoPreguntaMatrizItem.getVertical().size()){
+                            linear.setOrientation(LinearLayout.HORIZONTAL);
+                            tableRow.addView(linear);
+                        }
                     }
                     if (i != 0 && j == 0) {
                         textView.setText(currentTipoPreguntaMatrizItem.getVertical().get(i - 1));

@@ -9,12 +9,9 @@
         android:text="New Text"
         android:id="@+id/tvNombreEncuestado" />
 
-    <com.instituto.cuanto.sisgene.mwtools.ExpandableHeightGridview
-        android:id="@+id/gridView"
+    <TableLayout
+        android:id="@+id/tlPreguntas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_fondo_pantalla"
-        android:scrollbars="none"
-        android:orientation="vertical"
-        android:fadingEdge="none" />
+        android:layout_height="match_parent" />
+
 </LinearLayout>

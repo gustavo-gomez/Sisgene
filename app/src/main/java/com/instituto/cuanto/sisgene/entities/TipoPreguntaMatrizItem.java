@@ -1,5 +1,7 @@
 package com.instituto.cuanto.sisgene.entities;
 
+import android.widget.TableLayout;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,7 +13,21 @@ public class TipoPreguntaMatrizItem {
     HashMap<Integer,Integer> respuestas;
     ArrayList<String> vertical;
     ArrayList<String> horizontal;
+    Boolean hasView;
     String title;
+    public TableLayout tbLayout;
+
+    public TipoPreguntaMatrizItem(){
+        hasView = false;
+    }
+
+    public Boolean getHasView() {
+        return hasView;
+    }
+
+    public void setHasView(Boolean hasView) {
+        this.hasView = hasView;
+    }
 
     public String getTitle() {
         return title;

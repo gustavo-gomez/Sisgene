@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaAbiertaAdapter;
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaMatrizMultipleAdapter;
+import com.instituto.cuanto.sisgene.adapter.TipoPreguntaMatrizSimpleAdapter;
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaMixtaAdapter;
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaUnicaAdapter;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
@@ -94,7 +95,7 @@ public class PreguntasActivity extends AppCompatActivity {
             //Tipo de pregunta Matriz Simple
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMatSimple))) {
             //tipoPreguntaAbiertaAdapter.limpiarLista();
-
+            poblarLista_TipoPreguntaMatrizSimple(encuestarTodos);
             //Tipo de pregunta Matriz Multiple
         } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMatMultiple))) {
             //tipoPreguntaAbiertaAdapter.limpiarLista();
@@ -121,7 +122,7 @@ public class PreguntasActivity extends AppCompatActivity {
             //lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
             //System.out.println("despues: " + TipoPreguntFaAbiertaAdapter.myListPreguntaAbierta.size());
 
-            leerTipoPreguntaxPregunta("MM");
+            leerTipoPreguntaxPregunta("MS");
         }
     };
 
@@ -246,6 +247,34 @@ public class PreguntasActivity extends AppCompatActivity {
         System.out.println("num pregunta: " + numPregunta);
     }
 
+    private void poblarLista_TipoPreguntaMatrizSimple(boolean encuestarTodos) {
+        ArrayList<String> horizontales = new ArrayList<>();
+        horizontales.add("Pesimo");
+        horizontales.add("Malo");
+        horizontales.add("Regular");
+        horizontales.add("Bueno");
+        horizontales.add("Muy Bueno");
+        horizontales.add("Excelente");
+
+        ArrayList<String> verticales = new ArrayList<>();
+        for (int i=0;i<5;i++) {
+            verticales.add("Opcion " + (i + 1));
+        }
+        //cargar datos a la lista
+        for (int i = 0; i < nombresEncuestados.size(); i++) {
+            TipoPreguntaMatrizItem tipoPreguntaMatrizItem = new TipoPreguntaMatrizItem();
+            tipoPreguntaMatrizItem.setTitle(nombresEncuestados.get(i));
+            tipoPreguntaMatrizItem.setHorizontal(horizontales);
+            tipoPreguntaMatrizItem.setVertical(verticales);
+            TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz.add(tipoPreguntaMatrizItem);
+            if (i == 0 && encuestarTodos == false)
+                break;
+        }
+        System.out.println("miListaTipoPreguntaMatrizSimple: " + TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz.size());
+        lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaMatrizSimpleAdapter(context, TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz));
+        System.out.println("num pregunta: " + numPregunta);
+    }
+
     private void poblarLista_TipoPreguntaMatrizMultiple(boolean encuestarTodos) {
         ArrayList<String> horizontales = new ArrayList<>();
         horizontales.add("Pesimo");
@@ -269,7 +298,7 @@ public class PreguntasActivity extends AppCompatActivity {
             if (i == 0 && encuestarTodos == false)
                 break;
         }
-        System.out.println("miListaTipoPreguntaMixta: " + TipoPreguntaMatrizMultipleAdapter.myListPreguntaMatriz.size());
+        System.out.println("miListaTipoPreguntaMatrizMultiple: " + TipoPreguntaMatrizMultipleAdapter.myListPreguntaMatriz.size());
         lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaMatrizMultipleAdapter(context, TipoPreguntaMatrizMultipleAdapter.myListPreguntaMatriz));
         System.out.println("num pregunta: " + numPregunta);
     }
