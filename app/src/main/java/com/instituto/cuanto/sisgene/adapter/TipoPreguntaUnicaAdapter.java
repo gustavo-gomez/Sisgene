@@ -91,7 +91,8 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        currentTipoPreguntaUnicaItem.setRespuesta(parent.getSelectedItemPosition());
+                        currentTipoPreguntaUnicaItem.setRespuesta(parent.getSelectedItem().toString().trim());
+                        currentTipoPreguntaUnicaItem.setPos(parent.getSelectedItemPosition());
                     }
 
                     @Override

@@ -12,6 +12,8 @@ public class TipoPreguntaMixtaItem {
     HashMap<Integer,String> alternativas;
     String title;
 
+
+
     public HashMap<Integer, String> getAlternativas() {
         return alternativas;
     }
