@@ -6,7 +6,7 @@ package com.instituto.cuanto.sisgene.forms;
 public class LoginRequest {
 
     private String usuario;
-    private String contrasenia;
+    private String clave;
 
     public LoginRequest(){
         //Constructor
@@ -20,11 +20,4 @@ public class LoginRequest {
         this.usuario = usuario;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
 }

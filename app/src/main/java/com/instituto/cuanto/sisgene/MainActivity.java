@@ -21,6 +21,8 @@ import com.instituto.cuanto.sisgene.bean.Usuario;
 import com.instituto.cuanto.sisgene.dao.UsuarioDAO;
 import com.instituto.cuanto.sisgene.forms.LoginRequest;
 import com.instituto.cuanto.sisgene.forms.LoginResponse;
+import com.instituto.cuanto.sisgene.forms.ValidarAdministradorRequest;
+import com.instituto.cuanto.sisgene.forms.ValidarAdministradorResponse;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -34,7 +36,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     Button btnAceptar, btnCerrar;
-    EditText etNombreUsuario, etClave;
+    EditText etNombreUsuario, etClave, etCodigoEncuesta;
     TextView tvNombreUsuarioError, tvClaveError, tvErroLogin;
     Spinner listaRol;
     LinearLayout lyCodigo;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btnCerrar = (Button)findViewById(R.id.btnCerrar);
         etNombreUsuario = (EditText)findViewById(R.id.etNombreUsuario);
         etClave = (EditText)findViewById(R.id.etClave);
+        etCodigoEncuesta = (EditText)findViewById(R.id.etCodigoEncuesta);
         tvNombreUsuarioError = (TextView)findViewById(R.id.tvNombreUsuarioError);
         tvClaveError = (TextView)findViewById(R.id.tvClaveError);
         listaRol = (Spinner)findViewById(R.id.spRol);
@@ -103,10 +106,14 @@ public class MainActivity extends AppCompatActivity {
             if(camposOK)
             {
                 int cantidadData = usuarioDAO.obtenerCantidadUsuarios(MainActivity.this);
-                System.out.println("CANTIDADDD  :: : : :: " + cantidadData);
 
                 if(cantidadData == 0){
-                    new RestCosumeAsyncTask().execute();
+                    if(rolAcceso.equals("ADMINISTRADOR")){
+                        new RestCosumeAsyncTask().execute();
+                    }else{
+                        Toast.makeText(MainActivity.this, "Tablet no cargada, porfavor utilizar un usuario ADMINISTRADOR", Toast.LENGTH_LONG).show();
+                    }
+
                 }else{
                     String nomUsu = etNombreUsuario.getText().toString().trim();
                     String clvUsu = etClave.getText().toString().trim();
@@ -145,18 +152,21 @@ public class MainActivity extends AppCompatActivity {
 
         String nomUsu = etNombreUsuario.getText().toString().trim();
         String clvUsu = etClave.getText().toString().trim();
+        String codEncuesta = etCodigoEncuesta.getText().toString().trim();
 
         @Override
         protected String doInBackground(String... params) {
             HttpClient httpClient = new DefaultHttpClient();
 
             try{
-                LoginRequest log = new LoginRequest();
-                log.setUsuario(nomUsu);
-                log.setContrasenia(clvUsu);
 
-                String sId = gson.toJson(log);
-                String urlTemp = URLEncoder.encode(sId, "UTF-8");
+                ValidarAdministradorRequest validarRequest = new ValidarAdministradorRequest();
+                validarRequest.setUsuario(nomUsu);
+                validarRequest.setClave(clvUsu);
+                validarRequest.setCodigo_encuesta(codEncuesta);
+
+                String jsonEnviar = gson.toJson(validarRequest);
+                String urlTemp = URLEncoder.encode(jsonEnviar, "UTF-8");
 
                 HttpGet get = new HttpGet("http://192.168.1.35:8081/SISGENE_LOCAL/service/obtenerGSON/"+urlTemp);
                 get.setHeader("Content-type", "application/json");
@@ -191,36 +201,42 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             System.out.println("POSTEXCECUTE");
             boolean estado = false;
-            progressDialog.hide();
-
-            System.out.println("RESPWS : "+respuestaWS);
+            progressDialog.setMessage("Cargando configuración de Encuesta en Tablet");
 
             if(respuestaWS != null) {
 
-                LoginResponse loginResponse = gson.fromJson(respuestaWS, LoginResponse.class);
+                ValidarAdministradorResponse validarResponse = gson.fromJson(respuestaWS, ValidarAdministradorResponse.class);
 
-                if (loginResponse.getResponse_code().equals("00")) {
+                if (validarResponse.getCodigo_respuesta().equals("00")) {
                     estado = true;
                 } else {
-                    //tvErroLogin.setText(loginResponse.getMessage());
-                    Toast.makeText(MainActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    progressDialog.hide();
+                    Toast.makeText(MainActivity.this, validarResponse.getMensaje(), Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 if (estado) {
                     //////Se llama a fragmengto, cambiar de lugar cuando se defina el orden
-                    Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
+                    /*Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
                     startActivity(intent);
-                    finish();
+                    finish();*/
                     //////
+                    cargarEnBD(validarResponse);
+                    progressDialog.hide();
                 }
 
             }else{
-                    Toast.makeText(MainActivity.this, "El dispositivo no cuenta con conexión a INTERNET", Toast.LENGTH_LONG).show();
+                progressDialog.hide();
+                Toast.makeText(MainActivity.this, "El dispositivo no cuenta con conexión a INTERNET", Toast.LENGTH_LONG).show();
                 return;
             }
 
         }
+    }
+
+    public void cargarEnBD(ValidarAdministradorResponse validarResponse){
+
+
     }
 
         public String juntar(List<Encuestador> encuestador){
