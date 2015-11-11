@@ -107,7 +107,7 @@ public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
                     radio.setChecked(false);
                     radio.setPadding(40, 20, 20, 20);
                     group.addView(radio);
-                    if(group.getChildCount()+1==currentTipoPreguntaMatrizItem.getVertical().size()){
+                    if(group.getChildCount()+1==currentTipoPreguntaMatrizItem.getHorizontal().size()){
                         group.setOrientation(RadioGroup.HORIZONTAL);
                         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
                         {

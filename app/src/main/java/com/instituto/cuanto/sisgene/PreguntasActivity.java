@@ -77,7 +77,7 @@ public class PreguntasActivity extends AppCompatActivity {
             leerDatos();
             System.out.println("respuestas leidas -   se borra la lista");
 
-            leerTipoPreguntaxPregunta("MM");
+            leerTipoPreguntaxPregunta("MS");
         }
     };
 
@@ -265,7 +265,7 @@ public class PreguntasActivity extends AppCompatActivity {
         horizontales.add("Excelente");
 
         ArrayList<String> verticales = new ArrayList<>();
-        for (int i=0;i<5;i++) {
+        for (int i=0;i<10;i++) {
             verticales.add("Opcion " + (i + 1));
         }
         //cargar datos a la lista
