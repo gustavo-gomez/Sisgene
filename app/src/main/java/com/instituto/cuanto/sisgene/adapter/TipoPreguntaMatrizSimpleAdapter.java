@@ -96,11 +96,11 @@ public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
     }
 
     private void fillTableLayout(final TipoPreguntaMatrizItem currentTipoPreguntaMatrizItem){
-        for (int i = 0; i <currentTipoPreguntaMatrizItem.getHorizontal().size() ; i++) {
+        for (int i = 0; i < currentTipoPreguntaMatrizItem.getVertical().size()+1; i++) {
             TableRow tableRow = new TableRow(context);
             final RadioGroup group = new RadioGroup(context);
             final LinearLayout linear= new LinearLayout(context);
-            for (int j = 0; j < currentTipoPreguntaMatrizItem.getVertical().size(); j++) {
+            for (int j = 0; j < currentTipoPreguntaMatrizItem.getHorizontal().size(); j++) {
                 if (i != 0 && j != 0) {
                     final RadioButton radio = new RadioButton(context);
                     radio.setText("");
