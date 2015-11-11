@@ -77,7 +77,7 @@ public class PreguntasActivity extends AppCompatActivity {
             leerDatos();
             System.out.println("respuestas leidas -   se borra la lista");
 
-            leerTipoPreguntaxPregunta("UN");
+            leerTipoPreguntaxPregunta("MM");
         }
     };
 
