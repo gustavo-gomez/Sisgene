@@ -16,24 +16,33 @@
             android:id="@+id/tvSeccion"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/color_texto"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/tvSubSeccion"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/color_texto"
+            android:textSize="17sp" />
+
 
         <TextView
             android:id="@+id/tvEnunciadoPregunta"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/color_texto"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvOpcionesPregunta"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:textSize="17sp"
+            android:textColor="@color/color_texto"
             android:layout_weight="3" />
 
     </LinearLayout>
