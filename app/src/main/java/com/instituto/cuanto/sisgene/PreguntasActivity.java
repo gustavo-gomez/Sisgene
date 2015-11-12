@@ -22,6 +22,7 @@ import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -96,9 +97,9 @@ public class PreguntasActivity extends AppCompatActivity {
         encuestaPregunta = encuestaDAO.obtenerPreguntaEncuesta(PreguntasActivity.this);
 
         // Setear datos para la primera pregunta
-        encuestarTodos = Boolean.valueOf(encuestaPregunta.getPre_unica_persona());
-        nombreSecccion = encuestaPregunta.getSec_numero_seccion();
-        nombreSecccion = encuestaPregunta.getPre_importarordenrptamu();
+        //encuestarTodos = Boolean.valueOf(encuestaPregunta.getPre_unica_persona());
+        //nombreSecccion = encuestaPregunta.getSec_numero_seccion();
+        //nombreSecccion = encuestaPregunta.getPre_importarordenrptamu();
     }
 
     View.OnClickListener btnSiguientesetOnClickListener = new View.OnClickListener() {
@@ -106,7 +107,6 @@ public class PreguntasActivity extends AppCompatActivity {
         public void onClick(View v) {
             leerDatos();
             System.out.println("respuestas leidas -   se borra la lista");
-
             leerTipoPreguntaxPregunta();
         }
     };
@@ -114,7 +114,7 @@ public class PreguntasActivity extends AppCompatActivity {
     private void leerTipoPreguntaxPregunta() {
         //eliminar cuando se haya hecho la consulta a la base de datos
 
-        boolean encuestarTodos = true;
+        encuestarTodos = true;
         tipoPreguntaActual = tipoPreguntaActual;
         //Tipo de pregunta Unica
         if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
@@ -172,15 +172,12 @@ public class PreguntasActivity extends AppCompatActivity {
     }
 
     private void leerRespuestasTipoMultiple() {
-        TipoPreguntaMixtaItem tp = new TipoPreguntaMixtaItem();
-        tp = TipoPreguntaMixtaAdapter.tipoPreguntaMixtaAdapter.getItem(0);
+        ArrayList<TipoPreguntaMixtaItem> tp = TipoPreguntaMixtaAdapter.myListPreguntaMixta;
 
-        ArrayList<MixtaAlternativa> mixta = new ArrayList<>();
-        mixta = tp.getAlternativasAsArrayList();
-
-        for (int i = 0; i < mixta.size(); i++) {
-            System.out.println("mixta titulo" + mixta.get(i).getTitle());
-            System.out.println("mixta value" + mixta.get(i).getValue());
+        for (int i = 0; i < tp.size(); i++) {
+            for (int j=0;j<tp.get(i).getRespuestas().size();j++){
+                System.out.println("mixta usuario "+(i+1)+": "+ tp.get(i).getRespuestas().get(j));
+            }
         }
     }
 
@@ -282,9 +279,9 @@ public class PreguntasActivity extends AppCompatActivity {
         int numMaxChequeados = 2;
         boolean importancia = false;
 
-        HashMap<Integer, String> alternativas = new HashMap<>();
+        ArrayList<String> alternativas = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            alternativas.put(i + 1, "Opcion " + (i + 1));
+            alternativas.add("Opcion " + (i + 1));
         }
 
         //cargar datos a la lista

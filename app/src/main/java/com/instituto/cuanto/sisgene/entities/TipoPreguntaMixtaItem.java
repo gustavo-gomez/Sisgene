@@ -1,5 +1,7 @@
 package com.instituto.cuanto.sisgene.entities;
 
+import android.widget.LinearLayout;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,25 +10,30 @@ import java.util.Iterator;
  * Created by Gustavo on 27/10/2015.
  */
 public class TipoPreguntaMixtaItem {
-    ArrayList<Integer> respuestas;
-    HashMap<Integer,String> alternativas;
+    ArrayList<String> respuestas;
+    ArrayList<String> alternativas;
     String title;
+    public LinearLayout lvLayout;
+    Boolean hasView;
 
-
-
-    public HashMap<Integer, String> getAlternativas() {
-        return alternativas;
+    public TipoPreguntaMixtaItem(){
+        this.hasView=false;
+        this.respuestas=new ArrayList<>();
     }
 
-    public void setAlternativas(HashMap<Integer, String> alternativas) {
-        this.alternativas = alternativas;
+    public Boolean getHasView() {
+        return hasView;
     }
 
-    public ArrayList<Integer> getRespuestas() {
+    public void setHasView(Boolean hasView) {
+        this.hasView = hasView;
+    }
+
+    public ArrayList<String> getRespuestas() {
         return respuestas;
     }
 
-    public void setRespuestas(ArrayList<Integer> respuestas) {
+    public void setRespuestas(ArrayList<String> respuestas) {
         this.respuestas = respuestas;
     }
 
@@ -38,16 +45,11 @@ public class TipoPreguntaMixtaItem {
         this.title = title;
     }
 
-    public ArrayList<MixtaAlternativa> getAlternativasAsArrayList() {
-        ArrayList<MixtaAlternativa> ma = new ArrayList<>();
-        Iterator it = alternativas.keySet().iterator();
-        while(it.hasNext()){
-            Integer key = (int) it.next();
-            MixtaAlternativa temp = new MixtaAlternativa();
-            temp.setTitle((String) alternativas.get(key));
-            temp.setValue(false);
-            ma.add(temp);
-        }
-        return ma;
+    public ArrayList<String> getAlternativas() {
+        return alternativas;
+    }
+
+    public void setAlternativas(ArrayList<String> alternativas) {
+        this.alternativas = alternativas;
     }
 }
