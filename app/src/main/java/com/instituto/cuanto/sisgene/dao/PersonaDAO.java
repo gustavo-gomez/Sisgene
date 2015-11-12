@@ -8,17 +8,18 @@ import android.database.Cursor;
  */
 public class PersonaDAO {
 
-    public PersonaDAO(){}
+    public PersonaDAO() {
+    }
 
     public boolean actualizarPersona(Context context, String nombre, String appaterno, String apmaterno,
-                                     String numdoc, String telefono, String celular, String correo, int per_id){
-        Cursor cursor   = null;
+                                     String numdoc, String telefono, String celular, String correo, int per_id) {
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String idPers = per_id+"";
-        String arg[] = {nombre,appaterno,apmaterno,numdoc,telefono,celular,correo,idPers};
+        String idPers = per_id + "";
+        String arg[] = {nombre, appaterno, apmaterno, numdoc, telefono, celular, correo, idPers};
         boolean response = false;
 
-        System.out.println("IDM PERSONA : "+per_id);
+        System.out.println("IDM PERSONA : " + per_id);
 
         try {
             String sql = " UPDATE persona " +
@@ -31,7 +32,7 @@ public class PersonaDAO {
                     " per_correo = ? " +
                     " WHERE per_id = ?";
 
-            dataBaseHelper.db.execSQL(sql,arg);
+            dataBaseHelper.db.execSQL(sql, arg);
 
             response = true;
         } catch (Exception ex) {
@@ -46,17 +47,17 @@ public class PersonaDAO {
     }
 
     public boolean insertarPersona(Context context, String nombre, String appaterno, String apmaterno,
-                                    String numdoc, String telefono, String celular, String correo){
-        Cursor cursor   = null;
+                                   String numdoc, String telefono, String celular, String correo) {
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String arg[] = {nombre,appaterno,apmaterno,numdoc,telefono,celular,correo};
+        String arg[] = {nombre, appaterno, apmaterno, numdoc, telefono, celular, correo};
         boolean response = false;
 
         try {
             String sql = " INSERT INTO persona (per_nombres,per_appaterno,per_apmaterno,per_num_documento,per_telefono,per_celular,per_correo)" +
                     " VALUES(?,?,?,?,?,?,?)";
 
-            dataBaseHelper.db.execSQL(sql,arg);
+            dataBaseHelper.db.execSQL(sql, arg);
 
             response = true;
         } catch (Exception ex) {
@@ -69,9 +70,9 @@ public class PersonaDAO {
         return response;
     }
 
-    public int obtenerUltIdPersona(Context context){
+    public int obtenerUltIdPersona(Context context) {
 
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
 
         int response = 0;
@@ -80,7 +81,7 @@ public class PersonaDAO {
 
             cursor = dataBaseHelper.db.rawQuery(" select per.per_id" +
                     " from persona per" +
-                    " order by per.per_id desc",null);
+                    " order by per.per_id desc", null);
 
             if (cursor.moveToFirst()) {
 
@@ -100,17 +101,46 @@ public class PersonaDAO {
 
     }
 
-    public boolean insertarAllegado(Context context, String nombre, String appaterno, String apmaterno){
-        Cursor cursor   = null;
+    public int obtenerIdPersonabyNombres(Context context, String nombre, String appaterno, String apmaterno) {
+
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String arg[] = {nombre,appaterno,apmaterno};
+
+        int response = 0;
+        String arg[] = {nombre, appaterno, apmaterno};
+
+        String sql = " SELECT allegado.all_id where allegado.all_nombres = ? allegado.and all_appaterno = ? allegado.and all_apmaterno = ?";
+
+        try {
+            cursor = dataBaseHelper.db.rawQuery(sql, arg);
+
+            if (cursor.moveToFirst()) {
+                response = cursor.getInt(1);
+            }
+
+            return response;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return -1;
+
+    }
+
+    public boolean insertarAllegado(Context context, String nombre, String appaterno, String apmaterno) {
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        String arg[] = {nombre, appaterno, apmaterno};
         boolean response = false;
 
         try {
             String sql = " INSERT INTO allegado (all_nombres,all_appaterno,all_apmaterno,)" +
                     " VALUES(?,?,?,?,?,?,?)";
 
-            dataBaseHelper.db.execSQL(sql,arg);
+            dataBaseHelper.db.execSQL(sql, arg);
 
             response = true;
         } catch (Exception ex) {

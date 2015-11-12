@@ -33,7 +33,9 @@ public class DatosCabeceraActivity extends AppCompatActivity {
     LinearLayout lyspArea, lyspCondicion;
     Button btAceptar_datosUsuario;
     ArrayList<String> nombresEncuestados;
+    static ArrayList<Integer> codigosIdentEncuestados;
     public static String KEY_ARG_NOMBRE_JEFE = "KEY_ARG_NOMBRE_JEFE";
+    public static String KEY_ARG_ID_JEFE = "KEY_ARG_ID_JEFE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dato_encuestado);
 
         nombresEncuestados = new ArrayList<>();
+        codigosIdentEncuestados = new ArrayList<>();
         tvCodigoEncuesta = (TextView) findViewById(R.id.tvCodigoEncuesta);
         tvNombreSupervisor = (TextView) findViewById(R.id.tvNombreSupervisor);
         tvNombreUsuario = (TextView) findViewById(R.id.tvNombreUsuario);
@@ -143,20 +146,29 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                     etApellidoMaterno.getText().toString().trim());
             //captura de todos los datos
 
+        //FALTA INSERTAR
             etDireccion.getText().toString().trim();
-
             spArea.getSelectedItem().toString();
             spCondicion.getSelectedItem().toString();
-
+        ////
             PersonaDAO personaDAO = new PersonaDAO();
+            //obtener el id del jefe de famiia
+
             //Insercion de los daros del jefe de familia
-            boolean insertoPersona = personaDAO.insertarPersona(DatosCabeceraActivity.this, etNombres.getText().toString().trim(), etApellidoPaterno.getText().toString().trim()
-                    , etApellidoMaterno.getText().toString().trim(), etDni.getText().toString().trim(), etTelefono.getText().toString().trim(),
+            boolean insertoPersona = personaDAO.insertarPersona(DatosCabeceraActivity.this, etNombres.getText().toString().trim(),
+                    etApellidoPaterno.getText().toString().trim(), etApellidoMaterno.getText().toString().trim(),
+                    etDni.getText().toString().trim(), etTelefono.getText().toString().trim(),
                     etCelular.getText().toString().trim(), etEmail.getText().toString().trim());
 
             CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
 
             if (insertoPersona == true) {
+
+                //obtener id del jefe de familia
+                codigosIdentEncuestados.add(personaDAO.obtenerIdPersonabyNombres(DatosCabeceraActivity.this, etNombres.getText().toString().trim(),
+                        etApellidoPaterno.getText().toString().trim(), etApellidoMaterno.getText().toString().trim()));
+
+
                 int personaId = personaDAO.obtenerUltIdPersona(DatosCabeceraActivity.this);
                 if (personaId == 0) {
                     Toast.makeText(DatosCabeceraActivity.this, "Error al obtener el id de Usuario", Toast.LENGTH_LONG).show();
@@ -174,6 +186,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                         Toast.makeText(DatosCabeceraActivity.this, "Datos almacenados correctamente", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);
                         intent.putExtra(KEY_ARG_NOMBRE_JEFE, nombresEncuestados);
+                        intent.putExtra(KEY_ARG_ID_JEFE, codigosIdentEncuestados);
                         startActivity(intent);
                         finish();
                     } else
