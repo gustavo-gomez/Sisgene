@@ -179,15 +179,21 @@ public class PreguntasActivity extends AppCompatActivity {
         for (int i = 0; i < TipoPreguntaUnicaAdapter.myListPreguntaUnica.size(); i++) {
             TipoPreguntaUnicaItem tipoPreguntaUnicaItem = TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.getItem(i);
 
+            //agregar el codigo de identificacion
+            Formatter codIdent = new Formatter();
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //respuestaAbierta = "[" + codIdent + "]";
+            respuestaUnica = respuestaUnica + "[" + "]";
+
             if (tipoPreguntaUnicaItem.getPos() == 0)
-                respuestaUnica = respuestaUnica + " ";
+                respuestaUnica = respuestaUnica + "null";
             else
                 respuestaUnica = respuestaUnica + tipoPreguntaUnicaItem.getRespuesta();
 
             if (i != TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size() - 1)
-                respuestaUnica = "" + respuestaUnica + " & ";
+                respuestaUnica = "" + respuestaUnica + "&";
         }
-        System.out.println("Respuesta tipo pregunta unica: [" + respuestaUnica + "]");
+        System.out.println("Respuesta tipo pregunta unica: {" + respuestaUnica + "}");
     }
 
     private void leerRespuestasTipoMultiple() {
