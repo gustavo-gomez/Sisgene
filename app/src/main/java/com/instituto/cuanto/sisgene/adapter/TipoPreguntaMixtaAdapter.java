@@ -29,21 +29,26 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
     Context context;
     public static TipoPreguntaMixtaAdapter tipoPreguntaMixtaAdapter;
     private Boolean mixta;
+    int numMaxChequeados;
+    boolean importancia;
 
-    public TipoPreguntaMixtaAdapter(Context context, ArrayList<TipoPreguntaMixtaItem> myListPreguntaMixta, Boolean mixta) {
+    public TipoPreguntaMixtaAdapter(Context context, ArrayList<TipoPreguntaMixtaItem> myListPreguntaMixta, Boolean mixta,
+                                    int numMaxChequeados, boolean importancia) {
         this.myListPreguntaMixta = myListPreguntaMixta;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
         this.mixta = mixta;
+        this.numMaxChequeados = numMaxChequeados;
+        this.importancia = importancia;
     }
 
     public void limpiarLista() {
 
         int dim = myListPreguntaMixta.size();
         System.out.println("dim myListPreguntaMixta:" + myListPreguntaMixta.size());
-            for (int i = 0; i < dim; i++) {
-                myListPreguntaMixta.remove(0);
-            }
+        for (int i = 0; i < dim; i++) {
+            myListPreguntaMixta.remove(0);
+        }
         tipoPreguntaMixtaAdapter.notifyDataSetChanged();
         System.out.println("dim myListPreguntaMixta despues:" + myListPreguntaMixta.size());
     }
@@ -82,7 +87,8 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
 
         mViewHolder.tvTitle.setText(currentTipoPreguntaMixtaItem.getTitle());
         //se carga el listview con los datos de las alternativas
-        mViewHolder.listRespuesta.setAdapter(new CheckboxesAdapter(context, currentTipoPreguntaMixtaItem.getAlternativasAsArrayList(), mixta));
+        mViewHolder.listRespuesta.setAdapter(new CheckboxesAdapter(context, currentTipoPreguntaMixtaItem.getAlternativasAsArrayList(), mixta,
+                numMaxChequeados, importancia));
 
         return convertView;
     }
