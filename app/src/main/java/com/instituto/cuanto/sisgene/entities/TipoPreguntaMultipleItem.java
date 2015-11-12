@@ -3,20 +3,18 @@ package com.instituto.cuanto.sisgene.entities;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Created by Gustavo on 27/10/2015.
  */
-public class TipoPreguntaMixtaItem {
+public class TipoPreguntaMultipleItem {
     ArrayList<String> respuestas;
     ArrayList<String> alternativas;
     String title;
     public LinearLayout lvLayout;
     Boolean hasView;
 
-    public TipoPreguntaMixtaItem(){
+    public TipoPreguntaMultipleItem(){
         this.hasView=false;
         this.respuestas=new ArrayList<>();
     }
