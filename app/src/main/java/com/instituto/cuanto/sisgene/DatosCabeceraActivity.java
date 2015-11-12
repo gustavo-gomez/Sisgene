@@ -33,7 +33,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
     LinearLayout lyspArea, lyspCondicion;
     Button btAceptar_datosUsuario;
     ArrayList<String> nombresEncuestados;
-    static ArrayList<Integer> codigosIdentEncuestados;
+    ArrayList<Integer> codigosIdentEncuestados;
     public static String KEY_ARG_NOMBRE_JEFE = "KEY_ARG_NOMBRE_JEFE";
     public static String KEY_ARG_ID_JEFE = "KEY_ARG_ID_JEFE";
 

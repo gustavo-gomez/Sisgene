@@ -20,6 +20,7 @@ import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.HashMap;
 
 /**
@@ -73,7 +74,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
 
         //leer todos los datos de la primera pregunta
-
+        tipoPregunta = "AB";
         leerTipoPreguntaxPregunta(tipoPregunta);
     }
 
@@ -145,20 +146,27 @@ public class PreguntasActivity extends AppCompatActivity {
 
     private void leerRespuestasTipoAbierta() {
         String respuestaAbierta = "";
+        System.out.println("dimencion myListPreguntaAbierta:" + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
 
         for (int i = 0; i < TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size(); i++) {
             TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
 
+            //agregar el codigo de identificacion
+            Formatter codIdent = new Formatter();
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //respuestaAbierta = "[" + codIdent + "]";
+            respuestaAbierta = respuestaAbierta + "[" + "]";
+            //en caso el usuario no haya escrito nada
             if (nombresEncuestados.get(i).trim().equals(tipoPreguntaAbiertaItem.getDescription().trim())) {
-                respuestaAbierta = respuestaAbierta + " ";
+                respuestaAbierta = respuestaAbierta + "null";
             } else
                 respuestaAbierta = respuestaAbierta + tipoPreguntaAbiertaItem.getDescription();
 
             if (i != TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size() - 1)
-                respuestaAbierta = "" + respuestaAbierta + " & ";
+                respuestaAbierta = "" + respuestaAbierta + "&";
         }
 
-        System.out.println("respuesta: [" + respuestaAbierta + "]");
+        System.out.println("respuesta: {" + respuestaAbierta + "}");
 
         //guardar en base de datos la respuesta
 
@@ -316,5 +324,9 @@ public class PreguntasActivity extends AppCompatActivity {
         System.out.println("miListaTipoPreguntaMatrizMultiple: " + TipoPreguntaMatrizMultipleAdapter.myListPreguntaMatriz.size());
         lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaMatrizMultipleAdapter(context, TipoPreguntaMatrizMultipleAdapter.myListPreguntaMatriz));
         System.out.println("num pregunta: " + numPregunta);
+    }
+
+    private void guardarRespuesta(String rpta) {
+
     }
 }

@@ -40,9 +40,12 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
     ArrayList<EditText> apellidosPatEdits;
     ArrayList<EditText> apellidosMatEdits;
     Button btAceptar_nombresEncuestados;
-    ArrayList<String> nombresEncuestados;
-    public static String KEY_ARG_NOMBRES_ENCUESTADOS = "KEY_ARG_NOMBRES_ENCUESTADOS";
 
+    ArrayList<String> nombresEncuestados;
+    ArrayList<Integer> codigosIdentEncuestados;
+
+    public static String KEY_ARG_NOMBRES_ENCUESTADOS = "KEY_ARG_NOMBRES_ENCUESTADOS";
+    public static String KEY_ARG_ID_ENCUESTADOS = "KEY_ARG_ID_ENCUESTADOS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         apellidosPatEdits = new ArrayList<>();
         apellidosMatEdits = new ArrayList<>();
         nombresEncuestados = new ArrayList<>();
+        codigosIdentEncuestados = new ArrayList<>();
 
         lyNombre1 = (LinearLayout) findViewById(R.id.lyNombre1);
         lyNombre2 = (LinearLayout) findViewById(R.id.lyNombre2);
@@ -152,12 +156,15 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         btAceptarNumeroPersonas.setOnClickListener(btAceptarNumeroPersonassetOnClickListener);
         btAceptar_nombresEncuestados.setOnClickListener(btAceptar_nombresEncuestadossetOnClickListener);
         btAceptar_nombresEncuestados.setClickable(false);
+
         crearNombresLayoutsVariables();
+
         new AlertDialog.Builder(NombresPersonasEncuestadasActivity.this).setTitle("Mensaje").setMessage("En esta seccion ingrese la " +
                 "cantidad de personas que se va a encuestar (SIN CONSIDERAR al jefe de familia)")
                 .setNeutralButton("Aceptar", alertaAceptarOnClickListener).setCancelable(false).show();
         if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(DatosCabeceraActivity.KEY_ARG_NOMBRE_JEFE)) {
             nombresEncuestados = getIntent().getStringArrayListExtra(DatosCabeceraActivity.KEY_ARG_NOMBRE_JEFE);
+            codigosIdentEncuestados = getIntent().getIntegerArrayListExtra(DatosCabeceraActivity.KEY_ARG_ID_JEFE);
         }
     }
 
@@ -333,8 +340,11 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                             " " + apellidosMatEdits.get(i).getText().toString().trim());
 
                     //guardar todos los nombres en la base de datos
-                    boolean insertarAllegado = personaDAO.insertarAllegado(NombresPersonasEncuestadasActivity.this, nombresEdits.get(i).getText().toString().trim(),
-                            apellidosPatEdits.get(i).getText().toString().trim(), apellidosMatEdits.get(i).getText().toString().trim());
+                    boolean insertarAllegado = personaDAO.insertarAllegado(NombresPersonasEncuestadasActivity.this,
+                            nombresEdits.get(i).getText().toString().trim(),
+                            apellidosPatEdits.get(i).getText().toString().trim(),
+                            apellidosMatEdits.get(i).getText().toString().trim());
+
                     if (insertarAllegado == false) {
                         Toast.makeText(NombresPersonasEncuestadasActivity.this, "Ingrese el nombre de las " +
                                 +numerodePersonasEncuestadas + " personas ", Toast.LENGTH_LONG).show();
@@ -342,11 +352,21 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                     }
                 }
 
-                for (int i = 0; i < numerodePersonasEncuestadas + 1; i++) {
-                    System.out.println("nombre " + i + " : " + nombresEncuestados.get(i));
+                //obteniendo el codigo de indentificacion de todos los usuarios
+                for (int i = 0; i < numerodePersonasEncuestadas; i++) {
+                    codigosIdentEncuestados.add(personaDAO.obtenerIdPersonabyNombres(NombresPersonasEncuestadasActivity.this,
+                            nombresEdits.get(i).getText().toString().trim(),
+                            apellidosPatEdits.get(i).getText().toString().trim(),
+                            apellidosMatEdits.get(i).getText().toString().trim()));
+                }
+                //eliminar for, solo para mostrar los nombres de los allegados
+                for (int i = 0; i < nombresEncuestados.size(); i++) {
+                    System.out.println("nombre " + i + " : " + nombresEncuestados.get(i).toString());
+                    //System.out.println("id " + i + " : " + codigosIdentEncuestados.get(i).toString());
                 }
                 Intent intent = new Intent(NombresPersonasEncuestadasActivity.this, PreguntasActivity.class);
                 intent.putStringArrayListExtra(KEY_ARG_NOMBRES_ENCUESTADOS, nombresEncuestados);
+                intent.putIntegerArrayListExtra(KEY_ARG_ID_ENCUESTADOS, codigosIdentEncuestados);
                 startActivity(intent);
                 finish();
 
