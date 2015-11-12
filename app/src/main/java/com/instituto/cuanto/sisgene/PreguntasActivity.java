@@ -14,6 +14,8 @@ import com.instituto.cuanto.sisgene.adapter.TipoPreguntaMatrizMultipleAdapter;
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaMatrizSimpleAdapter;
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaMixtaAdapter;
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaUnicaAdapter;
+import com.instituto.cuanto.sisgene.bean.EncuestaPregunta;
+import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
 import com.instituto.cuanto.sisgene.entities.MixtaAlternativa;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizItem;
@@ -40,11 +42,18 @@ public class PreguntasActivity extends AppCompatActivity {
     TextView tvSeccion;
     TextView tvSubSeccion;
     TextView tvOpcionesPregunta;
-    String tipoPreguntaActual;
+
 
     //variables que seran cambiadas de pregunta en pregunta
     int numPregunta = -1;
-    String tipoPregunta;
+    String tipoPreguntaActual;
+    boolean encuestarTodos;
+    boolean ordenImportancia;
+    String nombreSecccion;
+    String nommbreSubSeccion;
+    String descSeccion;
+    String descSubSeccion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +82,23 @@ public class PreguntasActivity extends AppCompatActivity {
 
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
 
+        leerPrimeraPregunta();        //leer todos los datos de la primera pregunta
+        tipoPreguntaActual = "MU";
+        leerTipoPreguntaxPregunta();
+    }
 
-        //leer todos los datos de la primera pregunta
-        tipoPregunta = "MU";
-        leerTipoPreguntaxPregunta(tipoPregunta);
+    private void leerPrimeraPregunta() {
+
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
+        EncuestaPregunta encuestaPregunta;
+
+        //ir a BD para sacar la primera preguna de dicha ecuesta
+        encuestaPregunta = encuestaDAO.obtenerPreguntaEncuesta(PreguntasActivity.this);
+
+        // Setear datos para la primera pregunta
+        encuestarTodos = Boolean.valueOf(encuestaPregunta.getPre_unica_persona());
+        nombreSecccion = encuestaPregunta.getSec_numero_seccion();
+        nombreSecccion = encuestaPregunta.getPre_importarordenrptamu();
     }
 
     View.OnClickListener btnSiguientesetOnClickListener = new View.OnClickListener() {
@@ -85,44 +107,44 @@ public class PreguntasActivity extends AppCompatActivity {
             leerDatos();
             System.out.println("respuestas leidas -   se borra la lista");
 
-            leerTipoPreguntaxPregunta("MM");
+            leerTipoPreguntaxPregunta();
         }
     };
 
-    private void leerTipoPreguntaxPregunta(String tipoPregunta) {
+    private void leerTipoPreguntaxPregunta() {
         //eliminar cuando se haya hecho la consulta a la base de datos
 
         boolean encuestarTodos = true;
-        tipoPreguntaActual = tipoPregunta;
+        tipoPreguntaActual = tipoPreguntaActual;
         //Tipo de pregunta Unica
-        if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
+        if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
             //tipoPreguntaAbiertaAdapter.limpiarLista();
-            poblarLista_TipoPreguntaUnica(encuestarTodos);
+            poblarLista_TipoPreguntaUnica();
 
             //Tipo de pregunta Multiple
-        } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
             //tipoPreguntaAbiertaAdapter.limpiarLista();
-            poblarLista_TipoPreguntaMultipleOMixta(encuestarTodos, false);
+            poblarLista_TipoPreguntaMultipleOMixta(false);
 
             //Tipo de pregunta abierta
-        } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
             //TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
-            poblarLista_TipoPreguntaAbierta(encuestarTodos);
+            poblarLista_TipoPreguntaAbierta();
 
             //Tipo de pregunta Matriz Simple
-        } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMatSimple))) {
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatSimple))) {
             //tipoPreguntaAbiertaAdapter.limpiarLista();
-            poblarLista_TipoPreguntaMatrizSimple(encuestarTodos);
+            poblarLista_TipoPreguntaMatrizSimple();
 
             //Tipo de pregunta Matriz Multiple
-        } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMatMultiple))) {
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatMultiple))) {
             //tipoPreguntaAbiertaAdapter.limpiarLista();
-            poblarLista_TipoPreguntaMatrizMultiple(encuestarTodos);
+            poblarLista_TipoPreguntaMatrizMultiple();
 
             //Tipo de pregunta Mixta
-        } else if (tipoPregunta.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
             // tipoPreguntaAbiertaAdapter.limpiarLista();
-            poblarLista_TipoPreguntaMultipleOMixta(encuestarTodos, true);
+            poblarLista_TipoPreguntaMultipleOMixta(true);
         }
     }
 
@@ -157,8 +179,8 @@ public class PreguntasActivity extends AppCompatActivity {
         mixta = tp.getAlternativasAsArrayList();
 
         for (int i = 0; i < mixta.size(); i++) {
-            System.out.println("mixta titulo"+ mixta.get(i).getTitle());
-            System.out.println("mixta value"+ mixta.get(i).getValue());
+            System.out.println("mixta titulo" + mixta.get(i).getTitle());
+            System.out.println("mixta value" + mixta.get(i).getValue());
         }
     }
 
@@ -215,7 +237,7 @@ public class PreguntasActivity extends AppCompatActivity {
     }
 
 
-    private void poblarLista_TipoPreguntaAbierta(boolean encuestarTodos) {
+    private void poblarLista_TipoPreguntaAbierta() {
 
         //cargar datos a la lista
         for (int i = 0; i < nombresEncuestados.size(); i++) {
@@ -234,7 +256,7 @@ public class PreguntasActivity extends AppCompatActivity {
         //tipoPreguntaAbiertaAdapter.limpiarLista();
     }
 
-    private void poblarLista_TipoPreguntaUnica(boolean encuestarTodos) {
+    private void poblarLista_TipoPreguntaUnica() {
 
         HashMap<Integer, String> alternativas = new HashMap<>();
 
@@ -255,7 +277,7 @@ public class PreguntasActivity extends AppCompatActivity {
         lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaUnicaAdapter(context, TipoPreguntaUnicaAdapter.myListPreguntaUnica));
     }
 
-    private void poblarLista_TipoPreguntaMultipleOMixta(boolean encuestarTodos, boolean mixta) {
+    private void poblarLista_TipoPreguntaMultipleOMixta(boolean mixta) {
         //cambiar por valores de la bd
         int numMaxChequeados = 2;
         boolean importancia = false;
@@ -280,7 +302,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
     }
 
-    private void poblarLista_TipoPreguntaMatrizSimple(boolean encuestarTodos) {
+    private void poblarLista_TipoPreguntaMatrizSimple() {
         ArrayList<String> horizontales = new ArrayList<>();
         horizontales.add("Pesimo");
         horizontales.add("Malo");
@@ -308,7 +330,7 @@ public class PreguntasActivity extends AppCompatActivity {
         System.out.println("num pregunta: " + numPregunta);
     }
 
-    private void poblarLista_TipoPreguntaMatrizMultiple(boolean encuestarTodos) {
+    private void poblarLista_TipoPreguntaMatrizMultiple() {
         ArrayList<String> horizontales = new ArrayList<>();
         horizontales.add("Pesimo");
         horizontales.add("Malo");
