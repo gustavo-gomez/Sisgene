@@ -82,7 +82,7 @@ public class CheckboxesAdapter extends BaseAdapter implements View.OnClickListen
         CheckBox checkBox = (CheckBox) v;
         int position = (Integer) v.getTag();
         getItem(position).setValue(checkBox.isChecked());
-        System.out.println("selecciono: " + position);
+        System.out.println("selecciono: " + checkBox.getText());
     }
 
     private static class Holder {
