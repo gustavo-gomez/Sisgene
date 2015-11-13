@@ -1,5 +1,6 @@
 package com.instituto.cuanto.sisgene.entities;
 
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -15,10 +16,11 @@ public class TipoPreguntaMixtaItem {
     String title;
     public LinearLayout lvLayout;
     Boolean hasView;
+    EditText etPreguntaMixta;
 
-    public TipoPreguntaMixtaItem(){
-        this.hasView=false;
-        this.respuestas=new ArrayList<>();
+    public TipoPreguntaMixtaItem() {
+        this.hasView = false;
+        this.respuestas = new ArrayList<>();
     }
 
     public Boolean getHasView() {

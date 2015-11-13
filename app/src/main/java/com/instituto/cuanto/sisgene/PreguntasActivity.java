@@ -87,7 +87,7 @@ public class PreguntasActivity extends AppCompatActivity {
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
 
         leerPrimeraPregunta();        //leer todos los datos de la primera pregunta
-        tipoPreguntaActual = "MU";
+        tipoPreguntaActual = "MI";
         leerTipoPreguntaxPregunta();
     }
 
@@ -330,6 +330,8 @@ public class PreguntasActivity extends AppCompatActivity {
     }
 
     private void poblarLista_TipoPreguntaMixta() {
+        mumMaxChequeados = 3;
+
         ArrayList<String> alternativas = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             alternativas.add("Opcion " + (i + 1));
@@ -345,6 +347,7 @@ public class PreguntasActivity extends AppCompatActivity {
                 break;
         }
         System.out.println("miListaTipoPreguntaMixta: " + TipoPreguntaMixtaAdapter.myListPreguntaMixta.size());
+
         lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaMixtaAdapter(context, TipoPreguntaMixtaAdapter.myListPreguntaMixta,
                 mumMaxChequeados, ordenImportancia));
 

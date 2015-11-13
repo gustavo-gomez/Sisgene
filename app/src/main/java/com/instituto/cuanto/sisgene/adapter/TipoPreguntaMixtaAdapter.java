@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -94,8 +95,11 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
         mViewHolder.linear.removeAllViews();
         if (!currentTipoPreguntaMixtaItem.getHasView()) {
             currentTipoPreguntaMixtaItem.lvLayout = new LinearLayout(context);
+
             fillLinearLayout(currentTipoPreguntaMixtaItem);
+
             currentTipoPreguntaMixtaItem.setHasView(true);
+
             System.out.println("Posicion: " + position + " linear vertical insertado");
         }
         mViewHolder.linear.addView(currentTipoPreguntaMixtaItem.lvLayout);
@@ -106,6 +110,7 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
     private class MyViewHolder {
         TextView tvTitle;
         LinearLayout linear;
+        EditText etPreguntaMixta;
     }
 
     private void fillLinearLayout(final TipoPreguntaMixtaItem currentTipoPreguntaMixtaItem) {
@@ -119,17 +124,23 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
             checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    System.out.println("cantChequeados antes: " + cantChequeados);
+                    if (cantChequeados < numMaxChequeados) {
 
-                    if (checkbox.isChecked() && cantChequeados < numMaxChequeados) {
-                        System.out.println("Checked" + checkbox.getId());
-                        respuestas.add(checkbox.getText().toString());
-                        cantChequeados++;
-                    } else {
-                        System.out.println("Un-Checked" + checkbox.getId());
-                        int id = respuestas.indexOf(checkbox.getText().toString());
-                        respuestas.remove(id);
-                        cantChequeados--;
+                        if (checkbox.isChecked()) {
+
+                            System.out.println("Checked" + checkbox.getId());
+                            respuestas.add(checkbox.getText().toString());
+                            cantChequeados++;
+
+                        } else {
+                            System.out.println("Un-Checked" + checkbox.getId());
+                            int id = respuestas.indexOf(checkbox.getText().toString());
+                            respuestas.remove(id);
+                            cantChequeados--;
+                        }
                     }
+                    System.out.println("cantChequeados despues: " + cantChequeados);
                 }
             });
             currentTipoPreguntaMixtaItem.lvLayout.addView(checkbox);
