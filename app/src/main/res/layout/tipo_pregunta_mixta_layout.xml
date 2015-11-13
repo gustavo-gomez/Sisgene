@@ -15,21 +15,29 @@
         android:textSize="16sp" />
 
     <LinearLayout
-        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+            <EditText
+            android:id="@+id/etPreguntaMixta"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/color_texto"
+            android:textSize="16sp" />
+
 
     </LinearLayout>
-
-    <EditText
-        android:id="@+id/etPreguntaMixta"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textColor="@color/color_texto"
-        android:textSize="16sp"
-        android:visibility="gone" />
 
 </LinearLayout>

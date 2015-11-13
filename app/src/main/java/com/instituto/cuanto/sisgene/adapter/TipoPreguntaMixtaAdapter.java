@@ -83,6 +83,7 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
             mViewHolder = new MyViewHolder();
             mViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvNombreEncuestado);
             mViewHolder.linear = (LinearLayout) convertView.findViewById(R.id.linear);
+            mViewHolder.etPreguntaMixta = (EditText) convertView.findViewById(R.id.etPreguntaMixta);
             convertView.setTag(mViewHolder);
             notifyDataSetChanged();
         } else {
@@ -90,6 +91,8 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
         }
 
         final TipoPreguntaMixtaItem currentTipoPreguntaMixtaItem = getItem(position);
+        System.out.println("position "+ position );
+        System.out.println("myListPreguntaMixta.size()"+ myListPreguntaMixta.size());
 
         mViewHolder.tvTitle.setText(currentTipoPreguntaMixtaItem.getTitle());
         mViewHolder.linear.removeAllViews();
@@ -139,7 +142,9 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
                             respuestas.remove(id);
                             cantChequeados--;
                         }
-                    }
+                    } else
+                        checkbox.isChecked();
+
                     System.out.println("cantChequeados despues: " + cantChequeados);
                 }
             });
