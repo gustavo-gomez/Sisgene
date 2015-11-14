@@ -16,7 +16,16 @@ public class TipoPreguntaMixtaItem {
     String title;
     public LinearLayout lvLayout;
     Boolean hasView;
-    EditText etPreguntaMixta;
+
+    public String getPreguntaMixta() {
+        return preguntaMixta;
+    }
+
+    public void setPreguntaMixta(String preguntaMixta) {
+        this.preguntaMixta = preguntaMixta;
+    }
+
+    String preguntaMixta;
 
     public TipoPreguntaMixtaItem() {
         this.hasView = false;

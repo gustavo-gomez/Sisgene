@@ -32,6 +32,7 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
         this.myListPreguntaAbierta = myListPreguntaAbierta;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
+        this.tipoPreguntaAbiertaAdapter = this;
     }
 
     public void limpiarLista() {

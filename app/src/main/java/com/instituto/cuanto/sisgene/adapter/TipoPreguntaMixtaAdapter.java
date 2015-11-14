@@ -1,26 +1,20 @@
 package com.instituto.cuanto.sisgene.adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.instituto.cuanto.sisgene.R;
-import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
-import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
-import com.instituto.cuanto.sisgene.mwtools.ExpandableHeightListview;
 
 import java.util.ArrayList;
 
@@ -33,15 +27,13 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
     LayoutInflater inflater;
     Context context;
     public static TipoPreguntaMixtaAdapter tipoPreguntaMixtaAdapter;
-    private Boolean mixta;
     int numMaxChequeados;
     boolean importancia;
-    int cantChequeados = 0;
 
     public TipoPreguntaMixtaAdapter(Context context, ArrayList<TipoPreguntaMixtaItem> myListPreguntaMixta,
                                     int numMaxChequeados, boolean importancia) {
-
         this.myListPreguntaMixta = myListPreguntaMixta;
+        this.tipoPreguntaMixtaAdapter = this;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
         this.numMaxChequeados = numMaxChequeados;
@@ -49,13 +41,12 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
     }
 
     public void limpiarLista() {
-
         int dim = myListPreguntaMixta.size();
         System.out.println("dim myListPreguntaMixta:" + myListPreguntaMixta.size());
         for (int i = 0; i < dim; i++) {
             myListPreguntaMixta.remove(0);
         }
-        tipoPreguntaMixtaAdapter.notifyDataSetChanged();
+        this.tipoPreguntaMixtaAdapter.notifyDataSetChanged();
         System.out.println("dim myListPreguntaMixta despues:" + myListPreguntaMixta.size());
     }
 
@@ -75,7 +66,7 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final MyViewHolder mViewHolder;
 
         if (convertView == null) {
@@ -92,17 +83,70 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
 
         final TipoPreguntaMixtaItem currentTipoPreguntaMixtaItem = getItem(position);
         System.out.println("position "+ position );
-        System.out.println("myListPreguntaMixta.size()"+ myListPreguntaMixta.size());
+        System.out.println("myListPreguntaMixta.size()" + myListPreguntaMixta.size());
 
         mViewHolder.tvTitle.setText(currentTipoPreguntaMixtaItem.getTitle());
         mViewHolder.linear.removeAllViews();
         if (!currentTipoPreguntaMixtaItem.getHasView()) {
             currentTipoPreguntaMixtaItem.lvLayout = new LinearLayout(context);
 
-            fillLinearLayout(currentTipoPreguntaMixtaItem);
+            final ArrayList<String> alternativas = currentTipoPreguntaMixtaItem.getAlternativas();
+            final ArrayList<String> respuestas = currentTipoPreguntaMixtaItem.getRespuestas();
+            for (int i = 0; i < alternativas.size(); i++) {
+                final CheckBox checkbox = new CheckBox(context);
+                checkbox.setText(alternativas.get(i));
+                checkbox.setChecked(false);
+                checkbox.setId(i);
+                checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        System.out.println("cantChequeados antes: " + respuestas.size());
+                        System.out.println("usuario: "+position);
+                        if (respuestas.size() < numMaxChequeados || respuestas.contains(checkbox.getText())) {
+                            if (checkbox.isChecked()) {
+                                System.out.println("Checked" + checkbox.getText());
+                                respuestas.add(checkbox.getText().toString());
+                                if (checkbox.getId() == (alternativas.size()-1)) {
+                                    mViewHolder.etPreguntaMixta.setEnabled(true);
+                                    mViewHolder.etPreguntaMixta.setVisibility(View.VISIBLE);
+                                    mViewHolder.etPreguntaMixta.addTextChangedListener(new TextWatcher() {
+                                        @Override
+                                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                                        }
+
+                                        @Override
+                                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                                        }
+
+                                        @Override
+                                        public void afterTextChanged(Editable s) {
+                                            currentTipoPreguntaMixtaItem.setPreguntaMixta(s.toString());
+                                        }
+                                    });
+                                }
+                            } else {
+                                System.out.println("Un-Checked" + checkbox.getText());
+                                int id = respuestas.indexOf(checkbox.getText().toString());
+                                System.out.println("elemento a borrar" + id);
+                                respuestas.remove(id);
+                                System.out.println("total de elementos"+respuestas.size());
+                                if (checkbox.getId() == (alternativas.size()-1)) {
+                                    mViewHolder.etPreguntaMixta.setEnabled(false);
+                                    mViewHolder.etPreguntaMixta.setVisibility(View.GONE);
+                                }
+                            }
+                        } else {
+                            System.out.println(respuestas.size()+" is checked:"+isChecked);
+                            checkbox.setChecked(false);
+                        }
+                        System.out.println("cantChequeados despues: " + respuestas.size());
+                    }
+                });
+                currentTipoPreguntaMixtaItem.lvLayout.addView(checkbox);
+            }
             currentTipoPreguntaMixtaItem.setHasView(true);
-
             System.out.println("Posicion: " + position + " linear vertical insertado");
         }
         mViewHolder.linear.addView(currentTipoPreguntaMixtaItem.lvLayout);
@@ -116,39 +160,5 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
         EditText etPreguntaMixta;
     }
 
-    private void fillLinearLayout(final TipoPreguntaMixtaItem currentTipoPreguntaMixtaItem) {
-        ArrayList<String> alternativas = currentTipoPreguntaMixtaItem.getAlternativas();
-        final ArrayList<String> respuestas = currentTipoPreguntaMixtaItem.getRespuestas();
-        for (int i = 0; i < alternativas.size(); i++) {
-            final CheckBox checkbox = new CheckBox(context);
-            checkbox.setText(alternativas.get(i));
-            checkbox.setChecked(false);
-            checkbox.setId(i);
-            checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    System.out.println("cantChequeados antes: " + cantChequeados);
-                    if (cantChequeados < numMaxChequeados) {
 
-                        if (checkbox.isChecked()) {
-
-                            System.out.println("Checked" + checkbox.getId());
-                            respuestas.add(checkbox.getText().toString());
-                            cantChequeados++;
-
-                        } else {
-                            System.out.println("Un-Checked" + checkbox.getId());
-                            int id = respuestas.indexOf(checkbox.getText().toString());
-                            respuestas.remove(id);
-                            cantChequeados--;
-                        }
-                    } else
-                        checkbox.isChecked();
-
-                    System.out.println("cantChequeados despues: " + cantChequeados);
-                }
-            });
-            currentTipoPreguntaMixtaItem.lvLayout.addView(checkbox);
-        }
-    }
 }

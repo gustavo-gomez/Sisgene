@@ -9,16 +9,17 @@ import java.util.Iterator;
 /**
  * Created by USUARIO on 08/11/2015.
  */
-public class TipoPreguntaMatrizItem {
-    HashMap<Integer,Integer> respuestas;
+public class TipoPreguntaMatrizSimpleItem {
+    ArrayList<String> respuestas;
     ArrayList<String> vertical;
     ArrayList<String> horizontal;
     Boolean hasView;
     String title;
     public TableLayout tbLayout;
 
-    public TipoPreguntaMatrizItem(){
+    public TipoPreguntaMatrizSimpleItem(){
         hasView = false;
+        respuestas = new ArrayList<>();
     }
 
     public Boolean getHasView() {
@@ -37,11 +38,11 @@ public class TipoPreguntaMatrizItem {
         this.title = title;
     }
 
-    public HashMap<Integer, Integer> getRespuestas() {
+    public ArrayList<String> getRespuestas() {
         return respuestas;
     }
 
-    public void setRespuestas(HashMap<Integer, Integer> respuestas) {
+    public void setRespuestas(ArrayList<String> respuestas) {
         this.respuestas = respuestas;
     }
 

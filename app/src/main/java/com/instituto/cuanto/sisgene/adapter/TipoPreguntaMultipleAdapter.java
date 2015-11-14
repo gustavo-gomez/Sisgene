@@ -31,10 +31,10 @@ public class TipoPreguntaMultipleAdapter extends BaseAdapter {
         this.myListPreguntaMultiple = myListPreguntaMultiple;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
+        this.tipoPreguntaMultipleAdapter = this;
     }
 
     public void limpiarLista() {
-
         int dim = myListPreguntaMultiple.size();
         System.out.println("dim myListPreguntaMultiple:" + myListPreguntaMultiple.size());
         for (int i = 0; i < dim; i++) {

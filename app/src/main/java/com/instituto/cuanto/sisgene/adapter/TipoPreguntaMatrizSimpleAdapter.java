@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,7 +13,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.instituto.cuanto.sisgene.R;
-import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizItem;
+import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizSimpleItem;
 
 import java.util.ArrayList;
 
@@ -24,21 +22,19 @@ import java.util.ArrayList;
  */
 public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
 
-    public static ArrayList<TipoPreguntaMatrizItem> myListPreguntaMatriz = new ArrayList<>();
+    public static ArrayList<TipoPreguntaMatrizSimpleItem> myListPreguntaMatriz = new ArrayList<>();
     LayoutInflater inflater;
     Context context;
     public static TipoPreguntaMatrizSimpleAdapter tipoPreguntaMatrizAdapter;
-    private Boolean mixta;
 
-    public TipoPreguntaMatrizSimpleAdapter(Context context, ArrayList<TipoPreguntaMatrizItem> myListPreguntaMatriz) {
+    public TipoPreguntaMatrizSimpleAdapter(Context context, ArrayList<TipoPreguntaMatrizSimpleItem> myListPreguntaMatriz) {
         this.myListPreguntaMatriz = myListPreguntaMatriz;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
-        this.mixta = mixta;
+        this.tipoPreguntaMatrizAdapter = this;
     }
 
     public void limpiarLista() {
-
         int dim = myListPreguntaMatriz.size();
         System.out.println("dim myListPreguntaMixta:" + myListPreguntaMatriz.size());
             for (int i = 0; i < dim; i++) {
@@ -54,7 +50,7 @@ public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
     }
 
     @Override
-    public TipoPreguntaMatrizItem getItem(int position) {
+    public TipoPreguntaMatrizSimpleItem getItem(int position) {
         return myListPreguntaMatriz.get(position);
     }
 
@@ -77,16 +73,16 @@ public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
             mViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-        final TipoPreguntaMatrizItem currentTipoPreguntaMatrizItem = getItem(position);
-        mViewHolder.tvTitle.setText(currentTipoPreguntaMatrizItem.getTitle());
+        final TipoPreguntaMatrizSimpleItem currentTipoPreguntaMatrizSimpleItem = getItem(position);
+        mViewHolder.tvTitle.setText(currentTipoPreguntaMatrizSimpleItem.getTitle());
         mViewHolder.grid.removeAllViews();
-        if(!currentTipoPreguntaMatrizItem.getHasView()){
-            currentTipoPreguntaMatrizItem.tbLayout = new TableLayout(context);
-            fillTableLayout(currentTipoPreguntaMatrizItem);
-            currentTipoPreguntaMatrizItem.setHasView(true);
+        if(!currentTipoPreguntaMatrizSimpleItem.getHasView()){
+            currentTipoPreguntaMatrizSimpleItem.tbLayout = new TableLayout(context);
+            fillTableLayout(currentTipoPreguntaMatrizSimpleItem);
+            currentTipoPreguntaMatrizSimpleItem.setHasView(true);
             System.out.println("Posicion: "+position+" tabla insertada");
         }
-        mViewHolder.grid.addView(currentTipoPreguntaMatrizItem.tbLayout);
+        mViewHolder.grid.addView(currentTipoPreguntaMatrizSimpleItem.tbLayout);
         return convertView;
     }
 
@@ -95,17 +91,19 @@ public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
         TableLayout grid;
     }
 
-    private void fillTableLayout(final TipoPreguntaMatrizItem currentTipoPreguntaMatrizItem){
+    private void fillTableLayout(final TipoPreguntaMatrizSimpleItem currentTipoPreguntaMatrizItem){
         for (int i = 0; i < currentTipoPreguntaMatrizItem.getVertical().size()+1; i++) {
             TableRow tableRow = new TableRow(context);
             final RadioGroup group = new RadioGroup(context);
             final LinearLayout linear= new LinearLayout(context);
+
             for (int j = 0; j < currentTipoPreguntaMatrizItem.getHorizontal().size(); j++) {
-                if (i != 0 && j != 0) {
+                if (i!=0 && j != 0) {
                     final RadioButton radio = new RadioButton(context);
-                    radio.setText("");
+                    radio.setText(currentTipoPreguntaMatrizItem.getHorizontal().get(j - 1));
                     radio.setChecked(false);
                     radio.setPadding(40, 20, 20, 20);
+                    group.setId(i-1);
                     group.addView(radio);
                     if(group.getChildCount()+1==currentTipoPreguntaMatrizItem.getHorizontal().size()){
                         group.setOrientation(RadioGroup.HORIZONTAL);
@@ -113,11 +111,14 @@ public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
                         {
                             public void onCheckedChanged(RadioGroup rGroup, int checkedId)
                             {
-                                RadioButton checkedRadioButton = (RadioButton)rGroup.findViewById(checkedId);
-                                boolean isChecked = checkedRadioButton.isChecked();
-                                if (isChecked)
-                                {
-                                    System.out.println("Checked:" + isChecked);
+                                RadioButton radio = (RadioButton)rGroup.findViewById(checkedId);
+                                ArrayList<String> respuestas = currentTipoPreguntaMatrizItem.getRespuestas();
+                                if(radio.isChecked()){
+                                    respuestas.add(rGroup.getId(),radio.getText().toString());
+                                    System.out.println("fila:"+ rGroup.getId() + "Checked:" + radio.getText());
+                                }else{
+                                    System.out.println("fila:"+ rGroup.getId() + "Unchecked:" + radio.getText());
+                                    respuestas.remove(rGroup.getId());
                                 }
                             }
                         });
@@ -129,15 +130,6 @@ public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
                         textView.setText("Tipo de Servicio");
                         textView.setPadding(20, 20, 20, 20);
                         tableRow.addView(textView);
-                    }
-                    if (i == 0 && j != 0) {
-                        textView.setText(currentTipoPreguntaMatrizItem.getHorizontal().get(j - 1));
-                        textView.setPadding(20, 20, 20, 20);
-                        linear.addView(textView);
-                        if(linear.getChildCount()+1==currentTipoPreguntaMatrizItem.getVertical().size()){
-                            linear.setOrientation(LinearLayout.HORIZONTAL);
-                            tableRow.addView(linear);
-                        }
                     }
                     if (i != 0 && j == 0) {
                         textView.setText(currentTipoPreguntaMatrizItem.getVertical().get(i - 1));

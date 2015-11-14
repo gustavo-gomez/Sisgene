@@ -32,10 +32,10 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
         this.myListPreguntaUnica = myListPreguntaUnica;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
+        tipoPreguntaUnicaAdapter = this;
     }
 
     public void limpiarLista() {
-
         int dim = myListPreguntaUnica.size();
         System.out.println("dim myListPreguntaUnica:" + myListPreguntaUnica.size());
 

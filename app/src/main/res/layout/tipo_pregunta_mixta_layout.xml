@@ -29,13 +29,15 @@
 
         </LinearLayout>
 
-            <EditText
+        <EditText
             android:id="@+id/etPreguntaMixta"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="@color/color_texto"
-            android:textSize="16sp" />
+            android:enabled="false"
+            android:visibility="gone"
+            android:textSize="12sp" />
 
 
     </LinearLayout>

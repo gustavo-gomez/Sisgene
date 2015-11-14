@@ -17,14 +17,14 @@ import com.instituto.cuanto.sisgene.adapter.TipoPreguntaMultipleAdapter;
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaUnicaAdapter;
 import com.instituto.cuanto.sisgene.bean.EncuestaPregunta;
 import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
-import com.instituto.cuanto.sisgene.entities.MixtaAlternativa;
+import com.instituto.cuanto.sisgene.entities.RespuestaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
-import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizItem;
+import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizMultipleItem;
+import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizSimpleItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMultipleItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -87,7 +87,7 @@ public class PreguntasActivity extends AppCompatActivity {
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
 
         leerPrimeraPregunta();        //leer todos los datos de la primera pregunta
-        tipoPreguntaActual = "MI";
+        tipoPreguntaActual = "MS";
         leerTipoPreguntaxPregunta();
     }
 
@@ -116,7 +116,6 @@ public class PreguntasActivity extends AppCompatActivity {
 
     private void leerTipoPreguntaxPregunta() {
         //eliminar cuando se haya hecho la consulta a la base de datos
-
         encuestarTodos = true;
 
         //Tipo de pregunta Unica
@@ -158,25 +157,88 @@ public class PreguntasActivity extends AppCompatActivity {
 
         if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
             leerRespuestasTipoUnica();
-
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
             leerRespuestasTipoMultiple();
-
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
             leerRespuestasTipoAbierta();
-
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatSimple))) {
-
-
+            leerRespuestasTipoMatrizSimple();
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatMultiple))) {
-
-
+            leerRespuestasTipoMatrizMultiple();
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
             leerRespuestasTipoMixta();
-
         }
     }
 
+    private void leerRespuestasTipoMatrizSimple() {
+        String respuestaMatrizS = "";
+        System.out.println("dimension myListPreguntaMatrizSimple:" + TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz.size());
+        ArrayList<TipoPreguntaMatrizSimpleItem> tipoPreguntaMatrizSimpleItems = TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz;
+        int cont = 0;
+
+        for (int i = 0; i < tipoPreguntaMatrizSimpleItems.size(); i++) {
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //respuestaAbierta = "[" + codIdent + "]";
+            respuestaMatrizS = respuestaMatrizS + "[" + "]";
+            for (int j = 0; j < tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size(); j++) {
+                System.out.println("multiple usuario " + (i + 1) + ": " + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j));
+                respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j).toString().trim();
+
+                if (j != tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size() - 1)
+                    respuestaMatrizS = "" + respuestaMatrizS + "$";
+                cont++;
+            }
+            if (i != tipoPreguntaMatrizSimpleItems.size() - 1) {
+                if (cont == 0)
+                    respuestaMatrizS = respuestaMatrizS + "null";
+                respuestaMatrizS = "" + respuestaMatrizS + "&";
+            }
+            cont = 0;
+        }
+
+        System.out.println("respuesta: {" + respuestaMatrizS + "}");
+        //guardar en base de datos la respuesta
+        TipoPreguntaMatrizSimpleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
+    }
+
+    private void leerRespuestasTipoMatrizMultiple() {
+        String respuestaMatrizM = "";
+        System.out.println("dimension myListPreguntaMatrizMultiple:" + TipoPreguntaMatrizMultipleAdapter.myListPreguntaMatriz.size());
+        ArrayList<TipoPreguntaMatrizMultipleItem> tipoPreguntaMatrizMultipleItems = TipoPreguntaMatrizMultipleAdapter.myListPreguntaMatriz;
+        int cont = 0;
+
+        for (int i = 0; i < tipoPreguntaMatrizMultipleItems.size(); i++) {
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //respuestaAbierta = "[" + codIdent + "]";
+            respuestaMatrizM = respuestaMatrizM + "[" + "]";
+            ArrayList<RespuestaItem> respuestas = tipoPreguntaMatrizMultipleItems.get(i).getRespuestas();
+
+            for (int j=0;i<tipoPreguntaMatrizMultipleItems.get(i).getHorizontal().size();i++){
+                for (int k=0;j<tipoPreguntaMatrizMultipleItems.get(i).getVertical().size();j++){
+                    for(int l=0;k<respuestas.size();k++){
+                        if(respuestas.get(l).getCol()==j || respuestas.get(l).getRow()==k){
+                            System.out.println("multiple usuario " + (i + 1) + ": " + respuestas.get(l).getTexto());
+                            respuestaMatrizM = respuestaMatrizM + respuestas.get(l).getTexto();
+                        }
+                    }
+                }
+                if (j != respuestas.size() - 1)
+                    respuestaMatrizM = "" + respuestaMatrizM + "$";
+                cont++;
+            }
+            if (i != tipoPreguntaMatrizMultipleItems.size() - 1) {
+                if (cont == 0)
+                    respuestaMatrizM = respuestaMatrizM + "null";
+                respuestaMatrizM = "" + respuestaMatrizM + "&";
+            }
+
+            cont = 0;
+        }
+
+        System.out.println("respuesta: {" + respuestaMatrizM + "}");
+        //guardar en base de datos la respuesta
+        TipoPreguntaMatrizMultipleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
+    }
 
     private void leerRespuestasTipoAbierta() {
         String respuestaAbierta = "";
@@ -184,7 +246,6 @@ public class PreguntasActivity extends AppCompatActivity {
 
         for (int i = 0; i < TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size(); i++) {
             TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
-
             //agregar el codigo de identificacion
             Formatter codIdent = new Formatter();
             //codIdent.format("%02d", codigosIdentEncuestados.get(i));
@@ -201,10 +262,8 @@ public class PreguntasActivity extends AppCompatActivity {
         }
 
         System.out.println("respuesta: {" + respuestaAbierta + "}");
-
         //guardar en base de datos la respuesta
-
-
+        TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
     }
 
     private void leerRespuestasTipoUnica() {
@@ -224,10 +283,11 @@ public class PreguntasActivity extends AppCompatActivity {
             else
                 respuestaUnica = respuestaUnica + tipoPreguntaUnicaItem.getRespuesta();
 
-            if (i != TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size() - 1)
+            if (i != TipoPreguntaUnicaAdapter.myListPreguntaUnica.size() - 1)
                 respuestaUnica = "" + respuestaUnica + "&";
         }
         System.out.println("Respuesta tipo pregunta unica: {" + respuestaUnica + "}");
+        TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.limpiarLista();
     }
 
     private void leerRespuestasTipoMultiple() {
@@ -261,10 +321,47 @@ public class PreguntasActivity extends AppCompatActivity {
         }
         //guardar en base de datos
         System.out.println("respuestaMultiple:{" + respuestaMultiple + "}");
+        TipoPreguntaMultipleAdapter.tipoPreguntaMultipleAdapter.limpiarLista();
     }
 
-    private void leerRespuestasTipoMixta() {
+    private void leerRespuestasTipoMixta(){
+        String respuestaMixta = "";
+        ArrayList<TipoPreguntaMixtaItem> tipoPreguntaMixtaItems = TipoPreguntaMixtaAdapter.myListPreguntaMixta;
+        int cont = 0;
+        //agregar el codigo de identificacion
+        Formatter codIdent = new Formatter();
 
+        System.out.println("TipoPreguntaMixtaAdapter.myListPreguntaMixta" + TipoPreguntaMixtaAdapter.myListPreguntaMixta.size());
+
+        for (int i = 0; i < tipoPreguntaMixtaItems.size(); i++) {
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //respuestaAbierta = "[" + codIdent + "]";
+            respuestaMixta = respuestaMixta + "[" + "]";
+            int sizeAlternativas = tipoPreguntaMixtaItems.get(i).getAlternativas().size();
+            ArrayList<String> respuestas = tipoPreguntaMixtaItems.get(i).getRespuestas();
+            for (int j = 0; j < respuestas.size(); j++) {
+                System.out.println("multiple usuario " + (i + 1) + ": " + respuestas.get(j));
+                String rpta;
+                if(respuestas.get(j).equals(tipoPreguntaMixtaItems.get(i).getAlternativas().get(sizeAlternativas-1))){
+                    rpta = tipoPreguntaMixtaItems.get(i).getPreguntaMixta();
+                }else{
+                    rpta = tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).toString().trim();
+                }
+                respuestaMixta = respuestaMixta + rpta;
+                if (j != tipoPreguntaMixtaItems.get(i).getRespuestas().size() - 1)
+                    respuestaMixta = "" + respuestaMixta + "$";
+                cont++;
+            }
+            if (i != tipoPreguntaMixtaItems.size() - 1) {
+                if (cont == 0)
+                    respuestaMixta = respuestaMixta + "null";
+                respuestaMixta = "" + respuestaMixta + "&";
+            }
+            cont = 0;
+        }
+        //guardar en base de datos
+        System.out.println("respuestaMixta:{" + respuestaMixta + "}");
+        TipoPreguntaMixtaAdapter.tipoPreguntaMixtaAdapter.limpiarLista();
     }
 
 
@@ -284,7 +381,6 @@ public class PreguntasActivity extends AppCompatActivity {
 
         lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
         System.out.println("num pregunta: " + numPregunta);
-        //tipoPreguntaAbiertaAdapter.limpiarLista();
     }
 
     private void poblarLista_TipoPreguntaUnica() {
@@ -368,11 +464,11 @@ public class PreguntasActivity extends AppCompatActivity {
         }
         //cargar datos a la lista
         for (int i = 0; i < nombresEncuestados.size(); i++) {
-            TipoPreguntaMatrizItem tipoPreguntaMatrizItem = new TipoPreguntaMatrizItem();
-            tipoPreguntaMatrizItem.setTitle(nombresEncuestados.get(i));
-            tipoPreguntaMatrizItem.setHorizontal(horizontales);
-            tipoPreguntaMatrizItem.setVertical(verticales);
-            TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz.add(tipoPreguntaMatrizItem);
+            TipoPreguntaMatrizSimpleItem tipoPreguntaMatrizSimpleItem = new TipoPreguntaMatrizSimpleItem();
+            tipoPreguntaMatrizSimpleItem.setTitle(nombresEncuestados.get(i));
+            tipoPreguntaMatrizSimpleItem.setHorizontal(horizontales);
+            tipoPreguntaMatrizSimpleItem.setVertical(verticales);
+            TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz.add(tipoPreguntaMatrizSimpleItem);
             if (i == 0 && encuestarTodos == false)
                 break;
         }
@@ -396,11 +492,11 @@ public class PreguntasActivity extends AppCompatActivity {
         }
         //cargar datos a la lista
         for (int i = 0; i < nombresEncuestados.size(); i++) {
-            TipoPreguntaMatrizItem tipoPreguntaMatrizItem = new TipoPreguntaMatrizItem();
-            tipoPreguntaMatrizItem.setTitle(nombresEncuestados.get(i));
-            tipoPreguntaMatrizItem.setHorizontal(horizontales);
-            tipoPreguntaMatrizItem.setVertical(verticales);
-            TipoPreguntaMatrizMultipleAdapter.myListPreguntaMatriz.add(tipoPreguntaMatrizItem);
+            TipoPreguntaMatrizMultipleItem tipoPreguntaMatrizMultipleItem = new TipoPreguntaMatrizMultipleItem();
+            tipoPreguntaMatrizMultipleItem.setTitle(nombresEncuestados.get(i));
+            tipoPreguntaMatrizMultipleItem.setHorizontal(horizontales);
+            tipoPreguntaMatrizMultipleItem.setVertical(verticales);
+            TipoPreguntaMatrizMultipleAdapter.myListPreguntaMatriz.add(tipoPreguntaMatrizMultipleItem);
             if (i == 0 && encuestarTodos == false)
                 break;
         }
