@@ -213,10 +213,10 @@ public class PreguntasActivity extends AppCompatActivity {
             respuestaMatrizM = respuestaMatrizM + "[" + "]";
             ArrayList<RespuestaItem> respuestas = tipoPreguntaMatrizMultipleItems.get(i).getRespuestas();
 
-            for (int j=0;i<tipoPreguntaMatrizMultipleItems.get(i).getHorizontal().size();i++){
-                for (int k=0;j<tipoPreguntaMatrizMultipleItems.get(i).getVertical().size();j++){
-                    for(int l=0;k<respuestas.size();k++){
-                        if(respuestas.get(l).getCol()==j || respuestas.get(l).getRow()==k){
+            for (int j = 0; i < tipoPreguntaMatrizMultipleItems.get(i).getHorizontal().size(); i++) {
+                for (int k = 0; j < tipoPreguntaMatrizMultipleItems.get(i).getVertical().size(); j++) {
+                    for (int l = 0; k < respuestas.size(); k++) {
+                        if (respuestas.get(l).getCol() == j || respuestas.get(l).getRow() == k) {
                             System.out.println("multiple usuario " + (i + 1) + ": " + respuestas.get(l).getTexto());
                             respuestaMatrizM = respuestaMatrizM + respuestas.get(l).getTexto();
                         }
@@ -242,7 +242,6 @@ public class PreguntasActivity extends AppCompatActivity {
 
     private void leerRespuestasTipoAbierta() {
         String respuestaAbierta = "";
-        System.out.println("dimencion myListPreguntaAbierta:" + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
 
         for (int i = 0; i < TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size(); i++) {
             TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
@@ -297,15 +296,12 @@ public class PreguntasActivity extends AppCompatActivity {
         //agregar el codigo de identificacion
         Formatter codIdent = new Formatter();
 
-        System.out.println("TipoPreguntaMultipleAdapter.myListPreguntaMultiple" + TipoPreguntaMultipleAdapter.myListPreguntaMultiple.size());
-
         for (int i = 0; i < tipoPreguntaMultipleItems.size(); i++) {
             //codIdent.format("%02d", codigosIdentEncuestados.get(i));
             //respuestaAbierta = "[" + codIdent + "]";
             respuestaMultiple = respuestaMultiple + "[" + "]";
 
             for (int j = 0; j < tipoPreguntaMultipleItems.get(i).getRespuestas().size(); j++) {
-                System.out.println("multiple usuario " + (i + 1) + ": " + tipoPreguntaMultipleItems.get(i).getRespuestas().get(j));
                 respuestaMultiple = respuestaMultiple + tipoPreguntaMultipleItems.get(i).getRespuestas().get(j).toString().trim();
 
                 if (j != tipoPreguntaMultipleItems.get(i).getRespuestas().size() - 1)
@@ -324,14 +320,12 @@ public class PreguntasActivity extends AppCompatActivity {
         TipoPreguntaMultipleAdapter.tipoPreguntaMultipleAdapter.limpiarLista();
     }
 
-    private void leerRespuestasTipoMixta(){
+    private void leerRespuestasTipoMixta() {
         String respuestaMixta = "";
         ArrayList<TipoPreguntaMixtaItem> tipoPreguntaMixtaItems = TipoPreguntaMixtaAdapter.myListPreguntaMixta;
         int cont = 0;
         //agregar el codigo de identificacion
         Formatter codIdent = new Formatter();
-
-        System.out.println("TipoPreguntaMixtaAdapter.myListPreguntaMixta" + TipoPreguntaMixtaAdapter.myListPreguntaMixta.size());
 
         for (int i = 0; i < tipoPreguntaMixtaItems.size(); i++) {
             //codIdent.format("%02d", codigosIdentEncuestados.get(i));
@@ -339,12 +333,13 @@ public class PreguntasActivity extends AppCompatActivity {
             respuestaMixta = respuestaMixta + "[" + "]";
             int sizeAlternativas = tipoPreguntaMixtaItems.get(i).getAlternativas().size();
             ArrayList<String> respuestas = tipoPreguntaMixtaItems.get(i).getRespuestas();
+
             for (int j = 0; j < respuestas.size(); j++) {
-                System.out.println("multiple usuario " + (i + 1) + ": " + respuestas.get(j));
                 String rpta;
-                if(respuestas.get(j).equals(tipoPreguntaMixtaItems.get(i).getAlternativas().get(sizeAlternativas-1))){
-                    rpta = tipoPreguntaMixtaItems.get(i).getPreguntaMixta();
-                }else{
+                if (respuestas.get(j).equals(tipoPreguntaMixtaItems.get(i).getAlternativas().get(sizeAlternativas - 1))) {
+                    rpta = "(" + tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).toString().trim() + ")";
+                    rpta = rpta + tipoPreguntaMixtaItems.get(i).getPreguntaMixta();
+                } else {
                     rpta = tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).toString().trim();
                 }
                 respuestaMixta = respuestaMixta + rpta;
