@@ -61,4 +61,13 @@ public class TipoPreguntaMatrizMultipleItem {
         this.horizontal = horizontal;
     }
 
+    public int buscarRespuestas(String checkbox) {
+        int found = -1;
+        for (int i=0;i<respuestas.size();i++){
+            if(respuestas.get(i).getTexto().equals(checkbox)){
+                found = i;
+            }
+        }
+        return found;
+    }
 }

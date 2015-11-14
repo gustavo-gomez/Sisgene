@@ -213,9 +213,9 @@ public class PreguntasActivity extends AppCompatActivity {
             respuestaMatrizM = respuestaMatrizM + "[" + "]";
             ArrayList<RespuestaItem> respuestas = tipoPreguntaMatrizMultipleItems.get(i).getRespuestas();
 
-            for (int j = 0; i < tipoPreguntaMatrizMultipleItems.get(i).getHorizontal().size(); i++) {
-                for (int k = 0; j < tipoPreguntaMatrizMultipleItems.get(i).getVertical().size(); j++) {
-                    for (int l = 0; k < respuestas.size(); k++) {
+            for (int j = 0; j < tipoPreguntaMatrizMultipleItems.get(i).getHorizontal().size(); j++) {
+                for (int k = 0; k < tipoPreguntaMatrizMultipleItems.get(i).getVertical().size(); k++) {
+                    for (int l = 0; l < respuestas.size(); l++) {
                         if (respuestas.get(l).getCol() == j || respuestas.get(l).getRow() == k) {
                             System.out.println("multiple usuario " + (i + 1) + ": " + respuestas.get(l).getTexto());
                             respuestaMatrizM = respuestaMatrizM + respuestas.get(l).getTexto();

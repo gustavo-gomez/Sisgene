@@ -109,13 +109,13 @@ public class TipoPreguntaMatrizMultipleAdapter extends BaseAdapter {
                         @Override
                         public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                             RespuestaItem ritem = (RespuestaItem) checkbox.getTag();
-                            if (checkbox.isChecked()){
+                            if(checkbox.isChecked()){
                                 System.out.println("Checked " + checkbox.getText());
                                 ritem.setTexto(checkbox.getText().toString());
                                 currentTipoPreguntaMatrizMultipleItem.getRespuestas().add(ritem);
                             }else{
                                 System.out.println("Un-Checked " + checkbox.getText());
-                                int id = currentTipoPreguntaMatrizMultipleItem.getRespuestas().indexOf(checkbox.getText());
+                                int id = currentTipoPreguntaMatrizMultipleItem.buscarRespuestas(checkbox.getText().toString());
                                 currentTipoPreguntaMatrizMultipleItem.getRespuestas().remove(id);
                             }
                         }

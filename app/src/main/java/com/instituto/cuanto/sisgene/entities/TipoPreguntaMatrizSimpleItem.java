@@ -60,6 +60,9 @@ public class TipoPreguntaMatrizSimpleItem {
 
     public void setHorizontal(ArrayList<String> horizontal) {
         this.horizontal = horizontal;
+        for(int i=0;i<horizontal.size();i++){
+            respuestas.add(i,"");
+        }
     }
 
 }
