@@ -52,6 +52,9 @@ public class TipoPreguntaMatrizSimpleItem {
 
     public void setVertical(ArrayList<String> vertical) {
         this.vertical = vertical;
+        for(int i=0;i<vertical.size();i++){
+            respuestas.add(i,"");
+        }
     }
 
     public ArrayList<String> getHorizontal() {
@@ -60,9 +63,6 @@ public class TipoPreguntaMatrizSimpleItem {
 
     public void setHorizontal(ArrayList<String> horizontal) {
         this.horizontal = horizontal;
-        for(int i=0;i<horizontal.size();i++){
-            respuestas.add(i,"");
-        }
     }
 
 }
