@@ -1,7 +1,9 @@
 package com.instituto.cuanto.sisgene;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +39,8 @@ public class PreguntasActivity extends AppCompatActivity {
     static ArrayList<String> nombresEncuestados;
     static ArrayList<Integer> codigosIdentEncuestados;
     Button btnSiguiente;
+    Button btnGuardarEncuesta;
+    Button btnRechazarEncuesta;
     ListView lvRespuestas_tipoGeneral;
     Context context = PreguntasActivity.this;
 
@@ -72,6 +76,9 @@ public class PreguntasActivity extends AppCompatActivity {
         nombresEncuestados = new ArrayList<>();
         codigosIdentEncuestados = new ArrayList<>();
         btnSiguiente = (Button) findViewById(R.id.btnSiguiente);
+        btnGuardarEncuesta = (Button) findViewById(R.id.btnGuardarEncuesta);
+        btnRechazarEncuesta = (Button) findViewById(R.id.btnRechazarEncuesta);
+
         //lyFragmentoListaPreguntas = (LinearLayout) findViewById(R.id.lyFragmentoListaPreguntas);
         lvRespuestas_tipoGeneral = (ListView) findViewById(R.id.lvRespuestas_tipoGeneral);
         tvEnunciadoPregunta = (TextView) findViewById(R.id.tvEnunciadoPregunta);
@@ -90,6 +97,8 @@ public class PreguntasActivity extends AppCompatActivity {
         }
 
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
+        btnGuardarEncuesta.setOnClickListener(btnGuardarEncuestasetOnClickListener);
+        btnRechazarEncuesta.setOnClickListener(btnRechazarEncuestasetOnClickListener);
 
         leerPrimeraPregunta();        //leer todos los datos de la primera pregunta
         tipoPreguntaActual = "MM";
@@ -119,6 +128,39 @@ public class PreguntasActivity extends AppCompatActivity {
             leerDatos();
             System.out.println("respuestas leidas -   se borra la lista");
             leerTipoPreguntaxPregunta();
+        }
+    };
+
+    View.OnClickListener btnGuardarEncuestasetOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //
+            new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("¿Desea finalizar la encuesta sin " +
+                    "terminar la ejecucion de las preguntas?")
+                    .setPositiveButton("Aceptar", alertaAceptarOnClickListener)
+                    .setNegativeButton("Aceptar", alertaCancelarOnClickListener)
+                    .setCancelable(false).show();
+        }
+    };
+
+    View.OnClickListener btnRechazarEncuestasetOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            leerDatos();
+            System.out.println("respuestas leidas -   se borra la lista");
+            leerTipoPreguntaxPregunta();
+        }
+    };
+    DialogInterface.OnClickListener alertaAceptarOnClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            dialogInterface.dismiss();
+        }
+    };
+    DialogInterface.OnClickListener alertaCancelarOnClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            dialogInterface.dismiss();
         }
     };
 
