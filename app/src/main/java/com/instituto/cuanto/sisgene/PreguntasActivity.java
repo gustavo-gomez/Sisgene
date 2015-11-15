@@ -63,9 +63,10 @@ public class PreguntasActivity extends AppCompatActivity {
     boolean ordenImportancia;
     //Seccion
     String nombreSecccion;
-    String nommbreSubSeccion;
-    String descSeccion;
-    String descSubSeccion;
+    String numeroSecccion;
+    String nombreSubSeccion;
+    String numeroSubSeccion;
+
 
 
     @Override
@@ -111,6 +112,17 @@ public class PreguntasActivity extends AppCompatActivity {
         //ir a BD para sacar la primera preguna de dicha ecuesta
         encuestaPregunta = encuestaDAO.obtenerPreguntaEncuesta(PreguntasActivity.this);
         // Setear datos para la primera pregunta
+        nombreSecccion= encuestaPregunta.getSec_nombre();
+        numeroSecccion= encuestaPregunta.getSec_numero_seccion();
+        numeroSecccion= encuestaPregunta.getSec_numero_seccion();
+        numeroSubSeccion= encuestaPregunta.getSus_numero_subseccion();
+        nombreSubSeccion= encuestaPregunta.getSus_nombre();
+
+        encuestaPregunta.getPre_importarordenrptamu(); //Que va a retornar
+
+        //pregutna
+        tipoPreguntaActual = encuestaPregunta.getPre_tipo_rpta();
+
         //encuestarTodos = Boolean.valueOf(encuestaPregunta.getPre_unica_persona());
         //nombreSecccion = encuestaPregunta.getSec_numero_seccion();
         //nombreSecccion = encuestaPregunta.getPre_importarordenrptamu();
@@ -137,8 +149,8 @@ public class PreguntasActivity extends AppCompatActivity {
             //
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("¿Desea finalizar la encuesta sin " +
                     "terminar la ejecucion de las preguntas?")
-                    .setPositiveButton("Aceptar", alertaAceptarOnClickListener)
-                    .setNegativeButton("Aceptar", alertaCancelarOnClickListener)
+                    .setPositiveButton("Terminar encuesta", alertaAceptarOnClickListener)
+                    .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
                     .setCancelable(false).show();
         }
     };
@@ -154,7 +166,7 @@ public class PreguntasActivity extends AppCompatActivity {
     DialogInterface.OnClickListener alertaAceptarOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
-            dialogInterface.dismiss();
+            finish();
         }
     };
     DialogInterface.OnClickListener alertaCancelarOnClickListener = new DialogInterface.OnClickListener() {
