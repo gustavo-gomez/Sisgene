@@ -67,15 +67,14 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         nombreUsu = pref.getString("nombres", null);
         rolUsu = pref.getString("rol", null);
 
-        /*if(rolUsu.equals("ENCUESTADOR")){
+        if(rolUsu.equals("ENCUESTADOR")){
             encuestadorValor.setText(nombreUsu);
-            supervisorValor.setText("NOMBRE SUPERVISOR..");
-        }*/
-
-        /*if(rolUsu.equals("SUPERVISOR")){
+            supervisorValor.setText("NOMB. SUPERVISOR..");
+        }
+        if(rolUsu.equals("SUPERVISOR")){
             encuestadorValor.setText("");
             supervisorValor.setText(nombreUsu);
-        }*/
+        }
 
         ListView listView = (ListView) findViewById(R.id.lvListaEncuesta);
         populateList();

@@ -1,7 +1,7 @@
 package com.instituto.cuanto.sisgene.forms;
 
 import com.instituto.cuanto.sisgene.bean.Encuestador;
-import com.instituto.cuanto.sisgene.bean.Usuario;
+import com.instituto.cuanto.sisgene.bean.Usuarios;
 import java.util.List;
 
 /**
@@ -11,7 +11,7 @@ public class LoginResponse {
 
     private String response_code;
     private String message;
-    private Usuario usuario;
+    private Usuarios usuario;
     private List<Encuestador> encuestadores;
 
     public LoginResponse(){
@@ -34,11 +34,11 @@ public class LoginResponse {
         this.message = message;
     }
 
-    public Usuario getUsuario() {
+    public Usuarios getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(Usuarios usuario) {
         this.usuario = usuario;
     }
 

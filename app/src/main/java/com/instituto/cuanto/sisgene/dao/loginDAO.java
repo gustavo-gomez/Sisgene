@@ -1,11 +1,9 @@
 package com.instituto.cuanto.sisgene.dao;
 
 import android.database.Cursor;
-import com.instituto.cuanto.sisgene.bean.Usuario;
+import com.instituto.cuanto.sisgene.bean.Usuarios;
 import android.content.Context;
 
-import java.util.ArrayList;
-import java.util.List;
 /**
  * Created by Jesus on 27/10/2015.
  */
@@ -13,9 +11,9 @@ public class loginDAO {
 
     public loginDAO(){}
 
-    public Usuario obtenerUsuario(Context context) {
+    public Usuarios obtenerUsuario(Context context) {
         Cursor cursor = null;
-        Usuario usu = null;
+        Usuarios usu = null;
         String[] valores_recuperar = {"usu_usuario", "usu_clave"};
         DataBaseHelper dataBaseHelper;
 /*

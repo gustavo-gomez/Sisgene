@@ -3,14 +3,15 @@ package com.instituto.cuanto.sisgene.bean;
 /**
  * Created by Jesus on 14/10/2015.
  */
-public class Usuario {
+public class Usuarios {
 
     private String nombre;
     private String ap_paterno;
     private String ap_materno;
     private String rol;
+    private String clave;
 
-    public Usuario(){
+    public Usuarios(){
         //Constructor
     }
 
@@ -44,5 +45,13 @@ public class Usuario {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 }

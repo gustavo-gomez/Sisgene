@@ -47,15 +47,15 @@ public class ValidarAdministradorResponse {
     private List<PreguntaItem> lista_pregunta_item;//x
     private List<Item> lista_item;//x
     //Tercera Query
-    private List<Usuario> lista_usuario;
+    private List<Usuario> lista_usuario;//x
     private List<Rol> lista_rol;//x
     private List<Persona> lista_persona;//x
     private List<Funcionalidad> lista_funcionalidad;//x
     private List<Acceso> lista_acceso;//x
     private List<TipoDocumento> lista_tipodocumento;//x
     private List<Ubigeo> lista_ubigeo;
-    private List<Grupo> lista_grupo;
-    private List<Dispositivo> lista_dispositivo;
+    private List<Grupo> lista_grupo;//x
+    private List<Dispositivo> lista_dispositivo;//x
     private List<UsuarioPersona> lista_usuariopersona;
 
     public ValidarAdministradorResponse() {
@@ -245,5 +245,7 @@ public class ValidarAdministradorResponse {
     public void setLista_usuariopersona(List<UsuarioPersona> lista_usuariopersona) {
         this.lista_usuariopersona = lista_usuariopersona;
     }
+
+
     
 }
