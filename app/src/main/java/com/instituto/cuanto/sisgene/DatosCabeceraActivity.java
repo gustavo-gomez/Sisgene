@@ -1,8 +1,10 @@
 package com.instituto.cuanto.sisgene;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -31,9 +33,12 @@ public class DatosCabeceraActivity extends AppCompatActivity {
     LinearLayout lyConglomeradoN, lyZonaAER, lyManzanaN, lyViviendaN, lyHogarN, lyDireccion, lyTelefono, lyCelular, lyEmail;
     Spinner spArea, spCondicion;
     LinearLayout lyspArea, lyspCondicion;
-    Button btAceptar_datosUsuario;
+    Button btAceptareIniciarEncuesta;
+    Button btSalir_datosCabecera;
     ArrayList<String> nombresEncuestados;
+    ArrayList<Integer> codigosIdentEncuestados;
     public static String KEY_ARG_NOMBRE_JEFE = "KEY_ARG_NOMBRE_JEFE";
+    public static String KEY_ARG_ID_JEFE = "KEY_ARG_ID_JEFE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dato_encuestado);
 
         nombresEncuestados = new ArrayList<>();
+        codigosIdentEncuestados = new ArrayList<>();
         tvCodigoEncuesta = (TextView) findViewById(R.id.tvCodigoEncuesta);
         tvNombreSupervisor = (TextView) findViewById(R.id.tvNombreSupervisor);
         tvNombreUsuario = (TextView) findViewById(R.id.tvNombreUsuario);
@@ -80,7 +86,8 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         lyCelular = (LinearLayout) findViewById(R.id.lyCelular);
         lyEmail = (LinearLayout) findViewById(R.id.lyEmail);
 
-        btAceptar_datosUsuario = (Button) findViewById(R.id.btAceptar_datosUsuario);
+        btAceptareIniciarEncuesta = (Button) findViewById(R.id.btAceptareIniciarEncuesta);
+        btSalir_datosCabecera = (Button) findViewById(R.id.btSalir_datosCabecera);
         spArea = (Spinner) findViewById(R.id.spArea);
         spCondicion = (Spinner) findViewById(R.id.spCondicion);
         lyspArea = (LinearLayout) findViewById(R.id.lyspArea);
@@ -89,7 +96,8 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         tvFecha.setText(Util.obtenerFecha());
 
         llenarDatosCabecera();
-        btAceptar_datosUsuario.setOnClickListener(btAceptar_datosUsuariosetOnClickListener);
+        btAceptareIniciarEncuesta.setOnClickListener(btAceptareIniciarEncuestasetOnClickListener);
+        btSalir_datosCabecera.setOnClickListener(btSalir_datosCabecerasetOnClickListener);
     }
 
     private void llenarDatosCabecera() {
@@ -107,11 +115,35 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         tvNombreUsuario.setText("Jesus Cahuana");
     }
 
-    View.OnClickListener btAceptar_datosUsuariosetOnClickListener = new View.OnClickListener() {
+    View.OnClickListener btAceptareIniciarEncuestasetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             //validar que se haya ingresado todos los campos
             validarCamposDatosUsuarios();
+        }
+    };
+
+    View.OnClickListener btSalir_datosCabecerasetOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //validar que se haya ingresado todos los campos
+            new AlertDialog.Builder(DatosCabeceraActivity.this).setTitle("Mensaje")
+                    .setMessage("¿Esta seguro que desea cancelar la encuesta?")
+                    .setPositiveButton("Continuar con la encuesta", alertaAceptarOnClickListener)
+                    .setNegativeButton("Salir", alertaSalirOnClickListener)
+                    .setCancelable(false).show();
+        }
+    };
+    DialogInterface.OnClickListener alertaAceptarOnClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            dialogInterface.dismiss();
+        }
+    };
+    DialogInterface.OnClickListener alertaSalirOnClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            finish();
         }
     };
 
@@ -143,20 +175,29 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                     etApellidoMaterno.getText().toString().trim());
             //captura de todos los datos
 
+            //FALTA INSERTAR
             etDireccion.getText().toString().trim();
-
             spArea.getSelectedItem().toString();
             spCondicion.getSelectedItem().toString();
-
+            ////
             PersonaDAO personaDAO = new PersonaDAO();
+            //obtener el id del jefe de famiia
+
             //Insercion de los daros del jefe de familia
-            boolean insertoPersona = personaDAO.insertarPersona(DatosCabeceraActivity.this, etNombres.getText().toString().trim(), etApellidoPaterno.getText().toString().trim()
-                    , etApellidoMaterno.getText().toString().trim(), etDni.getText().toString().trim(), etTelefono.getText().toString().trim(),
+            boolean insertoPersona = personaDAO.insertarPersona(DatosCabeceraActivity.this, etNombres.getText().toString().trim(),
+                    etApellidoPaterno.getText().toString().trim(), etApellidoMaterno.getText().toString().trim(),
+                    etDni.getText().toString().trim(), etTelefono.getText().toString().trim(),
                     etCelular.getText().toString().trim(), etEmail.getText().toString().trim());
 
             CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
 
             if (insertoPersona == true) {
+
+                //obtener id del jefe de familia
+                codigosIdentEncuestados.add(personaDAO.obtenerIdPersonabyNombres(DatosCabeceraActivity.this, etNombres.getText().toString().trim(),
+                        etApellidoPaterno.getText().toString().trim(), etApellidoMaterno.getText().toString().trim()));
+
+
                 int personaId = personaDAO.obtenerUltIdPersona(DatosCabeceraActivity.this);
                 if (personaId == 0) {
                     Toast.makeText(DatosCabeceraActivity.this, "Error al obtener el id de Usuario", Toast.LENGTH_LONG).show();
@@ -174,6 +215,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                         Toast.makeText(DatosCabeceraActivity.this, "Datos almacenados correctamente", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);
                         intent.putExtra(KEY_ARG_NOMBRE_JEFE, nombresEncuestados);
+                        intent.putExtra(KEY_ARG_ID_JEFE, codigosIdentEncuestados);
                         startActivity(intent);
                         finish();
                     } else

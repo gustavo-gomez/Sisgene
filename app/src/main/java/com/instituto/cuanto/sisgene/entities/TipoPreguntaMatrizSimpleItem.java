@@ -1,5 +1,7 @@
 package com.instituto.cuanto.sisgene.entities;
 
+import android.widget.TableLayout;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,11 +9,26 @@ import java.util.Iterator;
 /**
  * Created by USUARIO on 08/11/2015.
  */
-public class TipoPreguntaMatrizItem {
-    HashMap<Integer,Integer> respuestas;
+public class TipoPreguntaMatrizSimpleItem {
+    ArrayList<String> respuestas;
     ArrayList<String> vertical;
     ArrayList<String> horizontal;
+    Boolean hasView;
     String title;
+    public TableLayout tbLayout;
+
+    public TipoPreguntaMatrizSimpleItem(){
+        hasView = false;
+        respuestas = new ArrayList<>();
+    }
+
+    public Boolean getHasView() {
+        return hasView;
+    }
+
+    public void setHasView(Boolean hasView) {
+        this.hasView = hasView;
+    }
 
     public String getTitle() {
         return title;
@@ -21,11 +38,11 @@ public class TipoPreguntaMatrizItem {
         this.title = title;
     }
 
-    public HashMap<Integer, Integer> getRespuestas() {
+    public ArrayList<String> getRespuestas() {
         return respuestas;
     }
 
-    public void setRespuestas(HashMap<Integer, Integer> respuestas) {
+    public void setRespuestas(ArrayList<String> respuestas) {
         this.respuestas = respuestas;
     }
 
@@ -35,6 +52,9 @@ public class TipoPreguntaMatrizItem {
 
     public void setVertical(ArrayList<String> vertical) {
         this.vertical = vertical;
+        for(int i=0;i<vertical.size();i++){
+            respuestas.add(i,"");
+        }
     }
 
     public ArrayList<String> getHorizontal() {

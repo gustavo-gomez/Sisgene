@@ -1,35 +1,22 @@
 package com.instituto.cuanto.sisgene.entities;
 
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Created by Gustavo on 27/10/2015.
  */
-public class TipoPreguntaMixtaItem {
+public class TipoPreguntaMultipleItem {
     ArrayList<String> respuestas;
     ArrayList<String> alternativas;
     String title;
     public LinearLayout lvLayout;
     Boolean hasView;
 
-    public String getPreguntaMixta() {
-        return preguntaMixta;
-    }
-
-    public void setPreguntaMixta(String preguntaMixta) {
-        this.preguntaMixta = preguntaMixta;
-    }
-
-    String preguntaMixta;
-
-    public TipoPreguntaMixtaItem() {
-        this.hasView = false;
-        this.respuestas = new ArrayList<>();
+    public TipoPreguntaMultipleItem(){
+        this.hasView=false;
+        this.respuestas=new ArrayList<>();
     }
 
     public Boolean getHasView() {

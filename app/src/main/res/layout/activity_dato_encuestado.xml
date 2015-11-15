@@ -272,6 +272,7 @@
                             android:id="@+id/etNombres"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:ellipsize="end"
                             android:hint="Nombres"
                             android:inputType="text"
@@ -299,6 +300,7 @@
                             android:id="@+id/etApellidoPaterno"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:ellipsize="end"
                             android:hint="Apellido Paterno"
                             android:inputType="text"
@@ -324,6 +326,7 @@
                             android:id="@+id/etApellidoMaterno"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:ellipsize="end"
                             android:hint="Apellido Materno"
                             android:inputType="text"
@@ -378,6 +381,7 @@
                             android:id="@+id/etCentroPoblado"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:ellipsize="end"
                             android:hint="Centro Poblado"
                             android:singleLine="true"
@@ -457,6 +461,7 @@
                             android:id="@+id/etManzanaN"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:ellipsize="end"
                             android:hint="Manzana N°"
                             android:maxLength="4"
@@ -546,6 +551,7 @@
                             android:id="@+id/etViviendaN"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:ellipsize="end"
                             android:hint="Vivienda N°"
                             android:maxLength="4"
@@ -572,6 +578,7 @@
                             android:id="@+id/etHogarN"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:ellipsize="end"
                             android:hint="Hogar N°"
                             android:maxLength="4"
@@ -598,6 +605,7 @@
                             android:id="@+id/etDireccion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:ellipsize="end"
                             android:hint="Nombre de Avenida, Calle, Jirón, Pasaje, etc"
                             android:singleLine="true"
@@ -695,7 +703,7 @@
         android:gravity="right">
 
         <Button
-            android:id="@+id/btAceptar_datosUsuario"
+            android:id="@+id/btAceptareIniciarEncuesta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -704,7 +712,7 @@
             android:textColor="@color/color_texto_boton" />
 
         <Button
-            android:id="@+id/btSalir_datosUsuario"
+            android:id="@+id/btSalir_datosCabecera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

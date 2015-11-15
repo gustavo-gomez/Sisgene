@@ -32,10 +32,10 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
         this.myListPreguntaUnica = myListPreguntaUnica;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
+        tipoPreguntaUnicaAdapter = this;
     }
 
     public void limpiarLista() {
-
         int dim = myListPreguntaUnica.size();
         System.out.println("dim myListPreguntaUnica:" + myListPreguntaUnica.size());
 
@@ -91,7 +91,8 @@ public class TipoPreguntaUnicaAdapter extends BaseAdapter {
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        currentTipoPreguntaUnicaItem.setRespuesta(parent.getSelectedItemPosition());
+                        currentTipoPreguntaUnicaItem.setRespuesta(parent.getSelectedItem().toString().trim());
+                        currentTipoPreguntaUnicaItem.setPos(parent.getSelectedItemPosition());
                     }
 
                     @Override

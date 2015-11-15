@@ -72,25 +72,25 @@ public class EncuestaDAO {
             if (cursor.moveToFirst()) {
 
                 encuestaPregunta = new EncuestaPregunta();
-                encuestaPregunta.setSec_id(cursor.getString(0));
-                encuestaPregunta.setSec_nombre(cursor.getString(1));
-                encuestaPregunta.setSec_nota(cursor.getString(2));
-                encuestaPregunta.setSec_numero_seccion(cursor.getString(3));
-                encuestaPregunta.setSus_id(cursor.getString(4));
-                encuestaPregunta.setSus_nombre(cursor.getString(5));
-                encuestaPregunta.setSus_nota(cursor.getString(6));
-                encuestaPregunta.setSus_numero_subseccion(cursor.getString(7));
-                encuestaPregunta.setPre_id(cursor.getString(8));
-                encuestaPregunta.setPre_numero(cursor.getString(9));
-                encuestaPregunta.setPre_enunciado(cursor.getString(10));
-                encuestaPregunta.setPre_explicativo(cursor.getString(11));
-                encuestaPregunta.setPre_comentario(cursor.getString(12));
-                encuestaPregunta.setPre_guia_rpta(cursor.getString(13));
-                encuestaPregunta.setPre_tipo_rpta(cursor.getString(14));
-                encuestaPregunta.setPre_unica_persona(cursor.getString(15));
-                encuestaPregunta.setPre_cant_maxima_items(cursor.getString(16));
-                encuestaPregunta.setPre_nummaxrptamu(cursor.getString(17));
-                encuestaPregunta.setPre_importarordenrptamu(cursor.getString(18));
+                encuestaPregunta.setSec_id(cursor.getString(1));
+                encuestaPregunta.setSec_nombre(cursor.getString(2));
+                encuestaPregunta.setSec_nota(cursor.getString(3));
+                encuestaPregunta.setSec_numero_seccion(cursor.getString(4));
+                encuestaPregunta.setSus_id(cursor.getString(5));
+                encuestaPregunta.setSus_nombre(cursor.getString(6));
+                encuestaPregunta.setSus_nota(cursor.getString(7));
+                encuestaPregunta.setSus_numero_subseccion(cursor.getString(8));
+                encuestaPregunta.setPre_id(cursor.getString(9));
+                encuestaPregunta.setPre_numero(cursor.getString(10));
+                encuestaPregunta.setPre_enunciado(cursor.getString(11));
+                encuestaPregunta.setPre_explicativo(cursor.getString(12));
+                encuestaPregunta.setPre_comentario(cursor.getString(13));
+                encuestaPregunta.setPre_guia_rpta(cursor.getString(14));
+                encuestaPregunta.setPre_tipo_rpta(cursor.getString(15));
+                encuestaPregunta.setPre_unica_persona(cursor.getString(16));
+                encuestaPregunta.setPre_cant_maxima_items(cursor.getString(17));
+                encuestaPregunta.setPre_nummaxrptamu(cursor.getString(18));
+                encuestaPregunta.setPre_importarordenrptamu(cursor.getString(19));
 
             }
 

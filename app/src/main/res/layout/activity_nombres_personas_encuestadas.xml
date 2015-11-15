@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:background="@color/color_fondo_pantalla"
+            android:background="@color/color_texto_boton"
             android:orientation="vertical">
 
             <LinearLayout
@@ -39,14 +39,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Código de Encuesta"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvCodigoEncuesta"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -61,14 +63,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Nombre Supervisor"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvNombreSupervisor"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -83,14 +87,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Nombre Usuario"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvNombreUsuario"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -105,14 +111,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Grupo"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvGrupo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -142,7 +150,8 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="Fecha"
-                        android:textColor="@color/color_texto" />
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tvFecha"
@@ -159,7 +168,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Fecha de vigencia de la Encuesta"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -178,7 +188,8 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:text="Final"
-                            android:textColor="@color/color_texto" />
+                            android:textColor="@color/color_texto"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/tvFechaVigenciaInicio"
@@ -186,7 +197,8 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textColor="@color/color_texto" />
+                            android:textColor="@color/color_texto"
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -201,7 +213,8 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:text="Inicio"
-                            android:textColor="@color/color_texto" />
+                            android:textColor="@color/color_texto"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/tvFechaVigenciaFinal"
@@ -209,7 +222,8 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textColor="@color/color_texto" />
+                            android:textColor="@color/color_texto"
+                            android:textSize="16sp" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -237,13 +251,16 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="Numero de Personas "
+                android:textColor="@color/color_texto"
                 android:textSize="20dp" />
 
             <Button
                 android:id="@+id/btMenosNumPersonas"
-                android:layout_width="40dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:text="-" />
+                android:text="-"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvNumeroPersonas"
@@ -257,9 +274,11 @@
 
             <Button
                 android:id="@+id/btMasNumPersonas"
-                android:layout_width="40dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:text="+" />
+                android:text="+"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btAceptarNumeroPersonas"
@@ -284,12 +303,10 @@
                 android:gravity="center"
                 android:text="NOMBRES Y APELLIDOS DE LOS ENCUESTADOS"
                 android:textColor="@color/color_texto"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textStyle="bold|italic" />
         </LinearLayout>
-
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -298,7 +315,6 @@
         android:layout_weight="3"
         android:background="@color/color_fondo_formulario"
         android:orientation="horizontal">
-
 
         <ScrollView
             android:layout_width="match_parent"
@@ -330,6 +346,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 1"
                         android:inputType="text"
@@ -342,6 +359,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 1"
                         android:maxLength="50"
@@ -353,6 +371,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Materno 1"
                         android:maxLength="50"
@@ -380,30 +399,36 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 2"
                         android:maxLength="50"
-                        android:textColor="@color/color_texto" />
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edApellidoPat2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 2"
                         android:maxLength="50"
-                        android:textColor="@color/color_texto" />
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edApellidoMat2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 2"
                         android:maxLength="50"
-                        android:textColor="@color/color_texto" />
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -426,6 +451,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 3"
                         android:maxLength="50"
@@ -437,6 +463,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 3"
                         android:maxLength="50"
@@ -448,6 +475,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 3"
                         android:maxLength="50"
@@ -475,6 +503,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 4"
                         android:maxLength="50"
@@ -486,6 +515,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 4"
                         android:maxLength="50"
@@ -497,6 +527,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 4"
                         android:maxLength="50"
@@ -524,6 +555,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 5"
                         android:maxLength="50"
@@ -535,6 +567,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 5"
                         android:maxLength="50"
@@ -546,6 +579,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 5"
                         android:maxLength="50"
@@ -573,6 +607,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 6"
                         android:maxLength="50"
@@ -584,6 +619,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 6"
                         android:maxLength="50"
@@ -595,6 +631,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 6"
                         android:maxLength="50"
@@ -622,6 +659,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 7"
                         android:maxLength="50"
@@ -633,6 +671,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 7"
                         android:maxLength="50"
@@ -644,6 +683,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 7"
                         android:maxLength="50"
@@ -671,6 +711,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 8"
                         android:maxLength="50"
@@ -682,6 +723,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 8"
                         android:maxLength="50"
@@ -693,6 +735,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 8"
                         android:maxLength="50"
@@ -720,6 +763,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 9"
                         android:maxLength="50"
@@ -731,6 +775,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 9"
                         android:maxLength="50"
@@ -742,6 +787,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 9"
                         android:maxLength="50"
@@ -769,6 +815,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 10"
                         android:maxLength="50"
@@ -780,6 +827,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 10"
                         android:maxLength="50"
@@ -791,6 +839,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 10"
                         android:maxLength="50"
@@ -819,6 +868,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 11"
                         android:maxLength="50"
@@ -830,6 +880,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 11"
                         android:maxLength="50"
@@ -841,6 +892,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 11"
                         android:maxLength="50"
@@ -868,6 +920,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 12"
                         android:maxLength="50"
@@ -879,6 +932,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 12"
                         android:maxLength="50"
@@ -890,6 +944,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 12"
                         android:maxLength="50"
@@ -917,6 +972,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 13"
                         android:maxLength="50"
@@ -928,6 +984,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 13"
                         android:maxLength="50"
@@ -939,6 +996,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 13"
                         android:maxLength="50"
@@ -966,6 +1024,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 14"
                         android:maxLength="50"
@@ -977,6 +1036,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 14"
                         android:maxLength="50"
@@ -988,6 +1048,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 14"
                         android:maxLength="50"
@@ -1015,6 +1076,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 15"
                         android:maxLength="50"
@@ -1026,6 +1088,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 15"
                         android:maxLength="50"
@@ -1037,6 +1100,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 15"
                         android:maxLength="50"
@@ -1064,6 +1128,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 16"
                         android:maxLength="50"
@@ -1075,6 +1140,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 16"
                         android:maxLength="50"
@@ -1086,6 +1152,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 16"
                         android:maxLength="50"
@@ -1113,6 +1180,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 17"
                         android:maxLength="50"
@@ -1124,6 +1192,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 17"
                         android:maxLength="50"
@@ -1135,6 +1204,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 17"
                         android:maxLength="50"
@@ -1162,6 +1232,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 18"
                         android:maxLength="50"
@@ -1173,6 +1244,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 18"
                         android:maxLength="50"
@@ -1184,6 +1256,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 18"
                         android:maxLength="50"
@@ -1211,6 +1284,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 19"
                         android:maxLength="50"
@@ -1222,6 +1296,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 19"
                         android:maxLength="50"
@@ -1233,6 +1308,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 19"
                         android:maxLength="50"
@@ -1260,6 +1336,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Nombre 20"
                         android:maxLength="50"
@@ -1271,6 +1348,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Paterno 20"
                         android:maxLength="50"
@@ -1282,15 +1360,14 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:digits=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center"
                         android:hint="Apellido Marterno 20"
                         android:maxLength="50"
                         android:textColor="@color/color_texto"
                         android:textSize="16sp" />
                 </LinearLayout>
-
             </LinearLayout>
-
         </ScrollView>
     </LinearLayout>
 

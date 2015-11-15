@@ -2,6 +2,7 @@ package com.instituto.cuanto.sisgene.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
@@ -22,17 +23,24 @@ import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
 /**
  * Created by USUARIO on 08/11/2015.
  */
-public class CheckboxesAdapter extends BaseAdapter implements View.OnClickListener{
+public class CheckboxesAdapter extends BaseAdapter implements View.OnClickListener {
 
     private LayoutInflater layoutInflater;
     public ArrayList<MixtaAlternativa> myListaCheckboxes;
     private Context context;
     private Boolean mixta;
-    public CheckboxesAdapter(Context context, ArrayList<MixtaAlternativa> myListaCheckboxes, Boolean mixta) {
+    int numMaxChequeados;
+    boolean importancia;
+    int cantChequeados = 0;
+
+    public CheckboxesAdapter(Context context, ArrayList<MixtaAlternativa> myListaCheckboxes, Boolean mixta,
+                             int numMaxChequeados, boolean importancia) {
         this.myListaCheckboxes = myListaCheckboxes;
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.mixta = mixta;
+        this.numMaxChequeados = numMaxChequeados;
+        this.importancia = importancia;
     }
 
     @Override
@@ -69,9 +77,12 @@ public class CheckboxesAdapter extends BaseAdapter implements View.OnClickListen
         holder.checkBox.setText(row.getTitle());
         holder.checkBox.setChecked(row.getValue());
         holder.checkBox.setOnClickListener(this);
-        if(position==getCount()-1 && mixta){
+
+        if (position == getCount() - 1 && mixta) {
             holder.editText.setVisibility(View.VISIBLE);
-        }else{
+            holder.editText.setFocusable(false);
+
+        } else {
             holder.editText.setVisibility(View.GONE);
         }
         return convertView;
@@ -82,7 +93,13 @@ public class CheckboxesAdapter extends BaseAdapter implements View.OnClickListen
         CheckBox checkBox = (CheckBox) v;
         int position = (Integer) v.getTag();
         getItem(position).setValue(checkBox.isChecked());
-        System.out.println("selecciono: " + position);
+        System.out.println("selecciono: " + checkBox.getText());
+        if (checkBox.isChecked())
+            cantChequeados++;
+        else
+            cantChequeados--;
+
+        System.out.println("cantChequeados: " + cantChequeados);
     }
 
     private static class Holder {
