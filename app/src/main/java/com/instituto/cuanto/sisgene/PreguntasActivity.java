@@ -48,11 +48,16 @@ public class PreguntasActivity extends AppCompatActivity {
 
 
     //variables que seran cambiadas de pregunta en pregunta
+    //Pregunta
+    String enunciadoPregunta;
+    String numeroPreguntaBD;
     int numPregunta = -1;
+    String idPregunta;
     int mumMaxChequeados;
     String tipoPreguntaActual;
     boolean encuestarTodos = true;
     boolean ordenImportancia;
+    //Seccion
     String nombreSecccion;
     String nommbreSubSeccion;
     String descSeccion;
@@ -87,22 +92,25 @@ public class PreguntasActivity extends AppCompatActivity {
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
 
         leerPrimeraPregunta();        //leer todos los datos de la primera pregunta
-        tipoPreguntaActual = "MS";
+        tipoPreguntaActual = "MM";
         leerTipoPreguntaxPregunta();
     }
 
     private void leerPrimeraPregunta() {
-
         EncuestaDAO encuestaDAO = new EncuestaDAO();
         EncuestaPregunta encuestaPregunta;
-
         //ir a BD para sacar la primera preguna de dicha ecuesta
         encuestaPregunta = encuestaDAO.obtenerPreguntaEncuesta(PreguntasActivity.this);
-
         // Setear datos para la primera pregunta
         //encuestarTodos = Boolean.valueOf(encuestaPregunta.getPre_unica_persona());
         //nombreSecccion = encuestaPregunta.getSec_numero_seccion();
         //nombreSecccion = encuestaPregunta.getPre_importarordenrptamu();
+        /*sec.sec_id, sec.sec_nombre, sec.sec_nota, sec.sec_numero_seccion, " +
+        " sus1.sus_id,sus1.sus_nombre,sus1.sus_nota,sus1.sus_numero_subseccion," +
+                pre.pre_explicativo, pre.pre_comentario, " +
+        " pre.pre_guia_rpta,pre.pre_tipo_rpta,pre.pre_unica_persona,pre.pre_cant_maxima_items," +
+                " pre.pre_nummaxrptamu,pre.pre_importarordenrptamu" +
+        */
     }
 
     View.OnClickListener btnSiguientesetOnClickListener = new View.OnClickListener() {
@@ -170,35 +178,184 @@ public class PreguntasActivity extends AppCompatActivity {
         }
     }
 
+
+    private void leerRespuestasTipoAbierta() {
+        String respuestaAbierta = "";
+
+        for (int i = 0; i < TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size(); i++) {
+            TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
+            //agregar el codigo de identificacion
+            Formatter codIdent = new Formatter();
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //respuestaAbierta = "[" + codIdent + "]";
+            respuestaAbierta = respuestaAbierta + "[" + "]";
+            //en caso el usuario no haya escrito nada
+            if (nombresEncuestados.get(i).trim().equals(tipoPreguntaAbiertaItem.getDescription().trim())) {
+                respuestaAbierta = respuestaAbierta + "null";
+            } else
+                respuestaAbierta = respuestaAbierta + tipoPreguntaAbiertaItem.getDescription();
+
+            if (i != TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size() - 1)
+                respuestaAbierta = "" + respuestaAbierta + "&";
+        }
+
+        System.out.println("respuesta: {" + respuestaAbierta + "}");
+        //guardar en base de datos la respuesta
+        TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
+
+        guardarRespuesta(respuestaAbierta);
+    }
+
+    private void leerRespuestasTipoUnica() {
+        String respuestaUnica = "";
+
+        for (int i = 0; i < TipoPreguntaUnicaAdapter.myListPreguntaUnica.size(); i++) {
+            TipoPreguntaUnicaItem tipoPreguntaUnicaItem = TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.getItem(i);
+
+            //agregar el codigo de identificacion
+            Formatter codIdent = new Formatter();
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //respuestaAbierta = "[" + codIdent + "]";
+            respuestaUnica = respuestaUnica + "[" + "]";
+
+            if (tipoPreguntaUnicaItem.getPos() == 0)
+                respuestaUnica = respuestaUnica + "null";
+            else
+                respuestaUnica = respuestaUnica + tipoPreguntaUnicaItem.getRespuesta();
+
+            if (i != TipoPreguntaUnicaAdapter.myListPreguntaUnica.size() - 1)
+                respuestaUnica = "" + respuestaUnica + "&";
+        }
+        System.out.println("Respuesta tipo pregunta unica: {" + respuestaUnica + "}");
+        TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.limpiarLista();
+
+        guardarRespuesta(respuestaUnica);
+    }
+
+    private void leerRespuestasTipoMultiple() {
+        String respuestaMultiple = "";
+        ArrayList<TipoPreguntaMultipleItem> tipoPreguntaMultipleItems = TipoPreguntaMultipleAdapter.myListPreguntaMultiple;
+        int cont = 0;
+        //agregar el codigo de identificacion
+        Formatter codIdent = new Formatter();
+
+        for (int i = 0; i < tipoPreguntaMultipleItems.size(); i++) {
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //respuestaAbierta = "[" + codIdent + "]";
+            respuestaMultiple = respuestaMultiple + "[" + "]";
+
+            for (int j = 0; j < tipoPreguntaMultipleItems.get(i).getRespuestas().size(); j++) {
+                respuestaMultiple = respuestaMultiple + tipoPreguntaMultipleItems.get(i).getRespuestas().get(j).toString().trim();
+
+                if (j != tipoPreguntaMultipleItems.get(i).getRespuestas().size() - 1)
+                    respuestaMultiple = "" + respuestaMultiple + "$";
+                cont++;
+            }
+            if (i != tipoPreguntaMultipleItems.size() - 1) {
+                if (cont == 0)
+                    respuestaMultiple = respuestaMultiple + "null";
+                respuestaMultiple = "" + respuestaMultiple + "&";
+            }
+            cont = 0;
+        }
+        //guardar en base de datos
+        System.out.println("respuestaMultiple:{" + respuestaMultiple + "}");
+        TipoPreguntaMultipleAdapter.tipoPreguntaMultipleAdapter.limpiarLista();
+
+        guardarRespuesta(respuestaMultiple);
+    }
+
+    private void leerRespuestasTipoMixta() {
+        String respuestaMixta = "";
+        ArrayList<TipoPreguntaMixtaItem> tipoPreguntaMixtaItems = TipoPreguntaMixtaAdapter.myListPreguntaMixta;
+        int cont = 0;
+        //agregar el codigo de identificacion
+        Formatter codIdent = new Formatter();
+
+        for (int i = 0; i < tipoPreguntaMixtaItems.size(); i++) {
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //respuestaAbierta = "[" + codIdent + "]";
+            respuestaMixta = respuestaMixta + "[" + "]";
+            int sizeAlternativas = tipoPreguntaMixtaItems.get(i).getAlternativas().size();
+            ArrayList<String> respuestas = tipoPreguntaMixtaItems.get(i).getRespuestas();
+
+            System.out.println("respuestas.size(): " + respuestas.size());
+
+            for (int j = 0; j < respuestas.size(); j++) {
+                String rpta;
+                if (respuestas.get(j).equals(tipoPreguntaMixtaItems.get(i).getAlternativas().get(sizeAlternativas - 1))) {
+                    rpta = "(" + tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).toString().trim() + ")";
+                    rpta = rpta + tipoPreguntaMixtaItems.get(i).getPreguntaMixta();
+                } else {
+                    rpta = tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).toString().trim();
+                }
+                respuestaMixta = respuestaMixta + rpta;
+                if (j != tipoPreguntaMixtaItems.get(i).getRespuestas().size() - 1)
+                    respuestaMixta = "" + respuestaMixta + "$";
+                cont++;
+            }
+            if (i != tipoPreguntaMixtaItems.size() - 1) {
+                if (cont == 0)
+                    respuestaMixta = respuestaMixta + "null";
+                respuestaMixta = "" + respuestaMixta + "&";
+            }
+            cont = 0;
+        }
+        //guardar en base de datos
+        System.out.println("respuestaMixta:{" + respuestaMixta + "}");
+        TipoPreguntaMixtaAdapter.tipoPreguntaMixtaAdapter.limpiarLista();
+
+        guardarRespuesta(respuestaMixta);
+    }
+
     private void leerRespuestasTipoMatrizSimple() {
         String respuestaMatrizS = "";
         System.out.println("dimension myListPreguntaMatrizSimple:" + TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz.size());
         ArrayList<TipoPreguntaMatrizSimpleItem> tipoPreguntaMatrizSimpleItems = TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz;
         int cont = 0;
 
+        System.out.println("size: " + tipoPreguntaMatrizSimpleItems.size());
+
         for (int i = 0; i < tipoPreguntaMatrizSimpleItems.size(); i++) {
             //codIdent.format("%02d", codigosIdentEncuestados.get(i));
             //respuestaAbierta = "[" + codIdent + "]";
             respuestaMatrizS = respuestaMatrizS + "[" + "]";
-            for (int j = 0; j < tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size(); j++) {
-                System.out.println("multiple usuario " + (i + 1) + ": " + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j));
-                respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j).toString().trim();
 
-                if (j != tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size() - 1)
+            System.out.println("size respuestas: " + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size());
+            System.out.println("size vertical: " + tipoPreguntaMatrizSimpleItems.get(i).getVertical().size());
+            for (int k = 0; k < tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size(); k++) {
+                System.out.println("respuesta " + k + " :" + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).toString().trim());
+            }
+            for (int j = 0; j < tipoPreguntaMatrizSimpleItems.get(i).getVertical().size(); j++) {
+                System.out.println("multiple usuario " + (i + 1) + ": " + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j));
+
+                if (tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j).toString().trim().equals(""))
+                    respuestaMatrizS = respuestaMatrizS + "null";
+                else
+                    respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j).toString().trim();
+
+
+                System.out.println("respuesta1111111:" + respuestaMatrizS);
+
+                if (j != tipoPreguntaMatrizSimpleItems.get(i).getVertical().size() - 1) {
                     respuestaMatrizS = "" + respuestaMatrizS + "$";
+                    System.out.println("respuesta222222:" + respuestaMatrizS);
+                }
                 cont++;
+                System.out.println("cont:" + cont);
             }
             if (i != tipoPreguntaMatrizSimpleItems.size() - 1) {
-                if (cont == 0)
-                    respuestaMatrizS = respuestaMatrizS + "null";
                 respuestaMatrizS = "" + respuestaMatrizS + "&";
             }
             cont = 0;
+            System.out.println("respuesta4444:" + respuestaMatrizS);
         }
 
         System.out.println("respuesta: {" + respuestaMatrizS + "}");
         //guardar en base de datos la respuesta
         TipoPreguntaMatrizSimpleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
+
+        guardarRespuesta(respuestaMatrizS);
     }
 
     private void leerRespuestasTipoMatrizMultiple() {
@@ -238,125 +395,8 @@ public class PreguntasActivity extends AppCompatActivity {
         System.out.println("respuesta: {" + respuestaMatrizM + "}");
         //guardar en base de datos la respuesta
         TipoPreguntaMatrizMultipleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
-    }
 
-    private void leerRespuestasTipoAbierta() {
-        String respuestaAbierta = "";
-
-        for (int i = 0; i < TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size(); i++) {
-            TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
-            //agregar el codigo de identificacion
-            Formatter codIdent = new Formatter();
-            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
-            //respuestaAbierta = "[" + codIdent + "]";
-            respuestaAbierta = respuestaAbierta + "[" + "]";
-            //en caso el usuario no haya escrito nada
-            if (nombresEncuestados.get(i).trim().equals(tipoPreguntaAbiertaItem.getDescription().trim())) {
-                respuestaAbierta = respuestaAbierta + "null";
-            } else
-                respuestaAbierta = respuestaAbierta + tipoPreguntaAbiertaItem.getDescription();
-
-            if (i != TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size() - 1)
-                respuestaAbierta = "" + respuestaAbierta + "&";
-        }
-
-        System.out.println("respuesta: {" + respuestaAbierta + "}");
-        //guardar en base de datos la respuesta
-        TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
-    }
-
-    private void leerRespuestasTipoUnica() {
-        String respuestaUnica = "";
-
-        for (int i = 0; i < TipoPreguntaUnicaAdapter.myListPreguntaUnica.size(); i++) {
-            TipoPreguntaUnicaItem tipoPreguntaUnicaItem = TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.getItem(i);
-
-            //agregar el codigo de identificacion
-            Formatter codIdent = new Formatter();
-            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
-            //respuestaAbierta = "[" + codIdent + "]";
-            respuestaUnica = respuestaUnica + "[" + "]";
-
-            if (tipoPreguntaUnicaItem.getPos() == 0)
-                respuestaUnica = respuestaUnica + "null";
-            else
-                respuestaUnica = respuestaUnica + tipoPreguntaUnicaItem.getRespuesta();
-
-            if (i != TipoPreguntaUnicaAdapter.myListPreguntaUnica.size() - 1)
-                respuestaUnica = "" + respuestaUnica + "&";
-        }
-        System.out.println("Respuesta tipo pregunta unica: {" + respuestaUnica + "}");
-        TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.limpiarLista();
-    }
-
-    private void leerRespuestasTipoMultiple() {
-        String respuestaMultiple = "";
-        ArrayList<TipoPreguntaMultipleItem> tipoPreguntaMultipleItems = TipoPreguntaMultipleAdapter.myListPreguntaMultiple;
-        int cont = 0;
-        //agregar el codigo de identificacion
-        Formatter codIdent = new Formatter();
-
-        for (int i = 0; i < tipoPreguntaMultipleItems.size(); i++) {
-            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
-            //respuestaAbierta = "[" + codIdent + "]";
-            respuestaMultiple = respuestaMultiple + "[" + "]";
-
-            for (int j = 0; j < tipoPreguntaMultipleItems.get(i).getRespuestas().size(); j++) {
-                respuestaMultiple = respuestaMultiple + tipoPreguntaMultipleItems.get(i).getRespuestas().get(j).toString().trim();
-
-                if (j != tipoPreguntaMultipleItems.get(i).getRespuestas().size() - 1)
-                    respuestaMultiple = "" + respuestaMultiple + "$";
-                cont++;
-            }
-            if (i != tipoPreguntaMultipleItems.size() - 1) {
-                if (cont == 0)
-                    respuestaMultiple = respuestaMultiple + "null";
-                respuestaMultiple = "" + respuestaMultiple + "&";
-            }
-            cont = 0;
-        }
-        //guardar en base de datos
-        System.out.println("respuestaMultiple:{" + respuestaMultiple + "}");
-        TipoPreguntaMultipleAdapter.tipoPreguntaMultipleAdapter.limpiarLista();
-    }
-
-    private void leerRespuestasTipoMixta() {
-        String respuestaMixta = "";
-        ArrayList<TipoPreguntaMixtaItem> tipoPreguntaMixtaItems = TipoPreguntaMixtaAdapter.myListPreguntaMixta;
-        int cont = 0;
-        //agregar el codigo de identificacion
-        Formatter codIdent = new Formatter();
-
-        for (int i = 0; i < tipoPreguntaMixtaItems.size(); i++) {
-            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
-            //respuestaAbierta = "[" + codIdent + "]";
-            respuestaMixta = respuestaMixta + "[" + "]";
-            int sizeAlternativas = tipoPreguntaMixtaItems.get(i).getAlternativas().size();
-            ArrayList<String> respuestas = tipoPreguntaMixtaItems.get(i).getRespuestas();
-
-            for (int j = 0; j < respuestas.size(); j++) {
-                String rpta;
-                if (respuestas.get(j).equals(tipoPreguntaMixtaItems.get(i).getAlternativas().get(sizeAlternativas - 1))) {
-                    rpta = "(" + tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).toString().trim() + ")";
-                    rpta = rpta + tipoPreguntaMixtaItems.get(i).getPreguntaMixta();
-                } else {
-                    rpta = tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).toString().trim();
-                }
-                respuestaMixta = respuestaMixta + rpta;
-                if (j != tipoPreguntaMixtaItems.get(i).getRespuestas().size() - 1)
-                    respuestaMixta = "" + respuestaMixta + "$";
-                cont++;
-            }
-            if (i != tipoPreguntaMixtaItems.size() - 1) {
-                if (cont == 0)
-                    respuestaMixta = respuestaMixta + "null";
-                respuestaMixta = "" + respuestaMixta + "&";
-            }
-            cont = 0;
-        }
-        //guardar en base de datos
-        System.out.println("respuestaMixta:{" + respuestaMixta + "}");
-        TipoPreguntaMixtaAdapter.tipoPreguntaMixtaAdapter.limpiarLista();
+        guardarRespuesta(respuestaMatrizM);
     }
 
 
@@ -376,6 +416,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
         lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
         System.out.println("num pregunta: " + numPregunta);
+
     }
 
     private void poblarLista_TipoPreguntaUnica() {
