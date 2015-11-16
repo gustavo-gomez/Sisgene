@@ -2,6 +2,7 @@ package com.instituto.cuanto.sisgene;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
 import com.instituto.cuanto.sisgene.dao.PersonaDAO;
+import com.instituto.cuanto.sisgene.dao.UsuarioDAO;
+import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
 
@@ -157,6 +161,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         btAceptar_nombresEncuestados.setOnClickListener(btAceptar_nombresEncuestadossetOnClickListener);
         btAceptar_nombresEncuestados.setClickable(false);
 
+        llenarDatosCabecera();
         crearNombresLayoutsVariables();
 
         new AlertDialog.Builder(NombresPersonasEncuestadasActivity.this).setTitle("Mensaje").setMessage("En esta seccion ingrese la " +
@@ -166,6 +171,34 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
             nombresEncuestados = getIntent().getStringArrayListExtra(DatosCabeceraActivity.KEY_ARG_NOMBRE_JEFE);
             codigosIdentEncuestados = getIntent().getIntegerArrayListExtra(DatosCabeceraActivity.KEY_ARG_ID_JEFE);
         }
+    }
+
+    private void llenarDatosCabecera() {
+        /*
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        //codigo de encuesta
+        String codEncuesta = encuestaDAO.obtenerCodigoEncuesta(DatosCabeceraActivity.this);
+        if (codEncuesta != null)
+            R.id.tvCodigoEncuesta.setText(codEncuesta);
+
+        // nombre de usuario
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        String nombreUsu = pref.getString("nombres", null);
+        String userUsu = pref.getString("user", null);
+        tvNombreUsuario.setText(nombreUsu);
+
+        //grupo
+        String grupo = usuarioDAO.obtenerGrupoPorUsuario(DatosCabeceraActivity.this, userUsu);
+        tvGrupo.setText(grupo);
+
+        //fechas
+        tvFechaVigenciaInicio.setText(Util.obtenerFecha());
+        tvFechaVigenciaFinal.setText(Util.obtenerFecha());
+
+        //modificar
+        tvNombreSupervisor.setText("Gustavo Gómez");
+        */
     }
 
     DialogInterface.OnClickListener alertaAceptarOnClickListener = new DialogInterface.OnClickListener() {

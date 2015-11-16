@@ -86,7 +86,6 @@
             android:layout_alignTop="@+id/txEncuestador"
             android:layout_marginStart="18dp"
             android:layout_toEndOf="@+id/txEncuestador"
-            android:text="aaaaaaa"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
@@ -97,7 +96,6 @@
             android:layout_alignBaseline="@+id/txSupervisor"
             android:layout_alignBottom="@+id/txSupervisor"
             android:layout_alignStart="@+id/txEncuestadorValor"
-            android:text="bbbbbbb"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 

@@ -9,14 +9,16 @@ import com.instituto.cuanto.sisgene.bean.PreguntaItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by Jesus on 08/11/2015.
  */
 public class EncuestaDAO {
 
-    public EncuestaDAO(){}
+    public EncuestaDAO() {
+    }
 
-    public String obtenerCodigoEncuesta(Context context){
+    public String obtenerCodigoEncuesta(Context context) {
 
         String response = "";
 
@@ -24,12 +26,12 @@ public class EncuestaDAO {
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
 
         try {
-            cursor = dataBaseHelper.db.rawQuery("select cae_codigo from caratula_encuesta",null);
+            cursor = dataBaseHelper.db.rawQuery("select cae_codigo from caratula_encuesta", null);
 
             if (cursor.moveToFirst()) {
                 do {
                     response = cursor.getString(0);
-                } while (cursor.moveToNext()) ;
+                } while (cursor.moveToNext());
             }
 
         } catch (Exception ex) {
@@ -43,9 +45,9 @@ public class EncuestaDAO {
 
     }
 
-    public EncuestaPregunta obtenerPreguntaEncuesta(Context context){
+    public EncuestaPregunta obtenerPreguntaEncuesta(Context context) {
 
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         EncuestaPregunta encuestaPregunta = null;
 
@@ -67,33 +69,33 @@ public class EncuestaDAO {
 
         try {
 
-            cursor = dataBaseHelper.db.rawQuery(sql,null);
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
 
             if (cursor.moveToFirst()) {
 
                 encuestaPregunta = new EncuestaPregunta();
-                encuestaPregunta.setSec_id(cursor.getString(1));
-                encuestaPregunta.setSec_nombre(cursor.getString(2));
-                encuestaPregunta.setSec_nota(cursor.getString(3));
-                encuestaPregunta.setSec_numero_seccion(cursor.getString(4));
-                encuestaPregunta.setSus_id(cursor.getString(5));
-                encuestaPregunta.setSus_nombre(cursor.getString(6));
-                encuestaPregunta.setSus_nota(cursor.getString(7));
-                encuestaPregunta.setSus_numero_subseccion(cursor.getString(8));
-                encuestaPregunta.setPre_id(cursor.getString(9));
-                encuestaPregunta.setPre_numero(cursor.getString(10));
-                encuestaPregunta.setPre_enunciado(cursor.getString(11));
-                encuestaPregunta.setPre_explicativo(cursor.getString(12));
-                encuestaPregunta.setPre_comentario(cursor.getString(13));
-                encuestaPregunta.setPre_guia_rpta(cursor.getString(14));
-                encuestaPregunta.setPre_tipo_rpta(cursor.getString(15));
-                encuestaPregunta.setPre_unica_persona(cursor.getString(16));
-                encuestaPregunta.setPre_cant_maxima_items(cursor.getString(17));
-                encuestaPregunta.setPre_nummaxrptamu(cursor.getString(18));
-                encuestaPregunta.setPre_importarordenrptamu(cursor.getString(19));
+                encuestaPregunta.setSec_id((cursor.getString(1) != null) ? cursor.getString(1) : "");
+                encuestaPregunta.setSec_nombre((cursor.getString(2) != null) ? cursor.getString(2) : "");
+                encuestaPregunta.setSec_nota((cursor.getString(3) != null) ? cursor.getString(3) : "");
+                encuestaPregunta.setSec_numero_seccion((cursor.getString(4) != null) ? cursor.getString(4) : "");
+                encuestaPregunta.setSus_id((cursor.getString(5) != null) ? cursor.getString(5) : "");
+                encuestaPregunta.setSus_nombre((cursor.getString(6) != null) ? cursor.getString(6) : "");
+                encuestaPregunta.setSus_nota((cursor.getString(7) != null) ? cursor.getString(7) : "");
+                encuestaPregunta.setSus_numero_subseccion((cursor.getString(8) != null) ? cursor.getString(8) : "");
+                encuestaPregunta.setPre_id((cursor.getString(9) != null) ? cursor.getString(9) : "");
+                encuestaPregunta.setPre_numero((cursor.getString(10) != null) ? cursor.getString(10) : "");
+                encuestaPregunta.setPre_enunciado((cursor.getString(11) != null) ? cursor.getString(11) : "");
+                encuestaPregunta.setPre_explicativo((cursor.getString(12) != null) ? cursor.getString(12) : "");
+                encuestaPregunta.setPre_comentario((cursor.getString(13) != null) ? cursor.getString(13) : "");
+                encuestaPregunta.setPre_guia_rpta((cursor.getString(14) != null) ? cursor.getString(14) : "");
+                encuestaPregunta.setPre_tipo_rpta((cursor.getString(15) != null) ? cursor.getString(15) : "");
+                encuestaPregunta.setPre_unica_persona((cursor.getString(16) != null) ? cursor.getString(16) : "");
+                encuestaPregunta.setPre_cant_maxima_items((cursor.getString(17) != null) ? cursor.getString(17) : "");
+                encuestaPregunta.setPre_nummaxrptamu((cursor.getString(18) != null) ? cursor.getString(18) : "");
+                encuestaPregunta.setPre_importarordenrptamu((cursor.getString(19) != null) ? cursor.getString(19) : "");
 
             }
-
+            System.out.println("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
             return encuestaPregunta;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -101,14 +103,14 @@ public class EncuestaDAO {
             if (cursor != null)
                 cursor.close();
         }
-
+        System.out.println("nullllllllllllllllllllllllllllllllllll");
         return null;
 
     }
 
-    public EncuestaPregunta obtenerPreguntaEncuesta(Context context, int idPregunta){
+    public EncuestaPregunta obtenerPreguntaEncuesta(Context context, String idPregunta) {
 
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         EncuestaPregunta encuestaPregunta = null;
 
@@ -126,35 +128,35 @@ public class EncuestaDAO {
                 " LEFT JOIN sub_seccion sus1 ON sus1.sus_id = ese.sus_id_nivel1" +
                 " LEFT JOIN pregunta_item pri ON pri.pre_id = pre.pre_id" +
                 " LEFT JOIN item ite ON ite.ite_id = pri.ite_id" +
-                " WHERE pre.pre_id > "+idPregunta+" "+
+                " WHERE pre.pre_id > " + idPregunta + " " +
                 " ORDER BY pre.pre_id ASC";
 
         try {
 
-            cursor = dataBaseHelper.db.rawQuery(sql,null);
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
 
             if (cursor.moveToFirst()) {
 
                 encuestaPregunta = new EncuestaPregunta();
-                encuestaPregunta.setSec_id(cursor.getString(0));
-                encuestaPregunta.setSec_nombre(cursor.getString(1));
-                encuestaPregunta.setSec_nota(cursor.getString(2));
-                encuestaPregunta.setSec_numero_seccion(cursor.getString(3));
-                encuestaPregunta.setSus_id(cursor.getString(4));
-                encuestaPregunta.setSus_nombre(cursor.getString(5));
-                encuestaPregunta.setSus_nota(cursor.getString(6));
-                encuestaPregunta.setSus_numero_subseccion(cursor.getString(7));
-                encuestaPregunta.setPre_id(cursor.getString(8));
-                encuestaPregunta.setPre_numero(cursor.getString(9));
-                encuestaPregunta.setPre_enunciado(cursor.getString(10));
-                encuestaPregunta.setPre_explicativo(cursor.getString(11));
-                encuestaPregunta.setPre_comentario(cursor.getString(12));
-                encuestaPregunta.setPre_guia_rpta(cursor.getString(13));
-                encuestaPregunta.setPre_tipo_rpta(cursor.getString(14));
-                encuestaPregunta.setPre_unica_persona(cursor.getString(15));
-                encuestaPregunta.setPre_cant_maxima_items(cursor.getString(16));
-                encuestaPregunta.setPre_nummaxrptamu(cursor.getString(17));
-                encuestaPregunta.setPre_importarordenrptamu(cursor.getString(18));
+                encuestaPregunta.setSec_id((cursor.getString(1) != null) ? cursor.getString(1) : "");
+                encuestaPregunta.setSec_nombre((cursor.getString(2) != null) ? cursor.getString(2) : "");
+                encuestaPregunta.setSec_nota((cursor.getString(3) != null) ? cursor.getString(3) : "");
+                encuestaPregunta.setSec_numero_seccion((cursor.getString(4) != null) ? cursor.getString(4) : "");
+                encuestaPregunta.setSus_id((cursor.getString(5) != null) ? cursor.getString(5) : "");
+                encuestaPregunta.setSus_nombre((cursor.getString(6) != null) ? cursor.getString(6) : "");
+                encuestaPregunta.setSus_nota((cursor.getString(7) != null) ? cursor.getString(7) : "");
+                encuestaPregunta.setSus_numero_subseccion((cursor.getString(8) != null) ? cursor.getString(8) : "");
+                encuestaPregunta.setPre_id((cursor.getString(9) != null) ? cursor.getString(9) : "");
+                encuestaPregunta.setPre_numero((cursor.getString(10) != null) ? cursor.getString(10) : "");
+                encuestaPregunta.setPre_enunciado((cursor.getString(11) != null) ? cursor.getString(11) : "");
+                encuestaPregunta.setPre_explicativo((cursor.getString(12) != null) ? cursor.getString(12) : "");
+                encuestaPregunta.setPre_comentario((cursor.getString(13) != null) ? cursor.getString(13) : "");
+                encuestaPregunta.setPre_guia_rpta((cursor.getString(14) != null) ? cursor.getString(14) : "");
+                encuestaPregunta.setPre_tipo_rpta((cursor.getString(15) != null) ? cursor.getString(15) : "");
+                encuestaPregunta.setPre_unica_persona((cursor.getString(16) != null) ? cursor.getString(16) : "");
+                encuestaPregunta.setPre_cant_maxima_items((cursor.getString(17) != null) ? cursor.getString(17) : "");
+                encuestaPregunta.setPre_nummaxrptamu((cursor.getString(18) != null) ? cursor.getString(18) : "");
+                encuestaPregunta.setPre_importarordenrptamu((cursor.getString(19) != null) ? cursor.getString(19) : "");
 
             }
 
@@ -170,9 +172,9 @@ public class EncuestaDAO {
 
     }
 
-    public List<PreguntaAlternativa> obtenerAlternativas(Context context, int idPregunta){
+    public List<PreguntaAlternativa> obtenerAlternativas(Context context, String idPregunta) {
 
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         PreguntaAlternativa preguntaAlternativa = null;
         List<PreguntaAlternativa> listPreguntaAlterntiva = new ArrayList<PreguntaAlternativa>();
@@ -181,11 +183,11 @@ public class EncuestaDAO {
                 " FROM  pregunta pre" +
                 " INNER JOIN pregunta_opcion pro ON pro.pre_id = pre.pre_id" +
                 " INNER JOIN opcion opc ON opc.opc_id = pro.opc_id" +
-                " WHERE pre.pre_id = "+idPregunta+" ";
+                " WHERE pre.pre_id = " + idPregunta + " ";
 
         try {
 
-            cursor = dataBaseHelper.db.rawQuery(sql,null);
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
 
             if (cursor.moveToFirst()) {
 
@@ -198,7 +200,7 @@ public class EncuestaDAO {
 
                     listPreguntaAlterntiva.add(preguntaAlternativa);
 
-                } while (cursor.moveToNext()) ;
+                } while (cursor.moveToNext());
             }
 
             return listPreguntaAlterntiva;
@@ -211,9 +213,9 @@ public class EncuestaDAO {
         return null;
     }
 
-    public List<PreguntaItem> obtenerItems(Context context, int idPregunta){
+    public List<PreguntaItem> obtenerItems(Context context, String idPregunta) {
 
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         PreguntaItem preguntaItem = null;
         List<PreguntaItem> listPreguntaItmes = new ArrayList<PreguntaItem>();
@@ -221,11 +223,11 @@ public class EncuestaDAO {
         String sql = " SELECT SELECT ite.ite_id,ite.ite_nombre,pri.pri_numeralitem" +
                 " FROM pregunta_item pri" +
                 " INNER JOIN item ite on pri.ite_id = ite.ite_id" +
-                " WHERE pri.pre_id = "+idPregunta+" ";
+                " WHERE pri.pre_id = " + idPregunta + " ";
 
         try {
 
-            cursor = dataBaseHelper.db.rawQuery(sql,null);
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
 
             if (cursor.moveToFirst()) {
 
@@ -237,7 +239,7 @@ public class EncuestaDAO {
 
                     listPreguntaItmes.add(preguntaItem);
 
-                } while (cursor.moveToNext()) ;
+                } while (cursor.moveToNext());
             }
 
             return listPreguntaItmes;

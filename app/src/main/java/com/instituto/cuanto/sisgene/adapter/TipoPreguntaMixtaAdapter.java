@@ -28,10 +28,10 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
     Context context;
     public static TipoPreguntaMixtaAdapter tipoPreguntaMixtaAdapter;
     int numMaxChequeados;
-    boolean importancia;
+    int importancia;
 
     public TipoPreguntaMixtaAdapter(Context context, ArrayList<TipoPreguntaMixtaItem> myListPreguntaMixta,
-                                    int numMaxChequeados, boolean importancia) {
+                                    int numMaxChequeados, int importancia) {
         this.myListPreguntaMixta = myListPreguntaMixta;
         this.tipoPreguntaMixtaAdapter = this;
         this.context = context;

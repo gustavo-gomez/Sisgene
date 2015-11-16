@@ -3,6 +3,7 @@ package com.instituto.cuanto.sisgene;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
 import com.instituto.cuanto.sisgene.dao.PersonaDAO;
+import com.instituto.cuanto.sisgene.dao.UsuarioDAO;
 import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
@@ -102,17 +104,28 @@ public class DatosCabeceraActivity extends AppCompatActivity {
 
     private void llenarDatosCabecera() {
         EncuestaDAO encuestaDAO = new EncuestaDAO();
-
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        //codigo de encuesta
         String codEncuesta = encuestaDAO.obtenerCodigoEncuesta(DatosCabeceraActivity.this);
         if (codEncuesta != null)
             tvCodigoEncuesta.setText(codEncuesta);
 
-        //modificar
+        // nombre de usuario
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        String nombreUsu = pref.getString("nombres", null);
+        String userUsu = pref.getString("user", null);
+        tvNombreUsuario.setText(nombreUsu);
+
+        //grupo
+        String grupo = usuarioDAO.obtenerGrupoPorUsuario(DatosCabeceraActivity.this, userUsu);
+        tvGrupo.setText(grupo);
+
+        //fechas
         tvFechaVigenciaInicio.setText(Util.obtenerFecha());
         tvFechaVigenciaFinal.setText(Util.obtenerFecha());
+
+        //modificar
         tvNombreSupervisor.setText("Gustavo Gómez");
-        tvGrupo.setText("Grupo 02");
-        tvNombreUsuario.setText("Jesus Cahuana");
     }
 
     View.OnClickListener btAceptareIniciarEncuestasetOnClickListener = new View.OnClickListener() {

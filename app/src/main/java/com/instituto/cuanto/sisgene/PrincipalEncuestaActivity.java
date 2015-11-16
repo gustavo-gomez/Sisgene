@@ -62,7 +62,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         iniReloj = new Thread(r);
         iniReloj.start();
 
-        /*SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         userUsu = pref.getString("user", null);
         nombreUsu = pref.getString("nombres", null);
         rolUsu = pref.getString("rol", null);
@@ -74,7 +74,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         if(rolUsu.equals("SUPERVISOR")){
             encuestadorValor.setText("");
             supervisorValor.setText(nombreUsu);
-        }*/
+        }
 
         ListView listView = (ListView) findViewById(R.id.lvListaEncuesta);
         populateList();
