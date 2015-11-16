@@ -121,7 +121,11 @@ public class MainActivity extends AppCompatActivity {
             String rolAcceso = listaRol.getSelectedItem().toString();
             UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-            if(camposOK)
+            Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
+            startActivity(intent);
+            finish();
+
+            /*if(camposOK)
             {
                 int cantidadData = usuarioDAO.obtenerCantidadUsuarios(MainActivity.this);
 
@@ -166,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_LONG).show();
                     }
                 }
-            }
+            }*/
         }
     };
 

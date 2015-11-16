@@ -101,7 +101,7 @@ public class PreguntasActivity extends AppCompatActivity {
         btnRechazarEncuesta.setOnClickListener(btnRechazarEncuestasetOnClickListener);
 
         leerPrimeraPregunta();        //leer todos los datos de la primera pregunta
-        tipoPreguntaActual = "MM";
+        tipoPreguntaActual = "MS";
         leerTipoPreguntaxPregunta();
     }
 
@@ -368,7 +368,7 @@ public class PreguntasActivity extends AppCompatActivity {
             for (int k = 0; k < tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size(); k++) {
                 System.out.println("respuesta " + k + " :" + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).toString().trim());
             }
-            for (int j = 0; j < tipoPreguntaMatrizSimpleItems.get(i).getVertical().size(); j++) {
+            /*for (int j = 0; j < tipoPreguntaMatrizSimpleItems.get(i).getVertical().size(); j++) {
                 System.out.println("multiple usuario " + (i + 1) + ": " + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j));
 
                 if (tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j).toString().trim().equals(""))
@@ -390,14 +390,14 @@ public class PreguntasActivity extends AppCompatActivity {
                 respuestaMatrizS = "" + respuestaMatrizS + "&";
             }
             cont = 0;
-            System.out.println("respuesta4444:" + respuestaMatrizS);
+            System.out.println("respuesta4444:" + respuestaMatrizS);*/
         }
 
-        System.out.println("respuesta: {" + respuestaMatrizS + "}");
+        //System.out.println("respuesta: {" + respuestaMatrizS + "}");
         //guardar en base de datos la respuesta
         TipoPreguntaMatrizSimpleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
 
-        guardarRespuesta(respuestaMatrizS);
+        //guardarRespuesta(respuestaMatrizS);
     }
 
     private void leerRespuestasTipoMatrizMultiple() {
@@ -411,19 +411,20 @@ public class PreguntasActivity extends AppCompatActivity {
             //respuestaAbierta = "[" + codIdent + "]";
             respuestaMatrizM = respuestaMatrizM + "[" + "]";
             ArrayList<RespuestaItem> respuestas = tipoPreguntaMatrizMultipleItems.get(i).getRespuestas();
-
-            for (int j = 0; j < tipoPreguntaMatrizMultipleItems.get(i).getHorizontal().size(); j++) {
+            System.out.println("usuario "+(i+1)+"size:"+respuestas.size());
+            for (int l = 0; l < respuestas.size(); l++) {
+                for (int j = 0; j < tipoPreguntaMatrizMultipleItems.get(i).getHorizontal().size(); j++) {
                 for (int k = 0; k < tipoPreguntaMatrizMultipleItems.get(i).getVertical().size(); k++) {
-                    for (int l = 0; l < respuestas.size(); l++) {
-                        if (respuestas.get(l).getCol() == j || respuestas.get(l).getRow() == k) {
+                        if (respuestas.get(l).getCol() == j && respuestas.get(l).getRow() == k) {
+                            System.out.println("posicion: "+j+" , "+k);
                             System.out.println("multiple usuario " + (i + 1) + ": " + respuestas.get(l).getTexto());
                             respuestaMatrizM = respuestaMatrizM + respuestas.get(l).getTexto();
                         }
                     }
+                    if (j != respuestas.size() - 1)
+                        respuestaMatrizM = "" + respuestaMatrizM + "$";
+                    cont++;
                 }
-                if (j != respuestas.size() - 1)
-                    respuestaMatrizM = "" + respuestaMatrizM + "$";
-                cont++;
             }
             if (i != tipoPreguntaMatrizMultipleItems.size() - 1) {
                 if (cont == 0)
@@ -532,9 +533,9 @@ public class PreguntasActivity extends AppCompatActivity {
         horizontales.add("Pesimo");
         horizontales.add("Malo");
         horizontales.add("Regular");
-        horizontales.add("Bueno");
-        horizontales.add("Muy Bueno");
-        horizontales.add("Excelente");
+        //horizontales.add("Bueno");
+        //horizontales.add("Muy Bueno");
+        //horizontales.add("Excelente");
 
         ArrayList<String> verticales = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -560,12 +561,12 @@ public class PreguntasActivity extends AppCompatActivity {
         horizontales.add("Pesimo");
         horizontales.add("Malo");
         horizontales.add("Regular");
-        horizontales.add("Bueno");
-        horizontales.add("Muy Bueno");
-        horizontales.add("Excelente");
+        //horizontales.add("Bueno");
+        //horizontales.add("Muy Bueno");
+        //horizontales.add("Excelente");
 
         ArrayList<String> verticales = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             verticales.add("Opcion " + (i + 1));
         }
         //cargar datos a la lista

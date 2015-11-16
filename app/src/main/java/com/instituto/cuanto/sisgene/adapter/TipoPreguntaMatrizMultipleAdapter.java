@@ -96,7 +96,7 @@ public class TipoPreguntaMatrizMultipleAdapter extends BaseAdapter {
     private void fillTableLayout(final TipoPreguntaMatrizMultipleItem currentTipoPreguntaMatrizMultipleItem){
         for (int i = 0; i < currentTipoPreguntaMatrizMultipleItem.getVertical().size()+1 ; i++) {
             TableRow tableRow = new TableRow(context);
-            for (int j = 0; j < currentTipoPreguntaMatrizMultipleItem.getHorizontal().size(); j++) {
+            for (int j = 0; j < currentTipoPreguntaMatrizMultipleItem.getHorizontal().size()+1; j++) {
                 if (i != 0 && j != 0) {
                     final CheckBox checkbox = new CheckBox(context);
                     RespuestaItem rtemp =  new RespuestaItem();

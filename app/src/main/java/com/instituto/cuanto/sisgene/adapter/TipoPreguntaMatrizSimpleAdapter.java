@@ -114,7 +114,7 @@ public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
                                 RadioButton radio = (RadioButton)rGroup.findViewById(checkedId);
                                 ArrayList<String> respuestas = currentTipoPreguntaMatrizItem.getRespuestas();
                                 if(radio.isChecked()){
-                                    respuestas.add(rGroup.getId(),radio.getText().toString());
+                                    respuestas.set(rGroup.getId(),radio.getText().toString());
                                     System.out.println("fila:"+ rGroup.getId() + "Checked:" + radio.getText());
                                 }else{
                                     System.out.println("fila:"+ rGroup.getId() + "Unchecked:" + radio.getText());
