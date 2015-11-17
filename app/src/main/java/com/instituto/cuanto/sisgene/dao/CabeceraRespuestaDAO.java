@@ -268,7 +268,7 @@ public class CabeceraRespuestaDAO {
     }
 
     public boolean insertarCabEnc(Context context, String conglomerado, String zona, String manzana,
-                                    String vivienda, String hogar, String centropoblado, int per_id){
+                                   String vivienda, String hogar, String centropoblado, int per_id){
         Cursor cursor   = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         String idPers = per_id+"";
@@ -280,6 +280,63 @@ public class CabeceraRespuestaDAO {
             String sql = " INSERT INTO cab_enc_rpta (caer_nconglomerado,caer_nzona_aer,caer_nmanzana," +
                     "caer_nvivienda,caer_nhogar,caer_nombre_centropoblado,per_id)" +
                     " VALUES (?,?,?,?,?,?,?)";
+
+            dataBaseHelper.db.execSQL(sql,arg);
+
+            response = true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return response;
+
+    }
+
+    public boolean insertarCabEnc2(Context context, String conglomerado, String zona, String manzana,
+                                  String vivienda, String hogar, String centropoblado, int per_id){
+        Cursor cursor   = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        String idPers = per_id+"";
+        String arg[] = {conglomerado,zona,manzana,vivienda,hogar,centropoblado,idPers};
+        boolean response = false;
+
+
+        try {
+            String sql = " INSERT INTO cab_enc_rpta (caer_numero_encuesta,caer_estado,caer_fencuesta," +
+                    " caer_observaciones,caer_nconglomerado,caer_nzona_aer,caer_nmanzana,caer_nvivienda, " +
+                    " caer_nhogar,caer_narea,caer_ncondicion,caer_codigo_informante,caer_hora_inicio, " +
+                    " caer_hora_fin,caer_tiempo,caer_codigo_centropoblado,caer_nombre_centropoblado, " +
+                    " caer_categoria_centropoblado,caer_benviado,caer_fencuestaenviada,usp_id,per_id,dir_id)" +
+                    " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+            dataBaseHelper.db.execSQL(sql,arg);
+
+            response = true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return response;
+
+    }
+
+    public boolean insertarDetEnc(Context context, String valorRespuesta, String idCabEnc, int idPregunta){
+        Cursor cursor   = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        String idPre = idPregunta+"";
+        String arg[] = {valorRespuesta,idCabEnc,idPre};
+        boolean response = false;
+
+
+        try {
+            String sql = " INSERT INTO det_enc_rpta (deer_valor_respuesta,caer_id,pre_id)" +
+                    " VALUES (?,?,?)";
 
             dataBaseHelper.db.execSQL(sql,arg);
 

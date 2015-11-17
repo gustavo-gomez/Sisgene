@@ -109,7 +109,11 @@ public class PersonaDAO {
         int response = 0;
         String arg[] = {nombre, appaterno, apmaterno};
 
-        String sql = " SELECT allegado.all_id where allegado.all_nombres = ? allegado.and all_appaterno = ? allegado.and all_apmaterno = ?";
+        String sql = " SELECT all.all_id " +
+                " from allegado all " +
+                " where all.all_nombres = ? " +
+                " and all.all_appaterno = ? " +
+                " and all.all_apmaterno = ?";
 
         try {
             cursor = dataBaseHelper.db.rawQuery(sql, arg);
