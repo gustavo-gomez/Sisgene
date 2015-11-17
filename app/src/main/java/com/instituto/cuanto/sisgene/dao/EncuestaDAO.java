@@ -30,7 +30,7 @@ public class EncuestaDAO {
 
             if (cursor.moveToFirst()) {
                 do {
-                    response = cursor.getString(0);
+                    response = cursor.getString(1);
                 } while (cursor.moveToNext());
             }
 
@@ -51,7 +51,7 @@ public class EncuestaDAO {
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         EncuestaPregunta encuestaPregunta = null;
 
-        String sql = " SELECT sec.sec_id,sec.sec_nombre,sec.sec_nota,sec.sec_numero_seccion," +
+        String sql = " SELECT distinct sec.sec_id,sec.sec_nombre,sec.sec_nota,sec.sec_numero_seccion," +
                 " sus1.sus_id,sus1.sus_nombre,sus1.sus_nota,sus1.sus_numero_subseccion," +
                 " pre.pre_id,pre.pre_numero,pre.pre_enunciado,pre.pre_explicativo,pre.pre_comentario," +
                 " pre.pre_guia_rpta,pre.pre_tipo_rpta,pre.pre_unica_persona,pre.pre_cant_maxima_items," +
@@ -72,7 +72,7 @@ public class EncuestaDAO {
             cursor = dataBaseHelper.db.rawQuery(sql, null);
 
             if (cursor.moveToFirst()) {
-
+                System.out.println("cahuana gay");
                 encuestaPregunta = new EncuestaPregunta();
                 encuestaPregunta.setSec_id((cursor.getString(1) != null) ? cursor.getString(1) : "");
                 encuestaPregunta.setSec_nombre((cursor.getString(2) != null) ? cursor.getString(2) : "");
@@ -114,7 +114,7 @@ public class EncuestaDAO {
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         EncuestaPregunta encuestaPregunta = null;
 
-        String sql = " SELECT sec.sec_id,sec.sec_nombre,sec.sec_nota,sec.sec_numero_seccion," +
+        String sql = " SELECT distinct sec.sec_id,sec.sec_nombre,sec.sec_nota,sec.sec_numero_seccion," +
                 " sus1.sus_id,sus1.sus_nombre,sus1.sus_nota,sus1.sus_numero_subseccion," +
                 " pre.pre_id,pre.pre_numero,pre.pre_enunciado,pre.pre_explicativo,pre.pre_comentario," +
                 " pre.pre_guia_rpta,pre.pre_tipo_rpta,pre.pre_unica_persona,pre.pre_cant_maxima_items," +
@@ -193,10 +193,10 @@ public class EncuestaDAO {
 
                 do {
                     preguntaAlternativa = new PreguntaAlternativa();
-                    preguntaAlternativa.setOpc_id(cursor.getString(0));
-                    preguntaAlternativa.setOpc_nombre(cursor.getString(1));
-                    preguntaAlternativa.setPro_numeralopcion(cursor.getString(2));
-                    preguntaAlternativa.setPro_numeropreguntasiguiente(cursor.getString(3));
+                    preguntaAlternativa.setOpc_id(cursor.getString(1));
+                    preguntaAlternativa.setOpc_nombre(cursor.getString(2));
+                    preguntaAlternativa.setPro_numeralopcion(cursor.getString(3));
+                    preguntaAlternativa.setPro_numeropreguntasiguiente(cursor.getString(4));
 
                     listPreguntaAlterntiva.add(preguntaAlternativa);
 
