@@ -138,9 +138,8 @@ public class PreguntasActivity extends AppCompatActivity {
         }
 
         //obtener alternativas
-        listPreguntaAlterntiva = encuestaDAO.obtenerAlternativas(PreguntasActivity.this, idPregunta);
-        System.out.println("alternativas:" + listPreguntaAlterntiva.get(0).toString().trim() +
-                "alternativas 1:" + listPreguntaAlterntiva.get(1).toString().trim());
+        if (!tipoPreguntaActual.equals("AB"))
+            listPreguntaAlterntiva = encuestaDAO.obtenerAlternativas(PreguntasActivity.this, idPregunta);
 
         if (tipoPreguntaActual.equals("MI") || tipoPreguntaActual.equals("MM"))
             listPreguntaItems = encuestaDAO.obtenerItems(PreguntasActivity.this, idPregunta);

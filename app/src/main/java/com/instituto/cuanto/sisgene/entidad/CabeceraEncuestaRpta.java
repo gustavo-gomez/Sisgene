@@ -3,7 +3,7 @@ package com.instituto.cuanto.sisgene.entidad;
 
 /**
  *
- * @author JMonzalve
+ * @author Jcahuana
  */
 public class CabeceraEncuestaRpta {
     private String id_usuario_encuestador;
