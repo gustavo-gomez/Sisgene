@@ -391,7 +391,7 @@ public class CabeceraRespuestaDAO {
                     " caer_hora_fin = ?, " +
                     " caer_tiempo = ?, " +
                     " caer_benviado = ?, " +
-                    " caer_fencuestaenviada = ?, " +
+                    " caer_fencuestaenviada = ? " +
                     " WHERE caer_id = ?";
 
             dataBaseHelper.db.execSQL(sql,arg);
