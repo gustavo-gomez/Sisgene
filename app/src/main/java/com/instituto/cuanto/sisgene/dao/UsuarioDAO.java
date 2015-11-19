@@ -110,4 +110,72 @@ public class UsuarioDAO {
 
     }
 
+    public String obtenerIDSupervisorXEncuestador(Context context, String user){
+
+        Cursor cursor   = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        String arg[] = {user};
+        String response="";
+
+        try {
+
+            cursor = dataBaseHelper.db.rawQuery(" select usu2.usu_id " +
+                    " from usuario usu " +
+                    " inner join usuario_persona usp on usp.usu_id = usu.usu_id " +
+                    " inner join grupo gru on usp.gru_id = gru.gru_id " +
+                    " inner join usuario usu2 on gru.usu_idsupervisor = usu2.usu_id " +
+                    " where usu.usu_usuario = ?",arg);
+
+            if (cursor.moveToFirst()) {
+
+                response = cursor.getString(0);
+
+            }
+
+            return response;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return null;
+
+    }
+
+    public String obtenerNombreSupervisor(Context context, String id){
+
+        Cursor cursor   = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        String arg[] = {id};
+        String response="";
+
+        try {
+
+            cursor = dataBaseHelper.db.rawQuery(" select per.per_nombres, per.per_appaterno, per.per_apmaterno " +
+                    " from usuario_persona usp " +
+                    " inner join persona per on usp.per_id = per.per_id" +
+                    " where usp.usu_id = ?",arg);
+
+            if (cursor.moveToFirst()) {
+
+                response = cursor.getString(0)+ " "+ cursor.getString(1)+" "+cursor.getString(2);
+
+            }
+
+            return response;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return null;
+
+    }
+
 }

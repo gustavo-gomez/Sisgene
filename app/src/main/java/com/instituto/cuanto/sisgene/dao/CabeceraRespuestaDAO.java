@@ -376,4 +376,36 @@ public class CabeceraRespuestaDAO {
 
     }
 
+    public boolean actualizarCabEncFinalEjecucion(Context context, String estado, String horaFin, String tiempo,
+                                    String bEnviado, String fecha_envio, int cabRpta_id){
+        Cursor cursor   = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        String idCabRpta = cabRpta_id+"";
+        String arg[] = {estado,horaFin,tiempo,bEnviado,fecha_envio,idCabRpta};
+        boolean response = false;
+
+
+        try {
+            String sql = " UPDATE cab_enc_rpta " +
+                    " SET caer_estado = ?, " +
+                    " caer_hora_fin = ?, " +
+                    " caer_tiempo = ?, " +
+                    " caer_benviado = ?, " +
+                    " caer_fencuestaenviada = ?, " +
+                    " WHERE caer_id = ?";
+
+            dataBaseHelper.db.execSQL(sql,arg);
+
+            response = true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return response;
+
+    }
+
 }
