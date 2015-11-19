@@ -154,7 +154,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/tvFecha"
+                            android:id="@+id/tvFecha"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"

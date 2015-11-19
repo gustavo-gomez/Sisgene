@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaAbiertaAdapter;
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaMatrizMultipleAdapter;
@@ -23,6 +24,7 @@ import com.instituto.cuanto.sisgene.bean.PreguntaAlternativa;
 import com.instituto.cuanto.sisgene.bean.PreguntaItem;
 import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
+import com.instituto.cuanto.sisgene.dao.TipoPreguntaDAO;
 import com.instituto.cuanto.sisgene.entities.RespuestaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizMultipleItem;
@@ -75,6 +77,9 @@ public class PreguntasActivity extends AppCompatActivity {
     String nombreSubSeccion;
     String numeroSubSeccion;
 
+    //datos para validar encuesta
+    int ultimoIdPregunta; //ultimo id de pregunta de la tabla Pregunta. Para validar si ya se ha repondido todas las preguntas
+    boolean ultimaPregunta = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +116,13 @@ public class PreguntasActivity extends AppCompatActivity {
 
         leerPrimeraPregunta();        //leer todos los datos de la primera pregunta
         leerTipoPreguntaxPregunta();
+        obtenerNumeroPreguntas();
+    }
+
+    private void obtenerNumeroPreguntas() {
+        //Validar que aun no se hayan culminado el numero de encuestas a realizar por el usuario
+        TipoPreguntaDAO tipoPreguntaDAO = new TipoPreguntaDAO();
+        ultimoIdPregunta = tipoPreguntaDAO.obtenerUltiIdPregunta(PreguntasActivity.this);
     }
 
     private void leerPrimeraPregunta() {
@@ -150,15 +162,25 @@ public class PreguntasActivity extends AppCompatActivity {
     View.OnClickListener btnSiguientesetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
             //leer los datos de la pregunta actual y guardar en la base de datos
             leeryGuardarDatos();
+            if(ultimaPregunta == false) {
+                //leer la siguiente pregunta
+                leerSiguientePregunta();
 
-            System.out.println("respuestas leidas -   se borra la lista");
-            //leer la siguiente pregunta
-            leerSiguientePregunta();
-
-            //mostrar interfaz segun la pregunta leida
-            leerTipoPreguntaxPregunta();
+                if (Integer.parseInt(idPregunta) != ultimoIdPregunta) {
+                    //Aun no se llega a la ultima pregunta
+                    //mostrar interfaz segun la pregunta leida
+                    leerTipoPreguntaxPregunta();
+                } else
+                    ultimaPregunta = true;
+            }
+            else
+            {
+                btnSiguiente.setEnabled(false);
+                Toast.makeText(PreguntasActivity.this, "Se han respondido todas las preguntas", Toast.LENGTH_LONG).show();
+            }
         }
     };
 
@@ -255,6 +277,7 @@ public class PreguntasActivity extends AppCompatActivity {
     };
 
     private void leerTipoPreguntaxPregunta() {
+
         //mostrar datos de seccion, subseccion, enunciado y opciones
         mostrarDatosSeccion();
 
@@ -553,7 +576,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
         alternativas.put(0, "Seleccione alternativa");
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
-            alternativas.put(i+1, listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
+            alternativas.put(i + 1, listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
         }
 
         //cargar datos a la lista

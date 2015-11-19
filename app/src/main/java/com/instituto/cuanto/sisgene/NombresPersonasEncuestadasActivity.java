@@ -35,6 +35,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
     EditText edApellidoMat1, edApellidoMat2, edApellidoMat3, edApellidoMat4, edApellidoMat5, edApellidoMat6, edApellidoMat7, edApellidoMat8,
             edApellidoMat9, edApellidoMat10, edApellidoMat11, edApellidoMat12, edApellidoMat13, edApellidoMat14, edApellidoMat15, edApellidoMat16,
             edApellidoMat17, edApellidoMat18, edApellidoMat19, edApellidoMat20;
+    TextView tvCodigoEncuesta, tvNombreSupervisor, tvNombreUsuario, tvGrupo, tvFecha, tvFechaVigenciaInicio, tvFechaVigenciaFinal;
 
     TextView tvNumeroPersonas;
     Button btMenosNumPersonas, btMasNumPersonas, btAceptarNumeroPersonas;
@@ -148,6 +149,14 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         edApellidoMat19 = (EditText) findViewById(R.id.edApellidoMat19);
         edApellidoMat20 = (EditText) findViewById(R.id.edApellidoMat20);
 
+        tvFechaVigenciaFinal = (TextView) findViewById(R.id.tvFechaVigenciaFinal);
+        tvNombreSupervisor = (TextView) findViewById(R.id.tvNombreSupervisor);
+        tvNombreUsuario = (TextView) findViewById(R.id.tvNombreUsuario);
+        tvGrupo = (TextView) findViewById(R.id.tvGrupo);
+        tvFecha = (TextView) findViewById(R.id.tvFecha);
+        tvFechaVigenciaInicio = (TextView) findViewById(R.id.tvFechaVigenciaInicio);
+        tvFechaVigenciaFinal = (TextView) findViewById(R.id.tvFechaVigenciaFinal);
+
         btAceptar_nombresEncuestados = (Button) findViewById(R.id.btAceptar_nombresEncuestados);
 
         tvNumeroPersonas = (TextView) findViewById(R.id.tvNumeroPersonas);
@@ -174,13 +183,13 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
     }
 
     private void llenarDatosCabecera() {
-        /*
+
         EncuestaDAO encuestaDAO = new EncuestaDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         //codigo de encuesta
-        String codEncuesta = encuestaDAO.obtenerCodigoEncuesta(DatosCabeceraActivity.this);
+        String codEncuesta = encuestaDAO.obtenerCodigoEncuesta(NombresPersonasEncuestadasActivity.this);
         if (codEncuesta != null)
-            R.id.tvCodigoEncuesta.setText(codEncuesta);
+            tvCodigoEncuesta.setText(codEncuesta);
 
         // nombre de usuario
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
@@ -189,16 +198,17 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         tvNombreUsuario.setText(nombreUsu);
 
         //grupo
-        String grupo = usuarioDAO.obtenerGrupoPorUsuario(DatosCabeceraActivity.this, userUsu);
+        String grupo = usuarioDAO.obtenerGrupoPorUsuario(NombresPersonasEncuestadasActivity.this, userUsu);
         tvGrupo.setText(grupo);
 
         //fechas
+        tvFecha.setText(Util.obtenerFecha());
         tvFechaVigenciaInicio.setText(Util.obtenerFecha());
         tvFechaVigenciaFinal.setText(Util.obtenerFecha());
 
         //modificar
         tvNombreSupervisor.setText("Gustavo Gómez");
-        */
+
     }
 
     DialogInterface.OnClickListener alertaAceptarOnClickListener = new DialogInterface.OnClickListener() {
