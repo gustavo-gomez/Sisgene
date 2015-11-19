@@ -203,11 +203,15 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
 
         //fechas
         tvFecha.setText(Util.obtenerFecha());
+
         tvFechaVigenciaInicio.setText(Util.obtenerFecha());
         tvFechaVigenciaFinal.setText(Util.obtenerFecha());
 
-        //modificar
-        tvNombreSupervisor.setText("Gustavo Gómez");
+        //Nombre del supervisor
+        String idSupervisor = usuarioDAO.obtenerIDSupervisorXEncuestador(NombresPersonasEncuestadasActivity.this, userUsu);
+        System.out.println("ID_SUPERVISOR : "+idSupervisor);
+        String nombreSupervisor = usuarioDAO.obtenerNombreSupervisor(NombresPersonasEncuestadasActivity.this,idSupervisor);
+        tvNombreSupervisor.setText(nombreSupervisor);
 
     }
 

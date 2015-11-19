@@ -32,6 +32,7 @@ import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizSimpleItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMultipleItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
+import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -165,7 +166,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
             //leer los datos de la pregunta actual y guardar en la base de datos
             leeryGuardarDatos();
-            if(ultimaPregunta == false) {
+            if (ultimaPregunta == false) {
                 //leer la siguiente pregunta
                 leerSiguientePregunta();
 
@@ -175,9 +176,7 @@ public class PreguntasActivity extends AppCompatActivity {
                     leerTipoPreguntaxPregunta();
                 } else
                     ultimaPregunta = true;
-            }
-            else
-            {
+            } else {
                 btnSiguiente.setEnabled(false);
                 Toast.makeText(PreguntasActivity.this, "Se han respondido todas las preguntas", Toast.LENGTH_LONG).show();
             }
@@ -247,25 +246,91 @@ public class PreguntasActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //
-            new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("¿Desea finalizar la encuesta sin " +
-                    "terminar la ejecucion de las preguntas?")
-                    .setPositiveButton("Terminar encuesta", alertaAceptarOnClickListener)
-                    .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
-                    .setCancelable(false).show();
+            if (ultimaPregunta == true) {
+                new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("¿Desea guardar la encuesta?")
+                        .setPositiveButton("Terminar encuesta", alertaAceptarEncuestaFinalizadaOnClickListener)
+                        .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
+                        .setCancelable(false).show();
+            } else
+                new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("¿Desea finalizar la encuesta sin " +
+                        "terminar la ejecucion de las preguntas?")
+                        .setPositiveButton("Terminar encuesta", alertaAceptarOnClickListener)
+                        .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
+                        .setCancelable(false).show();
         }
     };
 
     View.OnClickListener btnRechazarEncuestasetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            leeryGuardarDatos();
-            System.out.println("respuestas leidas -   se borra la lista");
-            leerTipoPreguntaxPregunta();
+            new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("¿Desea rechazar la encuesta?")
+                    .setPositiveButton("Rechazar encuesta", alertaAceptarRechazarOnClickListener)
+                    .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
+                    .setCancelable(false).show();
         }
     };
     DialogInterface.OnClickListener alertaAceptarOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
+
+            CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
+
+            //obtener el id de la ultima cabecera
+            CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
+            //Guardar la encuesta con estado incompleto
+
+            cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "I",
+                    Util.obtenerFecha(), "00", "", "", cabeceraRespuesta.getIdCabeceraEnc());
+
+            new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
+                    .setMessage("Se ha guardado la encuesta satisfactoriamente")
+                    .setNeutralButton("Aceptar", alertaAceptarGuardarEncuestaOnClickListener)
+                    .setCancelable(false).show();
+        }
+    };
+    DialogInterface.OnClickListener alertaAceptarRechazarOnClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+
+            CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
+
+            //obtener el id de la ultima cabecera
+            CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
+            //Guardar la encuesta con estado incompleto
+
+            cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "R",
+                    Util.obtenerFecha(), "00", "", "", cabeceraRespuesta.getIdCabeceraEnc());
+
+            new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
+                    .setMessage("Se ha guardado la encuesta satisfactoriamente")
+                    .setNeutralButton("Aceptar", alertaAceptarGuardarEncuestaOnClickListener)
+                    .setCancelable(false).show();
+        }
+    };
+    DialogInterface.OnClickListener alertaAceptarEncuestaFinalizadaOnClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+
+
+            CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
+
+            //obtener el id de la ultima cabecera
+            CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
+            //Guardar la encuesta con estado incompleto
+
+            cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "C",
+                    Util.obtenerFecha(), "00", "", "", cabeceraRespuesta.getIdCabeceraEnc());
+
+            new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
+                    .setMessage("Se ha guardado la encuesta satisfactoriamente")
+                    .setNeutralButton("Aceptar", alertaAceptarGuardarEncuestaOnClickListener)
+                    .setCancelable(false).show();
+        }
+    };
+    DialogInterface.OnClickListener alertaAceptarGuardarEncuestaOnClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            dialogInterface.dismiss();
             finish();
         }
     };
