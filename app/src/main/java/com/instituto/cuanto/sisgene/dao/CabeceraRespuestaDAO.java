@@ -408,4 +408,34 @@ public class CabeceraRespuestaDAO {
 
     }
 
+    public List<String> obtenerRangoFechasEncuesta(Context context, String username) {
+
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        List<String> rangoFechas = new ArrayList<String>();
+
+        try {
+
+            cursor = dataBaseHelper.db.rawQuery(" select cae.cae_finicio,cae.cae_ffin " +
+                    "from caratula_encuesta cae " +
+                    "inner join usuario_persona usp on usp.cae_id = cae.cae_id " +
+                    "inner join usuario usu on usu.usu_id = usp.usu_id " +
+                    "where usu.usu_usuario = "+username, null);
+
+            if (cursor.moveToFirst()) {
+                rangoFechas.add(cursor.getString(0));
+                rangoFechas.add(cursor.getString(1));
+            }
+
+            return rangoFechas;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+
+    }
+
 }
