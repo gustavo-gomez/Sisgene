@@ -13,12 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.instituto.cuanto.sisgene.bean.CabeceraRespuesta;
+import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
 import com.instituto.cuanto.sisgene.dao.PersonaDAO;
 import com.instituto.cuanto.sisgene.dao.UsuarioDAO;
 import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Gustavo on 01/11/2015.
@@ -203,9 +206,11 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
 
         //fechas
         tvFecha.setText(Util.obtenerFecha());
+        CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
+        List<String> fechas = cabeceraRespuestaDAO.obtenerRangoFechasEncuesta(NombresPersonasEncuestadasActivity.this, userUsu);
 
-        tvFechaVigenciaInicio.setText(Util.obtenerFecha());
-        tvFechaVigenciaFinal.setText(Util.obtenerFecha());
+        tvFechaVigenciaInicio.setText(fechas.get(0));
+        tvFechaVigenciaFinal.setText(fechas.get(1));
 
         //Nombre del supervisor
         String idSupervisor = usuarioDAO.obtenerIDSupervisorXEncuestador(NombresPersonasEncuestadasActivity.this, userUsu);
