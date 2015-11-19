@@ -38,7 +38,7 @@ public class PrincipalActivity extends AppCompatActivity {
         btnSalir.setOnClickListener(btnSalirsetOnClickListener);
         btnConsultar.setOnClickListener(btnConsultarSupsetOnClickListener);
 
-        /*SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         userUsu = pref.getString("user", null);
         nombreUsu = pref.getString("nombres", null);
         rolUsu = pref.getString("rol", null);
@@ -46,7 +46,9 @@ public class PrincipalActivity extends AppCompatActivity {
         if(rolUsu.equals("ENCUESTADOR")){
             btnExportar.setVisibility(View.INVISIBLE);
             btnConsultar.setVisibility(View.INVISIBLE);
-        }*/
+        }else{
+            btnEjecutar.setVisibility(View.INVISIBLE);
+        }
 
     }
 
