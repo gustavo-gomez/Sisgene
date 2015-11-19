@@ -138,8 +138,7 @@ public class PreguntasActivity extends AppCompatActivity {
         }
 
         //obtener alternativas
-        if (!tipoPreguntaActual.equals("AB"))
-            listPreguntaAlterntiva = encuestaDAO.obtenerAlternativas(PreguntasActivity.this, idPregunta);
+        listPreguntaAlterntiva = encuestaDAO.obtenerAlternativas(PreguntasActivity.this, idPregunta);
 
         if (tipoPreguntaActual.equals("MI") || tipoPreguntaActual.equals("MM"))
             listPreguntaItems = encuestaDAO.obtenerItems(PreguntasActivity.this, idPregunta);
@@ -164,16 +163,17 @@ public class PreguntasActivity extends AppCompatActivity {
     private void mostrarDatosSeccion() {
         tvSeccion.setText(numeroSecccion + ": " + nombreSecccion);
         tvSubSeccion.setText(numeroSubSeccion + " " + nombreSubSeccion);
-        tvEnunciadoPregunta.setText(numeroPreguntaBD+": "+enunciadoPregunta);
+        tvEnunciadoPregunta.setText(numeroPreguntaBD + ": " + enunciadoPregunta);
         String opciones = "";
+
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
-            opciones = opciones + listPreguntaAlterntiva.get(i).toString().trim() + "\t";
+            opciones = opciones + listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim() + "\t";
         }
         opciones = opciones + "\n";
 
         if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM"))
             for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
-                opciones = opciones + listPreguntaItems.get(i).toString().trim() + "\t";
+                opciones = opciones + listPreguntaItems.get(i).getIte_nombre().toString().trim() + "\t";
             }
         tvOpcionesPregunta.setText(opciones);
 
@@ -406,8 +406,6 @@ public class PreguntasActivity extends AppCompatActivity {
             int sizeAlternativas = tipoPreguntaMixtaItems.get(i).getAlternativas().size();
             ArrayList<String> respuestas = tipoPreguntaMixtaItems.get(i).getRespuestas();
 
-            System.out.println("respuestas.size(): " + respuestas.size());
-
             for (int j = 0; j < respuestas.size(); j++) {
                 String rpta;
                 if (respuestas.get(j).equals(tipoPreguntaMixtaItems.get(i).getAlternativas().get(sizeAlternativas - 1))) {
@@ -448,40 +446,29 @@ public class PreguntasActivity extends AppCompatActivity {
             //respuestaAbierta = "[" + codIdent + "]";
             respuestaMatrizS = respuestaMatrizS + "[" + "]";
 
-            System.out.println("size respuestas: " + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size());
-            System.out.println("size vertical: " + tipoPreguntaMatrizSimpleItems.get(i).getVertical().size());
             for (int k = 0; k < tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size(); k++) {
+                System.out.println("vertical: " + tipoPreguntaMatrizSimpleItems.get(i).getVertical().get(k).toString());
                 System.out.println("respuesta " + k + " :" + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).toString().trim());
-            }
-            /*for (int j = 0; j < tipoPreguntaMatrizSimpleItems.get(i).getVertical().size(); j++) {
-                System.out.println("multiple usuario " + (i + 1) + ": " + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j));
 
-                if (tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j).toString().trim().equals(""))
+                respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getVertical().get(k).toString().trim();
+                respuestaMatrizS = respuestaMatrizS + "%";
+
+                if (tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).toString().trim().equals(""))
                     respuestaMatrizS = respuestaMatrizS + "null";
-                else
-                    respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(j).toString().trim();
-
-
-                System.out.println("respuesta1111111:" + respuestaMatrizS);
-
-                if (j != tipoPreguntaMatrizSimpleItems.get(i).getVertical().size() - 1) {
-                    respuestaMatrizS = "" + respuestaMatrizS + "$";
-                    System.out.println("respuesta222222:" + respuestaMatrizS);
+                else {
+                    respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).toString().trim();
                 }
-                cont++;
-                System.out.println("cont:" + cont);
+                if (k != tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size() - 1)
+                    respuestaMatrizS = "" + respuestaMatrizS + "$";
             }
-            if (i != tipoPreguntaMatrizSimpleItems.size() - 1) {
+            if (i != tipoPreguntaMatrizSimpleItems.size() - 1)
                 respuestaMatrizS = "" + respuestaMatrizS + "&";
-            }
-            cont = 0;
-            System.out.println("respuesta4444:" + respuestaMatrizS);*/
         }
 
         //System.out.println("respuesta: {" + respuestaMatrizS + "}");
         //guardar en base de datos la respuesta
         TipoPreguntaMatrizSimpleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
-
+        System.out.println("respuestaMatrizS" + respuestaMatrizS);
         //guardarRespuesta(respuestaMatrizS);
     }
 
@@ -497,24 +484,35 @@ public class PreguntasActivity extends AppCompatActivity {
             respuestaMatrizM = respuestaMatrizM + "[" + "]";
             ArrayList<RespuestaItem> respuestas = tipoPreguntaMatrizMultipleItems.get(i).getRespuestas();
             System.out.println("usuario " + (i + 1) + "size:" + respuestas.size());
+
+
             for (int l = 0; l < respuestas.size(); l++) {
                 for (int j = 0; j < tipoPreguntaMatrizMultipleItems.get(i).getHorizontal().size(); j++) {
                     for (int k = 0; k < tipoPreguntaMatrizMultipleItems.get(i).getVertical().size(); k++) {
+                        //nombre de opcion
+                        respuestaMatrizM = respuestaMatrizM + tipoPreguntaMatrizMultipleItems.get(i).getVertical().get(k);
+
                         if (respuestas.get(l).getCol() == j && respuestas.get(l).getRow() == k) {
+
                             System.out.println("posicion: " + j + " , " + k);
                             System.out.println("multiple usuario " + (i + 1) + ": " + respuestas.get(l).getTexto());
+
+                            respuestaMatrizM = respuestaMatrizM + "%";
                             respuestaMatrizM = respuestaMatrizM + respuestas.get(l).getTexto();
+                            cont++;
                         }
+                        if (cont == 0)
+                            respuestaMatrizM = respuestaMatrizM + "null";
+                        if (k != tipoPreguntaMatrizMultipleItems.get(i).getVertical().size() - 1)
+                            respuestaMatrizM = respuestaMatrizM + "$";
+                        cont = 0;
                     }
-                    if (j != respuestas.size() - 1)
-                        respuestaMatrizM = "" + respuestaMatrizM + "$";
-                    cont++;
+
                 }
             }
             if (i != tipoPreguntaMatrizMultipleItems.size() - 1) {
                 if (cont == 0)
                     respuestaMatrizM = respuestaMatrizM + "null";
-                respuestaMatrizM = "" + respuestaMatrizM + "&";
             }
 
             cont = 0;
@@ -552,8 +550,8 @@ public class PreguntasActivity extends AppCompatActivity {
         HashMap<Integer, String> alternativas = new HashMap<>();
 
         alternativas.put(0, "Seleccione alternativa");
-        for (int i = 1; i <= 5; i++) {
-            alternativas.put(i, "Opcion " + i);
+        for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
+            alternativas.put(i+1, listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
         }
 
         //cargar datos a la lista
@@ -571,8 +569,8 @@ public class PreguntasActivity extends AppCompatActivity {
     private void poblarLista_TipoPreguntaMultiple() {
 
         ArrayList<String> alternativas = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            alternativas.add("Opcion " + (i + 1));
+        for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
+            alternativas.add(listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
         }
 
         //cargar datos a la lista
@@ -593,8 +591,8 @@ public class PreguntasActivity extends AppCompatActivity {
         mumMaxChequeados = 3;
 
         ArrayList<String> alternativas = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            alternativas.add("Opcion " + (i + 1));
+        for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
+            alternativas.add(listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
         }
 
         //cargar datos a la lista
@@ -615,16 +613,14 @@ public class PreguntasActivity extends AppCompatActivity {
 
     private void poblarLista_TipoPreguntaMatrizSimple() {
         ArrayList<String> horizontales = new ArrayList<>();
-        horizontales.add("Pesimo");
-        horizontales.add("Malo");
-        horizontales.add("Regular");
-        //horizontales.add("Bueno");
-        //horizontales.add("Muy Bueno");
-        //horizontales.add("Excelente");
+        for (int i = 0; i < listPreguntaItems.size(); i++) {
+            horizontales.add(listPreguntaItems.get(i).getIte_nombre().toString().trim());
+        }
+        horizontales.add("");
 
         ArrayList<String> verticales = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            verticales.add("Opcion " + (i + 1));
+        for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
+            verticales.add(listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
         }
         //cargar datos a la lista
         for (int i = 0; i < nombresEncuestados.size(); i++) {
@@ -643,16 +639,14 @@ public class PreguntasActivity extends AppCompatActivity {
 
     private void poblarLista_TipoPreguntaMatrizMultiple() {
         ArrayList<String> horizontales = new ArrayList<>();
-        horizontales.add("Pesimo");
-        horizontales.add("Malo");
-        horizontales.add("Regular");
-        //horizontales.add("Bueno");
-        //horizontales.add("Muy Bueno");
-        //horizontales.add("Excelente");
+        for (int i = 0; i < listPreguntaItems.size(); i++) {
+            horizontales.add(listPreguntaItems.get(i).getIte_nombre().toString().trim());
+        }
+        horizontales.add("");
 
         ArrayList<String> verticales = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            verticales.add("Opcion " + (i + 1));
+        for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
+            verticales.add(listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
         }
         //cargar datos a la lista
         for (int i = 0; i < nombresEncuestados.size(); i++) {

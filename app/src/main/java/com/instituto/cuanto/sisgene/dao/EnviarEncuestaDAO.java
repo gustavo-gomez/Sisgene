@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.instituto.cuanto.sisgene.bean.EncuestaPregunta;
+import com.instituto.cuanto.sisgene.entidad.DireccionViviendaEncuestada;
 import com.instituto.cuanto.sisgene.entidad.Persona;
 
 /**
@@ -50,6 +51,49 @@ public class EnviarEncuestaDAO {
             }
             System.out.println("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
             return persona;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        System.out.println("nullllllllllllllllllllllllllllllllllll");
+        return null;
+
+    }
+
+    public DireccionViviendaEncuestada obtenerDireccionEncuestada(Context context,String idCabEnc) {
+
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        DireccionViviendaEncuestada direccion = null;
+
+        String sql = " select dir.dir_tipo_ubicacion,dir.dir_num_puerta,dir.dir_int,dir.dir_piso,dir.dir_etapa, " +
+                " dir.dir_sector,dir.dir_grupo,dir.dir_manzana,dir.dir_lote,dir.dir_km " +
+                " from direccion dir " +
+                " inner join cab_enc_rpta caer on caer.dir_id = dir.dir_id " +
+                " where caer.caer_id = "+idCabEnc;
+
+        try {
+
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                direccion = new DireccionViviendaEncuestada();
+
+                direccion.setTipo_ubicacion((cursor.getString(0) != null) ? cursor.getString(0) : "");
+                direccion.setNum_puerta((cursor.getString(1) != null) ? cursor.getString(1) : "");
+                direccion.setInterior((cursor.getString(2) != null) ? cursor.getString(2) : "");
+                direccion.setPiso((cursor.getString(3) != null) ? cursor.getString(3) : "");
+                direccion.setEtapa((cursor.getString(4) != null) ? cursor.getString(4) : "");
+                direccion.setSector((cursor.getString(5) != null) ? cursor.getString(5) : "");
+                direccion.setGrupo((cursor.getString(6) != null) ? cursor.getString(6) : "");
+                direccion.setManzana((cursor.getString(7) != null) ? cursor.getString(7) : "");
+                direccion.setLote((cursor.getString(8) != null) ? cursor.getString(8) : "");
+                direccion.setKm((cursor.getString(9) != null) ? cursor.getString(9) : "");
+            }
+            System.out.println("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+            return direccion;
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
