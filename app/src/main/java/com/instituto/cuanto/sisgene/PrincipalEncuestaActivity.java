@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.instituto.cuanto.sisgene.bean.CabeceraRespuesta;
 import com.instituto.cuanto.sisgene.constantes.Constants;
 import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
+import com.instituto.cuanto.sisgene.dao.UsuarioDAO;
 import com.instituto.cuanto.sisgene.util.ListViewAdapter;
 import com.instituto.cuanto.sisgene.util.Util;
 
@@ -68,8 +69,13 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         rolUsu = pref.getString("rol", null);
 
         if(rolUsu.equals("ENCUESTADOR")){
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            String idSupervisor = usuarioDAO.obtenerIDSupervisorXEncuestador(PrincipalEncuestaActivity.this, userUsu);
+            System.out.println("ID_SUPERVISOR : "+idSupervisor);
+            String nombreSupervisor = usuarioDAO.obtenerNombreSupervisor(PrincipalEncuestaActivity.this,idSupervisor);
+            System.out.println("NOM SUPER : "+nombreSupervisor);
             encuestadorValor.setText(nombreUsu);
-            supervisorValor.setText("NOMB. SUPERVISOR..");
+            supervisorValor.setText(nombreSupervisor);
         }
         if(rolUsu.equals("SUPERVISOR")){
             encuestadorValor.setText("");
@@ -213,7 +219,14 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
             temp2.put(Constants.FIVE_COLUMN, cabeceraResp.getHoraInicio());
             temp2.put(Constants.SIX_COLUMN, cabeceraResp.getHoraFin());
             temp2.put(Constants.SEVEN_COLUMN, cabeceraResp.getTiempo());
-            temp2.put(Constants.EIGHT_COLUMN, cabeceraResp.getTiempo());
+
+            String estado="";
+            if(cabeceraResp.getEstado().equals("P")) estado = "PENDIENTE";
+            if(cabeceraResp.getEstado().equals("C")) estado = "COMPLETO";
+            if(cabeceraResp.getEstado().equals("I")) estado = "INCOMPLETO";
+            if(cabeceraResp.getEstado().equals("R")) estado = "RECHAZADO";
+
+            temp2.put(Constants.EIGHT_COLUMN, estado);
             list.add(temp2);
         }
 
