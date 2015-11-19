@@ -17,9 +17,11 @@ import com.instituto.cuanto.sisgene.adapter.TipoPreguntaMatrizSimpleAdapter;
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaMixtaAdapter;
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaMultipleAdapter;
 import com.instituto.cuanto.sisgene.adapter.TipoPreguntaUnicaAdapter;
+import com.instituto.cuanto.sisgene.bean.CabeceraRespuesta;
 import com.instituto.cuanto.sisgene.bean.EncuestaPregunta;
 import com.instituto.cuanto.sisgene.bean.PreguntaAlternativa;
 import com.instituto.cuanto.sisgene.bean.PreguntaItem;
+import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
 import com.instituto.cuanto.sisgene.entities.RespuestaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
@@ -664,6 +666,14 @@ public class PreguntasActivity extends AppCompatActivity {
     }
 
     private void guardarRespuesta(String rpta) {
+
+        CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
+
+        //Obtener el ultimo Id de la tabla cab_enc_rpta, para ser usado al guardar la pregunta
+        CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
+
+        //Guardar la respuesta de cada pregunta en BD
+        cabeceraRespuestaDAO.insertarDetEnc(PreguntasActivity.this, rpta, String.valueOf(cabeceraRespuesta.getIdCabeceraEnc()), idPregunta);
         System.out.println("Guardar respuesta: " + rpta);
     }
 }

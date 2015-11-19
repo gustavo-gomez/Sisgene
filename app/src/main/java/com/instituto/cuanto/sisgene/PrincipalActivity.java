@@ -59,6 +59,10 @@ public class PrincipalActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+
+            //Validar que aun no se hayan culminado el numero de encuestas a realizar por el usuario
+
+
             Intent intent = new Intent(PrincipalActivity.this, PrincipalEncuestaActivity.class);
             startActivity(intent);
         }

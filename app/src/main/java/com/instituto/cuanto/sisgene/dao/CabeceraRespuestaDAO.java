@@ -296,11 +296,10 @@ public class CabeceraRespuestaDAO {
     }
 
     public boolean insertarCabEnc2(Context context, String conglomerado, String zona, String manzana,
-                                  String vivienda, String hogar, String centropoblado, int per_id){
+                                  String vivienda, String hogar, String centropoblado, String per_id){
         Cursor cursor   = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String idPers = per_id+"";
-        String arg[] = {conglomerado,zona,manzana,vivienda,hogar,centropoblado,idPers};
+        String arg[] = {conglomerado,zona,manzana,vivienda,hogar,centropoblado,per_id};
         boolean response = false;
 
 
@@ -326,11 +325,10 @@ public class CabeceraRespuestaDAO {
 
     }
 
-    public boolean insertarDetEnc(Context context, String valorRespuesta, String idCabEnc, int idPregunta){
+    public boolean insertarDetEnc(Context context, String valorRespuesta, String idCabEnc, String idPregunta){
         Cursor cursor   = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String idPre = idPregunta+"";
-        String arg[] = {valorRespuesta,idCabEnc,idPre};
+        String arg[] = {valorRespuesta,idCabEnc,idPregunta};
         boolean response = false;
 
 
@@ -349,6 +347,32 @@ public class CabeceraRespuestaDAO {
         }
 
         return response;
+
+    }
+
+    public CabeceraRespuesta obteneridUltimaCabecera(Context context){
+        CabeceraRespuesta cabeceraResp = null;
+        Cursor cursor   = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        try {
+
+            cursor = dataBaseHelper.db.rawQuery(" select cab.caer_id from cab_enc_rpta cab order by cab.caer_id desc ",null);
+
+            if (cursor.moveToFirst()) {
+                    cabeceraResp = new CabeceraRespuesta();
+                    cabeceraResp.setIdCabeceraEnc(Integer.parseInt(cursor.getString(0)));
+            }
+
+            return cabeceraResp;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return null;
 
     }
 
