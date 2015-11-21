@@ -154,6 +154,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
 
         tvFechaVigenciaFinal = (TextView) findViewById(R.id.tvFechaVigenciaFinal);
         tvNombreSupervisor = (TextView) findViewById(R.id.tvNombreSupervisor);
+        tvCodigoEncuesta = (TextView) findViewById(R.id.tvCodigoEncuesta);
         tvNombreUsuario = (TextView) findViewById(R.id.tvNombreUsuario);
         tvGrupo = (TextView) findViewById(R.id.tvGrupo);
         tvFecha = (TextView) findViewById(R.id.tvFecha);
@@ -209,13 +210,21 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
         List<String> fechas = cabeceraRespuestaDAO.obtenerRangoFechasEncuesta(NombresPersonasEncuestadasActivity.this, userUsu);
 
-        tvFechaVigenciaInicio.setText(fechas.get(0));
-        tvFechaVigenciaFinal.setText(fechas.get(1));
+        //if (fechas.get(0) == null)
+            tvFechaVigenciaInicio.setText("");
+        //else
+          //  tvFechaVigenciaInicio.setText(fechas.get(0).toString().trim());
+
+        //if (fechas.get(1) == null)
+            tvFechaVigenciaFinal.setText("");
+        //else
+          //  tvFechaVigenciaFinal.setText(fechas.get(1).toString().trim());
+
 
         //Nombre del supervisor
         String idSupervisor = usuarioDAO.obtenerIDSupervisorXEncuestador(NombresPersonasEncuestadasActivity.this, userUsu);
-        System.out.println("ID_SUPERVISOR : "+idSupervisor);
-        String nombreSupervisor = usuarioDAO.obtenerNombreSupervisor(NombresPersonasEncuestadasActivity.this,idSupervisor);
+        System.out.println("ID_SUPERVISOR : " + idSupervisor);
+        String nombreSupervisor = usuarioDAO.obtenerNombreSupervisor(NombresPersonasEncuestadasActivity.this, idSupervisor);
         tvNombreSupervisor.setText(nombreSupervisor);
 
     }
