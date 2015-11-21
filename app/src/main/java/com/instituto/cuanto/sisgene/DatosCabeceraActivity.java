@@ -212,6 +212,9 @@ public class DatosCabeceraActivity extends AppCompatActivity {
 
 
                 int personaId = personaDAO.obtenerUltIdPersona(DatosCabeceraActivity.this);
+
+                System.out.println("ULTIMO ID : "+personaId);
+
                 if (personaId == 0) {
                     Toast.makeText(DatosCabeceraActivity.this, "Error al obtener el id de Usuario", Toast.LENGTH_LONG).show();
                     finish();
@@ -224,6 +227,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                             etHogarN.getText().toString().trim(),
                             etCentroPoblado.getText().toString().trim(),
                             personaId);
+
                     if (insertarCabecera == true) {
                         Toast.makeText(DatosCabeceraActivity.this, "Datos almacenados correctamente", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);

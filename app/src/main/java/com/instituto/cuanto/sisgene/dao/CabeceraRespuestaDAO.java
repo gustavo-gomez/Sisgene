@@ -33,18 +33,19 @@ public class CabeceraRespuestaDAO {
                     " inner join usuario usu on usp.usu_id = usu.usu_id ", null);
 
             if (cursor.moveToFirst()) {
+                System.out.println("ENTRO A TRAER INFO");
                 do {
                     cabeceraResp = new CabeceraRespuesta();
-                    cabeceraResp.setUserEncuestador(cursor.getString(0));
-                    cabeceraResp.setNumEncuesta(cursor.getString(1));
-                    cabeceraResp.setFechaDesarrollo(cursor.getString(2));
-                    cabeceraResp.setNombreEncuestado(cursor.getString(3));
-                    cabeceraResp.setApPaternoEncuestado(cursor.getString(4));
-                    cabeceraResp.setApMaternoEncuestado(cursor.getString(5));
-                    cabeceraResp.setHoraInicio(cursor.getString(6));
-                    cabeceraResp.setHoraFin(cursor.getString(7));
-                    cabeceraResp.setTiempo(cursor.getString(8));
-                    cabeceraResp.setEstado(cursor.getString(9));
+                    cabeceraResp.setUserEncuestador((cursor.getString(0) != null) ? cursor.getString(0) : "");
+                    cabeceraResp.setNumEncuesta((cursor.getString(1) != null) ? cursor.getString(1) : "");
+                    cabeceraResp.setFechaDesarrollo((cursor.getString(2) != null) ? cursor.getString(2) : "");
+                    cabeceraResp.setNombreEncuestado((cursor.getString(3) != null) ? cursor.getString(3) : "");
+                    cabeceraResp.setApPaternoEncuestado((cursor.getString(4) != null) ? cursor.getString(4) : "");
+                    cabeceraResp.setApMaternoEncuestado((cursor.getString(5) != null) ? cursor.getString(5) : "");
+                    cabeceraResp.setHoraInicio((cursor.getString(6) != null) ? cursor.getString(6) : "");
+                    cabeceraResp.setHoraFin((cursor.getString(7) != null) ? cursor.getString(7) : "");
+                    cabeceraResp.setTiempo((cursor.getString(8) != null) ? cursor.getString(8) : "");
+                    cabeceraResp.setEstado((cursor.getString(9) != null) ? cursor.getString(9) : "");
 
                     listaCabeceraRespuesta.add(cabeceraResp);
                 } while (cursor.moveToNext());
@@ -52,6 +53,7 @@ public class CabeceraRespuestaDAO {
 
             return listaCabeceraRespuesta;
         } catch (Exception ex) {
+            System.out.println("ERROR AL TRAER CAB_ENC_RPTA SIN FILTROS");
             ex.printStackTrace();
         } finally {
             if (cursor != null)
@@ -116,16 +118,16 @@ public class CabeceraRespuestaDAO {
             if (cursor.moveToFirst()) {
                 do {
                     cabeceraResp = new CabeceraRespuesta();
-                    cabeceraResp.setUserEncuestador(cursor.getString(0));
-                    cabeceraResp.setNumEncuesta(cursor.getString(1));
-                    cabeceraResp.setFechaDesarrollo(cursor.getString(2));
-                    cabeceraResp.setNombreEncuestado(cursor.getString(3));
-                    cabeceraResp.setApPaternoEncuestado(cursor.getString(4));
-                    cabeceraResp.setApMaternoEncuestado(cursor.getString(5));
-                    cabeceraResp.setHoraInicio(cursor.getString(6));
-                    cabeceraResp.setHoraFin(cursor.getString(7));
-                    cabeceraResp.setTiempo(cursor.getString(8));
-                    cabeceraResp.setEstado(cursor.getString(9));
+                    cabeceraResp.setUserEncuestador((cursor.getString(0) != null) ? cursor.getString(0) : "");
+                    cabeceraResp.setNumEncuesta((cursor.getString(1) != null) ? cursor.getString(1) : "");
+                    cabeceraResp.setFechaDesarrollo((cursor.getString(2) != null) ? cursor.getString(2) : "");
+                    cabeceraResp.setNombreEncuestado((cursor.getString(3) != null) ? cursor.getString(3) : "");
+                    cabeceraResp.setApPaternoEncuestado((cursor.getString(4) != null) ? cursor.getString(4) : "");
+                    cabeceraResp.setApMaternoEncuestado((cursor.getString(5) != null) ? cursor.getString(5) : "");
+                    cabeceraResp.setHoraInicio((cursor.getString(6) != null) ? cursor.getString(6) : "");
+                    cabeceraResp.setHoraFin((cursor.getString(7) != null) ? cursor.getString(7) : "");
+                    cabeceraResp.setTiempo((cursor.getString(8) != null) ? cursor.getString(8) : "");
+                    cabeceraResp.setEstado((cursor.getString(9) != null) ? cursor.getString(9) : "");
 
                     listaCabeceraRespuesta.add(cabeceraResp);
                 } while (cursor.moveToNext());
@@ -168,16 +170,16 @@ public class CabeceraRespuestaDAO {
             if (cursor.moveToFirst()) {
                 do {
                     cabeceraResp = new CabeceraRespuesta();
-                    cabeceraResp.setUserEncuestador(cursor.getString(0));
-                    cabeceraResp.setNumEncuesta(cursor.getString(1));
-                    cabeceraResp.setFechaDesarrollo(cursor.getString(2));
-                    cabeceraResp.setNombreEncuestado(cursor.getString(3));
-                    cabeceraResp.setApPaternoEncuestado(cursor.getString(4));
-                    cabeceraResp.setApMaternoEncuestado(cursor.getString(5));
-                    cabeceraResp.setHoraInicio(cursor.getString(6));
-                    cabeceraResp.setHoraFin(cursor.getString(7));
-                    cabeceraResp.setTiempo(cursor.getString(8));
-                    cabeceraResp.setEstado(cursor.getString(9));
+                    cabeceraResp.setUserEncuestador((cursor.getString(0) != null) ? cursor.getString(0) : "");
+                    cabeceraResp.setNumEncuesta((cursor.getString(1) != null) ? cursor.getString(1) : "");
+                    cabeceraResp.setFechaDesarrollo((cursor.getString(2) != null) ? cursor.getString(2) : "");
+                    cabeceraResp.setNombreEncuestado((cursor.getString(3) != null) ? cursor.getString(3) : "");
+                    cabeceraResp.setApPaternoEncuestado((cursor.getString(4) != null) ? cursor.getString(4) : "");
+                    cabeceraResp.setApMaternoEncuestado((cursor.getString(5) != null) ? cursor.getString(5) : "");
+                    cabeceraResp.setHoraInicio((cursor.getString(6) != null) ? cursor.getString(6) : "");
+                    cabeceraResp.setHoraFin((cursor.getString(7) != null) ? cursor.getString(7) : "");
+                    cabeceraResp.setTiempo((cursor.getString(8) != null) ? cursor.getString(8) : "");
+                    cabeceraResp.setEstado((cursor.getString(9) != null) ? cursor.getString(9) : "");
 
                     listaCabeceraRespuesta.add(cabeceraResp);
                 } while (cursor.moveToNext());
@@ -222,26 +224,26 @@ public class CabeceraRespuestaDAO {
             if (cursor.moveToFirst()) {
                 do {
                     cabeceraResp = new CabeceraRespuesta();
-                    cabeceraResp.setUserEncuestador(cursor.getString(0));
-                    cabeceraResp.setNumEncuesta(cursor.getString(1));
-                    cabeceraResp.setFechaDesarrollo(cursor.getString(2));
-                    cabeceraResp.setNombreEncuestado(cursor.getString(3));
-                    cabeceraResp.setApPaternoEncuestado(cursor.getString(4));
-                    cabeceraResp.setApMaternoEncuestado(cursor.getString(5));
-                    cabeceraResp.setHoraInicio(cursor.getString(6));
-                    cabeceraResp.setHoraFin(cursor.getString(7));
-                    cabeceraResp.setTiempo(cursor.getString(8));
-                    cabeceraResp.setEstado(cursor.getString(9));
-                    cabeceraResp.setNum_documento(cursor.getString(10));
-                    cabeceraResp.setCelular(cursor.getString(12));
-                    cabeceraResp.setTelefono(cursor.getString(11));
-                    cabeceraResp.setCorreo(cursor.getString(13));
-                    cabeceraResp.setConglomerado(cursor.getString(14));
-                    cabeceraResp.setZona(cursor.getString(15));
-                    cabeceraResp.setManzana(cursor.getString(16));
-                    cabeceraResp.setVivienda(cursor.getString(17));
-                    cabeceraResp.setHogar(cursor.getString(18));
-                    cabeceraResp.setCentropoblado(cursor.getString(19));
+                    cabeceraResp.setUserEncuestador((cursor.getString(0) != null) ? cursor.getString(0) : "");
+                    cabeceraResp.setNumEncuesta((cursor.getString(1) != null) ? cursor.getString(1) : "");
+                    cabeceraResp.setFechaDesarrollo((cursor.getString(2) != null) ? cursor.getString(2) : "");
+                    cabeceraResp.setNombreEncuestado((cursor.getString(3) != null) ? cursor.getString(3) : "");
+                    cabeceraResp.setApPaternoEncuestado((cursor.getString(4) != null) ? cursor.getString(4) : "");
+                    cabeceraResp.setApMaternoEncuestado((cursor.getString(5) != null) ? cursor.getString(5) : "");
+                    cabeceraResp.setHoraInicio((cursor.getString(6) != null) ? cursor.getString(6) : "");
+                    cabeceraResp.setHoraFin((cursor.getString(7) != null) ? cursor.getString(7) : "");
+                    cabeceraResp.setTiempo((cursor.getString(8) != null) ? cursor.getString(8) : "");
+                    cabeceraResp.setEstado((cursor.getString(9) != null) ? cursor.getString(9) : "");
+                    cabeceraResp.setNum_documento((cursor.getString(10) != null) ? cursor.getString(10) : "");
+                    cabeceraResp.setCelular((cursor.getString(12) != null) ? cursor.getString(12) : "");
+                    cabeceraResp.setTelefono((cursor.getString(11) != null) ? cursor.getString(11) : "");
+                    cabeceraResp.setCorreo((cursor.getString(13) != null) ? cursor.getString(13) : "");
+                    cabeceraResp.setConglomerado((cursor.getString(14) != null) ? cursor.getString(14) : "");
+                    cabeceraResp.setZona((cursor.getString(15) != null) ? cursor.getString(15) : "");
+                    cabeceraResp.setManzana((cursor.getString(16) != null) ? cursor.getString(16) : "");
+                    cabeceraResp.setVivienda((cursor.getString(17) != null) ? cursor.getString(17) : "");
+                    cabeceraResp.setHogar((cursor.getString(18) != null) ? cursor.getString(18) : "");
+                    cabeceraResp.setCentropoblado((cursor.getString(19) != null) ? cursor.getString(19) : "");
                     cabeceraResp.setIdPesona(cursor.getInt(20));
                     cabeceraResp.setIdCabeceraEnc(cursor.getInt(21));
 
@@ -302,10 +304,12 @@ public class CabeceraRespuestaDAO {
 
 
         try {
-            String sql = " select usp.usp_hasta_numenc from usuario_persona usp inner join usuario usu on usu.usu_id = usp.usu_id " +
-                    "where usu.usu_usuario  = ?";
+            String sql = " select usp.usp_hasta_numenc " +
+                    " from usuario_persona usp " +
+                    " inner join usuario usu on usu.usu_id = usp.usu_id " +
+                    " where usu.usu_usuario  = ?";
 
-            dataBaseHelper.db.execSQL(sql, arg);
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
 
             if (cursor.moveToFirst()) {
                 HastaNumEnc = cursor.getInt(0);
@@ -329,6 +333,13 @@ public class CabeceraRespuestaDAO {
         String arg[] = {conglomerado, zona, manzana, vivienda, hogar, centropoblado, idPers};
         boolean response = false;
 
+        System.out.println("conglomerad : "+conglomerado);
+        System.out.println("zonA : "+zona);
+        System.out.println("manzana : "+manzana);
+        System.out.println("vivienda : "+vivienda);
+        System.out.println("hogar : "+hogar);
+        System.out.println("centor poblado : "+centropoblado);
+        System.out.println("IDPERS : "+idPers);
 
         try {
             String sql = " INSERT INTO cab_enc_rpta (caer_nconglomerado,caer_nzona_aer,caer_nmanzana," +
@@ -337,8 +348,10 @@ public class CabeceraRespuestaDAO {
 
             dataBaseHelper.db.execSQL(sql, arg);
 
+            System.out.println("INSERTO CORRECTAMENTE LA CAB_ENC_RPTA");
             response = true;
         } catch (Exception ex) {
+            System.out.println("ERROR AL GUARDAR CAB_EN_RPTA : "+ex.getMessage());
             ex.printStackTrace();
         } finally {
             if (cursor != null)
@@ -349,11 +362,17 @@ public class CabeceraRespuestaDAO {
 
     }
 
-    public boolean insertarCabEnc2(Context context, String conglomerado, String zona, String manzana,
-                                   String vivienda, String hogar, String centropoblado, String per_id) {
+    public boolean insertarCabEnc2(Context context, String caer_numero_encuesta, String caer_estado, String caer_fencuesta,
+                                   String caer_observaciones, String caer_nconglomerado, String caer_nzona_aer, String caer_nmanzana, String caer_nvivienda,
+                                   String caer_nhogar, String caer_narea, String caer_ncondicion, String caer_codigo_informante, String caer_hora_inicio,
+                                   String caer_hora_fin, String caer_tiempo, String caer_codigo_centropoblado, String caer_nombre_centropoblado,
+                                   String caer_categoria_centropoblado, String caer_benviado, String caer_fencuestaenviada, String usp_id, String per_id, String dir_id){
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String arg[] = {conglomerado, zona, manzana, vivienda, hogar, centropoblado, per_id};
+        String arg[] = {caer_numero_encuesta, caer_estado, caer_fencuesta, caer_observaciones, caer_nconglomerado, caer_nzona_aer,
+                caer_nmanzana,caer_nvivienda,caer_nhogar,caer_narea,caer_ncondicion,caer_codigo_informante,caer_hora_inicio,caer_hora_fin,
+                caer_tiempo,caer_codigo_centropoblado,caer_nombre_centropoblado,caer_categoria_centropoblado,caer_benviado,caer_fencuestaenviada,
+                usp_id,per_id,dir_id};
         boolean response = false;
 
 

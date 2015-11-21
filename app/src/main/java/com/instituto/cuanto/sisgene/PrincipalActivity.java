@@ -71,6 +71,11 @@ public class PrincipalActivity extends AppCompatActivity {
             //Se obtiene el ultimo numero de encuesta (caer_num_encuesta)
             CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
             ultiNumEncuesta = cabeceraRespuestaDAO.obtenerUltimoNumeroEncuestaCabecera(PrincipalActivity.this);
+            System.out.println("ultiNumEncuesta: " + ultiNumEncuesta);
+
+            Intent intent = new Intent(PrincipalActivity.this, PrincipalEncuestaActivity.class);
+            startActivity(intent);
+        /*
             if (ultiNumEncuesta != -1) {
                 //obtener el id del usuario de las preferencias
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
@@ -78,6 +83,9 @@ public class PrincipalActivity extends AppCompatActivity {
 
                 //se obtiene el valor del campo hasta_num_enc de la tabla Usuario_persona
                 hastaNumEnc = cabeceraRespuestaDAO.obtenerHastaNumEnc(PrincipalActivity.this, usu_id);
+                System.out.println("hastaNumEnc: " + hastaNumEnc);
+                System.out.println("usu_id: " + usu_id);
+
                 if (hastaNumEnc != -1) {
                     if (ultiNumEncuesta <= hastaNumEnc) {
                         //aun puede ejecutar encuestas
@@ -91,7 +99,7 @@ public class PrincipalActivity extends AppCompatActivity {
                     }
                 } else
                     new android.support.v7.app.AlertDialog.Builder(PrincipalActivity.this).setTitle("Alerta")
-                            .setMessage("Ocurrio un error. Comuníquese con el administrador del sistema")
+                            .setMessage("Ocurrio un error. Comuníquese con el administrador del sistema..")
                             .setNeutralButton("Aceptar", alertaAceptarOnClickListener)
                             .setCancelable(false).show();
             } else
@@ -99,6 +107,7 @@ public class PrincipalActivity extends AppCompatActivity {
                         .setMessage("Ocurrio un error. Comuníquese con el administrador del sistema")
                         .setNeutralButton("Aceptar", alertaAceptarOnClickListener)
                         .setCancelable(false).show();
+            */
         }
     };
     DialogInterface.OnClickListener alertaAceptarOnClickListener = new DialogInterface.OnClickListener() {

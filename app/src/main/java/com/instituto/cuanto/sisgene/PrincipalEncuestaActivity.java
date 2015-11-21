@@ -210,6 +210,12 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
         List<CabeceraRespuesta> listaCabeceraResp = cabeceraRespDAO.obtenerCabeceraRespuestas(PrincipalEncuestaActivity.this);
 
+        if(listaCabeceraResp != null) {
+            System.out.println("TAMAÑO LISTA DE CAB ENCUESTA ; "+listaCabeceraResp.size());
+        }else{
+            System.out.println("LA LISTA DE CAB ENCUESTA ESTA TRAYENDO NULL");
+        }
+
         for(CabeceraRespuesta cabeceraResp: listaCabeceraResp){
             HashMap<String, String> temp2 = new HashMap<String, String>();
             temp2.put(Constants.FIRST_COLUMN, cabeceraResp.getUserEncuestador());
