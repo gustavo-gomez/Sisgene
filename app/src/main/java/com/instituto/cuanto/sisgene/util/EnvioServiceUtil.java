@@ -78,7 +78,7 @@ public class EnvioServiceUtil {
             String jsonEnviar = gson.toJson(guardarRequest);
 
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint("http://192.168.1.39:8084/resources/WebServiceSISGENE")
+                    .setEndpoint("http://192.168.1.34:8084/resources/WebServiceSISGENE")
                     .build();
 
             EnvioService service = restAdapter.create(EnvioService.class);

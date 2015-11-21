@@ -306,6 +306,7 @@ public class CabeceraRespuestaDAO {
                     "where usu.usu_usuario  = ?";
 
             dataBaseHelper.db.execSQL(sql, arg);
+
             if (cursor.moveToFirst()) {
                 HastaNumEnc = cursor.getInt(0);
             }
@@ -470,10 +471,10 @@ public class CabeceraRespuestaDAO {
         try {
 
             cursor = dataBaseHelper.db.rawQuery(" select cae.cae_finicio,cae.cae_ffin " +
-                    "from caratula_encuesta cae " +
-                    "inner join usuario_persona usp on usp.cae_id = cae.cae_id " +
-                    "inner join usuario usu on usu.usu_id = usp.usu_id " +
-                    "where usu.usu_usuario = " + username, null);
+                    " from caratula_encuesta cae " +
+                    " inner join usuario_persona usp on usp.cae_id = cae.cae_id " +
+                    " inner join usuario usu on usu.usu_id = usp.usu_id " +
+                    " where usu.usu_usuario = '" + username+"' ", null);
 
             if (cursor.moveToFirst()) {
                 rangoFechas.add(cursor.getString(0));

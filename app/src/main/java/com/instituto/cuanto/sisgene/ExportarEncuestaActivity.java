@@ -84,8 +84,9 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
     View.OnClickListener tdFechaIniOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            DateDialog dialog = new DateDialog(v);
+            DateDialog dialog = new DateDialog();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
+            txtDateIni.setText(dialog.getArguments().getString("hora"));
             dialog.show(ft, "DatePicker");
         }
     };
@@ -93,8 +94,9 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
     View.OnClickListener tdFechaFinOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            DateDialog dialog = new DateDialog(v);
+            DateDialog dialog = new DateDialog();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
+            txtDateFin.setText(dialog.getArguments().getString("hora"));
             dialog.show(ft, "DatePicker");
         }
     };

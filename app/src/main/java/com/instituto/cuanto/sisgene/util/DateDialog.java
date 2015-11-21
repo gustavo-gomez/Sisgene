@@ -4,9 +4,13 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+
+import com.instituto.cuanto.sisgene.R;
 
 import java.util.Calendar;
 
@@ -16,10 +20,13 @@ import java.util.Calendar;
 public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     EditText txtDate;
-
+    Bundle args = new Bundle();
+    /*
     public DateDialog(View view){
         txtDate = (EditText) view;
-    }
+    }*/
+
+    public DateDialog(){}
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
         final Calendar c = Calendar.getInstance();
@@ -47,6 +54,9 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
         }
 
         String date = sDia+"/"+(sMes)+"/"+year;
+
+        args.putString("hora", date);
+        this.setArguments(args);
         txtDate.setText(date);
     }
 

@@ -193,7 +193,8 @@ public class MainActivity extends AppCompatActivity {
             String jsonEnviar = gson.toJson(validarRequest);
 
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint("http://192.168.1.35:8083/resources/WebServiceSISGENE")
+                    //.setEndpoint("http://192.168.1.35:8083/resources/WebServiceSISGENE")
+                    .setEndpoint("http://192.168.1.34:8084/resources/WebServiceSISGENE")
                     .build();
 
             ClienteService service = restAdapter.create(ClienteService.class);
