@@ -503,7 +503,6 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:drawSelectorOnTop="true"
-                            android:entries="@array/arrayArea"
                             android:gravity="center" />
                     </LinearLayout>
 
@@ -530,7 +529,6 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:drawSelectorOnTop="true"
-                            android:entries="@array/arrayCondicion"
                             android:gravity="center" />
                     </LinearLayout>
 

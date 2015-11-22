@@ -1,6 +1,7 @@
 package com.instituto.cuanto.sisgene;
 
 import android.content.Context;
+import android.widget.ArrayAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,10 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
+import com.instituto.cuanto.sisgene.dao.CatalogoDAO;
 import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
 import com.instituto.cuanto.sisgene.dao.PersonaDAO;
 import com.instituto.cuanto.sisgene.dao.UsuarioDAO;
 import com.instituto.cuanto.sisgene.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.ArrayList;
 
@@ -41,6 +46,8 @@ public class DatosCabeceraActivity extends AppCompatActivity {
     ArrayList<Integer> codigosIdentEncuestados;
     public static String KEY_ARG_NOMBRE_JEFE = "KEY_ARG_NOMBRE_JEFE";
     public static String KEY_ARG_ID_JEFE = "KEY_ARG_ID_JEFE";
+
+    protected ArrayAdapter<CharSequence> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +101,20 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         spCondicion = (Spinner) findViewById(R.id.spCondicion);
         lyspArea = (LinearLayout) findViewById(R.id.lyspArea);
         lyspCondicion = (LinearLayout) findViewById(R.id.lyspCondicion);
+
+        //Cargando Spinner Area y condicion
+        CatalogoDAO catalogoDAO  = new CatalogoDAO();
+        List<String> listaAreas = catalogoDAO.obtenerTipoZona(DatosCabeceraActivity.this);
+        List<String> listaCondiciones = catalogoDAO.obtenerGradoFam(DatosCabeceraActivity.this);
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaAreas);
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spArea.setAdapter(adaptador);
+
+        ArrayAdapter<String> adaptador2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCondiciones);
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spCondicion.setAdapter(adaptador2);
+
 
         tvFecha.setText(Util.obtenerFecha());
 
