@@ -1,16 +1,20 @@
 package com.instituto.cuanto.sisgene.dao;
 
 import android.database.Cursor;
+
 import com.instituto.cuanto.sisgene.bean.Usuarios;
+
 import android.content.Context;
+
 /**
  * Created by Jesus on 01/11/2015.
  */
 public class UsuarioDAO {
 
-    public UsuarioDAO(){}
+    public UsuarioDAO() {
+    }
 
-    public int obtenerCantidadUsuarios(Context context){
+    public int obtenerCantidadUsuarios(Context context) {
 
         int iCantidadUsuarios = 0;
 
@@ -18,12 +22,10 @@ public class UsuarioDAO {
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
 
         try {
-            cursor = dataBaseHelper.db.rawQuery("select count(*) from usuario",null);
+            cursor = dataBaseHelper.db.rawQuery("select count(*) from usuario", null);
 
             if (cursor.moveToFirst()) {
-                do {
                     iCantidadUsuarios = cursor.getInt(0);
-                } while (cursor.moveToNext()) ;
             }
 
         } catch (Exception ex) {
@@ -37,12 +39,12 @@ public class UsuarioDAO {
 
     }
 
-    public Usuarios obtenerUsuario(Context context, String user, String rol){
+    public Usuarios obtenerUsuario(Context context, String user, String rol) {
         Usuarios usuario = null;
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
 
-        String arg[] = {user,rol};
+        String arg[] = {user, rol};
 
         try {
 
@@ -52,7 +54,7 @@ public class UsuarioDAO {
                     " inner join persona per on up.per_id = per.per_id" +
                     " inner join rol ro on usu.rol_id = ro.rol_id" +
                     " where usu.usu_usuario = ? " +
-                    " and ro.rol_descripcion = ? ",arg);
+                    " and ro.rol_descripcion = ? ", arg);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -62,7 +64,7 @@ public class UsuarioDAO {
                     usuario.setAp_materno(cursor.getString(2));
                     usuario.setRol(cursor.getString(3));
                     usuario.setClave(cursor.getString(4));
-                } while (cursor.moveToNext()) ;
+                } while (cursor.moveToNext());
             }
 
             return usuario;
@@ -77,20 +79,50 @@ public class UsuarioDAO {
 
     }
 
-    public String obtenerGrupoPorUsuario(Context context, String user){
-
-        Cursor cursor   = null;
+    public String obtenerIdUsuario(Context context, String user) {
+        String idUsuario = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
 
         String arg[] = {user};
-        String response="";
+
+        try {
+
+            cursor = dataBaseHelper.db.rawQuery("select usp.usp_id " +
+                    "from usuario_persona usp " +
+                    "inner join usuario usu on usu.usu_id = usp.usu_id " +
+                    "where usu.usu_usuario = ?", arg);
+
+            if (cursor.moveToFirst()) {
+                idUsuario =  cursor.getString(0);
+            }
+
+            return idUsuario;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return idUsuario;
+
+    }
+
+    public String obtenerGrupoPorUsuario(Context context, String user) {
+
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        String arg[] = {user};
+        String response = "";
 
         try {
 
             cursor = dataBaseHelper.db.rawQuery(" select gr.gru_numero" +
                     " from usuario usu" +
                     " inner join grupo gr on usu.usu_id = gr.usu_idsupervisor" +
-                    " where usu.usu_usuario = ?",arg);
+                    " where usu.usu_usuario = ?", arg);
 
             if (cursor.moveToFirst()) {
 
@@ -110,13 +142,13 @@ public class UsuarioDAO {
 
     }
 
-    public String obtenerIDSupervisorXEncuestador(Context context, String user){
+    public String obtenerIDSupervisorXEncuestador(Context context, String user) {
 
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
 
         String arg[] = {user};
-        String response="";
+        String response = "";
 
         try {
 
@@ -125,7 +157,7 @@ public class UsuarioDAO {
                     " inner join usuario_persona usp on usp.usu_id = usu.usu_id " +
                     " inner join grupo gru on usp.gru_id = gru.gru_id " +
                     " inner join usuario usu2 on gru.usu_idsupervisor = usu2.usu_id " +
-                    " where usu.usu_usuario = ?",arg);
+                    " where usu.usu_usuario = ?", arg);
 
             if (cursor.moveToFirst()) {
 
@@ -145,24 +177,24 @@ public class UsuarioDAO {
 
     }
 
-    public String obtenerNombreSupervisor(Context context, String id){
+    public String obtenerNombreSupervisor(Context context, String id) {
 
-        Cursor cursor   = null;
+        Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
 
         String arg[] = {id};
-        String response="";
+        String response = "";
 
         try {
 
             cursor = dataBaseHelper.db.rawQuery(" select per.per_nombres, per.per_appaterno, per.per_apmaterno " +
                     " from usuario_persona usp " +
                     " inner join persona per on usp.per_id = per.per_id" +
-                    " where usp.usu_id = ?",arg);
+                    " where usp.usu_id = ?", arg);
 
             if (cursor.moveToFirst()) {
 
-                response = cursor.getString(0)+ " "+ cursor.getString(1)+" "+cursor.getString(2);
+                response = cursor.getString(0) + " " + cursor.getString(1) + " " + cursor.getString(2);
 
             }
 

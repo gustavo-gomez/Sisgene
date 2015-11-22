@@ -41,6 +41,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
     ArrayList<Integer> codigosIdentEncuestados;
     public static String KEY_ARG_NOMBRE_JEFE = "KEY_ARG_NOMBRE_JEFE";
     public static String KEY_ARG_ID_JEFE = "KEY_ARG_ID_JEFE";
+    String userUsu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +114,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         // nombre de usuario
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         String nombreUsu = pref.getString("nombres", null);
-        String userUsu = pref.getString("user", null);
+        userUsu = pref.getString("user", null);
         tvNombreUsuario.setText(nombreUsu);
 
         //grupo
@@ -162,6 +163,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
 
     void validarCamposDatosUsuarios() {
         boolean isComplete = true;
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         if (etNombres.getText().toString().trim().length() <= 0) {
             etNombres.setError("Ingrese Nombre");
@@ -190,8 +192,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
 
             //FALTA INSERTAR
             etDireccion.getText().toString().trim();
-            spArea.getSelectedItem().toString();
-            spCondicion.getSelectedItem().toString();
+
             ////
             PersonaDAO personaDAO = new PersonaDAO();
             //obtener el id del jefe de famiia
@@ -213,30 +214,61 @@ public class DatosCabeceraActivity extends AppCompatActivity {
 
                 int personaId = personaDAO.obtenerUltIdPersona(DatosCabeceraActivity.this);
 
-                System.out.println("ULTIMO ID : "+personaId);
+                System.out.println("ULTIMO ID : " + personaId);
 
                 if (personaId == 0) {
                     Toast.makeText(DatosCabeceraActivity.this, "Error al obtener el id de Usuario", Toast.LENGTH_LONG).show();
                     finish();
                 } else {
-                    boolean insertarCabecera = cabeceraRespuestaDAO.insertarCabEnc(DatosCabeceraActivity.this,
-                            etConglomeradoN.getText().toString().trim(),
-                            etZonaAER.getText().toString().trim(),
-                            etManzanaN.getText().toString().trim(),
-                            etViviendaN.getText().toString().trim(),
-                            etHogarN.getText().toString().trim(),
-                            etCentroPoblado.getText().toString().trim(),
-                            personaId);
+                    int numEncuestas = cabeceraRespuestaDAO.obtenerCantidadEncuestas(DatosCabeceraActivity.this);
+                    String numeroEnc="";
+                    if (numEncuestas != -1) {
 
-                    if (insertarCabecera == true) {
-                        Toast.makeText(DatosCabeceraActivity.this, "Datos almacenados correctamente", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);
-                        intent.putExtra(KEY_ARG_NOMBRE_JEFE, nombresEncuestados);
-                        intent.putExtra(KEY_ARG_ID_JEFE, codigosIdentEncuestados);
-                        startActivity(intent);
-                        finish();
-                    } else
-                        finish();
+                        if (numEncuestas == 0) {
+                            //si no hay encuestas, el numero sera el campo DESDE
+                            numeroEnc = String.valueOf(cabeceraRespuestaDAO.obtenerDesdeNumEnc(DatosCabeceraActivity.this, usuarioDAO.obtenerIdUsuario(DatosCabeceraActivity.this, userUsu)));
+                        } else {
+                            //si hay encuesta, se trae el ultimo y se suma 1
+                            numeroEnc = String.valueOf(cabeceraRespuestaDAO.obtenerUltimoNumeroEncuestaCabecera(DatosCabeceraActivity.this)+1);
+                        }
+
+                        boolean insertarCabecera = cabeceraRespuestaDAO.insertarCabEnc2(DatosCabeceraActivity.this,
+                                numeroEnc,
+                                "C",
+                                Util.obtenerFecha(),
+                                "observaciones",
+                                etConglomeradoN.getText().toString().trim(),
+                                etZonaAER.getText().toString().trim(),
+                                etManzanaN.getText().toString().trim(),
+                                etViviendaN.getText().toString().trim(),
+                                etHogarN.getText().toString().trim(),
+                                0, //spArea.getSelectedItem().toString(),
+                                0, //spCondicion.getSelectedItem().toString(),
+                                Util.obtenerHora(),//fecha inicio
+                                "",
+                                "",
+                                "",
+                                etCentroPoblado.getText().toString().trim(),
+                                "",
+                                "",
+                                usuarioDAO.obtenerIdUsuario(DatosCabeceraActivity.this, userUsu),
+                                personaId,
+                                "");
+
+                        if (insertarCabecera == true) {
+                            Toast.makeText(DatosCabeceraActivity.this, "Datos almacenados correctamente", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(DatosCabeceraActivity.this, NombresPersonasEncuestadasActivity.class);
+                            intent.putExtra(KEY_ARG_NOMBRE_JEFE, nombresEncuestados);
+                            intent.putExtra(KEY_ARG_ID_JEFE, codigosIdentEncuestados);
+                            startActivity(intent);
+                            finish();
+                        } else
+                            finish();
+
+                    } else {
+
+                    }
+
                 }
             } else {
                 Toast.makeText(DatosCabeceraActivity.this, "Error al insertar en base de datos", Toast.LENGTH_LONG).show();

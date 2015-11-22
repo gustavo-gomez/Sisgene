@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
             RestAdapter restAdapter = new RestAdapter.Builder()
                     //.setEndpoint("http://192.168.1.35:8083/resources/WebServiceSISGENE")
-                    .setEndpoint("http://192.168.1.34:8084/resources/WebServiceSISGENE")
+                    .setEndpoint("http://172.16.139.227:8080/WSSisgene/resources/WebServiceSISGENE")
                     .build();
 
             ClienteService service = restAdapter.create(ClienteService.class);
