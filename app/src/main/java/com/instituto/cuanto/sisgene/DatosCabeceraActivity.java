@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.dao.CatalogoDAO;
+import com.instituto.cuanto.sisgene.dao.DireccionDAO;
 import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
 import com.instituto.cuanto.sisgene.dao.PersonaDAO;
 import com.instituto.cuanto.sisgene.dao.UsuarioDAO;
@@ -104,7 +105,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         lyspCondicion = (LinearLayout) findViewById(R.id.lyspCondicion);
 
         //Cargando Spinner Area y condicion
-        CatalogoDAO catalogoDAO  = new CatalogoDAO();
+        CatalogoDAO catalogoDAO = new CatalogoDAO();
         List<String> listaAreas = catalogoDAO.obtenerTipoZona(DatosCabeceraActivity.this);
         List<String> listaCondiciones = catalogoDAO.obtenerGradoFam(DatosCabeceraActivity.this);
 
@@ -209,10 +210,11 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         if (isComplete) {
             nombresEncuestados.add(etNombres.getText().toString().trim() + " " + etApellidoPaterno.getText().toString().trim() + " " +
                     etApellidoMaterno.getText().toString().trim());
-            //captura de todos los datos
 
-            //FALTA INSERTAR
-            etDireccion.getText().toString().trim();
+            //insertar direccion en BD
+            DireccionDAO direccionDAO = new DireccionDAO();
+            direccionDAO.insertarDireccion(DatosCabeceraActivity.this, etDireccion.getText().toString().trim());
+
 
             ////
             PersonaDAO personaDAO = new PersonaDAO();
@@ -242,7 +244,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                     finish();
                 } else {
                     int numEncuestas = cabeceraRespuestaDAO.obtenerCantidadEncuestas(DatosCabeceraActivity.this);
-                    String numeroEnc="";
+                    String numeroEnc = "";
                     if (numEncuestas != -1) {
 
                         if (numEncuestas == 0) {
@@ -250,7 +252,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                             numeroEnc = String.valueOf(cabeceraRespuestaDAO.obtenerDesdeNumEnc(DatosCabeceraActivity.this, usuarioDAO.obtenerIdUsuario(DatosCabeceraActivity.this, userUsu)));
                         } else {
                             //si hay encuesta, se trae el ultimo y se suma 1
-                            numeroEnc = String.valueOf(cabeceraRespuestaDAO.obtenerUltimoNumeroEncuestaCabecera(DatosCabeceraActivity.this)+1);
+                            numeroEnc = String.valueOf(cabeceraRespuestaDAO.obtenerUltimoNumeroEncuestaCabecera(DatosCabeceraActivity.this) + 1);
                         }
 
                         boolean insertarCabecera = cabeceraRespuestaDAO.insertarCabEnc2(DatosCabeceraActivity.this,
@@ -263,18 +265,20 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                                 etManzanaN.getText().toString().trim(),
                                 etViviendaN.getText().toString().trim(),
                                 etHogarN.getText().toString().trim(),
-                                0, //spArea.getSelectedItem().toString(),
-                                0, //spCondicion.getSelectedItem().toString(),
-                                Util.obtenerHora(),//fecha inicio
+                                "0",
+                                "0",
+                                "0",
+                                Util.obtenerHora(),
                                 "",
                                 "",
                                 "",
                                 etCentroPoblado.getText().toString().trim(),
                                 "",
                                 "",
+                                "",
                                 usuarioDAO.obtenerIdUsuario(DatosCabeceraActivity.this, userUsu),
-                                personaId,
-                                "");
+                                String.valueOf(personaId),
+                                String.valueOf(direccionDAO.obtenerUltIdDireccion(DatosCabeceraActivity.this)));
 
                         if (insertarCabecera == true) {
                             Toast.makeText(DatosCabeceraActivity.this, "Datos almacenados correctamente", Toast.LENGTH_LONG).show();
