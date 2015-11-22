@@ -100,12 +100,12 @@ public class CabeceraRespuestaDAO {
 
             String sql = " select usu.usu_usuario, cer.caer_numero_encuesta, cer.caer_fencuesta, " +
                     " per.per_nombres, per.per_appaterno, " +
-                    " per.per_apmaterno, cer.caer_hora_inicio, cer.caer_hora_fin,cer.caer_tiempo, cer.caer_estado, cer.caer_id" +
+                    " per.per_apmaterno, cer.caer_hora_inicio, cer.caer_hora_fin,cer.caer_tiempo, cer.caer_estado" +
                     " from cab_enc_rpta cer" +
                     " inner join persona per on cer.per_id = per.per_id" +
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
                     " inner join usuario usu on usp.usu_id = usu.usu_id " +
-                    " where cer.caer_benviado = '0' ";
+                    " where usu.usu_estado = '1'";
             if (!fIni.equals("")) {
                 sql = sql + " and cer.caer_fencuesta >= " + fIni;
             }
@@ -128,7 +128,6 @@ public class CabeceraRespuestaDAO {
                     cabeceraResp.setHoraFin((cursor.getString(7) != null) ? cursor.getString(7) : "");
                     cabeceraResp.setTiempo((cursor.getString(8) != null) ? cursor.getString(8) : "");
                     cabeceraResp.setEstado((cursor.getString(9) != null) ? cursor.getString(9) : "");
-                    cabeceraResp.setIdCabeceraEnc(cursor.getInt(10));
 
                     listaCabeceraRespuesta.add(cabeceraResp);
                 } while (cursor.moveToNext());
@@ -509,33 +508,6 @@ public class CabeceraRespuestaDAO {
                 cursor.close();
         }
         return null;
-
-    }
-
-    public boolean actualizarCabEncEstadoEnviado(Context context, int cabRpta_id) {
-        Cursor cursor = null;
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String idCabRpta = cabRpta_id + "";
-        String arg[] = {idCabRpta};
-        boolean response = false;
-
-
-        try {
-            String sql = " UPDATE cab_enc_rpta " +
-                    " SET caer_benviado = '1' " +
-                    " WHERE caer_id = ?";
-
-            dataBaseHelper.db.execSQL(sql, arg);
-
-            response = true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-
-        return response;
 
     }
 

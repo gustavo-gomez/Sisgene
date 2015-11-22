@@ -33,4 +33,15 @@ public class Util {
         return sDia + "/" + sMes + "/" + ano;
     }
 
+    public static String obtenerHora() {
+        int hora, minutos, segundos;
+        Calendar calendario = Calendar.getInstance();
+
+        hora = calendario.get(Calendar.HOUR_OF_DAY);
+        minutos = calendario.get(Calendar.MINUTE);
+        segundos = calendario.get(Calendar.SECOND);
+
+        return hora + ":" + minutos + ":" + segundos;
+    }
+
 }
