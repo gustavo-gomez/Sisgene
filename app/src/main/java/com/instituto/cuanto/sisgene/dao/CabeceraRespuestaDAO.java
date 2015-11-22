@@ -402,8 +402,8 @@ public class CabeceraRespuestaDAO {
                 caer_nmanzana,caer_nvivienda,caer_nhogar,caer_narea,caer_ncondicion,caer_codigo_informante,caer_hora_inicio,caer_hora_fin,
                 caer_tiempo,caer_codigo_centropoblado,caer_nombre_centropoblado,caer_categoria_centropoblado,caer_benviado,caer_fencuestaenviada,
                 usp_id,per_id,dir_id};
-        boolean response = false;
 
+        boolean response = false;
 
         try {
             String sql = " INSERT INTO cab_enc_rpta (caer_numero_encuesta,caer_estado,caer_fencuesta," +
