@@ -10,7 +10,7 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="380dp"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:background="@color/color_fondo_pantalla"
@@ -48,6 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:gravity="center"
                     android:text="SISTEMA GENERADOR DE ENCUESTAS"
                     android:textColor="@color/color_texto" />
 
@@ -135,12 +136,13 @@
 
                 <Spinner
                     android:id="@+id/spRol"
-                    android:layout_width="142dp"
-                    android:layout_height="38dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
                     android:layout_alignEnd="@+id/btnSalir"
                     android:layout_below="@+id/textView4"
                     android:layout_toEndOf="@+id/textView4"
-                    android:layout_weight="0.18"
+                    android:layout_weight="1"
                     android:entries="@array/lista_rol" />
             </LinearLayout>
 
@@ -164,7 +166,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Usuario"
+                    android:hint="Cod encuesta"
                     android:maxLength="10" />
             </LinearLayout>
 

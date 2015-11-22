@@ -93,7 +93,7 @@
             android:layout_gravity="right"
             android:layout_margin="2dp"
             android:background="@color/color_fondo_boton"
-            android:text="GUARDAR"
+            android:text="RECHAZRA"
             android:textColor="@color/color_texto_boton" />
 
     </LinearLayout>
