@@ -403,9 +403,10 @@ public class PreguntasActivity extends AppCompatActivity {
             TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
             //agregar el codigo de identificacion
             Formatter codIdent = new Formatter();
-            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
-            //respuestaAbierta = "[" + codIdent + "]";
-            respuestaAbierta = respuestaAbierta + "[" + "]";
+            codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            System.out.println("------------------------------" + codIdent.format("%02d", codigosIdentEncuestados.get(i))+"-----------------------------------------");
+            respuestaAbierta = "[" + codIdent + "]";
+            //respuestaAbierta = respuestaAbierta + "[" + "]";
             //en caso el usuario no haya escrito nada
             if (nombresEncuestados.get(i).trim().equals(tipoPreguntaAbiertaItem.getDescription().trim())) {
                 respuestaAbierta = respuestaAbierta + "null";

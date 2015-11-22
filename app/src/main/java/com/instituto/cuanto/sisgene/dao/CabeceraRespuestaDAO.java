@@ -16,6 +16,33 @@ public class CabeceraRespuestaDAO {
     public CabeceraRespuestaDAO() {
     }
 
+    public boolean actualizarCabEncEstadoEnviado(Context context, int cabRpta_id) {
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        String idCabRpta = cabRpta_id + "";
+        String arg[] = {idCabRpta};
+        boolean response = false;
+
+
+        try {
+            String sql = " UPDATE cab_enc_rpta " +
+                    " SET caer_benviado = '1' " +
+                    " WHERE caer_id = ?";
+
+            dataBaseHelper.db.execSQL(sql, arg);
+
+            response = true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return response;
+
+    }
+
     public List<CabeceraRespuesta> obtenerCabeceraRespuestas(Context context) {
         CabeceraRespuesta cabeceraResp = null;
         Cursor cursor = null;
@@ -372,7 +399,7 @@ public class CabeceraRespuestaDAO {
         String arg[] = {caer_numero_encuesta, caer_estado, caer_fencuesta, caer_observaciones, caer_nconglomerado, caer_nzona_aer,
                 caer_nmanzana,caer_nvivienda,caer_nhogar,caer_narea,caer_ncondicion,caer_codigo_informante,caer_hora_inicio,caer_hora_fin,
                 caer_tiempo,caer_codigo_centropoblado,caer_nombre_centropoblado,caer_categoria_centropoblado,caer_benviado,caer_fencuestaenviada,
-                usp_id,per_id,dir_id};
+                usp_id, per_id,dir_id};
 
         boolean response = false;
 
