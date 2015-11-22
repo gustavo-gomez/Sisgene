@@ -511,4 +511,59 @@ public class CabeceraRespuestaDAO {
 
     }
 
+    public int obtenerCantidadEncuestas(Context context) {
+
+        int iCantidadUsuarios = -1;
+
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        try {
+            cursor = dataBaseHelper.db.rawQuery("select count(*) from cab_enc_rpta", null);
+
+            if (cursor.moveToFirst()) {
+                iCantidadUsuarios = cursor.getInt(0);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return iCantidadUsuarios;
+
+    }
+
+
+    public int obtenerDesdeNumEnc(Context context, String usu_id) {
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        String arg[] = {usu_id};
+        int HastaNumEnc = -1;
+
+
+        try {
+            String sql = " select usp.usp_desde_numenc " +
+                    " from usuario_persona usp " +
+                    " inner join usuario usu on usu.usu_id = usp.usu_id " +
+                    " where usu.usu_usuario  = ?";
+
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                HastaNumEnc = cursor.getInt(0);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return HastaNumEnc;
+
+    }
+
 }
