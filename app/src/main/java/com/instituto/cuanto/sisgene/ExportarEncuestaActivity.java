@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.instituto.cuanto.sisgene.bean.CabeceraRespuesta;
 import com.instituto.cuanto.sisgene.constantes.Constants;
 import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.util.DateDialog;
+import com.instituto.cuanto.sisgene.util.EnvioServiceUtil;
 import com.instituto.cuanto.sisgene.util.ListViewAdapter;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ import java.util.HashMap;
  */
 public class ExportarEncuestaActivity extends AppCompatActivity {
 
-    Button btnSalir, btnBuscar;
+    Button btnSalir, btnBuscar, btnEnviar;
     private ArrayList<HashMap<String, String>> list;
     String sFIni="",sFFin="";
     ListView listView;
@@ -37,15 +39,18 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
 
         txtDateIni = (EditText) findViewById(R.id.etFechaIni);
         txtDateFin = (EditText) findViewById(R.id.etFechaFin);
-
+/*
         txtDateIni.setOnClickListener(tdFechaIniOnClickListener);
         txtDateFin.setOnClickListener(tdFechaFinOnClickListener);
-
+*/
         btnSalir = (Button)findViewById(R.id.btnSalir);
         btnSalir.setOnClickListener(btnSalirsetOnClickListener);
 
         btnBuscar = (Button)findViewById(R.id.btnBuscar);
         btnBuscar.setOnClickListener(btnBuscarsetOnClickListener);
+
+        btnEnviar = (Button)findViewById(R.id.btnEnviar);
+        btnEnviar.setOnClickListener(btnEnviarsetOnClickListener);
 
         //Recargando lista
         listView =(ListView)findViewById(R.id.lstEncuestas);
@@ -75,12 +80,38 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
         }
     };
 
+    View.OnClickListener btnEnviarsetOnClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+            sFIni = txtDateIni.getText().toString().trim();
+            sFFin = txtDateFin.getText().toString().trim();
+
+            CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
+            List<CabeceraRespuesta> listaCabeceraResp = cabeceraRespDAO.obtenerCabeceraRespuestas(ExportarEncuestaActivity.this,sFIni,sFFin);
+
+            EnvioServiceUtil envioServiceUtil = new EnvioServiceUtil();
+
+            for(CabeceraRespuesta cabeceraResp: listaCabeceraResp){
+                envioServiceUtil.enviarEncuestaEjecutada(ExportarEncuestaActivity.this,cabeceraResp.getIdCabeceraEnc()+"");
+
+                boolean estadoTemp = cabeceraRespDAO.actualizarCabEncEstadoEnviado(ExportarEncuestaActivity.this,cabeceraResp.getIdCabeceraEnc());
+
+                if(estadoTemp != false){
+                    Toast.makeText(ExportarEncuestaActivity.this, "Error al enviar Encuesta Nro. "+cabeceraResp.getNumEncuesta(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        }
+    };
+
 
 
     @Override
     public void onBackPressed() {
     }
-
+/*
     View.OnClickListener tdFechaIniOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -100,7 +131,7 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
             dialog.show(ft, "DatePicker");
         }
     };
-
+*/
     private void populateList() {
         // TODO Auto-generated method stub
 
@@ -129,7 +160,11 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
             temp2.put(Constants.FIVE_COLUMN, cabeceraResp.getHoraInicio());
             temp2.put(Constants.SIX_COLUMN, cabeceraResp.getHoraFin());
             temp2.put(Constants.SEVEN_COLUMN, cabeceraResp.getTiempo());
-            temp2.put(Constants.EIGHT_COLUMN, cabeceraResp.getEstado());
+            String valorEnvi = "";
+            if(cabeceraResp.getEstado().equals("0")) valorEnvi = "NO ENVIADO";
+            if(cabeceraResp.getEstado().equals("1")) valorEnvi = "ENVIADO";
+
+            temp2.put(Constants.EIGHT_COLUMN, valorEnvi);
             list.add(temp2);
         }
 

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.instituto.cuanto.sisgene.bean.CabeceraRespuesta;
 import com.instituto.cuanto.sisgene.constantes.Constants;
@@ -65,11 +66,20 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
 
                 if(posicion != 0){
-                    System.out.println("POSITION: " + posicion);
-                    Intent intent = new Intent(ConsultarSupervisorActivity.this, ModificarEncuestaActivity.class);
-                    intent.putExtra("posicion", posicion + "");
-                    intent.putExtra("estadoEnvi", estadoEnvi);
-                    startActivity(intent);
+
+                    CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
+                    List<CabeceraRespuesta> listaCabeceraResp = cabeceraRespDAO.obtenerCabeceraRespuesta(ConsultarSupervisorActivity.this,estadoEnvi);
+                    CabeceraRespuesta cabeceraResp = listaCabeceraResp.get(posicion-1);
+
+                    if(cabeceraResp.getEstado().equals("1")){
+                        Toast.makeText(ConsultarSupervisorActivity.this, "NO SE PUEDE EDITAR ENCUESTAS YA ENVIADAS", Toast.LENGTH_LONG).show();
+                    }else {
+                        System.out.println("POSITION: " + posicion);
+                        Intent intent = new Intent(ConsultarSupervisorActivity.this, ModificarEncuestaActivity.class);
+                        intent.putExtra("posicion", posicion + "");
+                        intent.putExtra("estadoEnvi", estadoEnvi);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -148,7 +158,10 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
             temp2.put(Constants.FIVE_COLUMN, cabeceraResp.getHoraInicio());
             temp2.put(Constants.SIX_COLUMN, cabeceraResp.getHoraFin());
             temp2.put(Constants.SEVEN_COLUMN, cabeceraResp.getTiempo());
-            temp2.put(Constants.EIGHT_COLUMN, cabeceraResp.getEstado());
+            String estado="";
+            if(cabeceraResp.getEstado().equals("0")) estado = "NO ENVIADO";
+            if(cabeceraResp.getEstado().equals("1")) estado = "ENVIADO";
+            temp2.put(Constants.EIGHT_COLUMN, estado);
             list.add(temp2);
         }
 
