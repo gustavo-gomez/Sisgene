@@ -189,7 +189,7 @@ public class CabeceraRespuestaDAO {
                     " inner join usuario usu on usp.usu_id = usu.usu_id " +
                     " where usu.usu_estado = '1'";
             if (!estadoEnviado.equals("")) {
-                sql = sql + " and cer.caer_benviado >= '" + estadoEnviado + "' ";
+                sql = sql + " and cer.caer_benviado = '" + estadoEnviado + "' ";
             }
 
             cursor = dataBaseHelper.db.rawQuery(sql, null);
@@ -243,7 +243,7 @@ public class CabeceraRespuestaDAO {
                     " inner join usuario usu on usp.usu_id = usu.usu_id " +
                     " where usu.usu_estado = '1'";
             if (!estadoEnviado.equals("")) {
-                sql = sql + " and cer.caer_benviado >= '" + estadoEnviado + "' ";
+                sql = sql + " and cer.caer_benviado = '" + estadoEnviado + "' ";
             }
 
             cursor = dataBaseHelper.db.rawQuery(sql, null);

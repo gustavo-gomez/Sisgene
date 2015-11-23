@@ -179,6 +179,8 @@ public class DatosCabeceraActivity extends AppCompatActivity {
     DialogInterface.OnClickListener alertaSalirOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
+            Intent intent = new Intent(DatosCabeceraActivity.this, PrincipalEncuestaActivity.class);
+            startActivity(intent);
             finish();
         }
     };
@@ -274,7 +276,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                                 "",
                                 etCentroPoblado.getText().toString().trim(),
                                 "",
-                                "",
+                                "0",
                                 "",
                                 usuarioDAO.obtenerIdUsuario(DatosCabeceraActivity.this, userUsu),
                                 String.valueOf(personaId),

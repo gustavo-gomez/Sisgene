@@ -220,7 +220,7 @@ public class EncuestaDAO {
         PreguntaItem preguntaItem = null;
         List<PreguntaItem> listPreguntaItmes = new ArrayList<PreguntaItem>();
 
-        String sql = " SELECT SELECT ite.ite_id,ite.ite_nombre,pri.pri_numeralitem" +
+        String sql = "SELECT ite.ite_id,ite.ite_nombre,pri.pri_numeralitem" +
                 " FROM pregunta_item pri" +
                 " INNER JOIN item ite on pri.ite_id = ite.ite_id" +
                 " WHERE pri.pre_id = " + idPregunta + " ";

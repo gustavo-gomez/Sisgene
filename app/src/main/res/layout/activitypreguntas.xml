@@ -33,18 +33,9 @@
             android:id="@+id/tvEnunciadoPregunta"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textColor="@color/color_texto"
-            android:textSize="19sp" />
-
-        <TextView
-            android:id="@+id/tvOpcionesPregunta"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
             android:layout_weight="3"
             android:textColor="@color/color_texto"
             android:textSize="19sp" />
-
     </LinearLayout>
 
     <LinearLayout

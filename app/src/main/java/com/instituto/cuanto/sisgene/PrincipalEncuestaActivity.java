@@ -111,6 +111,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent(PrincipalEncuestaActivity.this, DatosCabeceraActivity.class);
             startActivity(intent);
+            finish();
         }
     };
 

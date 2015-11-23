@@ -2,6 +2,7 @@ package com.instituto.cuanto.sisgene;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import com.instituto.cuanto.sisgene.bean.PreguntaItem;
 import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
 import com.instituto.cuanto.sisgene.dao.TipoPreguntaDAO;
+import com.instituto.cuanto.sisgene.entities.Pregunta;
 import com.instituto.cuanto.sisgene.entities.RespuestaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizMultipleItem;
@@ -52,6 +54,7 @@ public class PreguntasActivity extends AppCompatActivity {
     Button btnSiguiente;
     Button btnGuardarEncuesta;
     Button btnRechazarEncuesta;
+    Button btnBuscarPregunta;
     ListView lvRespuestas_tipoGeneral;
     Context context = PreguntasActivity.this;
 
@@ -59,7 +62,6 @@ public class PreguntasActivity extends AppCompatActivity {
     TextView tvEnunciadoPregunta;
     TextView tvSeccion;
     TextView tvSubSeccion;
-    TextView tvOpcionesPregunta;
 
 
     //variables que seran cambiadas de pregunta en pregunta
@@ -92,11 +94,11 @@ public class PreguntasActivity extends AppCompatActivity {
         btnSiguiente = (Button) findViewById(R.id.btnSiguiente);
         btnGuardarEncuesta = (Button) findViewById(R.id.btnGuardarEncuesta);
         btnRechazarEncuesta = (Button) findViewById(R.id.btnRechazarEncuesta);
+        btnBuscarPregunta = (Button) findViewById(R.id.btnBuscarPregunta);
 
         //lyFragmentoListaPreguntas = (LinearLayout) findViewById(R.id.lyFragmentoListaPreguntas);
         lvRespuestas_tipoGeneral = (ListView) findViewById(R.id.lvRespuestas_tipoGeneral);
         tvEnunciadoPregunta = (TextView) findViewById(R.id.tvEnunciadoPregunta);
-        tvOpcionesPregunta = (TextView) findViewById(R.id.tvOpcionesPregunta);
         tvSeccion = (TextView) findViewById(R.id.tvSeccion);
         tvSubSeccion = (TextView) findViewById(R.id.tvSubSeccion);
         TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter = new TipoPreguntaAbiertaAdapter();
@@ -114,6 +116,7 @@ public class PreguntasActivity extends AppCompatActivity {
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
         btnGuardarEncuesta.setOnClickListener(btnGuardarEncuestasetOnClickListener);
         btnRechazarEncuesta.setOnClickListener(btnRechazarEncuestasetOnClickListener);
+        btnBuscarPregunta.setOnClickListener(btnBuscarPreguntasetOnClickListener);
 
         leerPrimeraPregunta();        //leer todos los datos de la primera pregunta
         leerTipoPreguntaxPregunta();
@@ -191,14 +194,15 @@ public class PreguntasActivity extends AppCompatActivity {
 
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
             opciones = opciones + listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim() + "\t";
+            System.out.println("opcion " + i+": "+ listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
         }
         opciones = opciones + "\n";
 
         if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM"))
-            for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
+            for (int i = 0; i < listPreguntaItems.size(); i++) {
                 opciones = opciones + listPreguntaItems.get(i).getIte_nombre().toString().trim() + "\t";
+                System.out.println("item " + i+": "+ listPreguntaItems.get(i).getIte_nombre().toString().trim());
             }
-        tvOpcionesPregunta.setText(opciones);
 
         //mostrar datos -- eliminar
         System.out.println("secccion: " + numeroSecccion + ": " + nombreSecccion);
@@ -211,6 +215,37 @@ public class PreguntasActivity extends AppCompatActivity {
     }
 
     private void leerSiguientePregunta() {
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
+        EncuestaPregunta encuestaPregunta;
+        //ir a BD para sacar la primera preguna de dicha ecuesta
+        encuestaPregunta = encuestaDAO.obtenerPreguntaEncuesta(PreguntasActivity.this, idPregunta);
+        // Setear datos para la primera pregunta
+        nombreSecccion = encuestaPregunta.getSec_nombre();
+        numeroSecccion = encuestaPregunta.getSec_numero_seccion();
+        numeroSecccion = encuestaPregunta.getSec_numero_seccion();
+        numeroSubSeccion = encuestaPregunta.getSus_numero_subseccion();
+        nombreSubSeccion = encuestaPregunta.getSus_nombre();
+        idPregunta = encuestaPregunta.getPre_id();
+        //pregutna
+        tipoPreguntaActual = encuestaPregunta.getPre_tipo_rpta();
+        enunciadoPregunta = encuestaPregunta.getPre_enunciado();
+        numeroPreguntaBD = encuestaPregunta.getPre_numero();
+        encuestarTodos = Integer.parseInt(encuestaPregunta.getPre_unica_persona()); // 0:todos   -  1: una persona
+        try {
+            ordenImportancia = Integer.parseInt(encuestaPregunta.getPre_importarordenrptamu()); //Que va a retornar
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            ordenImportancia = 0;
+        }
+        //obtener alternativas
+        if (!tipoPreguntaActual.equals("AB"))
+            listPreguntaAlterntiva = encuestaDAO.obtenerAlternativas(PreguntasActivity.this, idPregunta);
+
+        if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM"))
+            listPreguntaItems = encuestaDAO.obtenerItems(PreguntasActivity.this, idPregunta);
+
+    }
+    private void leerPreguntaPorNumPregunta() {
         EncuestaDAO encuestaDAO = new EncuestaDAO();
         EncuestaPregunta encuestaPregunta;
         //ir a BD para sacar la primera preguna de dicha ecuesta
@@ -269,6 +304,14 @@ public class PreguntasActivity extends AppCompatActivity {
                     .setCancelable(false).show();
         }
     };
+
+    View.OnClickListener btnBuscarPreguntasetOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
+
     DialogInterface.OnClickListener alertaAceptarOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
@@ -330,6 +373,8 @@ public class PreguntasActivity extends AppCompatActivity {
     DialogInterface.OnClickListener alertaAceptarGuardarEncuestaOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
+            Intent intent = new Intent(PreguntasActivity.this, PrincipalEncuestaActivity.class);
+            startActivity(intent);
             dialogInterface.dismiss();
             finish();
         }
