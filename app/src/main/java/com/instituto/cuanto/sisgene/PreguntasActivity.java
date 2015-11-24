@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -62,7 +63,7 @@ public class PreguntasActivity extends AppCompatActivity {
     TextView tvEnunciadoPregunta;
     TextView tvSeccion;
     TextView tvSubSeccion;
-
+    EditText etnumPregunta;
 
     //variables que seran cambiadas de pregunta en pregunta
     //Pregunta
@@ -95,6 +96,7 @@ public class PreguntasActivity extends AppCompatActivity {
         btnGuardarEncuesta = (Button) findViewById(R.id.btnGuardarEncuesta);
         btnRechazarEncuesta = (Button) findViewById(R.id.btnRechazarEncuesta);
         btnBuscarPregunta = (Button) findViewById(R.id.btnBuscarPregunta);
+        etnumPregunta = (EditText) findViewById(R.id.etnumPregunta);
 
         //lyFragmentoListaPreguntas = (LinearLayout) findViewById(R.id.lyFragmentoListaPreguntas);
         lvRespuestas_tipoGeneral = (ListView) findViewById(R.id.lvRespuestas_tipoGeneral);
@@ -194,14 +196,14 @@ public class PreguntasActivity extends AppCompatActivity {
 
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
             opciones = opciones + listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim() + "\t";
-            System.out.println("opcion " + i+": "+ listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
+            System.out.println("opcion " + i + ": " + listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
         }
         opciones = opciones + "\n";
 
         if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM"))
             for (int i = 0; i < listPreguntaItems.size(); i++) {
                 opciones = opciones + listPreguntaItems.get(i).getIte_nombre().toString().trim() + "\t";
-                System.out.println("item " + i+": "+ listPreguntaItems.get(i).getIte_nombre().toString().trim());
+                System.out.println("item " + i + ": " + listPreguntaItems.get(i).getIte_nombre().toString().trim());
             }
 
         //mostrar datos -- eliminar
@@ -220,60 +222,80 @@ public class PreguntasActivity extends AppCompatActivity {
         //ir a BD para sacar la primera preguna de dicha ecuesta
         encuestaPregunta = encuestaDAO.obtenerPreguntaEncuesta(PreguntasActivity.this, idPregunta);
         // Setear datos para la primera pregunta
-        nombreSecccion = encuestaPregunta.getSec_nombre();
-        numeroSecccion = encuestaPregunta.getSec_numero_seccion();
-        numeroSecccion = encuestaPregunta.getSec_numero_seccion();
-        numeroSubSeccion = encuestaPregunta.getSus_numero_subseccion();
-        nombreSubSeccion = encuestaPregunta.getSus_nombre();
-        idPregunta = encuestaPregunta.getPre_id();
-        //pregutna
-        tipoPreguntaActual = encuestaPregunta.getPre_tipo_rpta();
-        enunciadoPregunta = encuestaPregunta.getPre_enunciado();
-        numeroPreguntaBD = encuestaPregunta.getPre_numero();
-        encuestarTodos = Integer.parseInt(encuestaPregunta.getPre_unica_persona()); // 0:todos   -  1: una persona
-        try {
-            ordenImportancia = Integer.parseInt(encuestaPregunta.getPre_importarordenrptamu()); //Que va a retornar
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            ordenImportancia = 0;
-        }
-        //obtener alternativas
-        if (!tipoPreguntaActual.equals("AB"))
-            listPreguntaAlterntiva = encuestaDAO.obtenerAlternativas(PreguntasActivity.this, idPregunta);
+        if (encuestaPregunta != null) {
+            nombreSecccion = encuestaPregunta.getSec_nombre();
+            numeroSecccion = encuestaPregunta.getSec_numero_seccion();
+            numeroSecccion = encuestaPregunta.getSec_numero_seccion();
+            numeroSubSeccion = encuestaPregunta.getSus_numero_subseccion();
+            nombreSubSeccion = encuestaPregunta.getSus_nombre();
+            idPregunta = encuestaPregunta.getPre_id();
+            //pregutna
+            tipoPreguntaActual = encuestaPregunta.getPre_tipo_rpta();
+            enunciadoPregunta = encuestaPregunta.getPre_enunciado();
+            numeroPreguntaBD = encuestaPregunta.getPre_numero();
+            encuestarTodos = Integer.parseInt(encuestaPregunta.getPre_unica_persona()); // 0:todos   -  1: una persona
+            try {
+                ordenImportancia = Integer.parseInt(encuestaPregunta.getPre_importarordenrptamu()); //Que va a retornar
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                ordenImportancia = 0;
+            }
+            //obtener alternativas
+            if (!tipoPreguntaActual.equals("AB"))
+                listPreguntaAlterntiva = encuestaDAO.obtenerAlternativas(PreguntasActivity.this, idPregunta);
 
-        if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM"))
-            listPreguntaItems = encuestaDAO.obtenerItems(PreguntasActivity.this, idPregunta);
+            if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM"))
+                listPreguntaItems = encuestaDAO.obtenerItems(PreguntasActivity.this, idPregunta);
+        } else {
+            idPregunta = Integer.parseInt(idPregunta) + 1 + "";
+            leerSiguientePregunta();
+        }
 
     }
+
     private void leerPreguntaPorNumPregunta() {
         EncuestaDAO encuestaDAO = new EncuestaDAO();
-        EncuestaPregunta encuestaPregunta;
-        //ir a BD para sacar la primera preguna de dicha ecuesta
-        encuestaPregunta = encuestaDAO.obtenerPreguntaEncuesta(PreguntasActivity.this, idPregunta);
-        // Setear datos para la primera pregunta
-        nombreSecccion = encuestaPregunta.getSec_nombre();
-        numeroSecccion = encuestaPregunta.getSec_numero_seccion();
-        numeroSecccion = encuestaPregunta.getSec_numero_seccion();
-        numeroSubSeccion = encuestaPregunta.getSus_numero_subseccion();
-        nombreSubSeccion = encuestaPregunta.getSus_nombre();
-        idPregunta = encuestaPregunta.getPre_id();
-        //pregutna
-        tipoPreguntaActual = encuestaPregunta.getPre_tipo_rpta();
-        enunciadoPregunta = encuestaPregunta.getPre_enunciado();
-        numeroPreguntaBD = encuestaPregunta.getPre_numero();
-        encuestarTodos = Integer.parseInt(encuestaPregunta.getPre_unica_persona()); // 0:todos   -  1: una persona
-        try {
-            ordenImportancia = Integer.parseInt(encuestaPregunta.getPre_importarordenrptamu()); //Que va a retornar
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            ordenImportancia = 0;
-        }
-        //obtener alternativas
-        if (!tipoPreguntaActual.equals("AB"))
-            listPreguntaAlterntiva = encuestaDAO.obtenerAlternativas(PreguntasActivity.this, idPregunta);
+        EncuestaPregunta encuestaPregunta = null;
 
-        if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM"))
-            listPreguntaItems = encuestaDAO.obtenerItems(PreguntasActivity.this, idPregunta);
+        if (etnumPregunta.getText().toString().trim().length() == 0) {
+            Toast.makeText(PreguntasActivity.this, "Ingrese el número de pregunta", Toast.LENGTH_LONG).show();
+            return;
+        }
+        else
+            encuestaPregunta = encuestaDAO.obtenerPreguntaPorNumPregunta(PreguntasActivity.this,
+                    etnumPregunta.getText().toString().trim());
+
+        if (encuestaPregunta != null) {
+            nombreSecccion = encuestaPregunta.getSec_nombre();
+            numeroSecccion = encuestaPregunta.getSec_numero_seccion();
+            numeroSecccion = encuestaPregunta.getSec_numero_seccion();
+            numeroSubSeccion = encuestaPregunta.getSus_numero_subseccion();
+            nombreSubSeccion = encuestaPregunta.getSus_nombre();
+            idPregunta = encuestaPregunta.getPre_id();
+            //pregutna
+            tipoPreguntaActual = encuestaPregunta.getPre_tipo_rpta();
+            enunciadoPregunta = encuestaPregunta.getPre_enunciado();
+            numeroPreguntaBD = encuestaPregunta.getPre_numero();
+            encuestarTodos = Integer.parseInt(encuestaPregunta.getPre_unica_persona()); // 0:todos   -  1: una persona
+            try {
+                ordenImportancia = Integer.parseInt(encuestaPregunta.getPre_importarordenrptamu()); //Que va a retornar
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                ordenImportancia = 0;
+            }
+            //obtener alternativas
+            if (!tipoPreguntaActual.equals("AB"))
+                listPreguntaAlterntiva = encuestaDAO.obtenerAlternativas(PreguntasActivity.this, idPregunta);
+
+            if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM"))
+                listPreguntaItems = encuestaDAO.obtenerItems(PreguntasActivity.this, idPregunta);
+        } else
+        {
+            limpiarLista();
+            new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("El número de pregunta no existe")
+                    .setNeutralButton("Aceptar", alertaCancelarOnClickListener)
+                    .setCancelable(false).show();
+        }
 
     }
 
@@ -304,11 +326,25 @@ public class PreguntasActivity extends AppCompatActivity {
                     .setCancelable(false).show();
         }
     };
-
+    //Buscar pregunta por numero de pregunta
     View.OnClickListener btnBuscarPreguntasetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
+            if (ultimaPregunta == false) {
+                //leer la siguiente pregunta
+                leerPreguntaPorNumPregunta();
+                etnumPregunta.setText("");
+                if (Integer.parseInt(idPregunta) != ultimoIdPregunta) {
+                    //Aun no se llega a la ultima pregunta, mostrar interfaz segun la pregunta leida
+                    leeryGuardarDatos();
+                    leerTipoPreguntaxPregunta();
+                } else
+                    ultimaPregunta = true;
+            } else {
+                btnSiguiente.setEnabled(false);
+                Toast.makeText(PreguntasActivity.this, "Ésta es la ú.ltima pregunta de la encuesta", Toast.LENGTH_LONG).show();
+            }
         }
     };
 
@@ -390,7 +426,6 @@ public class PreguntasActivity extends AppCompatActivity {
 
         //mostrar datos de seccion, subseccion, enunciado y opciones
         mostrarDatosSeccion();
-
         //Mostrar lista segun el tipo de pregunta
         //Tipo de pregunta Unica
         if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
@@ -444,12 +479,17 @@ public class PreguntasActivity extends AppCompatActivity {
     private void leerRespuestasTipoAbierta() {
         String respuestaAbierta = "";
 
+
+        System.out.println("abierta:" + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
+
+        System.out.println("encuestados: "+ codigosIdentEncuestados.size());
+
         for (int i = 0; i < TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size(); i++) {
             TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
             //agregar el codigo de identificacion
             Formatter codIdent = new Formatter();
             codIdent.format("%02d", codigosIdentEncuestados.get(i));
-            System.out.println("------------------------------" + codIdent.format("%02d", codigosIdentEncuestados.get(i))+"-----------------------------------------");
+            System.out.println("------------------------------" + codIdent.format("%02d", codigosIdentEncuestados.get(i)) + "-----------------------------------------");
             respuestaAbierta = "[" + codIdent + "]";
             //respuestaAbierta = respuestaAbierta + "[" + "]";
             //en caso el usuario no haya escrito nada
@@ -809,5 +849,31 @@ public class PreguntasActivity extends AppCompatActivity {
         //Guardar la respuesta de cada pregunta en BD
         cabeceraRespuestaDAO.insertarDetEnc(PreguntasActivity.this, rpta, String.valueOf(cabeceraRespuesta.getIdCabeceraEnc()), idPregunta);
         System.out.println("Guardar respuesta: " + rpta);
+    }
+
+    private void limpiarLista() {
+        if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
+            TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.limpiarLista();
+
+            //Tipo de pregunta Multiple
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
+            TipoPreguntaMultipleAdapter.tipoPreguntaMultipleAdapter.limpiarLista();
+
+            //Tipo de pregunta abierta
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
+            TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
+
+            //Tipo de pregunta Matriz Simple
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatSimple))) {
+            TipoPreguntaMatrizSimpleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
+
+            //Tipo de pregunta Matriz Multiple
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatMultiple))) {
+            TipoPreguntaMatrizMultipleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
+
+            //Tipo de pregunta Mixta
+        } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
+            TipoPreguntaMixtaAdapter.tipoPreguntaMixtaAdapter.limpiarLista();
+        }
     }
 }
