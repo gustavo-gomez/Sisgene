@@ -56,9 +56,8 @@ public class PersonaDAO {
         try {
             String sql = " INSERT INTO persona (per_nombres,per_appaterno,per_apmaterno,per_num_documento,per_telefono,per_celular,per_correo)" +
                     " VALUES(?,?,?,?,?,?,?)";
-
+            System.out.println("insertarPersona: sql: " + sql);
             dataBaseHelper.db.execSQL(sql, arg);
-
             response = true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -66,7 +65,7 @@ public class PersonaDAO {
             if (cursor != null)
                 cursor.close();
         }
-
+        System.out.println("insertarPersona: response:" + response);
         return response;
     }
 
@@ -88,7 +87,6 @@ public class PersonaDAO {
                 response = cursor.getInt(0);
 
             }
-
             return response;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -96,7 +94,7 @@ public class PersonaDAO {
             if (cursor != null)
                 cursor.close();
         }
-
+        System.out.println("obtenerUltIdPersona: id:" + response);
         return 0;
 
     }
@@ -141,8 +139,8 @@ public class PersonaDAO {
         boolean response = false;
 
         try {
-            String sql = " INSERT INTO allegado (all_nombres,all_appaterno,all_apmaterno,)" +
-                    " VALUES(?,?,?,?,?,?,?)";
+            String sql = " INSERT INTO allegado (all_nombre,all_appaterno,all_apmaterno)" +
+                    " VALUES(?,?,?)";
 
             dataBaseHelper.db.execSQL(sql, arg);
 
@@ -153,9 +151,35 @@ public class PersonaDAO {
             if (cursor != null)
                 cursor.close();
         }
-
+        System.out.println("insertarAllegado: response: " + response);
         return response;
     }
 
+    public int obtenerUltIdAlle(Context context) {
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        int response = 0;
+
+        try {
+
+            cursor = dataBaseHelper.db.rawQuery("select alle.all_id from allegado alle order by alle.all_id desc", null);
+
+            if (cursor.moveToFirst()) {
+                response = cursor.getInt(0);
+            }
+            System.out.println("obtenerUltIdAlle: OK, id: " + response);
+            return response;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        System.out.println("obtenerUltIdAlle: ERROR ");
+        return 0;
+
+
+    }
 
 }

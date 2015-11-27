@@ -411,8 +411,10 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                                 +numerodePersonasEncuestadas + " personas ", Toast.LENGTH_LONG).show();
                         finish();
                     }
+                    codigosIdentEncuestados.add(personaDAO.obtenerUltIdAlle(NombresPersonasEncuestadasActivity.this));
                 }
 
+                /*
                 //obteniendo el codigo de indentificacion de todos los usuarios
                 for (int i = 0; i < numerodePersonasEncuestadas; i++) {
                     codigosIdentEncuestados.add(personaDAO.obtenerIdPersonabyNombres(NombresPersonasEncuestadasActivity.this,
@@ -420,6 +422,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                             apellidosPatEdits.get(i).getText().toString().trim(),
                             apellidosMatEdits.get(i).getText().toString().trim()));
                 }
+                */
                 //eliminar for, solo para mostrar los nombres de los allegados
                 for (int i = 0; i < nombresEncuestados.size(); i++) {
                     System.out.println("nombre " + i + " : " + nombresEncuestados.get(i).toString());
