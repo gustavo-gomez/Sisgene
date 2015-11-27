@@ -88,20 +88,24 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
             sFIni = txtDateIni.getText().toString().trim();
             sFFin = txtDateFin.getText().toString().trim();
 
-            CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
-            List<CabeceraRespuesta> listaCabeceraResp = cabeceraRespDAO.obtenerCabeceraRespuestas(ExportarEncuestaActivity.this,sFIni,sFFin);
+            try {
+                CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
+                List<CabeceraRespuesta> listaCabeceraResp = cabeceraRespDAO.obtenerCabeceraRespuestas(ExportarEncuestaActivity.this, sFIni, sFFin);
 
-            EnvioServiceUtil envioServiceUtil = new EnvioServiceUtil();
+                EnvioServiceUtil envioServiceUtil = new EnvioServiceUtil();
 
-            for(CabeceraRespuesta cabeceraResp: listaCabeceraResp){
-                envioServiceUtil.enviarEncuestaEjecutada(ExportarEncuestaActivity.this,cabeceraResp.getIdCabeceraEnc()+"");
+                for (CabeceraRespuesta cabeceraResp : listaCabeceraResp) {
 
-                boolean estadoTemp = cabeceraRespDAO.actualizarCabEncEstadoEnviado(ExportarEncuestaActivity.this,cabeceraResp.getIdCabeceraEnc());
+                    envioServiceUtil.enviarEncuestaEjecutada(ExportarEncuestaActivity.this, cabeceraResp.getIdCabeceraEnc() + "");
 
-                if(estadoTemp != false){
-                    Toast.makeText(ExportarEncuestaActivity.this, "Error al enviar Encuesta Nro. "+cabeceraResp.getNumEncuesta(), Toast.LENGTH_LONG).show();
-                    return;
+                    boolean estadoTemp = cabeceraRespDAO.actualizarCabEncEstadoEnviado(ExportarEncuestaActivity.this, cabeceraResp.getIdCabeceraEnc());
+
+                    if(estadoTemp != false){
+                        return;
+                    }
                 }
+            }catch(Exception e){
+                System.out.println("ERROR EXC : "+e.getMessage());
             }
         }
     };

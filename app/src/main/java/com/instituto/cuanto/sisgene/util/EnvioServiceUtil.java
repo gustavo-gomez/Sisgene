@@ -17,12 +17,15 @@ import com.instituto.cuanto.sisgene.forms.GuardarEncuestaRequest;
 import com.instituto.cuanto.sisgene.forms.GuardarEncuestaResponse;
 import com.instituto.cuanto.sisgene.forms.ValidarAdministradorResponse;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.net.URLEncoder;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.http.FormUrlEncoded;
 
 /**
  * Created by Jesus on 19/11/2015.
@@ -30,17 +33,30 @@ import retrofit.client.Response;
 public class EnvioServiceUtil {
 
     Context context;
-    String idCabEnc = "",estadoWS = "";
+    String idCabEnc = "",estadoWS = "",ip="",puerto="";
     Gson gson = new Gson();
 
     public EnvioServiceUtil(){}
 
     public boolean enviarEncuestaEjecutada(Context context, String idCabeceraEncuesta){
+
+        System.out.println("IDCAB : "+idCabeceraEncuesta);
+
         this.context = context;
         this.idCabEnc = idCabeceraEncuesta;
 
         try {
-            new RestCosumeAsyncTask().execute();
+            LeerProperties leerProperties = new LeerProperties();
+            String ipWS = leerProperties.leerIPWS();
+            String puertoWS = leerProperties.leerPUERTOWS();
+            ip = ipWS;
+            puerto = puertoWS;
+
+            if(ipWS != null && puertoWS != null){
+                new RestCosumeAsyncTask().execute();
+            }else{
+                Toast.makeText(context, "No se encuentra el archivo de configuracion", Toast.LENGTH_LONG).show();
+            }
 
             if (estadoWS.equals("00")) {
                 return true;
@@ -74,19 +90,29 @@ public class EnvioServiceUtil {
             guardarRequest.setLista_det_enc_rpta(detalleEncuestaRptas);
             guardarRequest.setLista_allegados(listAllegado);
 
-
             String jsonEnviar = gson.toJson(guardarRequest);
+            System.out.println("JASON ENVIAR : "+jsonEnviar);
+
+            try {
+                String a = URLEncoder.encode(jsonEnviar, "UTF-8");
+                jsonEnviar = a;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
 
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint("http://192.168.1.34:8084/resources/WebServiceSISGENE")
+                    .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
                     .build();
+
 
             EnvioService service = restAdapter.create(EnvioService.class);
 
             service.repository2Sync(jsonEnviar, new Callback<GuardarEncuestaResponse>() {
                 @Override
                 public void success(GuardarEncuestaResponse guardarEncuestaResponse, Response response) {
-                    if (guardarEncuestaResponse.getCodigo_mensaje().equals("01")){
+                    System.out.println("1.- "+guardarEncuestaResponse.getCodigo_respuesta());
+                    System.out.println("2.- "+guardarEncuestaResponse.getMensaje());
+                    if (guardarEncuestaResponse.getCodigo_respuesta().equals("01")){
                         estadoWS = "01";
                         progressDialog.hide();
                         Toast.makeText(context, guardarEncuestaResponse.getMensaje(), Toast.LENGTH_LONG).show();

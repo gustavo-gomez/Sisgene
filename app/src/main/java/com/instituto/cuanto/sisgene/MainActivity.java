@@ -43,6 +43,7 @@ import com.instituto.cuanto.sisgene.entidad.UsuarioPersona;
 import com.instituto.cuanto.sisgene.forms.ValidarAdministradorRequest;
 import com.instituto.cuanto.sisgene.forms.ValidarAdministradorResponse;
 import com.instituto.cuanto.sisgene.util.Criptografo;
+import com.instituto.cuanto.sisgene.util.LeerProperties;
 
 import java.util.List;
 
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner listaRol;
     LinearLayout lyCodigo;
     Gson gson = new Gson();
+    String ip="",puerto="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +79,11 @@ public class MainActivity extends AppCompatActivity {
         listaRol = (Spinner) findViewById(R.id.spRol);
         lyCodigo = (LinearLayout) findViewById(R.id.lyNombreEncuesta);
 
-
         listaRol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 2) {
+                if (i == 2){
                     lyCodigo.setVisibility(View.VISIBLE);
-                } else {
+                }else {
                     lyCodigo.setVisibility(View.INVISIBLE);
                 }
             }
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
             }
+
         });
 
         btnAceptar.setOnClickListener(btnAceptarsetOnClickListener);
@@ -124,19 +126,28 @@ public class MainActivity extends AppCompatActivity {
 
                 if (cantidadData == 0) {
                     if (rolAcceso.equals("ADMINISTRADOR")) {
-                        new RestCosumeAsyncTask().execute();
-                    } else {
+                        LeerProperties leerProperties = new LeerProperties();
+                        String ipWS = leerProperties.leerIPWS();
+                        String puertoWS = leerProperties.leerPUERTOWS();
+                        ip = ipWS;
+                        puerto = puertoWS;
+
+                        if(ipWS != null && puertoWS != null){
+                            new RestCosumeAsyncTask().execute();
+                        }else{
+                            Toast.makeText(MainActivity.this, "No se encuentra el archivo de configuracion", Toast.LENGTH_LONG).show();
+                        }
+
+                    }else{
                         Toast.makeText(MainActivity.this, "Tablet no cargada, porfavor utilizar un usuario ADMINISTRADOR", Toast.LENGTH_LONG).show();
                     }
 
-                } else {
+                }else{
                     System.out.println("YA HAY DATA");
                     String nomUsu = etNombreUsuario.getText().toString().trim();
                     String clvUsu = etClave.getText().toString().trim();
 
                     Criptografo criptografo = new Criptografo();
-                    System.out.println("--->>>>>>>>>>>>>>>>> " + clvUsu);
-                    System.out.println("CLAV COMODIN : " + criptografo.desencripta("t40jzUAt1o2SJ2pjtmuXzy8FvP9xg58F"));
 
                     Usuarios usuario = usuarioDAO.obtenerUsuario(MainActivity.this, nomUsu, rolAcceso);
 
@@ -193,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
             String jsonEnviar = gson.toJson(validarRequest);
 
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint("http://192.168.1.35:8083/resources/WebServiceSISGENE")
+                    .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
                     //.setEndpoint("http://172.16.139.227:8080/WSSisgene/resources/WebServiceSISGENE")
                     .build();
 
