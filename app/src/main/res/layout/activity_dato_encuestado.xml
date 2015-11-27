@@ -702,21 +702,21 @@
         android:gravity="right">
 
         <Button
-            android:id="@+id/btAceptareIniciarEncuesta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@color/color_fondo_boton"
-            android:text="Aceptar e Iniciar Encuesta"
-            android:textColor="@color/color_texto_boton" />
-
-        <Button
             android:id="@+id/btSalir_datosCabecera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@color/color_fondo_boton"
             android:text="CANCELAR"
+            android:textColor="@color/color_texto_boton" />
+
+        <Button
+            android:id="@+id/btAceptareIniciarEncuesta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/color_fondo_boton"
+            android:text="Aceptar e Iniciar Encuesta"
             android:textColor="@color/color_texto_boton" />
 
     </LinearLayout>

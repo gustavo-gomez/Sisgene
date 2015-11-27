@@ -487,18 +487,14 @@ public class PreguntasActivity extends AppCompatActivity {
             //en caso el usuario no haya escrito nada
             if (nombresEncuestados.get(i).trim().equals(tipoPreguntaAbiertaItem.getDescription().trim())) {
                 respuestaAbierta = respuestaAbierta + "null";
-                System.out.println("respuestaAbierta if: " + respuestaAbierta);
             } else {
                 respuestaAbierta = respuestaAbierta + tipoPreguntaAbiertaItem.getDescription();
-                System.out.println("respuestaAbierta else: " + respuestaAbierta);
             }
             if (i != TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size() - 1) {
                 respuestaAbierta = "" + respuestaAbierta + "&";
-                System.out.println("respuestaAbierta amperson:" + respuestaAbierta);
             }
         }
 
-        System.out.println("respuesta: {" + respuestaAbierta + "}");
         //guardar en base de datos la respuesta
         TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
 
@@ -524,7 +520,6 @@ public class PreguntasActivity extends AppCompatActivity {
             if (i != TipoPreguntaUnicaAdapter.myListPreguntaUnica.size() - 1)
                 respuestaUnica = "" + respuestaUnica + "&";
         }
-        System.out.println("Respuesta tipo pregunta unica: {" + respuestaUnica + "}");
         TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.limpiarLista();
 
         guardarRespuesta(respuestaUnica);
@@ -556,7 +551,6 @@ public class PreguntasActivity extends AppCompatActivity {
             cont = 0;
         }
         //guardar en base de datos
-        System.out.println("respuestaMultiple:{" + respuestaMultiple + "}");
         TipoPreguntaMultipleAdapter.tipoPreguntaMultipleAdapter.limpiarLista();
 
         guardarRespuesta(respuestaMultiple);
@@ -597,7 +591,6 @@ public class PreguntasActivity extends AppCompatActivity {
             cont = 0;
         }
         //guardar en base de datos
-        System.out.println("respuestaMixta:{" + respuestaMixta + "}");
         TipoPreguntaMixtaAdapter.tipoPreguntaMixtaAdapter.limpiarLista();
 
         guardarRespuesta(respuestaMixta);
@@ -639,7 +632,6 @@ public class PreguntasActivity extends AppCompatActivity {
         //System.out.println("respuesta: {" + respuestaMatrizS + "}");
         //guardar en base de datos la respuesta
         TipoPreguntaMatrizSimpleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
-        System.out.println("respuestaMatrizS" + respuestaMatrizS);
         //guardarRespuesta(respuestaMatrizS);
     }
 
@@ -690,7 +682,6 @@ public class PreguntasActivity extends AppCompatActivity {
             cont = 0;
         }
 
-        System.out.println("respuesta: {" + respuestaMatrizM + "}");
         //guardar en base de datos la respuesta
         TipoPreguntaMatrizMultipleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
 
@@ -838,13 +829,15 @@ public class PreguntasActivity extends AppCompatActivity {
     private void guardarRespuesta(String rpta) {
 
         CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
+        System.out.println("Guardar respuesta: " + rpta);
 
         //Obtener el ultimo Id de la tabla cab_enc_rpta, para ser usado al guardar la pregunta
         CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
+        System.out.println("idCabecera obtenida: " + cabeceraRespuesta.getIdCabeceraEnc());
 
         //Guardar la respuesta de cada pregunta en BD
         cabeceraRespuestaDAO.insertarDetEnc(PreguntasActivity.this, rpta, String.valueOf(cabeceraRespuesta.getIdCabeceraEnc()), idPregunta);
-        System.out.println("Guardar respuesta: " + rpta);
+
     }
 
     private void limpiarLista() {

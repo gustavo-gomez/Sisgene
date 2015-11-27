@@ -104,7 +104,7 @@ public class CabeceraRespuestaDAO {
             if (cursor.moveToFirst()) {
                 UltimoNumeroEncuestaCabecera = cursor.getInt(0);
             }
-
+            System.out.println("obtenerUltimoNumeroEncuestaCabecera,OK  UltimoNumeroEncuestaCabecera:" + UltimoNumeroEncuestaCabecera);
             return UltimoNumeroEncuestaCabecera;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -112,7 +112,7 @@ public class CabeceraRespuestaDAO {
             if (cursor != null)
                 cursor.close();
         }
-
+        System.out.println("obtenerUltimoNumeroEncuestaCabecera, ERROR UltimoNumeroEncuestaCabecera:" + UltimoNumeroEncuestaCabecera);
         return UltimoNumeroEncuestaCabecera;
 
     }
@@ -360,13 +360,13 @@ public class CabeceraRespuestaDAO {
         String arg[] = {conglomerado, zona, manzana, vivienda, hogar, centropoblado, idPers};
         boolean response = false;
 
-        System.out.println("conglomerad : "+conglomerado);
-        System.out.println("zonA : "+zona);
-        System.out.println("manzana : "+manzana);
-        System.out.println("vivienda : "+vivienda);
-        System.out.println("hogar : "+hogar);
-        System.out.println("centor poblado : "+centropoblado);
-        System.out.println("IDPERS : "+idPers);
+        System.out.println("conglomerad : " + conglomerado);
+        System.out.println("zonA : " + zona);
+        System.out.println("manzana : " + manzana);
+        System.out.println("vivienda : " + vivienda);
+        System.out.println("hogar : " + hogar);
+        System.out.println("centor poblado : " + centropoblado);
+        System.out.println("IDPERS : " + idPers);
 
         try {
             String sql = " INSERT INTO cab_enc_rpta (caer_nconglomerado,caer_nzona_aer,caer_nmanzana," +
@@ -378,7 +378,7 @@ public class CabeceraRespuestaDAO {
             System.out.println("INSERTO CORRECTAMENTE LA CAB_ENC_RPTA");
             response = true;
         } catch (Exception ex) {
-            System.out.println("ERROR AL GUARDAR CAB_EN_RPTA : "+ex.getMessage());
+            System.out.println("ERROR AL GUARDAR CAB_EN_RPTA : " + ex.getMessage());
             ex.printStackTrace();
         } finally {
             if (cursor != null)
@@ -393,13 +393,13 @@ public class CabeceraRespuestaDAO {
                                    String caer_observaciones, String caer_nconglomerado, String caer_nzona_aer, String caer_nmanzana, String caer_nvivienda,
                                    String caer_nhogar, String caer_narea, String caer_ncondicion, String caer_codigo_informante, String caer_hora_inicio,
                                    String caer_hora_fin, String caer_tiempo, String caer_codigo_centropoblado, String caer_nombre_centropoblado,
-                                   String caer_categoria_centropoblado, String caer_benviado, String caer_fencuestaenviada, String usp_id, String per_id, String dir_id){
+                                   String caer_categoria_centropoblado, String caer_benviado, String caer_fencuestaenviada, String usp_id, String per_id, String dir_id) {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         String arg[] = {caer_numero_encuesta, caer_estado, caer_fencuesta, caer_observaciones, caer_nconglomerado, caer_nzona_aer,
-                caer_nmanzana,caer_nvivienda,caer_nhogar,caer_narea,caer_ncondicion,caer_codigo_informante,caer_hora_inicio,caer_hora_fin,
-                caer_tiempo,caer_codigo_centropoblado,caer_nombre_centropoblado,caer_categoria_centropoblado,caer_benviado,caer_fencuestaenviada,
-                usp_id, per_id,dir_id};
+                caer_nmanzana, caer_nvivienda, caer_nhogar, caer_narea, caer_ncondicion, caer_codigo_informante, caer_hora_inicio, caer_hora_fin,
+                caer_tiempo, caer_codigo_centropoblado, caer_nombre_centropoblado, caer_categoria_centropoblado, caer_benviado, caer_fencuestaenviada,
+                usp_id, per_id, dir_id};
 
         boolean response = false;
 
@@ -437,7 +437,7 @@ public class CabeceraRespuestaDAO {
                     " VALUES (?,?,?)";
 
             dataBaseHelper.db.execSQL(sql, arg);
-
+            System.out.println("nsertarDetEnc ****OK****");
             response = true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -445,7 +445,7 @@ public class CabeceraRespuestaDAO {
             if (cursor != null)
                 cursor.close();
         }
-
+        System.out.println("insertarDetEnc ****ERROR****");
         return response;
 
     }
@@ -520,7 +520,7 @@ public class CabeceraRespuestaDAO {
                     " from caratula_encuesta cae " +
                     " inner join usuario_persona usp on usp.cae_id = cae.cae_id " +
                     " inner join usuario usu on usu.usu_id = usp.usu_id " +
-                    " where usu.usu_usuario = '" + username+"' ", null);
+                    " where usu.usu_usuario = '" + username + "' ", null);
 
             if (cursor.moveToFirst()) {
                 rangoFechas.add(cursor.getString(0));
@@ -588,7 +588,7 @@ public class CabeceraRespuestaDAO {
             if (cursor != null)
                 cursor.close();
         }
-
+        System.out.println("obtenerDesdeNumEnc, HastaNumEnc:" + HastaNumEnc);
         return HastaNumEnc;
 
     }

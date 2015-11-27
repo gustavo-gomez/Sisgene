@@ -48,6 +48,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
     ArrayList<EditText> apellidosPatEdits;
     ArrayList<EditText> apellidosMatEdits;
     Button btAceptar_nombresEncuestados;
+    Button btCancelar_nombresEncuestados;
 
     ArrayList<String> nombresEncuestados;
     ArrayList<Integer> codigosIdentEncuestados;
@@ -162,6 +163,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         tvFechaVigenciaFinal = (TextView) findViewById(R.id.tvFechaVigenciaFinal);
 
         btAceptar_nombresEncuestados = (Button) findViewById(R.id.btAceptar_nombresEncuestados);
+        btCancelar_nombresEncuestados = (Button) findViewById(R.id.btCancelar_nombresEncuestados);
 
         tvNumeroPersonas = (TextView) findViewById(R.id.tvNumeroPersonas);
         btMenosNumPersonas = (Button) findViewById(R.id.btMenosNumPersonas);
@@ -171,6 +173,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         btMenosNumPersonas.setOnClickListener(btMenosNumPersonassetOnClickListener);
         btMasNumPersonas.setOnClickListener(btMasNumPersonassetOnClickListener);
         btAceptarNumeroPersonas.setOnClickListener(btAceptarNumeroPersonassetOnClickListener);
+        btCancelar_nombresEncuestados.setOnClickListener(btCancelar_nombresEncuestadossetOnClickListener);
         btAceptar_nombresEncuestados.setOnClickListener(btAceptar_nombresEncuestadossetOnClickListener);
         btAceptar_nombresEncuestados.setClickable(false);
 
@@ -438,5 +441,16 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         }
     };
 
+
+    View.OnClickListener btCancelar_nombresEncuestadossetOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+           finish();
+        }
+    };
+
+    @Override
+    public void onBackPressed() {
+    }
 
 }

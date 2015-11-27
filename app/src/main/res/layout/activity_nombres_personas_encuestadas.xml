@@ -1378,19 +1378,28 @@
         </ScrollView>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="right">
+
+        <Button
+            android:id="@+id/btCancelar_nombresEncuestados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/color_fondo_boton"
+            android:text="Cancelar Encuesta"
+            android:textColor="@color/color_texto_boton" />
 
         <Button
             android:id="@+id/btAceptar_nombresEncuestados"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_margin="5dp"
             android:background="@color/color_fondo_boton"
             android:text="Iniciar Encuesta"
             android:textColor="@color/color_texto_boton" />
 
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

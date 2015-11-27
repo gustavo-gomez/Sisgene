@@ -1,6 +1,7 @@
 package com.instituto.cuanto.sisgene.util;
 
 import java.util.Calendar;
+import java.util.Formatter;
 import java.util.GregorianCalendar;
 
 /**
@@ -37,11 +38,21 @@ public class Util {
         int hora, minutos, segundos;
         Calendar calendario = Calendar.getInstance();
 
+        Formatter fHora = new Formatter();
+        Formatter fminutos = new Formatter();
+        Formatter fsegundos = new Formatter();
+
         hora = calendario.get(Calendar.HOUR_OF_DAY);
         minutos = calendario.get(Calendar.MINUTE);
         segundos = calendario.get(Calendar.SECOND);
 
-        return hora + ":" + minutos + ":" + segundos;
+
+        fHora.format("%02d", hora);
+        fHora.format("%02d", minutos);
+        fHora.format("%02d", segundos);
+
+        System.out.println("HORAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:"+ ""+ fHora + ":" + fminutos + ":" + fsegundos);
+        return ""+ fHora + ":" + fminutos + ":" + fsegundos;
     }
 
 }

@@ -148,7 +148,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         tvFechaVigenciaFinal.setText(Util.obtenerFecha());
 
         //modificar
-        tvNombreSupervisor.setText("Gustavo Gómez");
+        //tvNombreSupervisor.setText("Gustavo Gómez");
     }
 
     View.OnClickListener btAceptareIniciarEncuestasetOnClickListener = new View.OnClickListener() {
@@ -254,16 +254,20 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                     if (numEncuestas != -1) {
 
                         if (numEncuestas == 0) {
+                            System.out.println("NUMERO DE ENCUESTAS CERO");
                             //si no hay encuestas, el numero sera el campo DESDE
                             numeroEnc = String.valueOf(cabeceraRespuestaDAO.obtenerDesdeNumEnc(DatosCabeceraActivity.this, usuarioDAO.obtenerIdUsuario(DatosCabeceraActivity.this, userUsu)));
                         } else {
+                            System.out.println("EXISTEN ENCUESTAS");
                             //si hay encuesta, se trae el ultimo y se suma 1
                             numeroEnc = String.valueOf(cabeceraRespuestaDAO.obtenerUltimoNumeroEncuestaCabecera(DatosCabeceraActivity.this) + 1);
                         }
+                        System.out.println("numeroEnc: " + numeroEnc);
+                        System.out.println("userUsu: " + userUsu);
 
                         boolean insertarCabecera = cabeceraRespuestaDAO.insertarCabEnc2(DatosCabeceraActivity.this,
                                 numeroEnc,
-                                "C",
+                                "I",
                                 Util.obtenerFecha(),
                                 "observaciones",
                                 etConglomeradoN.getText().toString().trim(),
