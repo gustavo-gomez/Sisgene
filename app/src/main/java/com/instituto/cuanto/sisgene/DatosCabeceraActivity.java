@@ -233,8 +233,12 @@ public class DatosCabeceraActivity extends AppCompatActivity {
             if (insertoPersona == true) {
 
                 //obtener id del jefe de familia
-                codigosIdentEncuestados.add(personaDAO.obtenerIdPersonabyNombres(DatosCabeceraActivity.this, etNombres.getText().toString().trim(),
-                        etApellidoPaterno.getText().toString().trim(), etApellidoMaterno.getText().toString().trim()));
+                //codigosIdentEncuestados.add(personaDAO.obtenerIdPersonabyNombres(DatosCabeceraActivity.this, etNombres.getText().toString().trim(),
+                //etApellidoPaterno.getText().toString().trim(), etApellidoMaterno.getText().toString().trim()));
+                boolean insertoAlleg = personaDAO.insertarAllegado(DatosCabeceraActivity.this, etNombres.getText().toString().trim(),
+                        etApellidoPaterno.getText().toString().trim(), etApellidoMaterno.getText().toString().trim());
+
+                codigosIdentEncuestados.add(personaDAO.obtenerUltIdAlle(DatosCabeceraActivity.this));
 
 
                 int personaId = personaDAO.obtenerUltIdPersona(DatosCabeceraActivity.this);
