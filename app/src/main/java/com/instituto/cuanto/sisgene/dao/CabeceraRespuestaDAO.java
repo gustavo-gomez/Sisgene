@@ -122,17 +122,20 @@ public class CabeceraRespuestaDAO {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         List<CabeceraRespuesta> listaCabeceraRespuesta = new ArrayList<CabeceraRespuesta>();
+        System.out.println("ENTRO A CARGAR CABECERA POR FECHAS");
+        System.out.println("FECHA INICIO : "+fIni);
+        System.out.println("FECHA FIN : "+fFin);
 
         try {
 
             String sql = " select usu.usu_usuario, cer.caer_numero_encuesta, cer.caer_fencuesta, " +
                     " per.per_nombres, per.per_appaterno, " +
-                    " per.per_apmaterno, cer.caer_hora_inicio, cer.caer_hora_fin,cer.caer_tiempo, cer.caer_estado" +
+                    " per.per_apmaterno, cer.caer_hora_inicio, cer.caer_hora_fin,cer.caer_tiempo, cer.caer_benviado, cer.caer_id" +
                     " from cab_enc_rpta cer" +
                     " inner join persona per on cer.per_id = per.per_id" +
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
-                    " inner join usuario usu on usp.usu_id = usu.usu_id " +
-                    " where usu.usu_estado = '1'";
+                    " inner join usuario usu on usp.usu_id = usu.usu_id " ;
+                    //" where cer.caer_benviado = '0'";
             if (!fIni.equals("")) {
                 sql = sql + " and cer.caer_fencuesta >= " + fIni;
             }
@@ -143,7 +146,9 @@ public class CabeceraRespuestaDAO {
             cursor = dataBaseHelper.db.rawQuery(sql, null);
 
             if (cursor.moveToFirst()) {
+                System.out.println("OK1");
                 do {
+                    System.out.println("OK2");
                     cabeceraResp = new CabeceraRespuesta();
                     cabeceraResp.setUserEncuestador((cursor.getString(0) != null) ? cursor.getString(0) : "");
                     cabeceraResp.setNumEncuesta((cursor.getString(1) != null) ? cursor.getString(1) : "");
@@ -155,6 +160,7 @@ public class CabeceraRespuestaDAO {
                     cabeceraResp.setHoraFin((cursor.getString(7) != null) ? cursor.getString(7) : "");
                     cabeceraResp.setTiempo((cursor.getString(8) != null) ? cursor.getString(8) : "");
                     cabeceraResp.setEstado((cursor.getString(9) != null) ? cursor.getString(9) : "");
+                    cabeceraResp.setIdCabeceraEnc(cursor.getInt(10));
 
                     listaCabeceraRespuesta.add(cabeceraResp);
                 } while (cursor.moveToNext());

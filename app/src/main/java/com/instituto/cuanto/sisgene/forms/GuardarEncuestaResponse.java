@@ -6,19 +6,19 @@ package com.instituto.cuanto.sisgene.forms;
  * @author JMonzalve
  */
 public class GuardarEncuestaResponse {
-    private String codigo_mensaje;
+    private String codigo_respuesta;
     private String mensaje;
     
     public GuardarEncuestaResponse(){
         //Constructor de la clase GuardarEncuestaResponse
     }
 
-    public String getCodigo_mensaje() {
-        return codigo_mensaje;
+    public String getCodigo_respuesta() {
+        return codigo_respuesta;
     }
 
-    public void setCodigo_mensaje(String codigo_mensaje) {
-        this.codigo_mensaje = codigo_mensaje;
+    public void setCodigo_respuesta(String codigo_mensaje) {
+        this.codigo_respuesta = codigo_mensaje;
     }
 
     public String getMensaje() {
