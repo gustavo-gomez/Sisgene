@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +57,7 @@ public class PreguntasActivity extends AppCompatActivity {
     Button btnSiguiente;
     Button btnGuardarEncuesta;
     Button btnRechazarEncuesta;
+    Button btnFinalizarEncuesta;
     Button btnBuscarPregunta;
     ListView lvRespuestas_tipoGeneral;
     Context context = PreguntasActivity.this;
@@ -84,6 +87,7 @@ public class PreguntasActivity extends AppCompatActivity {
     //datos para validar encuesta
     int ultimoIdPregunta; //ultimo id de pregunta de la tabla Pregunta. Para validar si ya se ha repondido todas las preguntas
     boolean ultimaPregunta = false;
+    EditText editTextObservacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +99,11 @@ public class PreguntasActivity extends AppCompatActivity {
         btnSiguiente = (Button) findViewById(R.id.btnSiguiente);
         btnGuardarEncuesta = (Button) findViewById(R.id.btnGuardarEncuesta);
         btnRechazarEncuesta = (Button) findViewById(R.id.btnRechazarEncuesta);
+        btnFinalizarEncuesta = (Button) findViewById(R.id.btnFinalizarEncuesta);
         btnBuscarPregunta = (Button) findViewById(R.id.btnBuscarPregunta);
         etnumPregunta = (EditText) findViewById(R.id.etnumPregunta);
+
+        editTextObservacion = new EditText(context);
 
         //lyFragmentoListaPreguntas = (LinearLayout) findViewById(R.id.lyFragmentoListaPreguntas);
         lvRespuestas_tipoGeneral = (ListView) findViewById(R.id.lvRespuestas_tipoGeneral);
@@ -118,6 +125,7 @@ public class PreguntasActivity extends AppCompatActivity {
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
         btnGuardarEncuesta.setOnClickListener(btnGuardarEncuestasetOnClickListener);
         btnRechazarEncuesta.setOnClickListener(btnRechazarEncuestasetOnClickListener);
+        btnFinalizarEncuesta.setOnClickListener(btnFinalizarEncuestasetOnClickListener);
         btnBuscarPregunta.setOnClickListener(btnBuscarPreguntasetOnClickListener);
 
         leerPrimeraPregunta();        //leer todos los datos de la primera pregunta
@@ -301,14 +309,23 @@ public class PreguntasActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //
+            editTextObservacion.setHint("Observaciones");
+            editTextObservacion.setTextColor(getResources().getColor(R.color.color_texto));
+
             if (ultimaPregunta == true) {
-                new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("¿Desea guardar la encuesta?")
+                new AlertDialog.Builder(PreguntasActivity.this)
+                        .setTitle("Alerta")
+                        .setView(editTextObservacion)
+                        .setMessage("¿Desea guardar la encuesta?")
+                        .setIcon(R.drawable.ic_save_black_24dp)
                         .setPositiveButton("Terminar encuesta", alertaAceptarEncuestaFinalizadaOnClickListener)
                         .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
                         .setCancelable(false).show();
             } else
-                new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("¿Desea finalizar la encuesta sin " +
-                        "terminar la ejecucion de las preguntas?")
+                new AlertDialog.Builder(PreguntasActivity.this)
+                        .setTitle("Alerta").setView(editTextObservacion)
+                        .setIcon(R.drawable.cancel_48)
+                        .setMessage("¿Desea finalizar la encuesta sin terminar la ejecucion de las preguntas?")
                         .setPositiveButton("Terminar encuesta", alertaAceptarOnClickListener)
                         .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
                         .setCancelable(false).show();
@@ -318,12 +335,38 @@ public class PreguntasActivity extends AppCompatActivity {
     View.OnClickListener btnRechazarEncuestasetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("¿Desea rechazar la encuesta?")
+
+            editTextObservacion.setHint("Observaciones");
+            editTextObservacion.setTextColor(getResources().getColor(R.color.color_texto));
+
+            new AlertDialog.Builder(PreguntasActivity.this)
+                    .setTitle("Alerta")
+                    .setView(editTextObservacion)
+                    .setMessage("¿Desea rechazar la encuesta?")
                     .setPositiveButton("Rechazar encuesta", alertaAceptarRechazarOnClickListener)
                     .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
                     .setCancelable(false).show();
         }
     };
+
+    View.OnClickListener btnFinalizarEncuestasetOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            editTextObservacion.setHint("Observaciones");
+            editTextObservacion.setTextColor(getResources().getColor(R.color.color_texto));
+            new AlertDialog.Builder(PreguntasActivity.this)
+                    .setTitle("Mensaje")
+                    .setView(editTextObservacion)
+                    .setMessage("¿Desea finalizar la encuesta con estado Completo?")
+                    .setIcon(R.drawable.ic_save_black_24dp)
+                    .setPositiveButton("Finalizar encuesta", alertaAceptarEncuestaFinalizadaOnClickListener)
+                    .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
+                    .setCancelable(false).show();
+
+        }
+    };
+
     //Buscar pregunta por numero de pregunta
     View.OnClickListener btnBuscarPreguntasetOnClickListener = new View.OnClickListener() {
         @Override
@@ -341,7 +384,7 @@ public class PreguntasActivity extends AppCompatActivity {
                     ultimaPregunta = true;
             } else {
                 btnSiguiente.setEnabled(false);
-                Toast.makeText(PreguntasActivity.this, "Ésta es la ú.ltima pregunta de la encuesta", Toast.LENGTH_LONG).show();
+                Toast.makeText(PreguntasActivity.this, "Ésta es la última pregunta de la encuesta", Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -357,7 +400,8 @@ public class PreguntasActivity extends AppCompatActivity {
             //Guardar la encuesta con estado incompleto
 
             cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "I",
-                    Util.obtenerFecha(), "00", "", "", cabeceraRespuesta.getIdCabeceraEnc());
+                    Util.obtenerFecha(), "00", "", "", editTextObservacion.getText().toString().trim(),
+                    cabeceraRespuesta.getIdCabeceraEnc());
 
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
                     .setMessage("Se ha guardado la encuesta satisfactoriamente")
@@ -376,7 +420,8 @@ public class PreguntasActivity extends AppCompatActivity {
             //Guardar la encuesta con estado incompleto
 
             cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "R",
-                    Util.obtenerFecha(), "00", "", "", cabeceraRespuesta.getIdCabeceraEnc());
+                    Util.obtenerFecha(), "00", "", "", editTextObservacion.getText().toString().trim(),
+                    cabeceraRespuesta.getIdCabeceraEnc());
 
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
                     .setMessage("Se ha guardado la encuesta satisfactoriamente")
@@ -393,13 +438,13 @@ public class PreguntasActivity extends AppCompatActivity {
 
             //obtener el id de la ultima cabecera
             CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
-            //Guardar la encuesta con estado incompleto
 
             cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "C",
-                    Util.obtenerFecha(), "00", "", "", cabeceraRespuesta.getIdCabeceraEnc());
+                    Util.obtenerFecha(), "00", "", "", editTextObservacion.getText().toString().trim(),
+                    cabeceraRespuesta.getIdCabeceraEnc());
 
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
-                    .setMessage("Se ha guardado la encuesta satisfactoriamente")
+                    .setMessage("Se ha guardado la encuesta completada satisfactoriamente")
                     .setNeutralButton("Aceptar", alertaAceptarGuardarEncuestaOnClickListener)
                     .setCancelable(false).show();
         }
@@ -840,6 +885,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
     }
 
+
     private void limpiarLista() {
         if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
             TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.limpiarLista();
@@ -865,4 +911,50 @@ public class PreguntasActivity extends AppCompatActivity {
             TipoPreguntaMixtaAdapter.tipoPreguntaMixtaAdapter.limpiarLista();
         }
     }
+/*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Toast.makeText(PreguntasActivity.this, item.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.finalizarEncuesta:
+                editTextObservacion.setHint("Observaciones");
+                editTextObservacion.setTextColor(getResources().getColor(R.color.color_texto));
+
+                new AlertDialog.Builder(PreguntasActivity.this)
+                        .setTitle("Mensaje")
+                        .setView(editTextObservacion)
+                        .setMessage("¿Desea finalizar la encuesta con estado Completo?")
+                        .setIcon(R.drawable.ic_save_black_24dp)
+                        .setPositiveButton("Finalizar encuesta", alertaAceptarEncuestaFinalizadaOnClickListener)
+                        .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
+                        .setCancelable(false).show();
+                return true;
+
+            case R.id.rechazarEncuesta:
+
+                editTextObservacion.setHint("Observaciones");
+                editTextObservacion.setTextColor(getResources().getColor(R.color.color_texto));
+
+                new AlertDialog.Builder(PreguntasActivity.this)
+                        .setTitle("Alerta")
+                        .setView(editTextObservacion)
+                        .setMessage("¿Desea rechazar la encuesta?")
+                        .setPositiveButton("Rechazar encuesta", alertaAceptarRechazarOnClickListener)
+                        .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
+                        .setCancelable(false).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    */
 }
