@@ -48,11 +48,10 @@ public class Util {
 
 
         fHora.format("%02d", hora);
-        fHora.format("%02d", minutos);
-        fHora.format("%02d", segundos);
+        fminutos.format("%02d", minutos);
+        fsegundos.format("%02d", segundos);
 
-        System.out.println("HORAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:"+ ""+ fHora + ":" + fminutos + ":" + fsegundos);
-        return ""+ fHora + ":" + fminutos + ":" + fsegundos;
+        return "" + fHora + ":" + fminutos + ":" + fsegundos;
     }
 
 }

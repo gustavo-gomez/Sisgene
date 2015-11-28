@@ -214,14 +214,14 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         List<String> fechas = cabeceraRespuestaDAO.obtenerRangoFechasEncuesta(NombresPersonasEncuestadasActivity.this, userUsu);
 
         //if (fechas.get(0) == null)
-            tvFechaVigenciaInicio.setText("");
+        tvFechaVigenciaInicio.setText("");
         //else
-          //  tvFechaVigenciaInicio.setText(fechas.get(0).toString().trim());
+        //  tvFechaVigenciaInicio.setText(fechas.get(0).toString().trim());
 
         //if (fechas.get(1) == null)
-            tvFechaVigenciaFinal.setText("");
+        tvFechaVigenciaFinal.setText("");
         //else
-          //  tvFechaVigenciaFinal.setText(fechas.get(1).toString().trim());
+        //  tvFechaVigenciaFinal.setText(fechas.get(1).toString().trim());
 
 
         //Nombre del supervisor
@@ -445,7 +445,15 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
     View.OnClickListener btCancelar_nombresEncuestadossetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-           finish();
+            CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
+
+            //obtener el id de la ultima cabecera
+            CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(NombresPersonasEncuestadasActivity.this);
+
+            cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(NombresPersonasEncuestadasActivity.this, "R",
+                    "", "", "", "", "",
+                    cabeceraRespuesta.getIdCabeceraEnc());
+            finish();
         }
     };
 
