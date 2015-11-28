@@ -137,17 +137,18 @@ public class MainActivity extends AppCompatActivity {
 
                 if (cantidadData == 0) {
                     if (rolAcceso.equals("ADMINISTRADOR")) {
-                        LeerProperties leerProperties = new LeerProperties();
+                        /*LeerProperties leerProperties = new LeerProperties();
                         String ipWS = leerProperties.leerIPWS();
                         String puertoWS = leerProperties.leerPUERTOWS();
                         ip = ipWS;
                         puerto = puertoWS;
+                        */
 
-                        if(ipWS != null && puertoWS != null){
+                        //if(ipWS != null && puertoWS != null){
                             new RestCosumeAsyncTask().execute();
-                        }else{
-                            Toast.makeText(MainActivity.this, "No se encuentra el archivo de configuracion", Toast.LENGTH_LONG).show();
-                        }
+                        //}else{
+                        //    Toast.makeText(MainActivity.this, "No se encuentra el archivo de configuracion", Toast.LENGTH_LONG).show();
+                        //}
 
                     }else{
                         Toast.makeText(MainActivity.this, "Tablet no cargada, porfavor utilizar un usuario ADMINISTRADOR", Toast.LENGTH_LONG).show();
@@ -215,8 +216,8 @@ public class MainActivity extends AppCompatActivity {
             String jsonEnviar = gson.toJson(validarRequest);
 
             //provisional
-            // ip="192.168.1.38";
-            //puerto="8085";
+            ip="192.168.1.38";
+            puerto="8085";
 
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")

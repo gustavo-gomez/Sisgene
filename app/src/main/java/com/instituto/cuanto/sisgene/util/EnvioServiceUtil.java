@@ -46,17 +46,17 @@ public class EnvioServiceUtil {
         this.idCabEnc = idCabeceraEncuesta;
 
         try {
-            LeerProperties leerProperties = new LeerProperties();
+            /*LeerProperties leerProperties = new LeerProperties();
             String ipWS = leerProperties.leerIPWS();
             String puertoWS = leerProperties.leerPUERTOWS();
             ip = ipWS;
             puerto = puertoWS;
-
-            if(ipWS != null && puertoWS != null){
+*/
+            //if(ipWS != null && puertoWS != null){
                 new RestCosumeAsyncTask().execute();
-            }else{
-                Toast.makeText(context, "No se encuentra el archivo de configuracion", Toast.LENGTH_LONG).show();
-            }
+            //}else{
+             //   Toast.makeText(context, "No se encuentra el archivo de configuracion", Toast.LENGTH_LONG).show();
+            //}
 
             if (estadoWS.equals("00")) {
                 return true;
@@ -101,8 +101,8 @@ public class EnvioServiceUtil {
             }
 
             //PROVISIONAL
-           // ip="192.168.1.38";
-           // puerto="8085";
+            ip="192.168.1.38";
+            puerto="8085";
 
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
