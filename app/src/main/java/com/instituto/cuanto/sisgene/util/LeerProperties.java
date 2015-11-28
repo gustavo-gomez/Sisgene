@@ -1,5 +1,8 @@
 package com.instituto.cuanto.sisgene.util;
 
+import android.os.Environment;
+
+import java.io.File;
 import java.util.Properties;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,11 +17,16 @@ public class LeerProperties {
     public String leerIPWS(){
         try {
 
+            File ruta_sd = Environment.getExternalStorageDirectory();
+            String rutaArch = ruta_sd.getAbsolutePath();
+            //rutaArch = "/Memoria Interna";
+            System.out.println("ruta sd : --->>> "+ruta_sd.getAbsolutePath());
+
             /**Creamos un Objeto de tipo Properties*/
             Properties propiedades = new Properties();
 
             /**Cargamos el archivo desde la ruta especificada*/
-            propiedades.load(new FileInputStream("/storage/emulated/0/SISGENE/sisgene.properties"));
+            propiedades.load(new FileInputStream(rutaArch+"/SISGENE/sisgene.properties"));
 
             /**Obtenemos los parametros definidos en el archivo*/
             String ip = propiedades.getProperty("IPWS");
@@ -38,12 +46,15 @@ public class LeerProperties {
 
     public String leerPUERTOWS(){
         try {
+            File ruta_sd = Environment.getExternalStorageDirectory();
 
             /**Creamos un Objeto de tipo Properties*/
             Properties propiedades = new Properties();
+            String rutaArch = ruta_sd.getAbsolutePath();
+            //rutaArch = "/Memoria Interna";
 
             /**Cargamos el archivo desde la ruta especificada*/
-            propiedades.load(new FileInputStream("/storage/emulated/0/SISGENE/sisgene.properties"));
+            propiedades.load(new FileInputStream(rutaArch+"/SISGENE/sisgene.properties"));
 
             /**Obtenemos los parametros definidos en el archivo*/
             String puerto = propiedades.getProperty("PUERTOWS");
