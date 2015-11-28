@@ -114,7 +114,7 @@
             android:background="@color/color_fondo_boton"
             android:text="GUARDAR"
             android:textColor="@color/color_texto_boton" />
-
+        <!--
         <Button
             android:id="@+id/btnRechazarEncuesta"
             android:layout_width="wrap_content"
@@ -133,7 +133,7 @@
             android:background="@color/color_fondo_boton"
             android:text="FINALIZAR"
             android:textColor="@color/color_texto_boton" />
-
+        !-->
     </LinearLayout>
 
 

@@ -87,6 +87,8 @@ public class PreguntasActivity extends AppCompatActivity {
     //datos para validar encuesta
     int ultimoIdPregunta; //ultimo id de pregunta de la tabla Pregunta. Para validar si ya se ha repondido todas las preguntas
     boolean ultimaPregunta = false;
+    EditText editTextObservacionRechazar;
+    EditText editTextObservacionFinalizar;
     EditText editTextObservacion;
 
     @Override
@@ -98,12 +100,14 @@ public class PreguntasActivity extends AppCompatActivity {
         codigosIdentEncuestados = new ArrayList<>();
         btnSiguiente = (Button) findViewById(R.id.btnSiguiente);
         btnGuardarEncuesta = (Button) findViewById(R.id.btnGuardarEncuesta);
-        btnRechazarEncuesta = (Button) findViewById(R.id.btnRechazarEncuesta);
-        btnFinalizarEncuesta = (Button) findViewById(R.id.btnFinalizarEncuesta);
+        //btnRechazarEncuesta = (Button) findViewById(R.id.btnRechazarEncuesta);
+        //btnFinalizarEncuesta = (Button) findViewById(R.id.btnFinalizarEncuesta);
         btnBuscarPregunta = (Button) findViewById(R.id.btnBuscarPregunta);
         etnumPregunta = (EditText) findViewById(R.id.etnumPregunta);
 
         editTextObservacion = new EditText(context);
+        editTextObservacionRechazar = new EditText(context);
+        editTextObservacionFinalizar = new EditText(context);
 
         //lyFragmentoListaPreguntas = (LinearLayout) findViewById(R.id.lyFragmentoListaPreguntas);
         lvRespuestas_tipoGeneral = (ListView) findViewById(R.id.lvRespuestas_tipoGeneral);
@@ -309,6 +313,7 @@ public class PreguntasActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //
+            editTextObservacion = new EditText(context);
             editTextObservacion.setHint("Observaciones");
             editTextObservacion.setTextColor(getResources().getColor(R.color.color_texto));
 
@@ -335,13 +340,13 @@ public class PreguntasActivity extends AppCompatActivity {
     View.OnClickListener btnRechazarEncuestasetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-            editTextObservacion.setHint("Observaciones");
-            editTextObservacion.setTextColor(getResources().getColor(R.color.color_texto));
+            editTextObservacionRechazar = new EditText(context);
+            editTextObservacionRechazar.setHint("Observaciones");
+            editTextObservacionRechazar.setTextColor(getResources().getColor(R.color.color_texto));
 
             new AlertDialog.Builder(PreguntasActivity.this)
                     .setTitle("Alerta")
-                    .setView(editTextObservacion)
+                    .setView(editTextObservacionRechazar)
                     .setMessage("¿Desea rechazar la encuesta?")
                     .setPositiveButton("Rechazar encuesta", alertaAceptarRechazarOnClickListener)
                     .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
@@ -352,12 +357,12 @@ public class PreguntasActivity extends AppCompatActivity {
     View.OnClickListener btnFinalizarEncuestasetOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-            editTextObservacion.setHint("Observaciones");
-            editTextObservacion.setTextColor(getResources().getColor(R.color.color_texto));
+            editTextObservacionFinalizar = new EditText(context);
+            editTextObservacionFinalizar.setHint("Observaciones");
+            editTextObservacionFinalizar.setTextColor(getResources().getColor(R.color.color_texto));
             new AlertDialog.Builder(PreguntasActivity.this)
                     .setTitle("Mensaje")
-                    .setView(editTextObservacion)
+                    .setView(editTextObservacionFinalizar)
                     .setMessage("¿Desea finalizar la encuesta con estado Completo?")
                     .setIcon(R.drawable.ic_save_black_24dp)
                     .setPositiveButton("Finalizar encuesta", alertaAceptarEncuestaFinalizadaOnClickListener)
@@ -420,7 +425,7 @@ public class PreguntasActivity extends AppCompatActivity {
             //Guardar la encuesta con estado incompleto
 
             cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "R",
-                    Util.obtenerFecha(), "00", "", "", editTextObservacion.getText().toString().trim(),
+                    Util.obtenerFecha(), "00", "", "", editTextObservacionRechazar.getText().toString().trim(),
                     cabeceraRespuesta.getIdCabeceraEnc());
 
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
@@ -440,7 +445,7 @@ public class PreguntasActivity extends AppCompatActivity {
             CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
 
             cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "C",
-                    Util.obtenerFecha(), "00", "", "", editTextObservacion.getText().toString().trim(),
+                    Util.obtenerFecha(), "00", "", "", editTextObservacionFinalizar.getText().toString().trim(),
                     cabeceraRespuesta.getIdCabeceraEnc());
 
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
@@ -463,6 +468,7 @@ public class PreguntasActivity extends AppCompatActivity {
         public void onClick(DialogInterface dialogInterface, int i) {
             dialogInterface.dismiss();
         }
+
     };
 
     private void leerTipoPreguntaxPregunta() {
@@ -911,7 +917,7 @@ public class PreguntasActivity extends AppCompatActivity {
             TipoPreguntaMixtaAdapter.tipoPreguntaMixtaAdapter.limpiarLista();
         }
     }
-/*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -925,12 +931,12 @@ public class PreguntasActivity extends AppCompatActivity {
                 Toast.makeText(PreguntasActivity.this, item.getTitle().toString(), Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.finalizarEncuesta:
-                editTextObservacion.setHint("Observaciones");
-                editTextObservacion.setTextColor(getResources().getColor(R.color.color_texto));
-
+                editTextObservacionFinalizar = new EditText(context);
+                editTextObservacionFinalizar.setHint("Observaciones");
+                editTextObservacionFinalizar.setTextColor(getResources().getColor(R.color.color_texto));
                 new AlertDialog.Builder(PreguntasActivity.this)
                         .setTitle("Mensaje")
-                        .setView(editTextObservacion)
+                        .setView(editTextObservacionFinalizar)
                         .setMessage("¿Desea finalizar la encuesta con estado Completo?")
                         .setIcon(R.drawable.ic_save_black_24dp)
                         .setPositiveButton("Finalizar encuesta", alertaAceptarEncuestaFinalizadaOnClickListener)
@@ -940,21 +946,21 @@ public class PreguntasActivity extends AppCompatActivity {
 
             case R.id.rechazarEncuesta:
 
-                editTextObservacion.setHint("Observaciones");
-                editTextObservacion.setTextColor(getResources().getColor(R.color.color_texto));
+                editTextObservacionRechazar = new EditText(context);
+                editTextObservacionRechazar.setHint("Observaciones");
+                editTextObservacionRechazar.setTextColor(getResources().getColor(R.color.color_texto));
 
                 new AlertDialog.Builder(PreguntasActivity.this)
                         .setTitle("Alerta")
-                        .setView(editTextObservacion)
+                        .setView(editTextObservacionRechazar)
                         .setMessage("¿Desea rechazar la encuesta?")
                         .setPositiveButton("Rechazar encuesta", alertaAceptarRechazarOnClickListener)
                         .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
                         .setCancelable(false).show();
                 return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
         }
+        return true;
     }
-    */
 }
+
+
