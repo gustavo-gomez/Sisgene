@@ -50,12 +50,13 @@ public class PrincipalActivity extends AppCompatActivity {
         if (rolUsu.equals("SUPERVISOR")) {
             btnExportar.setVisibility(View.VISIBLE);
             btnConsultar.setVisibility(View.VISIBLE);
+        }else{
+            btnEjecutar.setVisibility(View.INVISIBLE);
         }
     }
 
     @Override
     public void onBackPressed() {
-        //AlertDialog.Builder msjConfirmacion = new AlertDialog.Builder(this);
     }
 
     View.OnClickListener btnEjecutarsetOnClickListener = new View.OnClickListener() {

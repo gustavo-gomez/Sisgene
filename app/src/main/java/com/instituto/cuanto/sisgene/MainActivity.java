@@ -46,6 +46,8 @@ import com.instituto.cuanto.sisgene.util.Criptografo;
 import com.instituto.cuanto.sisgene.util.LeerProperties;
 
 import java.util.List;
+import java.io.File;
+import android.os.Environment;
 
 import retrofit.Callback;
 
@@ -81,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
 
         listaRol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 2){
+                if (i == 2) {
                     lyCodigo.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     lyCodigo.setVisibility(View.INVISIBLE);
                 }
             }
@@ -97,7 +99,16 @@ public class MainActivity extends AppCompatActivity {
         btnAceptar.setOnClickListener(btnAceptarsetOnClickListener);
         btnCerrar.setOnClickListener(btnCerrarsetOnClickListener);
 
+        //leerRUTA();
+    }
 
+    public void leerRUTA(){
+
+        File ruta_sd = Environment.getExternalStorageDirectory();
+
+        System.out.println("ruta sd : --->>> "+ruta_sd.toString());
+        System.out.println("ruta sd : --->>> "+ruta_sd.getAbsolutePath());
+        System.out.println("ruta sd : --->>> "+ruta_sd.getPath());
     }
 
     View.OnClickListener btnAceptarsetOnClickListener = new View.OnClickListener() {
@@ -202,6 +213,10 @@ public class MainActivity extends AppCompatActivity {
             validarRequest.setCodigo_encuesta(codEncuesta);
 
             String jsonEnviar = gson.toJson(validarRequest);
+
+            //provisional
+            // ip="192.168.1.38";
+            //puerto="8085";
 
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
