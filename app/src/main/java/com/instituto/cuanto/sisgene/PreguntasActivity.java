@@ -329,7 +329,7 @@ public class PreguntasActivity extends AppCompatActivity {
             } else
                 new AlertDialog.Builder(PreguntasActivity.this)
                         .setTitle("Alerta").setView(editTextObservacion)
-                        .setIcon(R.drawable.cancel_48)
+                        .setIcon(R.drawable.cancel)
                         .setMessage("¿Desea finalizar la encuesta sin terminar la ejecucion de las preguntas?")
                         .setPositiveButton("Terminar encuesta", alertaAceptarOnClickListener)
                         .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
