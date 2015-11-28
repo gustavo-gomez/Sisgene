@@ -1389,7 +1389,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@color/color_fondo_boton"
-            android:text="Cancelar Encuesta"
+            android:text=" Cancelar Encuesta "
             android:textColor="@color/color_texto_boton" />
 
         <Button
@@ -1398,7 +1398,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@color/color_fondo_boton"
-            android:text="Iniciar Encuesta"
+            android:text=" Iniciar Encuesta "
             android:textColor="@color/color_texto_boton" />
 
     </LinearLayout>
