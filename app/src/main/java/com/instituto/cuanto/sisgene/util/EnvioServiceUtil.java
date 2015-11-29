@@ -101,11 +101,12 @@ public class EnvioServiceUtil {
             }
 
             //PROVISIONAL
-            ip="192.168.1.38";
-            puerto="8085";
+            ip="192.168.1.34";
+            puerto="8083";
 
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/resources/WebServiceSISGENE")
+                    //.setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/resources/WebServiceSISGENE")
+                    .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
                     .build();
 
 

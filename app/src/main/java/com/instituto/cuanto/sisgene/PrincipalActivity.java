@@ -50,8 +50,9 @@ public class PrincipalActivity extends AppCompatActivity {
         if (rolUsu.equals("SUPERVISOR")) {
             btnExportar.setVisibility(View.VISIBLE);
             btnConsultar.setVisibility(View.VISIBLE);
-        }else{
             btnEjecutar.setVisibility(View.INVISIBLE);
+        }else{
+            btnEjecutar.setVisibility(View.VISIBLE);
         }
     }
 
