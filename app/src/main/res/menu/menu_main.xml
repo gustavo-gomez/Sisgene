@@ -16,7 +16,7 @@
 
     <item
         android:id="@+id/rechazarEncuesta"
-        android:icon="@drawable/cancel_48"
+        android:icon="@drawable/cancel"
         android:title="Rechazar encuesta"
         app:showAsAction="always" />
 </menu>
