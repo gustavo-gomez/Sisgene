@@ -10,7 +10,7 @@ public class DetalleEncRptaDAO {
 
     public DetalleEncRptaDAO(){}
 
-    public String obtenerHastaNumEnc(Context context) {
+    public String obtenerRpta(Context context) {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
 
@@ -39,7 +39,7 @@ public class DetalleEncRptaDAO {
 
     }
 
-    public String obtenerHastaNumEnc(Context context, String idPRegunta) {
+    public String obtenerRptaxId(Context context, String idPRegunta) {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         String arg[] = {idPRegunta};
