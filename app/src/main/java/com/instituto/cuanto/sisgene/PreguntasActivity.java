@@ -27,6 +27,7 @@ import com.instituto.cuanto.sisgene.bean.EncuestaPregunta;
 import com.instituto.cuanto.sisgene.bean.PreguntaAlternativa;
 import com.instituto.cuanto.sisgene.bean.PreguntaItem;
 import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
+import com.instituto.cuanto.sisgene.dao.DetalleEncRptaDAO;
 import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
 import com.instituto.cuanto.sisgene.dao.TipoPreguntaDAO;
 import com.instituto.cuanto.sisgene.entities.Pregunta;
@@ -891,7 +892,6 @@ public class PreguntasActivity extends AppCompatActivity {
 
     }
 
-
     private void limpiarLista() {
         if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
             TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.limpiarLista();
@@ -916,6 +916,23 @@ public class PreguntasActivity extends AppCompatActivity {
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
             TipoPreguntaMixtaAdapter.tipoPreguntaMixtaAdapter.limpiarLista();
         }
+    }
+
+    public void retomarEncuesta() {
+        //se buscara la primera pregunta que no haya sido respondida por todos.
+        DetalleEncRptaDAO detalleEncRptaDAO = new DetalleEncRptaDAO();
+        ArrayList<String> respuesta = null;
+/*
+        for (int i = 0; i < ; i++) {
+            respuesta = detalleEncRptaDAO.obtenerRpta(PreguntasActivity.this);
+
+            if(respuesta.get(1).toLowerCase().contains("null")) //pregunta que no ha sido respondida totalmente
+            {
+
+            }
+        }
+*/
+
     }
 
     @Override
@@ -961,6 +978,8 @@ public class PreguntasActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }
 
 
