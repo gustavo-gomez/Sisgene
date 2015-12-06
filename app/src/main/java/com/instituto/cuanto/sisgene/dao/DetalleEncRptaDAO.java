@@ -20,7 +20,7 @@ public class DetalleEncRptaDAO {
 
 
         try{
-            String sql = " select der.deer_id, der.deer_valor_respuesta, der.pre_id" +
+            String sql = " select der.deer_id, der.deer_valor_respuesta, der.pre_id " +
                     " from pregunta pre " +
                     " inner join det_enc_rpta der on pre.pre_id = der.pre_id ";
 
@@ -39,20 +39,17 @@ public class DetalleEncRptaDAO {
             if (cursor != null)
                 cursor.close();
         }
-
         return valorRpta;
-
     }
 
-    public String obtenerRptaxId(Context context, String idPRegunta) {
+    public String obtenerRptaxId(Context context, String idPregunta) {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String arg[] = {idPRegunta};
+        String arg[] = {idPregunta};
         String valorRpta = "";
 
-
         try{
-            String sql = " select der.deer_valor_respuesta, der.pre_id " +
+            String sql = " select der.deer_valor_respuesta, der.pre_id" +
                     " from pregunta pre " +
                     " inner join det_enc_rpta der on pre.pre_id = der.pre_id "+
                     " where pre.pre_id = ?";

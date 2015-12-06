@@ -1,5 +1,9 @@
 package com.instituto.cuanto.sisgene.util;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.util.Calendar;
 import java.util.Formatter;
 import java.util.GregorianCalendar;
@@ -53,5 +57,4 @@ public class Util {
 
         return "" + fHora + ":" + fminutos + ":" + fsegundos;
     }
-
 }

@@ -3,6 +3,8 @@ package com.instituto.cuanto.sisgene;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -92,6 +94,10 @@ public class PreguntasActivity extends AppCompatActivity {
     EditText editTextObservacionFinalizar;
     EditText editTextObservacion;
 
+    //Retomar encuesta
+    int idRespuesta;
+    String valorRespuesta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,8 +135,8 @@ public class PreguntasActivity extends AppCompatActivity {
 
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
         btnGuardarEncuesta.setOnClickListener(btnGuardarEncuestasetOnClickListener);
-        btnRechazarEncuesta.setOnClickListener(btnRechazarEncuestasetOnClickListener);
-        btnFinalizarEncuesta.setOnClickListener(btnFinalizarEncuestasetOnClickListener);
+        //btnRechazarEncuesta.setOnClickListener(btnRechazarEncuestasetOnClickListener);
+        //btnFinalizarEncuesta.setOnClickListener(btnFinalizarEncuestasetOnClickListener);
         btnBuscarPregunta.setOnClickListener(btnBuscarPreguntasetOnClickListener);
 
         leerPrimeraPregunta();        //leer todos los datos de la primera pregunta
@@ -177,29 +183,6 @@ public class PreguntasActivity extends AppCompatActivity {
             listPreguntaItems = encuestaDAO.obtenerItems(PreguntasActivity.this, idPregunta);
 
     }
-
-    View.OnClickListener btnSiguientesetOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            //leer los datos de la pregunta actual y guardar en la base de datos
-            leeryGuardarDatos();
-            if (ultimaPregunta == false) {
-                //leer la siguiente pregunta
-                leerSiguientePregunta();
-
-                if (Integer.parseInt(idPregunta) != ultimoIdPregunta) {
-                    //Aun no se llega a la ultima pregunta
-                    //mostrar interfaz segun la pregunta leida
-                    leerTipoPreguntaxPregunta();
-                } else
-                    ultimaPregunta = true;
-            } else {
-                btnSiguiente.setEnabled(false);
-                Toast.makeText(PreguntasActivity.this, "Se han respondido todas las preguntas", Toast.LENGTH_LONG).show();
-            }
-        }
-    };
 
     private void mostrarDatosSeccion() {
         tvSeccion.setText(numeroSecccion + ": " + nombreSecccion);
@@ -307,8 +290,30 @@ public class PreguntasActivity extends AppCompatActivity {
                     .setNeutralButton("Aceptar", alertaCancelarOnClickListener)
                     .setCancelable(false).show();
         }
-
     }
+
+    View.OnClickListener btnSiguientesetOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            //leer los datos de la pregunta actual y guardar en la base de datos
+            leeryGuardarDatos();
+            if (ultimaPregunta == false) {
+                //leer la siguiente pregunta
+                leerSiguientePregunta();
+
+                if (Integer.parseInt(idPregunta) != ultimoIdPregunta) {
+                    //Aun no se llega a la ultima pregunta
+                    //mostrar interfaz segun la pregunta leida
+                    leerTipoPreguntaxPregunta();
+                } else
+                    ultimaPregunta = true;
+            } else {
+                btnSiguiente.setEnabled(false);
+                Toast.makeText(PreguntasActivity.this, "Se han respondido todas las preguntas", Toast.LENGTH_LONG).show();
+            }
+        }
+    };
 
     View.OnClickListener btnGuardarEncuestasetOnClickListener = new View.OnClickListener() {
         @Override
@@ -335,41 +340,6 @@ public class PreguntasActivity extends AppCompatActivity {
                         .setPositiveButton("Terminar encuesta", alertaAceptarOnClickListener)
                         .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
                         .setCancelable(false).show();
-        }
-    };
-
-    View.OnClickListener btnRechazarEncuestasetOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            editTextObservacionRechazar = new EditText(context);
-            editTextObservacionRechazar.setHint("Observaciones");
-            editTextObservacionRechazar.setTextColor(getResources().getColor(R.color.color_texto));
-
-            new AlertDialog.Builder(PreguntasActivity.this)
-                    .setTitle("Alerta")
-                    .setView(editTextObservacionRechazar)
-                    .setMessage("¿Desea rechazar la encuesta?")
-                    .setPositiveButton("Rechazar encuesta", alertaAceptarRechazarOnClickListener)
-                    .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
-                    .setCancelable(false).show();
-        }
-    };
-
-    View.OnClickListener btnFinalizarEncuestasetOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            editTextObservacionFinalizar = new EditText(context);
-            editTextObservacionFinalizar.setHint("Observaciones");
-            editTextObservacionFinalizar.setTextColor(getResources().getColor(R.color.color_texto));
-            new AlertDialog.Builder(PreguntasActivity.this)
-                    .setTitle("Mensaje")
-                    .setView(editTextObservacionFinalizar)
-                    .setMessage("¿Desea finalizar la encuesta con estado Completo?")
-                    .setIcon(R.drawable.ic_save_black_24dp)
-                    .setPositiveButton("Finalizar encuesta", alertaAceptarEncuestaFinalizadaOnClickListener)
-                    .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
-                    .setCancelable(false).show();
-
         }
     };
 
@@ -449,6 +419,12 @@ public class PreguntasActivity extends AppCompatActivity {
                     Util.obtenerFecha(), "00", "", "", editTextObservacionFinalizar.getText().toString().trim(),
                     cabeceraRespuesta.getIdCabeceraEnc());
 
+            //Si hay conexion a internet invocar al WS para envviar la data
+            if(conectadoInternet()){
+
+            }
+
+
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
                     .setMessage("Se ha guardado la encuesta completada satisfactoriamente")
                     .setNeutralButton("Aceptar", alertaAceptarGuardarEncuestaOnClickListener)
@@ -472,6 +448,10 @@ public class PreguntasActivity extends AppCompatActivity {
 
     };
 
+    /*
+        Muestra los datos como enunciado y seccion
+        Lee el tipo de pregunta y muestra las preguntas para responder (Los campos ya deben estar seteados)
+    */
     private void leerTipoPreguntaxPregunta() {
 
         //mostrar datos de seccion, subseccion, enunciado y opciones
@@ -921,17 +901,43 @@ public class PreguntasActivity extends AppCompatActivity {
     public void retomarEncuesta() {
         //se buscara la primera pregunta que no haya sido respondida por todos.
         DetalleEncRptaDAO detalleEncRptaDAO = new DetalleEncRptaDAO();
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
+
+        String idPreguntaDeRpta = null;
         ArrayList<String> respuesta = null;
-/*
-        for (int i = 0; i < ; i++) {
-            respuesta = detalleEncRptaDAO.obtenerRpta(PreguntasActivity.this);
 
-            if(respuesta.get(1).toLowerCase().contains("null")) //pregunta que no ha sido respondida totalmente
-            {
 
+        int numeroPreguntas = encuestaDAO.obtenerNumeroPreguntas(PreguntasActivity.this);
+
+        if (numeroPreguntas != -1) {
+            for (int i = 0; i < numeroPreguntas; i++) {
+
+                if (i == 0) {
+                    respuesta = detalleEncRptaDAO.obtenerRpta(PreguntasActivity.this);
+                } else {
+                    //respuesta = detalleEncRptaDAO.obtenerRptaxId(PreguntasActivity.this,);
+                }
+
+                idRespuesta = Integer.parseInt(respuesta.get(0));
+                valorRespuesta = respuesta.get(1).toString().toLowerCase();
+
+                if (valorRespuesta.contains("null")) //pregunta que no ha sido respondida totalmente
+                {
+                    idPreguntaDeRpta = respuesta.get(2).toString(); // se asgina el id de la Pregunta que no ha sido respondida
+                }
             }
+
+            //setear los datos en las variables globales
+
+
+            //invocar al metodo para mostrar las preguntas a responder
+            leerTipoPreguntaxPregunta();
         }
-*/
+        //error al obtener el numero de preguntas
+        else {
+            Toast.makeText(PreguntasActivity.this, "Error en el sistema. Consulte con su Adm.", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
@@ -979,7 +985,29 @@ public class PreguntasActivity extends AppCompatActivity {
         return true;
     }
 
+    protected boolean conectadoInternet(){
+        ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            if (info != null) {
+                if (info.isConnected()) {
+                    return true;
+                }
+            }
+        }
+
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            if (info != null) {
+                if (info.isConnected()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
 
 

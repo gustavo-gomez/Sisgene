@@ -252,8 +252,6 @@ public class EncuestaDAO {
         return null;
     }
 
-
-
     public EncuestaPregunta obtenerPreguntaPorNumPregunta(Context context, String numPregunta) {
 
         Cursor cursor = null;
@@ -318,5 +316,29 @@ public class EncuestaDAO {
 
     }
 
+
+    public int obtenerNumeroPreguntas(Context context) {
+
+        int response = -1;
+
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        try {
+            cursor = dataBaseHelper.db.rawQuery("select count(*) from pregunta", null);
+
+            if (cursor.moveToFirst()) {
+                response = cursor.getInt(0);
+            }
+            System.out.println("********NUMERO DE PREGUNTAS: " + response);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return response;
+    }
 
 }
