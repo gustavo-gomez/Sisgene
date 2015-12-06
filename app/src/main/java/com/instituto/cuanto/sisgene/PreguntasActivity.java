@@ -385,6 +385,7 @@ public class PreguntasActivity extends AppCompatActivity {
                     .setCancelable(false).show();
         }
     };
+
     DialogInterface.OnClickListener alertaAceptarRechazarOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {

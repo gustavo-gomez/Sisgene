@@ -53,7 +53,7 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
         btnBuscar = (Button)findViewById(R.id.btnBuscar);
         btnBuscar.setOnClickListener(btnBuscarsetOnClickListener);
 
-        btnResumen = (Button)findViewById(R.id.btnResumen);
+        //btnResumen = (Button)findViewById(R.id.btnResumen);
         //btnResumen.setOnClickListener(btnSalirsetOnClickListener);
 
         txtSupervisor = (TextView)findViewById(R.id.txtSupervisor);
@@ -69,6 +69,10 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
 
                     CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
                     List<CabeceraRespuesta> listaCabeceraResp = cabeceraRespDAO.obtenerCabeceraRespuesta(ConsultarSupervisorActivity.this,estadoEnvi);
+
+                    System.out.println("POSICION PRU : "+posicion);
+                    System.out.println("listaCAB : "+listaCabeceraResp.size());
+
                     CabeceraRespuesta cabeceraResp = listaCabeceraResp.get(posicion-1);
 
                     if(cabeceraResp.getEstado().equals("1")){
@@ -122,6 +126,8 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
                 estadoEnvi = "";
             }
 
+            System.out.println("ESTADO ENVIADO : "+estadoEnvi);
+
             populateList();
         }
     };
@@ -147,7 +153,7 @@ public class ConsultarSupervisorActivity extends AppCompatActivity {
         list.add(temp);
 
         CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
-        List<CabeceraRespuesta> listaCabeceraResp = cabeceraRespDAO.obtenerCabeceraRespuestas(ConsultarSupervisorActivity.this,estadoEnvi);
+        List<CabeceraRespuesta> listaCabeceraResp = cabeceraRespDAO.obtenerCabeceraRespuesta(ConsultarSupervisorActivity.this,estadoEnvi);
 
         for(CabeceraRespuesta cabeceraResp: listaCabeceraResp){
             HashMap<String, String> temp2 = new HashMap<String, String>();

@@ -216,11 +216,12 @@ public class MainActivity extends AppCompatActivity {
             String jsonEnviar = gson.toJson(validarRequest);
 
             //provisional
-            ip="192.168.1.35";
-            puerto="8083";
+            ip="192.168.1.38";
+            puerto="8085";
 
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
+                    //.setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
+                    .setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/resources/WebServiceSISGENE")
                     //.setEndpoint("http://172.16.139.227:8080/WSSisgene/resources/WebServiceSISGENE")
                     .build();
 
@@ -258,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("PREEXECUTE");
             progressDialog = new ProgressDialog(MainActivity.this);
             progressDialog.setMessage("Cargando información en tablet");
-                progressDialog.show();
+            progressDialog.show();
         }
 
         @Override

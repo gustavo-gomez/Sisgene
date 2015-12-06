@@ -50,12 +50,12 @@ public class PersonaDAO {
                                    String numdoc, String telefono, String celular, String correo) {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String arg[] = {nombre, appaterno, apmaterno, numdoc, telefono, celular, correo};
+        String arg[] = {nombre, appaterno, apmaterno, numdoc, telefono, celular, correo, "1"};
         boolean response = false;
 
         try {
-            String sql = " INSERT INTO persona (per_nombres,per_appaterno,per_apmaterno,per_num_documento,per_telefono,per_celular,per_correo)" +
-                    " VALUES(?,?,?,?,?,?,?)";
+            String sql = " INSERT INTO persona (per_nombres,per_appaterno,per_apmaterno,per_num_documento,per_telefono,per_celular,per_correo,tip_id)" +
+                    " VALUES(?,?,?,?,?,?,?,?)";
             System.out.println("insertarPersona: sql: " + sql);
             dataBaseHelper.db.execSQL(sql, arg);
             response = true;
