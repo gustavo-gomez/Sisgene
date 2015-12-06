@@ -58,17 +58,6 @@
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/txExportar" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
-        android:text="RESUMEN"
-        android:id="@+id/btnResumen"
-        android:layout_below="@+id/lstEncuestas"
-        android:layout_alignEnd="@+id/textView4"
-        android:layout_marginEnd="28dp"
-        android:background="@color/color_fondo_boton"
-        android:textColor="@color/color_texto_boton"/>
 
     <ListView
         android:layout_width="wrap_content"

@@ -134,8 +134,8 @@ public class CabeceraRespuestaDAO {
                     " from cab_enc_rpta cer" +
                     " inner join persona per on cer.per_id = per.per_id" +
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
-                    " inner join usuario usu on usp.usu_id = usu.usu_id ";
-            //" where cer.caer_benviado = '0'";
+                    " inner join usuario usu on usp.usu_id = usu.usu_id "+
+                    " where cer.caer_benviado = '0'";
             if (!fIni.equals("")) {
                 sql = sql + " and cer.caer_fencuesta >= " + fIni;
             }
@@ -192,10 +192,10 @@ public class CabeceraRespuestaDAO {
                     " from cab_enc_rpta cer" +
                     " inner join persona per on cer.per_id = per.per_id" +
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
-                    " inner join usuario usu on usp.usu_id = usu.usu_id " +
-                    " where usu.usu_estado = '1'";
+                    " inner join usuario usu on usp.usu_id = usu.usu_id " ;
+                    //" where usu.usu_estado = '1'";
             if (!estadoEnviado.equals("")) {
-                sql = sql + " and cer.caer_benviado = '" + estadoEnviado + "' ";
+                sql = sql + " where cer.caer_benviado = '" + estadoEnviado + "' ";
             }
 
             cursor = dataBaseHelper.db.rawQuery(sql, null);
@@ -246,10 +246,10 @@ public class CabeceraRespuestaDAO {
                     " from cab_enc_rpta cer" +
                     " inner join persona per on cer.per_id = per.per_id" +
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
-                    " inner join usuario usu on usp.usu_id = usu.usu_id " +
-                    " where usu.usu_estado = '1'";
+                    " inner join usuario usu on usp.usu_id = usu.usu_id ";
+                    //" where usu.usu_estado = '1'";
             if (!estadoEnviado.equals("")) {
-                sql = sql + " and cer.caer_benviado = '" + estadoEnviado + "' ";
+                sql = sql + " where cer.caer_benviado = '" + estadoEnviado + "' ";
             }
 
             cursor = dataBaseHelper.db.rawQuery(sql, null);

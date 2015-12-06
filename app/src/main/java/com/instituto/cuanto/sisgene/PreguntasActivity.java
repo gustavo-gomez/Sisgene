@@ -129,8 +129,8 @@ public class PreguntasActivity extends AppCompatActivity {
 
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
         btnGuardarEncuesta.setOnClickListener(btnGuardarEncuestasetOnClickListener);
-        btnRechazarEncuesta.setOnClickListener(btnRechazarEncuestasetOnClickListener);
-        btnFinalizarEncuesta.setOnClickListener(btnFinalizarEncuestasetOnClickListener);
+        //btnRechazarEncuesta.setOnClickListener(btnRechazarEncuestasetOnClickListener);
+        //btnFinalizarEncuesta.setOnClickListener(btnFinalizarEncuestasetOnClickListener);
         btnBuscarPregunta.setOnClickListener(btnBuscarPreguntasetOnClickListener);
 
         leerPrimeraPregunta();        //leer todos los datos de la primera pregunta
@@ -415,6 +415,7 @@ public class PreguntasActivity extends AppCompatActivity {
                     .setCancelable(false).show();
         }
     };
+
     DialogInterface.OnClickListener alertaAceptarRechazarOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {

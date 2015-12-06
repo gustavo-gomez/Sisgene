@@ -96,12 +96,14 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
 
                 for (CabeceraRespuesta cabeceraResp : listaCabeceraResp) {
 
-                    envioServiceUtil.enviarEncuestaEjecutada(ExportarEncuestaActivity.this, cabeceraResp.getIdCabeceraEnc() + "");
+                    boolean estTemp = envioServiceUtil.enviarEncuestaEjecutada(ExportarEncuestaActivity.this, cabeceraResp.getIdCabeceraEnc() + "");
 
-                    boolean estadoTemp = cabeceraRespDAO.actualizarCabEncEstadoEnviado(ExportarEncuestaActivity.this, cabeceraResp.getIdCabeceraEnc());
+                    if(estTemp == true) {
+                        boolean estadoTemp = cabeceraRespDAO.actualizarCabEncEstadoEnviado(ExportarEncuestaActivity.this, cabeceraResp.getIdCabeceraEnc());
 
-                    if(estadoTemp != false){
-                        return;
+                        if (estadoTemp != false) {
+                            return;
+                        }
                     }
                 }
             }catch(Exception e){
