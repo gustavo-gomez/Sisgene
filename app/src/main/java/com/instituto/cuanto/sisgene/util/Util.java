@@ -4,7 +4,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Formatter;
 import java.util.GregorianCalendar;
 
@@ -56,5 +59,14 @@ public class Util {
         fsegundos.format("%02d", segundos);
 
         return "" + fHora + ":" + fminutos + ":" + fsegundos;
+    }
+    public static String obtenerFechayHora(){
+
+        Date date = new Date();
+
+        // Obtener hora y fecha y salida por pantalla con formato:
+        DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        return hourdateFormat.format(date);
     }
 }

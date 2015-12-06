@@ -40,6 +40,7 @@ import com.instituto.cuanto.sisgene.entities.TipoPreguntaMatrizSimpleItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMultipleItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
+import com.instituto.cuanto.sisgene.util.EnvioServiceUtil;
 import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
@@ -59,8 +60,6 @@ public class PreguntasActivity extends AppCompatActivity {
 
     Button btnSiguiente;
     Button btnGuardarEncuesta;
-    Button btnRechazarEncuesta;
-    Button btnFinalizarEncuesta;
     Button btnBuscarPregunta;
     ListView lvRespuestas_tipoGeneral;
     Context context = PreguntasActivity.this;
@@ -191,15 +190,15 @@ public class PreguntasActivity extends AppCompatActivity {
         String opciones = "";
 
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
-            opciones = opciones + listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim() + "\t";
-            System.out.println("opcion " + i + ": " + listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
+            opciones = opciones + listPreguntaAlterntiva.get(i).getOpc_nombre().trim() + "\t";
+            System.out.println("opcion " + i + ": " + listPreguntaAlterntiva.get(i).getOpc_nombre().trim());
         }
         opciones = opciones + "\n";
 
         if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM"))
             for (int i = 0; i < listPreguntaItems.size(); i++) {
                 opciones = opciones + listPreguntaItems.get(i).getIte_nombre().toString().trim() + "\t";
-                System.out.println("item " + i + ": " + listPreguntaItems.get(i).getIte_nombre().toString().trim());
+                System.out.println("item " + i + ": " + listPreguntaItems.get(i).getIte_nombre().trim());
             }
 
         //mostrar datos -- eliminar
@@ -251,7 +250,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
     private void leerPreguntaPorNumPregunta() {
         EncuestaDAO encuestaDAO = new EncuestaDAO();
-        EncuestaPregunta encuestaPregunta = null;
+        EncuestaPregunta encuestaPregunta;
 
         if (etnumPregunta.getText().toString().trim().length() == 0) {
             Toast.makeText(PreguntasActivity.this, "Ingrese el número de pregunta", Toast.LENGTH_LONG).show();
@@ -298,7 +297,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
             //leer los datos de la pregunta actual y guardar en la base de datos
             leeryGuardarDatos();
-            if (ultimaPregunta == false) {
+            if (!ultimaPregunta) {
                 //leer la siguiente pregunta
                 leerSiguientePregunta();
 
@@ -323,7 +322,7 @@ public class PreguntasActivity extends AppCompatActivity {
             editTextObservacion.setHint("Observaciones");
             editTextObservacion.setTextColor(getResources().getColor(R.color.color_texto));
 
-            if (ultimaPregunta == true) {
+            if (ultimaPregunta) {
                 new AlertDialog.Builder(PreguntasActivity.this)
                         .setTitle("Alerta")
                         .setView(editTextObservacion)
@@ -348,7 +347,7 @@ public class PreguntasActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            if (ultimaPregunta == false) {
+            if (!ultimaPregunta) {
                 //leer la siguiente pregunta
                 leerPreguntaPorNumPregunta();
                 etnumPregunta.setText("");
@@ -417,14 +416,27 @@ public class PreguntasActivity extends AppCompatActivity {
             CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
 
             cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "C",
-                    Util.obtenerFecha(), "00", "", "", editTextObservacionFinalizar.getText().toString().trim(),
+                    Util.obtenerFechayHora(), "00", "", "", editTextObservacionFinalizar.getText().toString().trim(),
                     cabeceraRespuesta.getIdCabeceraEnc());
 
+            EnvioServiceUtil envioServiceUtil = new EnvioServiceUtil();
+            boolean estTemp = false;
             //Si hay conexion a internet invocar al WS para envviar la data
             if (conectadoInternet()) {
-
+                estTemp = envioServiceUtil.enviarEncuestaEjecutada(PreguntasActivity.this, cabeceraRespuesta.getIdCabeceraEnc() + "");
             }
 
+            //el envio de data al WS fue satisfactorio
+            if (estTemp) {
+                cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this,
+                        "C",
+                        Util.obtenerFechayHora(),
+                        "00",//Calcular tiempo de encuesta
+                        "", //enviado
+                        Util.obtenerFechayHora(), //fecha envio
+                        editTextObservacionFinalizar.getText().toString().trim(),
+                        cabeceraRespuesta.getIdCabeceraEnc())
+            }
 
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
                     .setMessage("Se ha guardado la encuesta completada satisfactoriamente")
@@ -570,7 +582,7 @@ public class PreguntasActivity extends AppCompatActivity {
             respuestaMultiple = respuestaMultiple + "[" + codIdent + "]";
 
             for (int j = 0; j < tipoPreguntaMultipleItems.get(i).getRespuestas().size(); j++) {
-                respuestaMultiple = respuestaMultiple + tipoPreguntaMultipleItems.get(i).getRespuestas().get(j).toString().trim();
+                respuestaMultiple = respuestaMultiple + tipoPreguntaMultipleItems.get(i).getRespuestas().get(j).trim();
 
                 if (j != tipoPreguntaMultipleItems.get(i).getRespuestas().size() - 1)
                     respuestaMultiple = "" + respuestaMultiple + "$";
@@ -606,10 +618,10 @@ public class PreguntasActivity extends AppCompatActivity {
             for (int j = 0; j < respuestas.size(); j++) {
                 String rpta;
                 if (respuestas.get(j).equals(tipoPreguntaMixtaItems.get(i).getAlternativas().get(sizeAlternativas - 1))) {
-                    rpta = "(" + tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).toString().trim() + ")";
+                    rpta = "(" + tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).trim() + ")";
                     rpta = rpta + tipoPreguntaMixtaItems.get(i).getPreguntaMixta();
                 } else {
-                    rpta = tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).toString().trim();
+                    rpta = tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).trim();
                 }
                 respuestaMixta = respuestaMixta + rpta;
                 if (j != tipoPreguntaMixtaItems.get(i).getRespuestas().size() - 1)
@@ -633,7 +645,6 @@ public class PreguntasActivity extends AppCompatActivity {
         String respuestaMatrizS = "";
         System.out.println("dimension myListPreguntaMatrizSimple:" + TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz.size());
         ArrayList<TipoPreguntaMatrizSimpleItem> tipoPreguntaMatrizSimpleItems = TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz;
-        int cont = 0;
 
         System.out.println("size: " + tipoPreguntaMatrizSimpleItems.size());
 
@@ -644,16 +655,16 @@ public class PreguntasActivity extends AppCompatActivity {
             respuestaMatrizS = respuestaMatrizS + "[" + codIdent + "]";
 
             for (int k = 0; k < tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size(); k++) {
-                System.out.println("vertical: " + tipoPreguntaMatrizSimpleItems.get(i).getVertical().get(k).toString());
-                System.out.println("respuesta " + k + " :" + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).toString().trim());
+                System.out.println("vertical: " + tipoPreguntaMatrizSimpleItems.get(i).getVertical().get(k));
+                System.out.println("respuesta " + k + " :" + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).trim());
 
-                respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getVertical().get(k).toString().trim();
+                respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getVertical().get(k).trim();
                 respuestaMatrizS = respuestaMatrizS + "%";
 
-                if (tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).toString().trim().equals(""))
+                if (tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).trim().equals(""))
                     respuestaMatrizS = respuestaMatrizS + "null";
                 else {
-                    respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).toString().trim();
+                    respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).trim();
                 }
                 if (k != tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size() - 1)
                     respuestaMatrizS = "" + respuestaMatrizS + "$";
@@ -708,8 +719,7 @@ public class PreguntasActivity extends AppCompatActivity {
                 }
             }
             if (i != tipoPreguntaMatrizMultipleItems.size() - 1) {
-                if (cont == 0)
-                    respuestaMatrizM = respuestaMatrizM + "null";
+                if (cont == 0) respuestaMatrizM = respuestaMatrizM + "null";
             }
 
             cont = 0;
@@ -747,7 +757,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
         alternativas.put(0, "Seleccione alternativa");
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
-            alternativas.put(i + 1, listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
+            alternativas.put(i + 1, listPreguntaAlterntiva.get(i).getOpc_nombre().trim());
         }
 
         //cargar datos a la lista
@@ -766,7 +776,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
         ArrayList<String> alternativas = new ArrayList<>();
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
-            alternativas.add(listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
+            alternativas.add(listPreguntaAlterntiva.get(i).getOpc_nombre().trim());
         }
 
         //cargar datos a la lista
@@ -788,7 +798,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
         ArrayList<String> alternativas = new ArrayList<>();
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
-            alternativas.add(listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
+            alternativas.add(listPreguntaAlterntiva.get(i).getOpc_nombre().trim());
         }
 
         //cargar datos a la lista
@@ -810,13 +820,13 @@ public class PreguntasActivity extends AppCompatActivity {
     private void poblarLista_TipoPreguntaMatrizSimple() {
         ArrayList<String> horizontales = new ArrayList<>();
         for (int i = 0; i < listPreguntaItems.size(); i++) {
-            horizontales.add(listPreguntaItems.get(i).getIte_nombre().toString().trim());
+            horizontales.add(listPreguntaItems.get(i).getIte_nombre().trim());
         }
         horizontales.add("");
 
         ArrayList<String> verticales = new ArrayList<>();
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
-            verticales.add(listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
+            verticales.add(listPreguntaAlterntiva.get(i).getOpc_nombre().trim());
         }
         //cargar datos a la lista
         for (int i = 0; i < nombresEncuestados.size(); i++) {
@@ -836,13 +846,13 @@ public class PreguntasActivity extends AppCompatActivity {
     private void poblarLista_TipoPreguntaMatrizMultiple() {
         ArrayList<String> horizontales = new ArrayList<>();
         for (int i = 0; i < listPreguntaItems.size(); i++) {
-            horizontales.add(listPreguntaItems.get(i).getIte_nombre().toString().trim());
+            horizontales.add(listPreguntaItems.get(i).getIte_nombre().trim());
         }
         horizontales.add("");
 
         ArrayList<String> verticales = new ArrayList<>();
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
-            verticales.add(listPreguntaAlterntiva.get(i).getOpc_nombre().toString().trim());
+            verticales.add(listPreguntaAlterntiva.get(i).getOpc_nombre().trim());
         }
         //cargar datos a la lista
         for (int i = 0; i < nombresEncuestados.size(); i++) {
@@ -924,7 +934,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
                 if (valorRespuesta.contains("null")) //pregunta que no ha sido respondida totalmente
                 {
-                    idPreguntaDeRpta = respuesta.get(2).toString(); // se asgina el id de la Pregunta que no ha sido respondida
+                    idPreguntaDeRpta = respuesta.get(2).toString(); // se asigna el id de la Pregunta que no ha sido respondida
                 }
             }
 
