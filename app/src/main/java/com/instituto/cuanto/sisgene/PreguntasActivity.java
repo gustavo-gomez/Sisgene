@@ -420,7 +420,7 @@ public class PreguntasActivity extends AppCompatActivity {
                     cabeceraRespuesta.getIdCabeceraEnc());
 
             //Si hay conexion a internet invocar al WS para envviar la data
-            if(conectadoInternet()){
+            if (conectadoInternet()) {
 
             }
 
@@ -985,7 +985,7 @@ public class PreguntasActivity extends AppCompatActivity {
         return true;
     }
 
-    protected boolean conectadoInternet(){
+    protected boolean conectadoInternet() {
         ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (connectivity != null) {
