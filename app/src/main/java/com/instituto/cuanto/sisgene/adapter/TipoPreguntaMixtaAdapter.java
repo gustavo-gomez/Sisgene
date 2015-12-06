@@ -89,6 +89,7 @@ public class TipoPreguntaMixtaAdapter extends BaseAdapter {
         mViewHolder.linear.removeAllViews();
         if (!currentTipoPreguntaMixtaItem.getHasView()) {
             currentTipoPreguntaMixtaItem.lvLayout = new LinearLayout(context);
+            currentTipoPreguntaMixtaItem.lvLayout.setOrientation(LinearLayout.VERTICAL);
 
             final ArrayList<String> alternativas = currentTipoPreguntaMixtaItem.getAlternativas();
             final ArrayList<String> respuestas = currentTipoPreguntaMixtaItem.getRespuestas();

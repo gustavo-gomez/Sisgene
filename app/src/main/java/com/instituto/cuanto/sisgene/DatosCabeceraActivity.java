@@ -217,7 +217,6 @@ public class DatosCabeceraActivity extends AppCompatActivity {
             DireccionDAO direccionDAO = new DireccionDAO();
             direccionDAO.insertarDireccion(DatosCabeceraActivity.this, etDireccion.getText().toString().trim());
 
-
             ////
             PersonaDAO personaDAO = new PersonaDAO();
             //obtener el id del jefe de famiia
@@ -244,12 +243,13 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                 } else {
                     int numEncuestas = cabeceraRespuestaDAO.obtenerCantidadEncuestas(DatosCabeceraActivity.this);
                     String numeroEnc = "";
-                    if (numEncuestas != -1) {
-
+                    if (numEncuestas != -2) { //Consulta a BD sin errores
+                        System.out.println("ID DE USUARIO " + userUsu + ": " + usuarioDAO.obtenerIdUsuario(DatosCabeceraActivity.this, userUsu));
                         if (numEncuestas == 0) {
                             System.out.println("NUMERO DE ENCUESTAS CERO");
                             //si no hay encuestas, el numero sera el campo DESDE
-                            numeroEnc = String.valueOf(cabeceraRespuestaDAO.obtenerDesdeNumEnc(DatosCabeceraActivity.this, usuarioDAO.obtenerIdUsuario(DatosCabeceraActivity.this, userUsu)));
+
+                            numeroEnc = String.valueOf(cabeceraRespuestaDAO.obtenerDesdeNumEnc(DatosCabeceraActivity.this, userUsu));
                         } else {
                             System.out.println("EXISTEN ENCUESTAS");
                             //si hay encuesta, se trae el ultimo y se suma 1
@@ -261,7 +261,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                         boolean insertarCabecera = cabeceraRespuestaDAO.insertarCabEnc2(DatosCabeceraActivity.this,
                                 numeroEnc,
                                 "I",
-                                Util.obtenerFecha(),
+                                Util.obtenerFechayHora(),
                                 "observaciones",
                                 etConglomeradoN.getText().toString().trim(),
                                 etZonaAER.getText().toString().trim(),
@@ -294,7 +294,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
                             finish();
 
                     } else {
-
+                        Toast.makeText(DatosCabeceraActivity.this, "Error en base de datos.Consulte con su Administrador", Toast.LENGTH_LONG).show();
                     }
 
                 }

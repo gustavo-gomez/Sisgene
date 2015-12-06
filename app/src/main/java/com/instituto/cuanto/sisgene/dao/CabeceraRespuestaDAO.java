@@ -547,7 +547,7 @@ public class CabeceraRespuestaDAO {
 
     public int obtenerCantidadEncuestas(Context context) {
 
-        int iCantidadUsuarios = -1;
+        int iCantidadEncuestas = -2;
 
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
@@ -556,7 +556,7 @@ public class CabeceraRespuestaDAO {
             cursor = dataBaseHelper.db.rawQuery("select count(*) from cab_enc_rpta", null);
 
             if (cursor.moveToFirst()) {
-                iCantidadUsuarios = cursor.getInt(0);
+                iCantidadEncuestas = cursor.getInt(0);
             }
 
         } catch (Exception ex) {
@@ -566,9 +566,9 @@ public class CabeceraRespuestaDAO {
                 cursor.close();
         }
 
-        System.out.println("**********CANTIDAD DE ENCUESTAS: " + iCantidadUsuarios);
+        System.out.println("**********CANTIDAD DE ENCUESTAS: " + iCantidadEncuestas);
 
-        return iCantidadUsuarios;
+        return iCantidadEncuestas;
 
     }
 
@@ -577,7 +577,7 @@ public class CabeceraRespuestaDAO {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         String arg[] = {usu_id};
-        int HastaNumEnc = -1;
+        int desdeNumEnc = -1;
 
 
         try {
@@ -585,11 +585,12 @@ public class CabeceraRespuestaDAO {
                     " from usuario_persona usp " +
                     " inner join usuario usu on usu.usu_id = usp.usu_id " +
                     " where usu.usu_usuario  = ?";
-
-            cursor = dataBaseHelper.db.rawQuery(sql, null);
+            System.out.println("********SQL: " + sql);
+            cursor = dataBaseHelper.db.rawQuery(sql, arg);
 
             if (cursor.moveToFirst()) {
-                HastaNumEnc = cursor.getInt(0);
+                desdeNumEnc = cursor.getInt(0);
+                System.out.println("SI HAY DATA");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -597,8 +598,8 @@ public class CabeceraRespuestaDAO {
             if (cursor != null)
                 cursor.close();
         }
-        System.out.println("obtenerDesdeNumEnc, HastaNumEnc:" + HastaNumEnc);
-        return HastaNumEnc;
+        System.out.println("obtenerDesdeNumEnc, HastaNumEnc:" + desdeNumEnc);
+        return desdeNumEnc;
 
     }
 

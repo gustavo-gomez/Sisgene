@@ -189,7 +189,7 @@ public class PreguntasActivity extends AppCompatActivity {
         tvSubSeccion.setText(numeroSubSeccion + " " + nombreSubSeccion);
         tvEnunciadoPregunta.setText(numeroPreguntaBD + ": " + enunciadoPregunta);
         String opciones = "";
-
+        System.out.println("\n\n******************************");
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
             opciones = opciones + listPreguntaAlterntiva.get(i).getOpc_nombre().trim() + "\t";
             System.out.println("opcion " + i + ": " + listPreguntaAlterntiva.get(i).getOpc_nombre().trim());
@@ -197,10 +197,11 @@ public class PreguntasActivity extends AppCompatActivity {
         opciones = opciones + "\n";
 
         if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM"))
-            for (int i = 0; i < listPreguntaItems.size(); i++) {
-                opciones = opciones + listPreguntaItems.get(i).getIte_nombre().toString().trim() + "\t";
-                System.out.println("item " + i + ": " + listPreguntaItems.get(i).getIte_nombre().trim());
-            }
+            System.out.println("Cantidad de Items: " + listPreguntaItems.size());
+        for (int i = 0; i < listPreguntaItems.size(); i++) {
+            opciones = opciones + listPreguntaItems.get(i).getIte_nombre().trim() + "\t";
+            System.out.println("item " + i + ": " + listPreguntaItems.get(i).getIte_nombre().trim());
+        }
 
         //mostrar datos -- eliminar
         System.out.println("secccion: " + numeroSecccion + ": " + nombreSecccion);
@@ -210,6 +211,7 @@ public class PreguntasActivity extends AppCompatActivity {
         System.out.println("Tipo de pregunta: " + tipoPreguntaActual);
         System.out.println("idPregunta: " + idPregunta);
         System.out.println("encuestar todos: " + encuestarTodos);
+        System.out.println("******************************\n\n");
     }
 
     private void leerSiguientePregunta() {
@@ -279,11 +281,15 @@ public class PreguntasActivity extends AppCompatActivity {
                 ordenImportancia = 0;
             }
             //obtener alternativas
-            if (!tipoPreguntaActual.equals("AB"))
+            if (!tipoPreguntaActual.equals("AB")) {
+                System.out.println("OBTENER ALTERNATIVAS");
                 listPreguntaAlterntiva = encuestaDAO.obtenerAlternativas(PreguntasActivity.this, idPregunta);
+            }
 
-            if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM"))
+            if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM")) {
+                System.out.println("OBTENER ITEMS");
                 listPreguntaItems = encuestaDAO.obtenerItems(PreguntasActivity.this, idPregunta);
+            }
         } else {
             limpiarLista();
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("El número de pregunta no existe")
@@ -350,11 +356,11 @@ public class PreguntasActivity extends AppCompatActivity {
 
             if (!ultimaPregunta) {
                 //leer la siguiente pregunta
+                leeryGuardarDatos();
                 leerPreguntaPorNumPregunta();
                 etnumPregunta.setText("");
                 if (Integer.parseInt(idPregunta) != ultimoIdPregunta) {
                     //Aun no se llega a la ultima pregunta, mostrar interfaz segun la pregunta leida
-                    leeryGuardarDatos();
                     leerTipoPreguntaxPregunta();
                 } else
                     ultimaPregunta = true;
