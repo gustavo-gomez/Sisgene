@@ -130,6 +130,7 @@ public class PreguntasActivity extends AppCompatActivity {
             System.out.println("se obtienen datos - nombres y codigos de indentificacion");
             nombresEncuestados = getIntent().getStringArrayListExtra(NombresPersonasEncuestadasActivity.KEY_ARG_NOMBRES_ENCUESTADOS);
             codigosIdentEncuestados = getIntent().getIntegerArrayListExtra(NombresPersonasEncuestadasActivity.KEY_ARG_ID_ENCUESTADOS);
+            System.out.println("PreguntasActivity DIM codigosIdentEncuestados: " + codigosIdentEncuestados.size());
         }
 
         btnSiguiente.setOnClickListener(btnSiguientesetOnClickListener);
@@ -374,8 +375,13 @@ public class PreguntasActivity extends AppCompatActivity {
             CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
             //Guardar la encuesta con estado incompleto
 
-            cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "I",
-                    Util.obtenerFecha(), "00", "", "", editTextObservacion.getText().toString().trim(),
+            cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this,
+                    "I",
+                    Util.obtenerFechayHora(),
+                    "00",
+                    "",
+                    "",
+                    editTextObservacion.getText().toString().trim(),
                     cabeceraRespuesta.getIdCabeceraEnc());
 
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
@@ -395,8 +401,13 @@ public class PreguntasActivity extends AppCompatActivity {
             CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
             //Guardar la encuesta con estado incompleto
 
-            cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "R",
-                    Util.obtenerFecha(), "00", "", "", editTextObservacionRechazar.getText().toString().trim(),
+            cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this,
+                    "R",
+                    Util.obtenerFechayHora(),
+                    "00",
+                    "",
+                    "",
+                    editTextObservacionRechazar.getText().toString().trim(),
                     cabeceraRespuesta.getIdCabeceraEnc());
 
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
@@ -415,8 +426,13 @@ public class PreguntasActivity extends AppCompatActivity {
             //obtener el id de la ultima cabecera
             CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
 
-            cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this, "C",
-                    Util.obtenerFechayHora(), "00", "", "", editTextObservacionFinalizar.getText().toString().trim(),
+            cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this,
+                    "C",
+                    Util.obtenerFechayHora(),
+                    "00",
+                    "",
+                    "0",
+                    editTextObservacionFinalizar.getText().toString().trim(),
                     cabeceraRespuesta.getIdCabeceraEnc());
 
             EnvioServiceUtil envioServiceUtil = new EnvioServiceUtil();
@@ -432,16 +448,22 @@ public class PreguntasActivity extends AppCompatActivity {
                         "C",
                         Util.obtenerFechayHora(),
                         "00",//Calcular tiempo de encuesta
-                        "", //enviado
+                        "1", //enviado
                         Util.obtenerFechayHora(), //fecha envio
                         editTextObservacionFinalizar.getText().toString().trim(),
-                        cabeceraRespuesta.getIdCabeceraEnc())
+                        cabeceraRespuesta.getIdCabeceraEnc());
+
+                new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
+                        .setMessage("Se ha enviado la encuesta al servidor satisfactoriamente")
+                        .setNeutralButton("Aceptar", alertaAceptarGuardarEncuestaOnClickListener)
+                        .setCancelable(false).show();
+            } else {
+                new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
+                        .setMessage("Se ha guardado la encuesta completada satisfactoriamente")
+                        .setNeutralButton("Aceptar", alertaAceptarGuardarEncuestaOnClickListener)
+                        .setCancelable(false).show();
             }
 
-            new AlertDialog.Builder(PreguntasActivity.this).setTitle("Mensaje")
-                    .setMessage("Se ha guardado la encuesta completada satisfactoriamente")
-                    .setNeutralButton("Aceptar", alertaAceptarGuardarEncuestaOnClickListener)
-                    .setCancelable(false).show();
         }
     };
     DialogInterface.OnClickListener alertaAceptarGuardarEncuestaOnClickListener = new DialogInterface.OnClickListener() {
@@ -521,6 +543,9 @@ public class PreguntasActivity extends AppCompatActivity {
 
     private void leerRespuestasTipoAbierta() {
         String respuestaAbierta = "";
+
+        System.out.println("numero de personas :" + codigosIdentEncuestados.size());
+        System.out.println("TipoPreguntaAbiertaAdapter: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
 
         for (int i = 0; i < TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size(); i++) {
             TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
@@ -921,6 +946,7 @@ public class PreguntasActivity extends AppCompatActivity {
         int numeroPreguntas = encuestaDAO.obtenerNumeroPreguntas(PreguntasActivity.this);
 
         if (numeroPreguntas != -1) {
+            //recorrer las respuestas hasta encontrar una que no haya sido respondita totalmente
             for (int i = 0; i < numeroPreguntas; i++) {
 
                 if (i == 0) {
@@ -948,8 +974,6 @@ public class PreguntasActivity extends AppCompatActivity {
         else {
             Toast.makeText(PreguntasActivity.this, "Error en el sistema. Consulte con su Adm.", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     @Override

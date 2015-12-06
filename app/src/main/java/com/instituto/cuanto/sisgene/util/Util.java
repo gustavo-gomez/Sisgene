@@ -65,7 +65,7 @@ public class Util {
         Date date = new Date();
 
         // Obtener hora y fecha y salida por pantalla con formato:
-        DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat hourdateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
         return hourdateFormat.format(date);
     }

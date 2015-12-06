@@ -134,7 +134,7 @@ public class CabeceraRespuestaDAO {
                     " from cab_enc_rpta cer" +
                     " inner join persona per on cer.per_id = per.per_id" +
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
-                    " inner join usuario usu on usp.usu_id = usu.usu_id "+
+                    " inner join usuario usu on usp.usu_id = usu.usu_id " +
                     " where cer.caer_benviado = '0'";
             if (!fIni.equals("")) {
                 sql = sql + " and cer.caer_fencuesta >= " + fIni;
@@ -192,8 +192,8 @@ public class CabeceraRespuestaDAO {
                     " from cab_enc_rpta cer" +
                     " inner join persona per on cer.per_id = per.per_id" +
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
-                    " inner join usuario usu on usp.usu_id = usu.usu_id " ;
-                    //" where usu.usu_estado = '1'";
+                    " inner join usuario usu on usp.usu_id = usu.usu_id ";
+            //" where usu.usu_estado = '1'";
             if (!estadoEnviado.equals("")) {
                 sql = sql + " where cer.caer_benviado = '" + estadoEnviado + "' ";
             }
@@ -247,7 +247,7 @@ public class CabeceraRespuestaDAO {
                     " inner join persona per on cer.per_id = per.per_id" +
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
                     " inner join usuario usu on usp.usu_id = usu.usu_id ";
-                    //" where usu.usu_estado = '1'";
+            //" where usu.usu_estado = '1'";
             if (!estadoEnviado.equals("")) {
                 sql = sql + " where cer.caer_benviado = '" + estadoEnviado + "' ";
             }
@@ -483,7 +483,7 @@ public class CabeceraRespuestaDAO {
     }
 
     public boolean actualizarCabEncFinalEjecucion(Context context, String estado, String horaFin, String tiempo,
-                                                  String bEnviado, String fecha_envio, String obs,int cabRpta_id) {
+                                                  String bEnviado, String fecha_envio, String obs, int cabRpta_id) {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         String idCabRpta = cabRpta_id + "";
@@ -497,7 +497,7 @@ public class CabeceraRespuestaDAO {
                     " caer_hora_fin = ?, " +
                     " caer_tiempo = ?, " +
                     " caer_benviado = ?, " +
-                    " caer_fencuestaenviada = ? " +
+                    " caer_fencuestaenviada = ?," +
                     " caer_observaciones = ? " +
                     " WHERE caer_id = ?";
 
@@ -565,6 +565,8 @@ public class CabeceraRespuestaDAO {
             if (cursor != null)
                 cursor.close();
         }
+
+        System.out.println("**********CANTIDAD DE ENCUESTAS: " + iCantidadUsuarios);
 
         return iCantidadUsuarios;
 

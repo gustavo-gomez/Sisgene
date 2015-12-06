@@ -186,6 +186,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(DatosCabeceraActivity.KEY_ARG_NOMBRE_JEFE)) {
             nombresEncuestados = getIntent().getStringArrayListExtra(DatosCabeceraActivity.KEY_ARG_NOMBRE_JEFE);
             codigosIdentEncuestados = getIntent().getIntegerArrayListExtra(DatosCabeceraActivity.KEY_ARG_ID_JEFE);
+            System.out.println("NombresPersonasEncuestadasActivity DIM codigosIdentEncuestados: " + codigosIdentEncuestados.size());
         }
     }
 
@@ -357,12 +358,14 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                 nombresLayouts.get(i).setVisibility(View.GONE);
 
             numerodePersonasEncuestadas = Integer.parseInt(tvNumeroPersonas.getText().toString());
+            System.out.println("NombresPersonasEncuestadasActivity DIM.nombresEncuestados: "+ nombresEncuestados.size());
+            System.out.println("NombresPersonasEncuestadasActivity DIM.codigosIdentEncuestados: "+ codigosIdentEncuestados.size());
 
             //Si se ingresan 0 personas, se manda solo el nombre del jefe de familia
             if (numerodePersonasEncuestadas == 0) {
                 Intent intent = new Intent(NombresPersonasEncuestadasActivity.this, PreguntasActivity.class);
-                intent.putStringArrayListExtra("NOMBRES_ENCUESTADOS", nombresEncuestados);
-                intent.putExtra(KEY_ARG_NOMBRES_ENCUESTADOS, nombresEncuestados);
+                intent.putStringArrayListExtra(KEY_ARG_NOMBRES_ENCUESTADOS, nombresEncuestados);
+                intent.putIntegerArrayListExtra(KEY_ARG_ID_ENCUESTADOS, codigosIdentEncuestados);
                 startActivity(intent);
                 finish();
             }
