@@ -991,9 +991,6 @@ public class PreguntasActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                Toast.makeText(PreguntasActivity.this, item.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.finalizarEncuesta:
                 editTextObservacionFinalizar = new EditText(context);
                 editTextObservacionFinalizar.setHint("Observaciones");

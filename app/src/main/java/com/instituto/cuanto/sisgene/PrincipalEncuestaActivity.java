@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.instituto.cuanto.sisgene.bean.CabeceraRespuesta;
 import com.instituto.cuanto.sisgene.constantes.Constants;
@@ -39,6 +41,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
     boolean isUpdate = false;
 
     private ArrayList<HashMap<String, String>> list;
+    ListView listView;
 
     Button btnSalir;
 
@@ -82,11 +85,30 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
             supervisorValor.setText(nombreUsu);
         }
 
-        ListView listView = (ListView) findViewById(R.id.lvListaEncuesta);
+        listView = (ListView) findViewById(R.id.lvListaEncuesta);
         populateList();
         ListViewAdapter adapter = new ListViewAdapter(this, list);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
+
+                if (posicion != 0) {
+
+                    CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
+                    List<CabeceraRespuesta> listaCabeceraResp = cabeceraRespDAO.obtenerCabeceraRespuestas(PrincipalEncuestaActivity.this);
+
+                    CabeceraRespuesta cabeceraResp = listaCabeceraResp.get(posicion - 1);
+
+                    if(cabeceraResp.getEstado().equals("I")) {
+                        //ACA VA PARA QUE RETOME ENCUESTA
+                    }else {
+                        Toast.makeText(PrincipalEncuestaActivity.this, "ENCUESTA NO TIENE ESTADO INCOMPLETO", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
 
         btnSalir.setOnClickListener(btnSalirsetOnClickListener);
         btnNuevaEncuesta.setOnClickListener(btnNuevaEncuestasetOnClickListener);
