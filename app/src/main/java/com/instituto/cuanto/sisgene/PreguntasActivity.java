@@ -41,6 +41,7 @@ import com.instituto.cuanto.sisgene.entities.TipoPreguntaMixtaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaMultipleItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaUnicaItem;
 import com.instituto.cuanto.sisgene.util.EnvioServiceUtil;
+import com.instituto.cuanto.sisgene.util.TiempoDiferencia;
 import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
@@ -251,18 +252,21 @@ public class PreguntasActivity extends AppCompatActivity {
 
     }
 
-    private void leerPreguntaPorNumPregunta() {
+    private int leerPreguntaPorNumPregunta() {
         EncuestaDAO encuestaDAO = new EncuestaDAO();
         EncuestaPregunta encuestaPregunta;
 
         if (etnumPregunta.getText().toString().trim().length() == 0) {
             Toast.makeText(PreguntasActivity.this, "Ingrese el número de pregunta", Toast.LENGTH_LONG).show();
-            return;
+            return -1;
         } else
             encuestaPregunta = encuestaDAO.obtenerPreguntaPorNumPregunta(PreguntasActivity.this,
                     etnumPregunta.getText().toString().trim());
 
         if (encuestaPregunta != null) {
+            //antes de setear los datos de la pregunta encontrada, guardas las respuestas de la pregunta actual
+            leeryGuardarDatos();
+
             nombreSecccion = encuestaPregunta.getSec_nombre();
             numeroSecccion = encuestaPregunta.getSec_numero_seccion();
             numeroSecccion = encuestaPregunta.getSec_numero_seccion();
@@ -295,7 +299,9 @@ public class PreguntasActivity extends AppCompatActivity {
             new AlertDialog.Builder(PreguntasActivity.this).setTitle("Alerta").setMessage("El número de pregunta no existe")
                     .setNeutralButton("Aceptar", alertaCancelarOnClickListener)
                     .setCancelable(false).show();
+            return -1;
         }
+        return 0;
     }
 
     View.OnClickListener btnSiguientesetOnClickListener = new View.OnClickListener() {
@@ -354,19 +360,18 @@ public class PreguntasActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            if (!ultimaPregunta) {
-                //leer la siguiente pregunta
-                leeryGuardarDatos();
-                leerPreguntaPorNumPregunta();
-                etnumPregunta.setText("");
-                if (Integer.parseInt(idPregunta) != ultimoIdPregunta) {
-                    //Aun no se llega a la ultima pregunta, mostrar interfaz segun la pregunta leida
-                    leerTipoPreguntaxPregunta();
-                } else
-                    ultimaPregunta = true;
-            } else {
-                btnSiguiente.setEnabled(false);
-                Toast.makeText(PreguntasActivity.this, "Ésta es la última pregunta de la encuesta", Toast.LENGTH_LONG).show();
+            if (leerPreguntaPorNumPregunta() == 0) {
+                if (!ultimaPregunta) {
+                    etnumPregunta.setText("");
+                    if (Integer.parseInt(idPregunta) != ultimoIdPregunta) {
+                        //Aun no se llega a la ultima pregunta, mostrar interfaz segun la pregunta leida
+                        leerTipoPreguntaxPregunta();
+                    } else
+                        ultimaPregunta = true;
+                } else {
+                    btnSiguiente.setEnabled(false);
+                    Toast.makeText(PreguntasActivity.this, "Ésta es la última pregunta de la encuesta", Toast.LENGTH_LONG).show();
+                }
             }
         }
     };
@@ -374,19 +379,28 @@ public class PreguntasActivity extends AppCompatActivity {
     DialogInterface.OnClickListener alertaAceptarOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
+            String fechaInicio;
+            String diferenciaHoras = "";
+            String fechaFin = Util.obtenerFechayHora();
 
             CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
 
             //obtener el id de la ultima cabecera
             CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
-            //Guardar la encuesta con estado incompleto
+
+            //obtener la hora de inicio de l encuesta
+            fechaInicio = cabeceraRespuestaDAO.obtenerFechayHoraInicioxEncuesta(PreguntasActivity.this,
+                    "" + cabeceraRespuesta.getIdCabeceraEnc());
+            //si no hay errr al obtener la fecha inicio
+            if (fechaInicio != null)
+                diferenciaHoras = TiempoDiferencia.retornarDiferenciaTiempo(fechaInicio, fechaFin);
 
             cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this,
-                    "I",
-                    Util.obtenerFechayHora(),
-                    "00",
-                    "",
-                    "",
+                    "I",//estado
+                    fechaFin,// horaFin
+                    diferenciaHoras,// tiempo
+                    "0",//Estado enviado
+                    " ",// fecha_envio
                     editTextObservacion.getText().toString().trim(),
                     cabeceraRespuesta.getIdCabeceraEnc());
 
@@ -400,19 +414,29 @@ public class PreguntasActivity extends AppCompatActivity {
     DialogInterface.OnClickListener alertaAceptarRechazarOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
+            String fechaInicio;
+            String diferenciaHoras = "";
+            String fechaFin = Util.obtenerFechayHora();
 
             CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
 
             //obtener el id de la ultima cabecera
             CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
-            //Guardar la encuesta con estado incompleto
 
+            //obtener la hora de inicio de l encuesta
+            fechaInicio = cabeceraRespuestaDAO.obtenerFechayHoraInicioxEncuesta(PreguntasActivity.this,
+                    "" + cabeceraRespuesta.getIdCabeceraEnc());
+            //si no hay errr al obtener la fecha inicio
+            if (fechaInicio != null)
+                diferenciaHoras = TiempoDiferencia.retornarDiferenciaTiempo(fechaInicio, fechaFin);
+
+            //Guardar la encuesta con estado incompleto
             cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this,
-                    "R",
-                    Util.obtenerFechayHora(),
-                    "00",
-                    "",
-                    "",
+                    "R",                         //estado
+                    fechaFin,   // horaFin
+                    diferenciaHoras,// tiempo
+                    "0",//Estado enviado
+                    " ",// fecha_envio
                     editTextObservacionRechazar.getText().toString().trim(),
                     cabeceraRespuesta.getIdCabeceraEnc());
 
@@ -426,20 +450,29 @@ public class PreguntasActivity extends AppCompatActivity {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
 
-
+            String fechaInicio;
+            String diferenciaHoras = "";
+            String fechaFin = Util.obtenerFechayHora();
             CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
 
             //obtener el id de la ultima cabecera
             CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);
 
+            //obtener la hora de inicio de l encuesta
+            fechaInicio = cabeceraRespuestaDAO.obtenerFechayHoraInicioxEncuesta(PreguntasActivity.this,
+                    "" + cabeceraRespuesta.getIdCabeceraEnc());
+            //si no hay errr al obtener la fecha inicio
+            if (fechaInicio != null)
+                diferenciaHoras = TiempoDiferencia.retornarDiferenciaTiempo(fechaInicio, fechaFin);
+
             cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this,
-                    "C",
-                    Util.obtenerFechayHora(),
-                    "00",
-                    "", //calcular tiempo de encuesta
-                    "0",
-                    editTextObservacionFinalizar.getText().toString().trim(),
-                    cabeceraRespuesta.getIdCabeceraEnc());
+                    "C",            //estado
+                    fechaFin,       // horaFin
+                    diferenciaHoras,// tiempo
+                    "0",            //Estado enviado
+                    "",             // fecha_envio
+                    editTextObservacionFinalizar.getText().toString().trim(), // Obs
+                    cabeceraRespuesta.getIdCabeceraEnc()); // cabRpta_id
 
             EnvioServiceUtil envioServiceUtil = new EnvioServiceUtil();
             boolean estTemp = false;
@@ -452,8 +485,8 @@ public class PreguntasActivity extends AppCompatActivity {
             if (estTemp) {
                 cabeceraRespuestaDAO.actualizarCabEncFinalEjecucion(PreguntasActivity.this,
                         "C",
-                        Util.obtenerFechayHora(),
-                        "00",//Calcular tiempo de encuesta
+                        fechaFin, // horaFin
+                        diferenciaHoras,//tiempo
                         "1", //enviado
                         Util.obtenerFechayHora(), //fecha envio
                         editTextObservacionFinalizar.getText().toString().trim(),

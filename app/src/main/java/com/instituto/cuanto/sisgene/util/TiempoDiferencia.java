@@ -16,7 +16,7 @@ public class TiempoDiferencia {
 
     public TiempoDiferencia(){}
 
-    public String retornarDiferenciaTiempo(String fecha1, String fecha2) {
+    public static String retornarDiferenciaTiempo(String fecha1, String fecha2) {
 
         String timepo = "";
 
