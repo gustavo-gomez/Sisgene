@@ -102,7 +102,7 @@
             android:layout_gravity="right"
             android:layout_margin="2dp"
             android:background="@color/color_fondo_boton"
-            android:text="SIGUIENTE PREGUNTA"
+            android:text=" SIGUIENTE PREGUNTA "
             android:textColor="@color/color_texto_boton" />
 
         <Button
@@ -112,7 +112,7 @@
             android:layout_gravity="right"
             android:layout_margin="2dp"
             android:background="@color/color_fondo_boton"
-            android:text="GUARDAR"
+            android:text=" GUARDAR "
             android:textColor="@color/color_texto_boton" />
         <!--
         <Button

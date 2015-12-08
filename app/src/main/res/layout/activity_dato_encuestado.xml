@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.7"
             android:src="@drawable/logocuanto" />
 
         <LinearLayout
@@ -47,7 +47,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textColor="@color/color_texto"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -71,7 +72,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textColor="@color/color_texto"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -95,7 +97,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textColor="@color/color_texto"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -119,7 +122,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textColor="@color/color_texto"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -158,7 +162,8 @@
                         android:layout_weight="2"
                         android:gravity="center_vertical"
                         android:textColor="@color/color_texto"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -167,7 +172,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Fecha de vigencia de la Encuesta"
-                    android:textColor="@color/color_texto" />
+                    android:textColor="@color/color_texto"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -196,7 +202,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@color/color_texto"
-                            android:textSize="17sp" />
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -221,7 +228,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@color/color_texto"
-                            android:textSize="17sp" />
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -266,7 +274,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Nombres" />
+                            android:text="Nombres"
+                            android:textColor="@color/color_texto" />
 
                         <EditText
                             android:id="@+id/etNombres"
@@ -708,7 +717,9 @@
             android:layout_margin="5dp"
             android:background="@color/color_fondo_boton"
             android:text="CANCELAR"
-            android:textColor="@color/color_texto_boton" />
+            android:textColor="@color/color_texto_boton"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btAceptareIniciarEncuesta"
@@ -716,8 +727,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@color/color_fondo_boton"
-            android:text="Aceptar e Iniciar Encuesta"
-            android:textColor="@color/color_texto_boton" />
+            android:text=" Guardar e Iniciar Encuesta "
+            android:textColor="@color/color_texto_boton"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </LinearLayout>
