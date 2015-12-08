@@ -34,11 +34,11 @@ public class TiempoDiferencia {
             long horas = diferenciaHorasDias(calFechaInicial, calFechaFinal) + diferenciaHoras(calFechaInicial, calFechaFinal);
             long minutos = diferenciaMinutos(calFechaInicial, calFechaFinal);
 
-            if (minutos < 0) {
+            if(minutos < 0){
                 System.out.println("Horas: " + (horas - 1) + " Minutos: " + (minutos + 60));
                 horas = horas - 1 ;
                 minutos = minutos + 60;
-            } else {
+            }else{
                 System.out.println("Horas: " + (horas) + " Minutos : " + minutos);
             }
 
