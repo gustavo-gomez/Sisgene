@@ -490,7 +490,7 @@ public class CabeceraRespuestaDAO {
         String arg[] = {estado, horaFin, tiempo, bEnviado, fecha_envio, obs, idCabRpta};
         boolean response = false;
 
-
+        System.out.println("Se actualiza actualizarCabEncFinalEjecucion, estado: " +  estado);
         try {
             String sql = " UPDATE cab_enc_rpta " +
                     " SET caer_estado = ?, " +
@@ -515,6 +515,32 @@ public class CabeceraRespuestaDAO {
 
     }
 
+    public String obtenerFechayHoraInicioxEncuesta(Context context, String idCabRpta) {
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        String fecha = null;
+
+        String arg[] = {idCabRpta};
+
+        try {
+            String sql = "select caer_hora_inicio from cab_enc_rpta where caer_id = ? ";
+
+            cursor = dataBaseHelper.db.rawQuery(sql, arg);
+
+            if (cursor.moveToFirst()) {
+                fecha = cursor.getString(0);
+
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        System.out.println("obtenerFechayHoraInicioxEncuesta: " + fecha);
+        return fecha;
+
+    }
     public List<String> obtenerRangoFechasEncuesta(Context context, String username) {
 
         Cursor cursor = null;
