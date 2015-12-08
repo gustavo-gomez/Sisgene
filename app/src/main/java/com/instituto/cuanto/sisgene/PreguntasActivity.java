@@ -436,7 +436,7 @@ public class PreguntasActivity extends AppCompatActivity {
                     "C",
                     Util.obtenerFechayHora(),
                     "00",
-                    "",
+                    "", //calcular tiempo de encuesta
                     "0",
                     editTextObservacionFinalizar.getText().toString().trim(),
                     cabeceraRespuesta.getIdCabeceraEnc());

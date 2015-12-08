@@ -358,8 +358,8 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                 nombresLayouts.get(i).setVisibility(View.GONE);
 
             numerodePersonasEncuestadas = Integer.parseInt(tvNumeroPersonas.getText().toString());
-            System.out.println("NombresPersonasEncuestadasActivity DIM.nombresEncuestados: "+ nombresEncuestados.size());
-            System.out.println("NombresPersonasEncuestadasActivity DIM.codigosIdentEncuestados: "+ codigosIdentEncuestados.size());
+            System.out.println("NombresPersonasEncuestadasActivity DIM.nombresEncuestados: " + nombresEncuestados.size());
+            System.out.println("NombresPersonasEncuestadasActivity DIM.codigosIdentEncuestados: " + codigosIdentEncuestados.size());
 
             //Si se ingresan 0 personas, se manda solo el nombre del jefe de familia
             if (numerodePersonasEncuestadas == 0) {
@@ -368,14 +368,15 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                 intent.putIntegerArrayListExtra(KEY_ARG_ID_ENCUESTADOS, codigosIdentEncuestados);
                 startActivity(intent);
                 finish();
+            } else {
+                for (int i = 0; i < numerodePersonasEncuestadas; i++)
+                    nombresLayouts.get(i).setVisibility(View.VISIBLE);
+                btAceptar_nombresEncuestados.setClickable(true);
+
+                Toast.makeText(NombresPersonasEncuestadasActivity.this, "Ingrese el nombre de las " +
+                        +numerodePersonasEncuestadas + " personas ", Toast.LENGTH_LONG).show();
             }
 
-            for (int i = 0; i < numerodePersonasEncuestadas; i++)
-                nombresLayouts.get(i).setVisibility(View.VISIBLE);
-            btAceptar_nombresEncuestados.setClickable(true);
-
-            Toast.makeText(NombresPersonasEncuestadasActivity.this, "Ingrese el nombre de las " +
-                    +numerodePersonasEncuestadas + " personas ", Toast.LENGTH_LONG).show();
         }
 
     };
@@ -413,8 +414,7 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                             apellidosMatEdits.get(i).getText().toString().trim());
 
                     if (insertarAllegado == false) {
-                        Toast.makeText(NombresPersonasEncuestadasActivity.this, "Ingrese el nombre de las " +
-                                +numerodePersonasEncuestadas + " personas ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(NombresPersonasEncuestadasActivity.this, "Error. Consulte su Adm", Toast.LENGTH_LONG).show();
                         finish();
                     }
                     codigosIdentEncuestados.add(personaDAO.obtenerUltIdAlle(NombresPersonasEncuestadasActivity.this));

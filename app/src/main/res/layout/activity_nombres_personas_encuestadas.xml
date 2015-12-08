@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.7"
             android:src="@drawable/logocuanto" />
 
         <LinearLayout
@@ -257,7 +257,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Numero de Personas "
+                android:text="Número de Personas "
                 android:textColor="@color/color_texto"
                 android:textSize="20dp" />
 
@@ -346,7 +346,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Persona 1" />
+                        android:text="Nombre 1"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre1"
@@ -399,7 +401,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 2" />
+                        android:text="Nombre 2"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre2"
@@ -451,7 +455,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 3" />
+                        android:text="Nombre 3"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre3"
@@ -503,7 +509,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 4" />
+                        android:text="Nombre 4"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre4"
@@ -555,7 +563,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 5" />
+                        android:text="Nombre 5"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre5"
@@ -607,7 +617,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 6" />
+                        android:text="Nombre 6"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre6"
@@ -659,7 +671,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 7" />
+                        android:text="Nombre 7"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre7"
@@ -670,6 +684,7 @@
                         android:gravity="center"
                         android:hint="Nombre 7"
                         android:maxLength="50"
+
                         android:textColor="@color/color_texto"
                         android:textSize="16sp" />
 
@@ -711,7 +726,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 8" />
+                        android:text="Nombre 8"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre8"
@@ -763,7 +780,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 9" />
+                        android:text="Nombre 9"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre9"
@@ -815,7 +834,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 10" />
+                        android:text="Nombre 10"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre10"
@@ -868,7 +889,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 11" />
+                        android:text="Nombre 11"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre11"
@@ -920,7 +943,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 12" />
+                        android:text="Nombre 12"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre12"
@@ -972,7 +997,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 13" />
+                        android:text="Nombre 13"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre13"
@@ -1024,7 +1051,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 14" />
+                        android:text="Nombre 14"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre14"
@@ -1128,7 +1157,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 16" />
+                        android:text="Nombre 16"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre16"
@@ -1180,7 +1211,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 17" />
+                        android:text="Nombre 17"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre17"
@@ -1232,7 +1265,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 18" />
+                        android:text="Nombre 18"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre18"
@@ -1284,7 +1319,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 19" />
+                        android:text="Nombre 19"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre19"
@@ -1336,7 +1373,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Nombre 20" />
+                        android:text="Nombre 20"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edNombre20"

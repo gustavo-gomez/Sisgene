@@ -114,7 +114,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         spArea.setAdapter(adaptador);
 
         ArrayAdapter<String> adaptador2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCondiciones);
-        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adaptador2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCondicion.setAdapter(adaptador2);
 
 
@@ -143,7 +143,7 @@ public class DatosCabeceraActivity extends AppCompatActivity {
         String grupo = usuarioDAO.obtenerGrupoPorUsuario(DatosCabeceraActivity.this, userUsu);
         tvGrupo.setText(grupo);
 
-        //fechas
+        //fechas MODIFICAR por las fechas originales de BD
         tvFechaVigenciaInicio.setText(Util.obtenerFecha());
         tvFechaVigenciaFinal.setText(Util.obtenerFecha());
 
