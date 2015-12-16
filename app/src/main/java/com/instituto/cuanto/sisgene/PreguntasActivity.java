@@ -991,7 +991,7 @@ public class PreguntasActivity extends AppCompatActivity {
                 if (i == 0) {
                     respuesta = detalleEncRptaDAO.obtenerRpta(PreguntasActivity.this);
                 } else {
-                    //respuesta = detalleEncRptaDAO.obtenerRptaxId(PreguntasActivity.this,);
+                   // respuesta = detalleEncRptaDAO.obtenerRptaxId(PreguntasActivity.this,);
                 }
 
                 idRespuesta = Integer.parseInt(respuesta.get(0));
