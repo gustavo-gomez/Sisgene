@@ -95,6 +95,7 @@ public class EnvioServiceUtil {
 
             try {
                 String a = URLEncoder.encode(jsonEnviar, "UTF-8");
+                System.out.println("\n\nJSON CODIFICADO : "+a);
                 jsonEnviar = a;
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
