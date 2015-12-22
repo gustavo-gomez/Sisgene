@@ -235,9 +235,12 @@ public class PreguntasActivity extends AppCompatActivity {
             encuestarTodos = Integer.parseInt(encuestaPregunta.getPre_unica_persona()); // 0:todos   -  1: una persona
             try {
                 ordenImportancia = Integer.parseInt(encuestaPregunta.getPre_importarordenrptamu()); //Que va a retornar
+                mumMaxChequeados = Integer.parseInt(encuestaPregunta.getPre_nummaxrptamu()); //campo que indica el numero maximo de items a chequear para las preguntas mixtas
+
             } catch (Exception ex) {
                 ex.printStackTrace();
                 ordenImportancia = 0;
+                mumMaxChequeados = 1;
             }
             //obtener alternativas
             if (!tipoPreguntaActual.equals("AB"))
@@ -858,7 +861,7 @@ public class PreguntasActivity extends AppCompatActivity {
     }
 
     private void poblarLista_TipoPreguntaMixta() {
-        mumMaxChequeados = 3;
+        //mumMaxChequeados = 3;
 
         ArrayList<String> alternativas = new ArrayList<>();
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {

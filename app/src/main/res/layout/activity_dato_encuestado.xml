@@ -643,6 +643,7 @@
                             android:hint="Telefono"
                             android:inputType="number"
                             android:singleLine="true"
+                            android:maxLength="9"
                             android:textColor="@color/color_texto"
                             android:textSize="17sp"
                             android:textStyle="normal" />
