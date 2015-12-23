@@ -241,7 +241,7 @@ public class EncuestaDAO {
 
                 } while (cursor.moveToNext());
             }
-
+            System.out.println("NUMERO DE ITEMS PARA PREGUNTA " + idPregunta + ": " + listPreguntaItmes.size());
             return listPreguntaItmes;
         } catch (Exception ex) {
             ex.printStackTrace();

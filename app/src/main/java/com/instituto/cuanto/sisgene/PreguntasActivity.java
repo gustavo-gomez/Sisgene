@@ -97,6 +97,7 @@ public class PreguntasActivity extends AppCompatActivity {
     //Retomar encuesta
     int idRespuesta;
     String valorRespuesta;
+    String idPreguntaDeRpta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -296,6 +297,7 @@ public class PreguntasActivity extends AppCompatActivity {
             if (tipoPreguntaActual.equals("MS") || tipoPreguntaActual.equals("MM")) {
                 System.out.println("OBTENER ITEMS");
                 listPreguntaItems = encuestaDAO.obtenerItems(PreguntasActivity.this, idPregunta);
+                System.out.println("NUMERO DE ITEMS: " + listPreguntaItems.size());
             }
         } else {
             limpiarLista();
@@ -888,8 +890,12 @@ public class PreguntasActivity extends AppCompatActivity {
         ArrayList<String> horizontales = new ArrayList<>();
         for (int i = 0; i < listPreguntaItems.size(); i++) {
             horizontales.add(listPreguntaItems.get(i).getIte_nombre().trim());
+            //temporal
+            System.out.println("ITEM " + (i + 1) + ": " + horizontales.add(listPreguntaItems.get(i).getIte_nombre().trim()));
+            //
         }
         horizontales.add("");
+
 
         ArrayList<String> verticales = new ArrayList<>();
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
@@ -981,7 +987,6 @@ public class PreguntasActivity extends AppCompatActivity {
         DetalleEncRptaDAO detalleEncRptaDAO = new DetalleEncRptaDAO();
         EncuestaDAO encuestaDAO = new EncuestaDAO();
 
-        String idPreguntaDeRpta = null;
         ArrayList<String> respuesta = null;
 
 
@@ -989,25 +994,24 @@ public class PreguntasActivity extends AppCompatActivity {
 
         if (numeroPreguntas != -1) {
             //recorrer las respuestas hasta encontrar una que no haya sido respondita totalmente
-            for (int i = 0; i < numeroPreguntas; i++) {
+            //for (int i = 0; i < numeroPreguntas; i++) {
 
-                if (i == 0) {
+                //if (i == 0)
+               // {
                     respuesta = detalleEncRptaDAO.obtenerRpta(PreguntasActivity.this);
-                } else {
-                   // respuesta = detalleEncRptaDAO.obtenerRptaxId(PreguntasActivity.this,);
-                }
+                //} else {
+                 //   respuesta = detalleEncRptaDAO.obtenerRptaxId(PreguntasActivity.this,idPregunta);
+                //}
 
-                idRespuesta = Integer.parseInt(respuesta.get(0));
-                valorRespuesta = respuesta.get(1).toString().toLowerCase();
+                //idRespuesta = Integer.parseInt(respuesta.get(0));
+                valorRespuesta = respuesta.get(1).toLowerCase();
 
                 if (valorRespuesta.contains("null")) //pregunta que no ha sido respondida totalmente
-                {
-                    idPreguntaDeRpta = respuesta.get(2).toString(); // se asigna el id de la Pregunta que no ha sido respondida
-                }
-            }
+                    idPregunta = respuesta.get(2); // se asigna el id de la Pregunta que no ha sido respondida
+            //}
 
             //setear los datos en las variables globales
-
+            leerSiguientePregunta();
 
             //invocar al metodo para mostrar las preguntas a responder
             leerTipoPreguntaxPregunta();

@@ -42,14 +42,14 @@ public class DetalleEncRptaDAO {
         return valorRpta;
     }
 
-    public String obtenerRptaxId(Context context, String idPregunta) {
+    public ArrayList<String> obtenerRptaxId(Context context, String idPregunta) {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         String arg[] = {idPregunta};
-        String valorRpta = "";
+        ArrayList<String> valorRpta = null;
 
         try{
-            String sql = " select der.deer_valor_respuesta, der.pre_id" +
+            String sql = " select der.deer_valor_respuesta" +
                     " from pregunta pre " +
                     " inner join det_enc_rpta der on pre.pre_id = der.pre_id "+
                     " where pre.pre_id = ?";
@@ -57,7 +57,7 @@ public class DetalleEncRptaDAO {
             cursor = dataBaseHelper.db.rawQuery(sql, arg);
 
             if (cursor.moveToFirst()){
-                valorRpta = cursor.getString(0);
+                valorRpta.add(cursor.getString(0));
             }
         }catch(Exception ex){
             ex.printStackTrace();
