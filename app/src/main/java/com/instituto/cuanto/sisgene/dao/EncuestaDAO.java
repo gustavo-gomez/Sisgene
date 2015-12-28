@@ -47,6 +47,8 @@ public class EncuestaDAO {
 
     public EncuestaPregunta obtenerPreguntaEncuesta(Context context) {
 
+        System.out.println("ENTRO A OBT PREG ENC ENCDAO");
+
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         EncuestaPregunta encuestaPregunta = null;
@@ -60,16 +62,21 @@ public class EncuestaDAO {
                 " INNER JOIN estructura_encuesta ese ON ese.ese_id = dee.ese_id" +
                 " INNER JOIN seccion sec ON sec.sec_id = ese.sec_id" +
                 " INNER JOIN pregunta pre ON pre.pre_id = ese.pre_id" +
-                " LEFT JOIN pregunta_opcion pro ON pro.pre_id = pre.pre_id" +
-                " LEFT JOIN opcion opc ON opc.opc_id = pro.opc_id" +
+                //" LEFT JOIN pregunta_opcion pro ON pro.pre_id = pre.pre_id" +
+                //" LEFT JOIN opcion opc ON opc.opc_id = pro.opc_id" +
                 " LEFT JOIN sub_seccion sus1 ON sus1.sus_id = ese.sus_id_nivel1" +
-                " LEFT JOIN pregunta_item pri ON pri.pre_id = pre.pre_id" +
-                " LEFT JOIN item ite ON ite.ite_id = pri.ite_id" +
+                //" LEFT JOIN pregunta_item pri ON pri.pre_id = pre.pre_id" +
+                //" LEFT JOIN item ite ON ite.ite_id = pri.ite_id" +
                 " ORDER BY pre.pre_id ASC";
+
 
         try {
 
+            System.out.println("ENCDAO  1");
+
             cursor = dataBaseHelper.db.rawQuery(sql, null);
+
+            System.out.println("ENCDAO2");
 
             if (cursor.moveToFirst()) {
                 System.out.println("cahuana gay");
@@ -98,6 +105,7 @@ public class EncuestaDAO {
             System.out.println("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
             return encuestaPregunta;
         } catch (Exception ex) {
+            System.out.println("ENCDAO ERROR : "+ex.getMessage());
             ex.printStackTrace();
         } finally {
             if (cursor != null)

@@ -135,7 +135,8 @@ public class CabeceraRespuestaDAO {
                     " inner join persona per on cer.per_id = per.per_id" +
                     " inner join usuario_persona usp on cer.usp_id = usp.usp_id" +
                     " inner join usuario usu on usp.usu_id = usu.usu_id " +
-                    " where cer.caer_benviado = '0'";
+                    " where cer.caer_benviado = '0'"+
+                    " and cer.caer_estado = 'C'";
             if (!fIni.equals("")) {
                 sql = sql + " and cer.caer_fencuesta >= " + fIni;
             }

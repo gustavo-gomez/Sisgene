@@ -185,6 +185,8 @@ public class CargaEncuestaDAO {
 
     public boolean cargarEstructura_encuesta(Context context, String sec_id, String sus_id_nivel1, String sus_id_nivel2,
                                              String pre_id, String ese_id){
+        System.out.println("PRE_ID _ --> "+pre_id);
+
         Cursor cursor   = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         String arg[] = {ese_id,sec_id,sus_id_nivel1,sus_id_nivel2,pre_id};

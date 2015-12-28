@@ -153,12 +153,15 @@ public class PreguntasActivity extends AppCompatActivity {
 
     private void leerPrimeraPregunta() {
 
+
+
         EncuestaDAO encuestaDAO = new EncuestaDAO();
         EncuestaPregunta encuestaPregunta;
         //ir a BD para sacar la primera preguna de dicha ecuesta
         encuestaPregunta = encuestaDAO.obtenerPreguntaEncuesta(PreguntasActivity.this);
         // Setear datos para la primera pregunta
         System.out.println("encuestaPregunta.getSec_nombre" + encuestaPregunta.getSec_nombre());
+
         nombreSecccion = encuestaPregunta.getSec_nombre();
         numeroSecccion = encuestaPregunta.getSec_numero_seccion();
         numeroSecccion = encuestaPregunta.getSec_numero_seccion();

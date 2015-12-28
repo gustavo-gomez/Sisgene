@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.instituto.cuanto.sisgene.EnvioService;
+import com.instituto.cuanto.sisgene.ExportarEncuestaActivity;
+import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.dao.EnviarEncuestaDAO;
 import com.instituto.cuanto.sisgene.entidad.Allegado;
 import com.instituto.cuanto.sisgene.entidad.CabeceraEncuestaRpta;
@@ -35,6 +37,7 @@ public class EnvioServiceUtil {
     Context context;
     String idCabEnc = "",estadoWS = "",ip="",puerto="";
     Gson gson = new Gson();
+    CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
 
     public EnvioServiceUtil(){}
 
@@ -58,6 +61,8 @@ public class EnvioServiceUtil {
              //   Toast.makeText(context, "No se encuentra el archivo de configuracion", Toast.LENGTH_LONG).show();
             //}
 
+            System.out.println("ESTADOOOO WS : "+estadoWS);
+
             if (estadoWS.equals("00")) {
                 return true;
             } else {
@@ -70,7 +75,7 @@ public class EnvioServiceUtil {
     }
 
     private class RestCosumeAsyncTask extends AsyncTask<String, Void, Void> {
-        ProgressDialog progressDialog;
+        ProgressDialog progressDialog2;
 
         @Override
         protected Void doInBackground(String... params) {
@@ -119,25 +124,24 @@ public class EnvioServiceUtil {
                     System.out.println("1.- "+guardarEncuestaResponse.getCodigo_respuesta());
                     System.out.println("2.- "+guardarEncuestaResponse.getMensaje());
                     if (guardarEncuestaResponse.getCodigo_respuesta().equals("01")){
-                        estadoWS = "01";
-                        progressDialog.hide();
+                        progressDialog2.hide();
                         Toast.makeText(context, guardarEncuestaResponse.getMensaje(), Toast.LENGTH_LONG).show();
                     }else {
+                        progressDialog2.hide();
                         estadoWS = "00";
-                        progressDialog.hide();
+                        System.out.println("------->>>>>>"+Integer.parseInt(idCabEnc));
+                        cabeceraRespDAO.actualizarCabEncEstadoEnviado(context, Integer.parseInt(idCabEnc));
                         Toast.makeText(context, "Envio de Encuesta con éxito", Toast.LENGTH_LONG).show();
                     }
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
-                    estadoWS = "01";
                     Toast.makeText(context, "Ocurrio un error en el envio de Información, verifique su conexión a Internet", Toast.LENGTH_LONG).show();
-                    progressDialog.hide();
+                    progressDialog2.hide();
                 }
             });
 
-            System.out.println("TERMINANDO DE EJECUTAR");
             return null;
         }
 
@@ -145,9 +149,9 @@ public class EnvioServiceUtil {
         protected void onPreExecute() {
             super.onPreExecute();
             System.out.println("PREEXECUTE");
-            progressDialog = new ProgressDialog(context);
-            progressDialog.setMessage("Enviando información");
-            progressDialog.show();
+            progressDialog2 = new ProgressDialog(context);
+            progressDialog2.setMessage("Enviando información");
+            //progressDialog.show();
         }
 
         @Override

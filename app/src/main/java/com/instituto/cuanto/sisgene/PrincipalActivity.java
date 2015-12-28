@@ -158,6 +158,7 @@ public class PrincipalActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent(PrincipalActivity.this, ExportarEncuestaActivity.class);
             startActivity(intent);
+            finish();
         }
     };
 

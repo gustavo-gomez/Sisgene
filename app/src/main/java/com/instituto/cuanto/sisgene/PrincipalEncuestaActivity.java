@@ -16,6 +16,7 @@ import com.instituto.cuanto.sisgene.constantes.Constants;
 import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.dao.UsuarioDAO;
 import com.instituto.cuanto.sisgene.util.ListViewAdapter;
+import com.instituto.cuanto.sisgene.util.ListViewAdapterEncuestador;
 import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
@@ -87,7 +88,8 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.lvListaEncuesta);
         populateList();
-        ListViewAdapter adapter = new ListViewAdapter(this, list);
+
+        ListViewAdapterEncuestador adapter = new ListViewAdapterEncuestador(this, list);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -225,9 +227,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         temp.put(Constants.THIRD_COLUMN, "FE. DESAR");
         temp.put(Constants.FOURTH_COLUMN, "ENCUESTADO");
         temp.put(Constants.FIVE_COLUMN, "H. INICIO");
-        temp.put(Constants.SIX_COLUMN, "H. TERMINO");
-        temp.put(Constants.SEVEN_COLUMN, "TIEMPO");
-        temp.put(Constants.EIGHT_COLUMN, "ESTADO");
+        temp.put(Constants.SIX_COLUMN, "ESTADO");
         list.add(temp);
 
         CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
@@ -246,8 +246,8 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
             temp2.put(Constants.THIRD_COLUMN, cabeceraResp.getFechaDesarrollo());
             temp2.put(Constants.FOURTH_COLUMN, cabeceraResp.getNombreEncuestado()+" "+cabeceraResp.getApMaternoEncuestado()+" "+cabeceraResp.getApPaternoEncuestado());
             temp2.put(Constants.FIVE_COLUMN, cabeceraResp.getHoraInicio());
-            temp2.put(Constants.SIX_COLUMN, cabeceraResp.getHoraFin());
-            temp2.put(Constants.SEVEN_COLUMN, cabeceraResp.getTiempo());
+            //temp2.put(Constants.SIX_COLUMN, cabeceraResp.getHoraFin());
+            //temp2.put(Constants.SEVEN_COLUMN, cabeceraResp.getTiempo());
 
             String estado="";
             if(cabeceraResp.getEstado().equals("P")) estado = "PENDIENTE";
@@ -255,7 +255,7 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
             if(cabeceraResp.getEstado().equals("I")) estado = "INCOMPLETO";
             if(cabeceraResp.getEstado().equals("R")) estado = "RECHAZADO";
 
-            temp2.put(Constants.EIGHT_COLUMN, estado);
+            temp2.put(Constants.SIX_COLUMN, estado);
             list.add(temp2);
         }
 

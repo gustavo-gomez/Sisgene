@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
             validarRequest.setClave(clvUsu);
             validarRequest.setCodigo_encuesta(codEncuesta);
 
-            String jsonEnviar = gson.toJson(validarRequest);
+            final String jsonEnviar = gson.toJson(validarRequest);
 
             //provisional
             ip="192.168.1.39";
@@ -231,10 +231,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void success(ValidarAdministradorResponse validarAdministradorResponse, Response response) {
 
-                    if (validarAdministradorResponse.getCodigo_respuesta().equals("01")) {
+                    String jsonInput = gson.toJson(validarAdministradorResponse);
+                    System.out.println("JSON LLEGADA : "+jsonInput);
+
+                    if(validarAdministradorResponse.getCodigo_respuesta().equals("01")) {
                         progressDialog.hide();
                         Toast.makeText(MainActivity.this, validarAdministradorResponse.getMensaje(), Toast.LENGTH_LONG).show();
-                    } else {
+                    }else {
                         cargarEnBD(validarAdministradorResponse);
                         limpiarCampos();
                         progressDialog.hide();
@@ -307,8 +310,8 @@ public class MainActivity extends AppCompatActivity {
 
             List<Seccion> listaSeccion = validarResponse.getLista_seccion();
             for (Seccion seccion : listaSeccion) {
-                cargaDAO.cargarSeccion(MainActivity.this, seccion.getSec_id(), seccion.getSec_nombre(), seccion.getSec_nota(),
-                        seccion.getSec_numero_seccion());
+                cargaDAO.cargarSeccion(MainActivity.this, seccion.getSec_nombre(), seccion.getSec_nota(),
+                        seccion.getSec_numero_seccion(), seccion.getSec_id());
             }
 
             List<SubSeccion> lisSubseccion = validarResponse.getLista_sub_seccion();
@@ -319,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
 
             List<EstructuraEncuesta> listaEstEnc = validarResponse.getLista_estructura_encuesta();
             for (EstructuraEncuesta estEnc : listaEstEnc) {
+                System.out.println("PRE_ID MAIN : "+ estEnc.getPre_id());
                 cargaDAO.cargarEstructura_encuesta(MainActivity.this, estEnc.getSec_id(), estEnc.getSus_id_nivel1(),
                         estEnc.getSus_id_nivel2(), estEnc.getPre_id(), estEnc.getEse_id());
             }
