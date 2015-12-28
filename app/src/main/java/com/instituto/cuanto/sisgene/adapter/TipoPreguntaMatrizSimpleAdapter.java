@@ -127,7 +127,7 @@ public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
                 } else {
                     TextView textView = new TextView(context);
                     if (i == 0 && j == 0) {
-                        textView.setText("Tipo de Servicio");
+                        //textView.setText("Tipo de Servicio");
                         textView.setPadding(20, 20, 20, 20);
                         tableRow.addView(textView);
                     }

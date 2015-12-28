@@ -105,6 +105,9 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
 
                     if(cabeceraResp.getEstado().equals("I")) {
                         //ACA VA PARA QUE RETOME ENCUESTA
+                        //Intent intent = new Intent(PrincipalEncuestaActivity.this, PrincipalActivity.class);
+                        //startActivity(intent);
+
                     }else {
                         Toast.makeText(PrincipalEncuestaActivity.this, "ENCUESTA NO TIENE ESTADO INCOMPLETO", Toast.LENGTH_LONG).show();
                     }
