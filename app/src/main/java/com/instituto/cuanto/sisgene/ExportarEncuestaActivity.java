@@ -237,8 +237,17 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
             }
 
             //PROVISIONAL
-            String ip="192.168.1.39";
+            //String ip="192.168.1.41";
+            //String puerto="8085";
+
+            String ip="192.168.1.40";
             String puerto="8083";
+
+            /*String ip="190.40.162.59";
+            String puerto="8085";*/
+
+           // String ip="192.168.1.33";
+            //String puerto="8085";
 
             RestAdapter restAdapter = new RestAdapter.Builder()
                     //.setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/resources/WebServiceSISGENE")

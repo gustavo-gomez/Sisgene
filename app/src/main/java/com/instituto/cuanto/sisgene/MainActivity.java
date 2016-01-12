@@ -216,12 +216,22 @@ public class MainActivity extends AppCompatActivity {
             final String jsonEnviar = gson.toJson(validarRequest);
 
             //provisional
-            ip="192.168.1.34";
+            //ip="192.168.1.41";
+            //puerto="8085";
+
+            ip="192.168.1.40";
             puerto="8083";
 
+
+            /*ip="190.40.162.59";
+            puerto="8085";*/
+
+            //ip="192.168.1.33";
+            //puerto="8085";
+
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    //.setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
-                    .setEndpoint("http://"+ip+":"+puerto+"/sisgene/resources/WebServiceSISGENE")//apache
+                    .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
+                    //.setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/resources/WebServiceSISGENE")//apache
                     //.setEndpoint("http://172.16.139.227:8080/WSSisgene/resources/WebServiceSISGENE")
                     .build();
 
@@ -230,9 +240,6 @@ public class MainActivity extends AppCompatActivity {
             service.repositorySync(jsonEnviar, new Callback<ValidarAdministradorResponse>() {
                 @Override
                 public void success(ValidarAdministradorResponse validarAdministradorResponse, Response response) {
-                    String jsonInput = gson.toJson(validarAdministradorResponse);
-                    System.out.println("JSON LLEGADA : "+jsonInput);
-
                     String jsonInput = gson.toJson(validarAdministradorResponse);
                     System.out.println("JSON LLEGADA : "+jsonInput);
 

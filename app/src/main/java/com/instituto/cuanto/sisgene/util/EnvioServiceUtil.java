@@ -107,8 +107,17 @@ public class EnvioServiceUtil {
             }
 
             //PROVISIONAL
-            ip="192.168.1.39";
+            //ip="192.168.1.41";
+            //puerto="8085";
+
+            ip="192.168.1.40";
             puerto="8083";
+
+            /*ip="190.40.162.59";
+            puerto="8085";*/
+
+            //ip="192.168.1.33";
+            //puerto="8085";
 
             RestAdapter restAdapter = new RestAdapter.Builder()
                     //.setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/resources/WebServiceSISGENE")

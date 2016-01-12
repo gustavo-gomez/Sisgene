@@ -226,6 +226,8 @@ public class EncuestaDAO {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         PreguntaItem preguntaItem = null;
+        String args[]={idPregunta};
+
         List<PreguntaItem> listPreguntaItmes = new ArrayList<PreguntaItem>();
 
         String sql = "SELECT ite.ite_id,ite.ite_nombre,pri.pri_numeralitem" +

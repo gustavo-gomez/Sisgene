@@ -247,6 +247,8 @@ public class CargaEncuestaDAO {
         String arg[] = {ite_id,ite_nombre};
         boolean response = false;
 
+        System.out.println("ITEEEEM ID : "+ite_id+" -- NOMBRE : "+ite_nombre);
+
 
         try {
             String sql = " INSERT INTO item(ite_id,ite_nombre)"+
@@ -303,6 +305,7 @@ public class CargaEncuestaDAO {
         String arg[] = {pri_id,pre_id,ite_id,pri_numeralItem};
         boolean response = false;
 
+        System.out.println("PRI_ID : "+pri_id + " -- PRE_ID : "+pre_id + " -- ITEM_ID : "+ite_id+ " -- PRI_NUMERALITEM : "+pri_numeralItem);
 
         try {
             String sql = " INSERT INTO pregunta_item(pri_id,pre_id,ite_id,pri_numeralitem)"+
