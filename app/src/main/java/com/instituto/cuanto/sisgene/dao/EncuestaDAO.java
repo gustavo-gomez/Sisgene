@@ -215,8 +215,10 @@ public class EncuestaDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
-            if (cursor != null)
+            if (cursor != null) {
                 cursor.close();
+                System.out.println("CLOSE database");
+            }
         }
         return null;
     }
@@ -256,10 +258,12 @@ public class EncuestaDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
-            if (cursor != null)
+            if (cursor != null) {
                 cursor.close();
+                System.out.println("Database close");
+            }
         }
-        return null;
+        return listPreguntaItmes;
     }
 
     public EncuestaPregunta obtenerPreguntaPorNumPregunta(Context context, String numPregunta) {
@@ -290,7 +294,6 @@ public class EncuestaDAO {
             cursor = dataBaseHelper.db.rawQuery(sql, null);
 
             if (cursor.moveToFirst()) {
-                System.out.println("cursor");
                 encuestaPregunta = new EncuestaPregunta();
                 encuestaPregunta.setSec_id((cursor.getString(0) != null) ? cursor.getString(0) : "");
                 encuestaPregunta.setSec_nombre((cursor.getString(1) != null) ? cursor.getString(1) : "");
