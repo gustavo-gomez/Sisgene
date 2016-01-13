@@ -87,11 +87,10 @@ public class UsuarioDAO {
         String arg[] = {user};
 
         try {
-
             cursor = dataBaseHelper.db.rawQuery("select usp.usp_id " +
-                    "from usuario_persona usp " +
-                    "inner join usuario usu on usu.usu_id = usp.usu_id " +
-                    "where usu.usu_usuario = ?", arg);
+                    " from usuario usup " +
+                    " inner join usuario_persona usp on usu.usu_id = usp.usu_id " +
+                    "where usp.usu_id = ?", arg);
 
             if (cursor.moveToFirst()) {
                 idUsuario =  cursor.getString(0);

@@ -237,8 +237,8 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
             }
 
             //PROVISIONAL
-            //String ip="192.168.1.41";
-            //String puerto="8085";
+            /*String ip="192.168.1.41";
+            String puerto="8085";*/
 
             String ip="192.168.1.40";
             String puerto="8083";

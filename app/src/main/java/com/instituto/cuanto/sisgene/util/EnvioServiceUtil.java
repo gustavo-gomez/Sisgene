@@ -107,8 +107,8 @@ public class EnvioServiceUtil {
             }
 
             //PROVISIONAL
-            //ip="192.168.1.41";
-            //puerto="8085";
+            /*ip="192.168.1.41";
+            puerto="8085";*/
 
             ip="192.168.1.40";
             puerto="8083";
@@ -123,7 +123,6 @@ public class EnvioServiceUtil {
                     //.setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/resources/WebServiceSISGENE")
                     .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
                     .build();
-
 
             EnvioService service = restAdapter.create(EnvioService.class);
 
@@ -146,6 +145,7 @@ public class EnvioServiceUtil {
 
                 @Override
                 public void failure(RetrofitError error) {
+                    System.out.println("ERROR : "+error.getMessage().toString());
                     Toast.makeText(context, "Ocurrio un error en el envio de Información, verifique su conexión a Internet", Toast.LENGTH_LONG).show();
                     progressDialog2.hide();
                 }

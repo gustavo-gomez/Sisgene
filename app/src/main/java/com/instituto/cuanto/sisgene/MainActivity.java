@@ -216,8 +216,8 @@ public class MainActivity extends AppCompatActivity {
             final String jsonEnviar = gson.toJson(validarRequest);
 
             //provisional
-            //ip="192.168.1.41";
-            //puerto="8085";
+            /*ip="192.168.1.41";
+            puerto="8085";*/
 
             ip="192.168.1.40";
             puerto="8083";
