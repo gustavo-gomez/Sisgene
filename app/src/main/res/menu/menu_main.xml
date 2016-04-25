@@ -4,8 +4,14 @@
     tools:context="com.instituto.cuanto.sisgene.PreguntasActivity">
 
     <item
+        android:id="@+id/tomarFoto"
+        android:title="Tomar Foto"
+        app:showAsAction="always"
+        android:src="@android:drawable/ic_menu_camera"/>
+
+    <item
         android:id="@+id/finalizarEncuesta"
-        android:icon="@drawable/ic_save_black_24dp"
+        android:icon="@drawable/save_icon_com2"
         android:title="Finalizar encuesta"
         app:showAsAction="always" />
 

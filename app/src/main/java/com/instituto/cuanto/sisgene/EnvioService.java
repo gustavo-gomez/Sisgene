@@ -15,8 +15,8 @@ import retrofit.http.Path;
  */
 public interface EnvioService {
 
-    @GET("/guardarEncuesta/{cadenaJSON}")
-    void repository2Sync(@Path("cadenaJSON") String cadenaJSON, Callback<GuardarEncuestaResponse> callback);
+    @POST("/guardarEncuesta/")
+    void repository2Sync(@Body String cadenaJSON, Callback<GuardarEncuestaResponse> callback);
 
    // @POST("/guardarEncuesta")
     //void repository2Sync(@Body GuardarEncuestaRequest guardarEncuestaResponse, Callback<GuardarEncuestaResponse> callback);

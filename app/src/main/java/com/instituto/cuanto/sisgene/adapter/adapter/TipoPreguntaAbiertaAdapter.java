@@ -1,7 +1,6 @@
-package com.instituto.cuanto.sisgene.adapter;
+package com.instituto.cuanto.sisgene.adapter.adapter;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -24,10 +23,6 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
     public static ArrayList<TipoPreguntaAbiertaItem> myListPreguntaAbierta = new ArrayList<TipoPreguntaAbiertaItem>();
     LayoutInflater inflater;
     Context context;
-
-    public static String pre_subtipo;
-    public static String pre_tiponumerico;
-
     public static TipoPreguntaAbiertaAdapter tipoPreguntaAbiertaAdapter;
 
     public TipoPreguntaAbiertaAdapter() {
@@ -75,17 +70,6 @@ public class TipoPreguntaAbiertaAdapter extends BaseAdapter {
             mViewHolder = new MyViewHolder();
             mViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvNombreEncuestado);
             mViewHolder.etRpta = (EditText) convertView.findViewById(R.id.etRespuestaPreguntaEncuestado);
-
-            System.out.println("***********   NUMERICO SUBTIPO: "+pre_subtipo);
-            System.out.println("***********   NUMERICO TIPO: "+pre_tiponumerico);
-
-            if(pre_subtipo.equals("numerico")){
-                if(pre_tiponumerico.equals("entero")){
-                    mViewHolder.etRpta.setInputType(2);
-                }else{
-                    mViewHolder.etRpta.setInputType(3);
-                }
-            }
 
             pasarTextoMayucula(mViewHolder.etRpta);
 

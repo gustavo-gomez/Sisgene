@@ -630,4 +630,54 @@ public class CabeceraRespuestaDAO {
 
     }
 
+    public String obtenerUltNumeroEncuesta(Context context) {
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        String response = null;
+
+
+        try {
+            String sql = "select caer_numero_encuesta from cab_enc_rpta order by caer_id desc ";
+
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                response = cursor.getString(0);
+
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        System.out.println("Ult Num Encuesta: " + response);
+        return response;
+
+    }
+
+    public String obteneridUltimaCabeceraString(Context context) {
+        String cabeceraResp = "";
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        try {
+
+            cursor = dataBaseHelper.db.rawQuery(" select cab.caer_id from cab_enc_rpta cab order by cab.caer_id desc ", null);
+
+            if (cursor.moveToFirst()) {
+                cabeceraResp = cursor.getString(0);
+            }
+
+            return cabeceraResp;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+
+    }
+
 }

@@ -17,6 +17,10 @@ public class Pregunta {
     private String pre_cant_maxima_items;
     private String pre_maxNumRptas;
     private String pre_importaOrdenRptas;
+    private String pre_subtipo;
+    private String pre_tiponumerico;
+    private String pre_desde;
+    private String pre_hasta;
     
     public Pregunta(){
         //Constructor de la clase Pregunta
@@ -108,5 +112,37 @@ public class Pregunta {
 
     public void setPre_importaOrdenRptas(String pre_importaOrdenRptas) {
         this.pre_importaOrdenRptas = pre_importaOrdenRptas;
+    }
+
+    public String getPre_subtipo() {
+        return pre_subtipo;
+    }
+
+    public void setPre_subtipo(String pre_subtipo) {
+        this.pre_subtipo = pre_subtipo;
+    }
+
+    public String getPre_tiponumerico() {
+        return pre_tiponumerico;
+    }
+
+    public void setPre_tiponumerico(String pre_tiponumerico) {
+        this.pre_tiponumerico = pre_tiponumerico;
+    }
+
+    public String getPre_desde() {
+        return pre_desde;
+    }
+
+    public void setPre_desde(String pre_desde) {
+        this.pre_desde = pre_desde;
+    }
+
+    public String getPre_hasta() {
+        return pre_hasta;
+    }
+
+    public void setPre_hasta(String pre_hasta) {
+        this.pre_hasta = pre_hasta;
     }
 }

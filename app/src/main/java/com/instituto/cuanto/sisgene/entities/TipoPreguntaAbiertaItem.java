@@ -8,6 +8,8 @@ import android.widget.EditText;
 public class TipoPreguntaAbiertaItem {
     String description;
     String title;
+    String subtipo;
+    String tiponumerico;
 
     public String getDescription() {
         return description;
@@ -23,5 +25,21 @@ public class TipoPreguntaAbiertaItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSubtipo() {
+        return subtipo;
+    }
+
+    public void setSubtipo(String subtipo) {
+        this.subtipo = subtipo;
+    }
+
+    public String getTiponumerico() {
+        return tiponumerico;
+    }
+
+    public void setTiponumerico(String tiponumerico) {
+        this.tiponumerico = tiponumerico;
     }
 }

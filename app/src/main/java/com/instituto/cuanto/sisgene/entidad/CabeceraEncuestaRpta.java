@@ -235,6 +235,35 @@ public class CabeceraEncuestaRpta {
     public void setFecha_envio(String fecha_envio) {
         this.fecha_envio = fecha_envio;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "CabeceraEncuestaRpta{" +
+                "id_usuario_encuestador='" + id_usuario_encuestador + '\'' +
+                ", numero_encuesta='" + numero_encuesta + '\'' +
+                ", estado='" + estado + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", observaciones='" + observaciones + '\'' +
+                ", num_conglomerado='" + num_conglomerado + '\'' +
+                ", num_zona='" + num_zona + '\'' +
+                ", num_manzana='" + num_manzana + '\'' +
+                ", num_vivienda='" + num_vivienda + '\'' +
+                ", num_hogar='" + num_hogar + '\'' +
+                ", num_area='" + num_area + '\'' +
+                ", condicion='" + condicion + '\'' +
+                ", codigo_informante='" + codigo_informante + '\'' +
+                ", fecha_visita='" + fecha_visita + '\'' +
+                ", codigo_digitador='" + codigo_digitador + '\'' +
+                ", maquina_digitador='" + maquina_digitador + '\'' +
+                ", fecha_digitacion='" + fecha_digitacion + '\'' +
+                ", hora_inicio='" + hora_inicio + '\'' +
+                ", hora_fin='" + hora_fin + '\'' +
+                ", tiempo='" + tiempo + '\'' +
+                ", obervacion_supervisor='" + obervacion_supervisor + '\'' +
+                ", codigo_centropoblado='" + codigo_centropoblado + '\'' +
+                ", nombre_centropoblado='" + nombre_centropoblado + '\'' +
+                ", categoría_centropoblado='" + categoría_centropoblado + '\'' +
+                ", fecha_envio='" + fecha_envio + '\'' +
+                '}';
+    }
 }

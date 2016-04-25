@@ -137,8 +137,24 @@ public class PrincipalEncuestaActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(PrincipalEncuestaActivity.this, DatosCabeceraActivity.class);
-            startActivity(intent);
-            finish();
+
+            //Validando numero de encuestas.
+            System.out.println("USUARIOOO --> " + userUsu);
+            CabeceraRespuestaDAO cabeceraRespDAO = new CabeceraRespuestaDAO();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            int numDesde = usuarioDAO.obtenerNumEncDesde(PrincipalEncuestaActivity.this, userUsu);
+            int numHasta = usuarioDAO.obtenerNumEncHasta(PrincipalEncuestaActivity.this, userUsu);
+            System.out.println("RANGO --> " + numDesde + " al " + numHasta);
+            String numeroEnc = String.valueOf(cabeceraRespDAO.obtenerUltimoNumeroEncuestaCabecera(PrincipalEncuestaActivity.this) + 1);
+            System.out.println("NUM ENC QUE SEGUIRA --> "+numeroEnc);
+
+            int numEncActual = Integer.parseInt(numeroEnc);
+            if(numEncActual == 0 || numEncActual<=numHasta){
+                startActivity(intent);
+                finish();
+            }else{
+                Toast.makeText(PrincipalEncuestaActivity.this, "USTED HA LLEGADO AL LIMITE DE ENCUESTAS ASIGNADAS", Toast.LENGTH_LONG).show();
+            }
         }
     };
 

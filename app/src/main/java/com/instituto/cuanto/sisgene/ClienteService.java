@@ -3,7 +3,9 @@ package com.instituto.cuanto.sisgene;
 import com.instituto.cuanto.sisgene.forms.ValidarAdministradorResponse;
 
 import retrofit.Callback;
+import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.POST;
 import retrofit.http.Path;
 
 
@@ -12,9 +14,11 @@ import retrofit.http.Path;
  */
 public interface ClienteService {
 
-    @GET("/validaAdministrador/{cadenaJSON}")
+    //@GET("/validaAdministrador/{cadenaJSON}")
     //@FormUrlEncoded
     //@POST("/valida")
-    void repositorySync(@Path("cadenaJSON") String cadenaJSON, Callback<ValidarAdministradorResponse> callback);
+    @POST("/validaAdministrador/")
+    void repositorySync(@Body String cadenaJSON, Callback<ValidarAdministradorResponse> callback);
+    //void repositorySync(@Path("cadenaJSON") String cadenaJSON, Callback<ValidarAdministradorResponse> callback);
     //void repositorySync(@Body String cadenaJSON, Callback<String> callback);
 }

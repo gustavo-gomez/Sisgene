@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -123,7 +124,7 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
                     System.out.println("MANDAAAAANDOOOOOOOOOOOOO 2 ");*/
 
                     idCabTemp = cabeceraResp.getIdCabeceraEnc() + "";
-                    new RestCosumeAsyncTask3().execute();
+                    new RestCosumeAsyncTask().execute();
 
                 }
 
@@ -204,7 +205,7 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
 
     }
 
-    private class RestCosumeAsyncTask3 extends AsyncTask<String, Void, Void> {
+    private class RestCosumeAsyncTask extends AsyncTask<String, Void, Void> {
         ProgressDialog progressDialog2;
 
         @Override
@@ -216,8 +217,29 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
             PersonaEncuestada persona = enviarEncuestaDAO.obtenerPersonaEncuestada(ExportarEncuestaActivity.this,idCabTemp);
             DireccionViviendaEncuestada direccion = enviarEncuestaDAO.obtenerDireccionEncuestada(ExportarEncuestaActivity.this, idCabTemp);
             CabeceraEncuestaRpta cabeceraEncuestaRpta = enviarEncuestaDAO.obtenerCabEncRtpaEncuestada(ExportarEncuestaActivity.this, idCabTemp);
+
             List<DetalleEncuestaRpta> detalleEncuestaRptas = enviarEncuestaDAO.obtenerDenEncEncuestada(ExportarEncuestaActivity.this, idCabTemp);
+            System.out.println("TAMAÑO CAB : "+detalleEncuestaRptas.size());
+
+            /*for(DetalleEncuestaRpta prueba : detalleEncuestaRptas){
+                System.out.println("1.- "+prueba.getPreg_id() + " - "+prueba.getValor_respuesta());
+                if(prueba.getPreg_id().equals("183")){
+                    prueba.setValor_respuesta("[01]Empleado$Trabajador no remunerado\\u0026[02]");
+                }
+            }*/
+
+            System.out.println("-------------------------------------------------------------------------");
+            for(DetalleEncuestaRpta prueba : detalleEncuestaRptas){
+                System.out.println("1.- "+prueba.getPreg_id() + " - "+prueba.getValor_respuesta());
+            }
+
+            //System.out.println("PRUEBAAAAA JASON ENVIAR : {\"cab_enc_rpta\":{\"categoría_centropoblado\":\"\",\"codigo_centropoblado\":\"\",\"codigo_digitador\":\"\",\"codigo_informante\":\"0\",\"condicion\":\"0\",\"estado\":\"C\",\"fecha\":\"2016/01/16 11:57:52\",\"fecha_digitacion\":\"\",\"fecha_envio\":\"\",\"fecha_visita\":\"\",\"hora_fin\":\"2016/01/16 11:58:25\",\"hora_inicio\":\"2016/01/16 11:57:52\",\"id_usuario_encuestador\":\"119\",\"maquina_digitador\":\"\",\"nombre_centropoblado\":\"\",\"num_area\":\"0\",\"num_conglomerado\":\"\",\"num_hogar\":\"\",\"num_manzana\":\"\",\"num_vivienda\":\"\",\"num_zona\":\"\",\"numero_encuesta\":\"1\",\"obervacion_supervisor\":\"\",\"observaciones\":\"jdksksoskdmdl kwksk\",\"tiempo\":\"00:01\"},\"direccion_viviendaencuestada\":{\"etapa\":\"\",\"grupo\":\"\",\"interior\":\"\",\"km\":\"\",\"lote\":\"\",\"manzana\":\"\",\"num_puerta\":\"\",\"piso\":\"\",\"sector\":\"\",\"tipo_ubicacion\":\"lsuhludhdlus\"},\"lista_allegados\":[],\"lista_det_enc_rpta\":[{\"preg_id\":\"177\",\"valor_respuesta\":\"[01]ldldls\"},{\"preg_id\":\"178\",\"valor_respuesta\":\"[01]Sí\"},{\"preg_id\":\"179\",\"valor_respuesta\":\"[01]Quehaceres del hogar$Anciano/Invalido\"},{\"preg_id\":\"180\",\"valor_respuesta\":\"[01]Empleado$Trabajador familiar no remunerado\\u0026[02]\"},{\"preg_id\":\"183\",\"valor_respuesta\":\"[01]Recibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecida%Gas Natural$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión " +
+              //      "del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecido%Diesel Biodiesel$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustiblenull$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Calidad del combustible%Diesel Biodiesel$Precio diferente al ofrecidonull$Variaciones en la presión del suministronull$Bajo rendimientonullRecibió una cantidad menor a la ofrecidanull$Mala Ca JESUSI JESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSIJESUSI");
+
             List<Allegado> listAllegado = enviarEncuestaDAO.obtenerAllegadoEncuestada(ExportarEncuestaActivity.this, idCabTemp);
+
+            System.out.println("TAMANO ALLEGADO : "+listAllegado.size());
+            System.out.println("TAMANO cabeceraEncuestaRpta : "+cabeceraEncuestaRpta.getId_usuario_encuestador());
 
             guardarRequest.setPersona_encuestada(persona);
             guardarRequest.setDireccion_viviendaencuestada(direccion);
@@ -226,32 +248,44 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
             guardarRequest.setLista_allegados(listAllegado);
 
             String jsonEnviar = gson.toJson(guardarRequest);
-            System.out.println("JASON ENVIAR : "+jsonEnviar);
+            System.out.println("JSON ENVIAR : " + jsonEnviar + "\n\n\n\n");
+
+            Log.i("Json a a Enviar: ", jsonEnviar);
 
             try {
                 String a = URLEncoder.encode(jsonEnviar, "UTF-8");
-                System.out.println("\n\nJSON CODIFICADO : "+a);
+                System.out.println("\n\nJSON CODIFICADO : " + a);
+
                 jsonEnviar = a;
+                Log.i("Json CODIFICADO: ", jsonEnviar);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
 
             //PROVISIONAL
-            /*String ip="192.168.1.41";
-            String puerto="8085";*/
+            /*String ip="192.168.1.35";
+            String puerto="8081";*/
 
-            String ip="192.168.1.40";
-            String puerto="8083";
+            /*String ip="192.168.1.39";
+            String puerto="8080";*/
+
+            //CUANTO
+            String ip="190.40.162.59";
+            String puerto="8085";
 
             /*String ip="190.40.162.59";
             String puerto="8085";*/
 
-           // String ip="192.168.1.33";
-            //String puerto="8085";
+            /*String ip="192.168.1.33";
+            String puerto="8085";*/
+
+
+            //String ip="192.168.1.117";
+            //String puerto="8089";
 
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    //.setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/resources/WebServiceSISGENE")
-                    .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
+                    .setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/WebServiceSISGENE")
+                    //.setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
                     .build();
 
 
@@ -276,6 +310,7 @@ public class ExportarEncuestaActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
+                    System.out.println("EEROR : "+error.toString() + " - "+ error.getMessage());
                     System.out.println("OCURRIO UN ERROR");
                     Toast.makeText(ExportarEncuestaActivity.this, "Ocurrio un error en el envio de Información, verifique su conexión a Internet", Toast.LENGTH_LONG).show();
                     progressDialog2.hide();

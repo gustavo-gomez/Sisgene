@@ -10,15 +10,15 @@ public class DireccionDAO {
 
     public DireccionDAO(){}
 
-    public boolean insertarDireccion(Context context, String direccion) {
+    public boolean insertarDireccion(Context context, String direccion, String manzana) {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String arg[] = {direccion};
+        String arg[] = {direccion,manzana};
         boolean response = false;
 
         try {
-            String sql = " INSERT INTO direccion (dir_tipo_ubicacion)" +
-                    " VALUES (?)";
+            String sql = " INSERT INTO direccion (dir_tipo_ubicacion,dir_manzana)" +
+                    " VALUES (?,?)";
 
             dataBaseHelper.db.execSQL(sql, arg);
 

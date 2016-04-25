@@ -12,6 +12,7 @@ public class PreguntaOpcion {
     private String pro_numeralOpcion;
     private String pro_numeroPreguntaSiguiente;
     private String pro_idEncuesta;
+    private String pro_valor;
     
     public PreguntaOpcion(){
         //Constructor de la clase PreguntaOpcion
@@ -63,5 +64,13 @@ public class PreguntaOpcion {
 
     public void setPro_idEncuesta(String pro_idEncuesta) {
         this.pro_idEncuesta = pro_idEncuesta;
+    }
+
+    public String getPro_valor() {
+        return pro_valor;
+    }
+
+    public void setPro_valor(String pro_valor) {
+        this.pro_valor = pro_valor;
     }
 }

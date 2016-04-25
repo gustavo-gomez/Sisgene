@@ -86,13 +86,16 @@ public class UsuarioDAO {
 
         String arg[] = {user};
 
+        System.out.println("USEEEEER : "+user);
+
         try {
             cursor = dataBaseHelper.db.rawQuery("select usp.usp_id " +
-                    " from usuario usup " +
+                    " from usuario usu " +
                     " inner join usuario_persona usp on usu.usu_id = usp.usu_id " +
-                    "where usp.usu_id = ?", arg);
+                    " where usu.usu_usuario = ?", arg);
 
             if (cursor.moveToFirst()) {
+                System.out.println("******* ENTRO A AUSER ID ***** "+cursor.getString(0));
                 idUsuario =  cursor.getString(0);
             }
 
@@ -206,6 +209,101 @@ public class UsuarioDAO {
         }
 
         return null;
+
+    }
+
+    public String obtenerNumeroGrupo(Context context, String id) {
+
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        String arg[] = {id};
+        String response = "";
+
+        try {
+
+            cursor = dataBaseHelper.db.rawQuery(" select gru.gru_numero " +
+                    " from grupo gru " +
+                    " where gru.usu_idsupervisor = ?", arg);
+
+            if (cursor.moveToFirst()) {
+                response = cursor.getString(0);
+            }
+
+            return response;
+        } catch (Exception ex) {
+            System.out.println("ERROR : "+ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return null;
+
+    }
+
+    public int obtenerNumEncDesde(Context context, String user) {
+        int idUsuario = 0;
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        String arg[] = {user};
+
+        System.out.println("USEEEEER : "+user);
+
+        try {
+            cursor = dataBaseHelper.db.rawQuery("select usp.usp_desde_numenc " +
+                    " from usuario usu " +
+                    " inner join usuario_persona usp on usu.usu_id = usp.usu_id " +
+                    " where usu.usu_usuario = ?", arg);
+
+            if (cursor.moveToFirst()) {
+                System.out.println("******* ENTRO A AUSER ID ***** "+cursor.getString(0));
+                idUsuario =  cursor.getInt(0);
+            }
+
+            return idUsuario;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return idUsuario;
+
+    }
+
+    public int obtenerNumEncHasta(Context context, String user) {
+        int idUsuario = 0;
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        String arg[] = {user};
+
+        System.out.println("USEEEEER : "+user);
+
+        try {
+            cursor = dataBaseHelper.db.rawQuery("select usp.usp_hasta_numenc " +
+                    " from usuario usu " +
+                    " inner join usuario_persona usp on usu.usu_id = usp.usu_id " +
+                    " where usu.usu_usuario = ?", arg);
+
+            if (cursor.moveToFirst()) {
+                System.out.println("******* ENTRO A AUSER ID ***** "+cursor.getString(0));
+                idUsuario =  cursor.getInt(0);
+            }
+
+            return idUsuario;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return idUsuario;
 
     }
 

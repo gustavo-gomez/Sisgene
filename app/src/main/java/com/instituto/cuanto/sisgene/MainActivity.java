@@ -45,6 +45,8 @@ import com.instituto.cuanto.sisgene.forms.ValidarAdministradorResponse;
 import com.instituto.cuanto.sisgene.util.Criptografo;
 import com.instituto.cuanto.sisgene.util.LeerProperties;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.io.File;
 import android.os.Environment;
@@ -137,12 +139,15 @@ public class MainActivity extends AppCompatActivity {
 
                 if (cantidadData == 0) {
                     if (rolAcceso.equals("ADMINISTRADOR")) {
-                        /*LeerProperties leerProperties = new LeerProperties();
+
+                        LeerProperties leerProperties = new LeerProperties();
                         String ipWS = leerProperties.leerIPWS();
                         String puertoWS = leerProperties.leerPUERTOWS();
-                        ip = ipWS;
-                        puerto = puertoWS;
-                        */
+
+                        System.out.println("IP : "+ipWS + " -- PUERTO : "+ puertoWS);
+                        //ip = ipWS;
+                        //puerto = puertoWS;
+
 
                         //if(ipWS != null && puertoWS != null){
                             new RestCosumeAsyncTask().execute();
@@ -159,31 +164,37 @@ public class MainActivity extends AppCompatActivity {
                     String nomUsu = etNombreUsuario.getText().toString().trim();
                     String clvUsu = etClave.getText().toString().trim();
 
-                    Criptografo criptografo = new Criptografo();
+                    if (!rolAcceso.equals("ADMINISTRADOR")) {
 
-                    Usuarios usuario = usuarioDAO.obtenerUsuario(MainActivity.this, nomUsu, rolAcceso);
+                        Criptografo criptografo = new Criptografo();
 
-                    if (usuario != null) {
-                        String claveUsu = criptografo.desencripta(usuario.getClave());
+                        Usuarios usuario = usuarioDAO.obtenerUsuario(MainActivity.this, nomUsu, rolAcceso);
 
-                        if (clvUsu.equals(claveUsu)) {
-                            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-                            SharedPreferences.Editor editor = pref.edit();
-                            editor.putString("user", nomUsu);
-                            editor.putString("nombres", usuario.getNombre() + " " + usuario.getAp_paterno() + " " + usuario.getAp_materno());
-                            editor.putString("rol", rolAcceso);
-                            editor.commit();
+                        if (usuario != null) {
+                            String claveUsu = criptografo.desencripta(usuario.getClave());
 
-                            Toast.makeText(MainActivity.this, "BIENVENIDO " + usuario.getNombre() + " " + usuario.getAp_paterno() + " " + usuario.getAp_materno(), Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
-                            startActivity(intent);
+                            if (clvUsu.equals(claveUsu)) {
+                                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putString("user", nomUsu);
+                                editor.putString("nombres", usuario.getNombre() + " " + usuario.getAp_paterno() + " " + usuario.getAp_materno());
+                                editor.putString("rol", rolAcceso);
+                                editor.commit();
 
-                            finish();
+                                Toast.makeText(MainActivity.this, "BIENVENIDO " + usuario.getNombre() + " " + usuario.getAp_paterno() + " " + usuario.getAp_materno(), Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
+                                startActivity(intent);
+
+                                finish();
+                            } else {
+                                Toast.makeText(MainActivity.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_LONG).show();
+                            }
                         } else {
                             Toast.makeText(MainActivity.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_LONG).show();
                         }
-                    } else {
-                        Toast.makeText(MainActivity.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_LONG).show();
+
+                    }else{
+                        Toast.makeText(MainActivity.this, "Usuario Administrador sin acceso", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -213,25 +224,40 @@ public class MainActivity extends AppCompatActivity {
             validarRequest.setClave(clvUsu);
             validarRequest.setCodigo_encuesta(codEncuesta);
 
-            final String jsonEnviar = gson.toJson(validarRequest);
+            String jsonEnviar = gson.toJson(validarRequest);
+
+            try {
+                String a = URLEncoder.encode(jsonEnviar, "UTF-8");
+                System.out.println("\n\nJSON CODIFICADO : "+a);
+                jsonEnviar = a;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
 
             //provisional
-            /*ip="192.168.1.41";
-            puerto="8085";*/
+            /*ip="192.168.1.44";
+            puerto="8081";*/
 
-            ip="192.168.1.40";
-            puerto="8083";
+            /*ip="192.168.1.39";
+            puerto="8080";*/
 
+            //CUANTO
+            ip="190.40.162.59";
+            puerto="8085";
 
             /*ip="190.40.162.59";
             puerto="8085";*/
 
-            //ip="192.168.1.33";
-            //puerto="8085";
+            /*ip="192.168.1.33";
+            puerto="8085";*/
+
+            //ip="192.168.1.117";
+            //puerto="8089";
 
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
+                    //.setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
                     //.setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/resources/WebServiceSISGENE")//apache
+                    .setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/WebServiceSISGENE")
                     //.setEndpoint("http://172.16.139.227:8080/WSSisgene/resources/WebServiceSISGENE")
                     .build();
 
@@ -314,7 +340,8 @@ public class MainActivity extends AppCompatActivity {
             for (Pregunta pregunta : listPregunta) {
                 cargaDAO.cargarPregunta(MainActivity.this, pregunta.getPre_id(), pregunta.getPre_numero(), pregunta.getPre_enunciado(),
                         pregunta.getPre_explicativo(), pregunta.getPre_comentario(), pregunta.getPre_guia_rpta(), pregunta.getPre_tipo_rpta(),
-                        pregunta.getPre_unica_persona(), pregunta.getPre_cant_maxima_items(), pregunta.getPre_maxNumRptas(), pregunta.getPre_importaOrdenRptas());
+                        pregunta.getPre_unica_persona(), pregunta.getPre_cant_maxima_items(), pregunta.getPre_maxNumRptas(), pregunta.getPre_importaOrdenRptas(),
+                        pregunta.getPre_subtipo(), pregunta.getPre_tiponumerico(), pregunta.getPre_desde(), pregunta.getPre_hasta());
             }
 
             List<Seccion> listaSeccion = validarResponse.getLista_seccion();
@@ -358,13 +385,13 @@ public class MainActivity extends AppCompatActivity {
             for (PreguntaOpcion preguntaOpcion : listPReguntaOpc) {
                 cargaDAO.cargarPreguntaOpcion(MainActivity.this, preguntaOpcion.getPro_id(), preguntaOpcion.getPre_id(),
                         preguntaOpcion.getOpc_id(), preguntaOpcion.getPro_numeralOpcion(), preguntaOpcion.getPro_numeroPreguntaSiguiente(),
-                        preguntaOpcion.getPro_idEncuesta());
+                        preguntaOpcion.getPro_idEncuesta(), preguntaOpcion.getPro_valor());
             }
 
             List<PreguntaItem> listPreguntaItem = validarResponse.getLista_pregunta_item();
             for (PreguntaItem preguntaItem : listPreguntaItem) {
                 cargaDAO.cargarPreguntaItem(MainActivity.this, preguntaItem.getPri_id(), preguntaItem.getPre_id(), preguntaItem.getIte_id(),
-                        preguntaItem.getPri_numeralItem());
+                        preguntaItem.getPri_numeralItem(), preguntaItem.getPri_valor());
             }
 
             List<Funcionalidad> listFuncionalidad = validarResponse.getLista_funcionalidad();

@@ -18,15 +18,16 @@ public class LeerProperties {
         try {
 
             File ruta_sd = Environment.getExternalStorageDirectory();
-            String rutaArch = ruta_sd.getAbsolutePath();
+            String rutaArch = ruta_sd.getAbsolutePath()+"/SISGENE/sisgene.properties";
             //rutaArch = "/Memoria Interna";
             System.out.println("ruta sd : --->>> "+ruta_sd.getAbsolutePath());
+            System.out.println("ruta sd : --->>> "+rutaArch);
 
             /**Creamos un Objeto de tipo Properties*/
             Properties propiedades = new Properties();
 
             /**Cargamos el archivo desde la ruta especificada*/
-            propiedades.load(new FileInputStream(rutaArch+"/SISGENE/sisgene.properties"));
+            propiedades.load(new FileInputStream(rutaArch));
 
             /**Obtenemos los parametros definidos en el archivo*/
             String ip = propiedades.getProperty("IPWS");
@@ -36,10 +37,10 @@ public class LeerProperties {
             return  ip;
 
         } catch (FileNotFoundException e) {
-            System.out.println("Error, El archivo no exite");
+            System.out.println("Error, El archivo no exite "+e.getMessage());
             return null;
         } catch (IOException e) {
-            System.out.println("Error, No se puede leer el archivo");
+            System.out.println("Error, No se puede leer el archivo  " +e.getMessage());
             return null;
         }
     }

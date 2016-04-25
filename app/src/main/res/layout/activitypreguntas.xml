@@ -11,36 +11,53 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_height="50sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
 
-            <TextView
-                android:id="@+id/tvSeccion"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/color_texto"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/tvSeccion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/color_texto"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tvSubSeccion"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/color_texto"
-                android:textSize="20sp" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tvSubSeccion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/color_texto"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </ScrollView>
 
-
-        <TextView
-            android:id="@+id/tvEnunciadoPregunta"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:textColor="@color/color_texto"
-            android:textSize="19sp" />
+            android:layout_height="90sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvEnunciadoPregunta"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:textColor="@color/color_texto"
+                    android:layout_marginLeft="30dp"
+                    android:textSize="19sp" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -48,6 +65,7 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:background="@color/color_fondo_formulario"
+        android:layout_marginLeft="30dp"
         android:orientation="vertical">
 
         <LinearLayout

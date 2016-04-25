@@ -115,21 +115,26 @@ public class EnviarEncuestaDAO {
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
         CabeceraEncuestaRpta cabeceraRpta = null;
 
-        String sql = " select usp.usu_id,caer.caer_numero_encuesta,caer.caer_estado,caer.caer_fencuesta,caer.caer_observaciones, " +
+        String arg[] = {idCabEnc};
+        System.out.println("IDDDD : "+idCabEnc);
+
+        String sql = " select caer.usp_id,caer.caer_numero_encuesta,caer.caer_estado,caer.caer_fencuesta,caer.caer_observaciones, " +
                 " caer.caer_nconglomerado,caer.caer_nzona_aer,caer.caer_nmanzana,caer.caer_nvivienda,caer.caer_nhogar, " +
                 " caer.caer_narea,caer.caer_ncondicion,caer.caer_codigo_informante,caer.caer_fvisita1,caer.caer_codigo_digitador, " +
                 " caer.caer_maquina_digitador,caer.caer_fdigitacion,caer.caer_hora_inicio,caer.caer_hora_fin,caer.caer_tiempo, " +
                 " caer.caer_observacion_supervisor,caer.caer_codigo_centropoblado,caer.caer_nombre_centropoblado, " +
                 " caer.caer_categoria_centropoblado,caer.caer_fencuestaenviada " +
                 " from  cab_enc_rpta caer " +
-                " inner join usuario_persona usp on usp.usp_id = caer.usp_id " +
-                " where caer.caer_id = "+idCabEnc;
+               // " inner join usuario_persona usp on usp.usp_id = caer.usp_id " +
+                " where caer.caer_id = ? ";
 
         try {
 
-            cursor = dataBaseHelper.db.rawQuery(sql, null);
+            cursor = dataBaseHelper.db.rawQuery(sql, arg);
 
             if (cursor.moveToFirst()) {
+                System.out.println("*******ENTRO X ACAAAAAAAA*********");
+
                 cabeceraRpta = new CabeceraEncuestaRpta();
 
                 cabeceraRpta.setId_usuario_encuestador((cursor.getString(0) != null) ? cursor.getString(0) : "");
@@ -159,9 +164,10 @@ public class EnviarEncuestaDAO {
                 cabeceraRpta.setFecha_envio((cursor.getString(24) != null) ? cursor.getString(24) : "");
 
             }
-            System.out.println("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+
             return cabeceraRpta;
         } catch (Exception ex) {
+            System.out.println("ERROR jesus: "+ex.getMessage());
             ex.printStackTrace();
         } finally {
             if (cursor != null)
@@ -244,6 +250,7 @@ public class EnviarEncuestaDAO {
             System.out.println("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
             return listAllegado;
         } catch (Exception ex) {
+            System.out.println("ERROOOORR al traer ALLEGADOOO : "+ex.getMessage());
             ex.printStackTrace();
         } finally {
             if (cursor != null)

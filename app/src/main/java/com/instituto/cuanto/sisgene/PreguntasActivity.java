@@ -1,18 +1,27 @@
 package com.instituto.cuanto.sisgene;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -31,7 +40,9 @@ import com.instituto.cuanto.sisgene.bean.PreguntaItem;
 import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.dao.DetalleEncRptaDAO;
 import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
+import com.instituto.cuanto.sisgene.dao.EnviarEncuestaDAO;
 import com.instituto.cuanto.sisgene.dao.TipoPreguntaDAO;
+import com.instituto.cuanto.sisgene.entidad.CabeceraEncuestaRpta;
 import com.instituto.cuanto.sisgene.entities.Pregunta;
 import com.instituto.cuanto.sisgene.entities.RespuestaItem;
 import com.instituto.cuanto.sisgene.entities.TipoPreguntaAbiertaItem;
@@ -44,6 +55,8 @@ import com.instituto.cuanto.sisgene.util.EnvioServiceUtil;
 import com.instituto.cuanto.sisgene.util.TiempoDiferencia;
 import com.instituto.cuanto.sisgene.util.Util;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -87,6 +100,10 @@ public class PreguntasActivity extends AppCompatActivity {
     String nombreSubSeccion;
     String numeroSubSeccion;
 
+    String rangoDesde;
+    String rangoHasta;
+
+    String comentario;
     //datos para validar encuesta
     int ultimoIdPregunta; //ultimo id de pregunta de la tabla Pregunta. Para validar si ya se ha repondido todas las preguntas
     boolean ultimaPregunta = false;
@@ -98,6 +115,10 @@ public class PreguntasActivity extends AppCompatActivity {
     int idRespuesta;
     String valorRespuesta;
     String idPreguntaDeRpta;
+
+    //TIPO ABIERTO VALID
+    String pre_subtipo;
+    String pre_tiponumerico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +142,8 @@ public class PreguntasActivity extends AppCompatActivity {
         lvRespuestas_tipoGeneral = (ListView) findViewById(R.id.lvRespuestas_tipoGeneral);
         tvEnunciadoPregunta = (TextView) findViewById(R.id.tvEnunciadoPregunta);
         tvSeccion = (TextView) findViewById(R.id.tvSeccion);
+
+
         tvSubSeccion = (TextView) findViewById(R.id.tvSubSeccion);
         TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter = new TipoPreguntaAbiertaAdapter();
         TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter = new TipoPreguntaUnicaAdapter();
@@ -161,14 +184,26 @@ public class PreguntasActivity extends AppCompatActivity {
         //ir a BD para sacar la primera preguna de dicha ecuesta
         encuestaPregunta = encuestaDAO.obtenerPreguntaEncuesta(PreguntasActivity.this);
         // Setear datos para la primera pregunta
+
+        //Obteniendo rangos
+        rangoDesde = encuestaPregunta.getPre_desde();
+        rangoHasta = encuestaPregunta.getPre_hasta();
         System.out.println("encuestaPregunta.getSec_nombre" + encuestaPregunta.getSec_nombre());
 
         nombreSecccion = encuestaPregunta.getSec_nombre();
         numeroSecccion = encuestaPregunta.getSec_numero_seccion();
         numeroSecccion = encuestaPregunta.getSec_numero_seccion();
         numeroSubSeccion = encuestaPregunta.getSus_numero_subseccion();
+        System.out.println("SECCION : "+numeroSecccion+" - nombre: "+nombreSecccion);
+        System.out.println("SECCION : "+numeroSubSeccion+" - nombre: "+nombreSubSeccion);
         nombreSubSeccion = encuestaPregunta.getSus_nombre();
         idPregunta = encuestaPregunta.getPre_id();
+
+        //VALID SBTIPO Y NUMER
+        pre_subtipo = encuestaPregunta.getPre_subtipo();
+        pre_tiponumerico = encuestaPregunta.getPre_tiponumerico();
+
+        comentario  = encuestaPregunta.getPre_comentario();
         //pregutna
         tipoPreguntaActual = encuestaPregunta.getPre_tipo_rpta();
         enunciadoPregunta = encuestaPregunta.getPre_enunciado();
@@ -190,9 +225,9 @@ public class PreguntasActivity extends AppCompatActivity {
     }
 
     private void mostrarDatosSeccion() {
-        tvSeccion.setText(numeroSecccion + ": " + nombreSecccion);
-        tvSubSeccion.setText(numeroSubSeccion + " " + nombreSubSeccion);
-        tvEnunciadoPregunta.setText(numeroPreguntaBD + ": " + enunciadoPregunta);
+        tvSeccion.setText("Sección Nro. "+numeroSecccion + ": " + nombreSecccion);
+        tvSubSeccion.setText(" - Subsección Nro. "+numeroSubSeccion + ": " + nombreSubSeccion);
+        tvEnunciadoPregunta.setText("Pregunta Nro. "+numeroPreguntaBD + ": " + enunciadoPregunta+" ("+comentario+")");
         String opciones = "";
         System.out.println("\n\n*************MOSTRAR DATOS SECCION*****************");
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
@@ -225,18 +260,30 @@ public class PreguntasActivity extends AppCompatActivity {
         //ir a BD para sacar la primera preguna de dicha ecuesta
         encuestaPregunta = encuestaDAO.obtenerPreguntaEncuesta(PreguntasActivity.this, idPregunta);
         // Setear datos para la primera pregunta
+
         if (encuestaPregunta != null) {
+            //VALID SBTIPO Y NUMER
+            pre_subtipo = encuestaPregunta.getPre_subtipo();
+            pre_tiponumerico = encuestaPregunta.getPre_tiponumerico();
+
+            //Obteniendo rangos
+            rangoDesde = encuestaPregunta.getPre_desde();
+            rangoHasta = encuestaPregunta.getPre_hasta();
+
             nombreSecccion = encuestaPregunta.getSec_nombre();
             numeroSecccion = encuestaPregunta.getSec_numero_seccion();
             numeroSecccion = encuestaPregunta.getSec_numero_seccion();
             numeroSubSeccion = encuestaPregunta.getSus_numero_subseccion();
             nombreSubSeccion = encuestaPregunta.getSus_nombre();
             idPregunta = encuestaPregunta.getPre_id();
+            System.out.println("2.- SECCION : "+numeroSecccion+" - nombre: "+nombreSecccion);
+            System.out.println("2.- SUBSECCION : "+numeroSubSeccion+" - nombre: "+nombreSubSeccion);
             //pregutna
             tipoPreguntaActual = encuestaPregunta.getPre_tipo_rpta();
             enunciadoPregunta = encuestaPregunta.getPre_enunciado();
             numeroPreguntaBD = encuestaPregunta.getPre_numero();
             encuestarTodos = Integer.parseInt(encuestaPregunta.getPre_unica_persona()); // 0:todos   -  1: una persona
+            comentario = encuestaPregunta.getPre_comentario();
             try {
                 System.out.println("obtener ordenIMportancia");
                 ordenImportancia = Integer.parseInt(encuestaPregunta.getPre_importarordenrptamu()); //Que va a retornar
@@ -283,6 +330,14 @@ public class PreguntasActivity extends AppCompatActivity {
             //antes de setear los datos de la pregunta encontrada, guardas las respuestas de la pregunta actual
             leeryGuardarDatos();
 
+            //VALID SBTIPO Y NUMER
+            pre_subtipo = encuestaPregunta.getPre_subtipo();
+            pre_tiponumerico = encuestaPregunta.getPre_tiponumerico();
+
+            //Obteniendo rangos
+            rangoDesde = encuestaPregunta.getPre_desde();
+            rangoHasta = encuestaPregunta.getPre_hasta();
+
             nombreSecccion = encuestaPregunta.getSec_nombre();
             numeroSecccion = encuestaPregunta.getSec_numero_seccion();
             numeroSecccion = encuestaPregunta.getSec_numero_seccion();
@@ -294,6 +349,8 @@ public class PreguntasActivity extends AppCompatActivity {
             enunciadoPregunta = encuestaPregunta.getPre_enunciado();
             numeroPreguntaBD = encuestaPregunta.getPre_numero();
             encuestarTodos = Integer.parseInt(encuestaPregunta.getPre_unica_persona()); // 0:todos   -  1: una persona
+
+            comentario = encuestaPregunta.getPre_comentario();
             try {
                 ordenImportancia = Integer.parseInt(encuestaPregunta.getPre_importarordenrptamu()); //Que va a retornar
             } catch (Exception ex) {
@@ -325,26 +382,59 @@ public class PreguntasActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
+            System.out.println(" ***********  ENTRO A BOTON SIGTE  ************");
+
             //leer los datos de la pregunta actual y guardar en la base de datos
-            leeryGuardarDatos();
-            if (!ultimaPregunta) {
-                //leer la siguiente pregunta
+            boolean valida = true;
 
-                System.out.println("Se ejecuto leerSiguientePregunta de la pregunta " + idPregunta);
-                System.out.println("ultimoIdPregunta siguiente: " + ultimoIdPregunta);
+            valida = leeryGuardarDatos();
 
-                if (leerSiguientePregunta() == 0) {
-                    //Aun no se llega a la ultima pregunta
-                    //mostrar interfaz segun la pregunta leida
-                    leerTipoPreguntaxPregunta();
+            System.out.println("**************** VALIDA : "+valida);
+
+            if(valida == true) {
+
+                if (!ultimaPregunta) {
+                    //leer la siguiente pregunta
+
+                    System.out.println("Se ejecuto leerSiguientePregunta de la pregunta " + idPregunta);
+                    System.out.println("ultimoIdPregunta siguiente: " + ultimoIdPregunta);
+
+                    if (leerSiguientePregunta() == 0) {
+                        //Aun no se llega a la ultima pregunta
+                        //mostrar interfaz segun la pregunta leida
+                        leerTipoPreguntaxPregunta();
+                    } else {
+                        // if(Integer.parseInt(idPregunta) != ultimoIdPregunta )
+                        ultimaPregunta = true;
+                        btnSiguiente.setEnabled(false);
+
+                        System.out.println(" ***********  ENTRO A BOTON DIALOG 0  ************");
+
+                        new AlertDialog.Builder(PreguntasActivity.this)
+                                .setTitle("Confirmación")
+                                .setView(editTextObservacion)
+                                .setMessage("Se ha Finalizado la Encuesta")
+                                .setIcon(R.drawable.ic_save_black_24dp)
+                                .setPositiveButton("Terminar encuesta", alertaAceptarEncuestaFinalizadaOnClickListener)
+                                .setCancelable(false).show();
+                    }
                 } else {
-                       // if(Integer.parseInt(idPregunta) != ultimoIdPregunta )
-                    ultimaPregunta = true;
                     btnSiguiente.setEnabled(false);
+                    Toast.makeText(PreguntasActivity.this, "Se han respondido todas las preguntas", Toast.LENGTH_LONG).show();
+
+                    System.out.println(" ***********  ENTRO A BOTON DIALOG  ************");
+
+                    new AlertDialog.Builder(PreguntasActivity.this)
+                            .setTitle("Alerta")
+                            .setView(editTextObservacion)
+                            .setMessage("¿Desea guardar la encuesta?")
+                            .setIcon(R.drawable.ic_save_black_24dp)
+                            .setPositiveButton("Terminar encuesta", alertaAceptarEncuestaFinalizadaOnClickListener)
+                            .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
+                            .setCancelable(false).show();
                 }
-            } else {
-                btnSiguiente.setEnabled(false);
-                Toast.makeText(PreguntasActivity.this, "Se han respondido todas las preguntas", Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(PreguntasActivity.this, "Cantidad ingresada tiene que estar en el rango de "+rangoDesde+" y "+rangoHasta, Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -499,8 +589,18 @@ public class PreguntasActivity extends AppCompatActivity {
             EnvioServiceUtil envioServiceUtil = new EnvioServiceUtil();
             boolean estTemp = false;
             //Si hay conexion a internet invocar al WS para envviar la data
+            Log.i("AL SD", "ANTES DE EJECUTAR LA FUNCION");
+            envioServiceUtil.guardarSDEncuestaEjecutada(PreguntasActivity.this, cabeceraRespuesta.getIdCabeceraEnc() + "");
+            Log.i("AL SD", "DESPUES DE EJECUTAR LA FUNCION");
+
+            System.out.println("ULTIMO ID ACTUUUUUUUUUUUUU : "+cabeceraRespuesta.getIdCabeceraEnc());
+
             if (conectadoInternet()) {
+                EnviarEncuestaDAO enviarEncuestaDAO = new EnviarEncuestaDAO();
+                CabeceraEncuestaRpta cabeceraEncuestaRpta = enviarEncuestaDAO.obtenerCabEncRtpaEncuestada(context, cabeceraRespuesta.getIdCabeceraEnc()+"");
+
                 estTemp = envioServiceUtil.enviarEncuestaEjecutada(PreguntasActivity.this, cabeceraRespuesta.getIdCabeceraEnc() + "");
+
             }
 
             //el envio de data al WS fue satisfactorio
@@ -585,14 +685,16 @@ public class PreguntasActivity extends AppCompatActivity {
         }
     }
 
-    private void leeryGuardarDatos() {
+    private boolean leeryGuardarDatos() {
         //Leer los dato segun el tipo de pregunta actual
+        boolean retorno = true;
+
         if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaUnica))) {
             leerRespuestasTipoUnica();
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMultiple))) {
             leerRespuestasTipoMultiple();
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaAbierta))) {
-            leerRespuestasTipoAbierta();
+            retorno = leerRespuestasTipoAbierta();
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatSimple))) {
             leerRespuestasTipoMatrizSimple();
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMatMultiple))) {
@@ -600,39 +702,87 @@ public class PreguntasActivity extends AppCompatActivity {
         } else if (tipoPreguntaActual.equals(getResources().getString(R.string.tipoPreguntaMixta))) {
             leerRespuestasTipoMixta();
         }
+
+        return retorno;
     }
 
-    private void leerRespuestasTipoAbierta() {
+    private boolean leerRespuestasTipoAbierta() {
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
         String respuestaAbierta = "";
 
         System.out.println("numero de personas :" + codigosIdentEncuestados.size());
         System.out.println("TipoPreguntaAbiertaAdapter: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
 
+        boolean estado = true;
+
         for (int i = 0; i < TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size(); i++) {
             TipoPreguntaAbiertaItem tipoPreguntaAbiertaItem = TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.getItem(i);
             //agregar el codigo de identificacion
             Formatter codIdent = new Formatter();
-            codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            codIdent.format("%02d", (i+1));
             respuestaAbierta = respuestaAbierta + "[" + codIdent + "]";
+
+            System.out.println("******************  DESCRIPCION ******* : "+tipoPreguntaAbiertaItem.getDescription());
+            System.out.println("******************  tipoPreguntaActual ******* : "+tipoPreguntaActual);
+            System.out.println("******************  rangoDesde ******* : "+rangoDesde);
+            System.out.println("******************  rangoHasta ******* : "+rangoHasta);
+
+            //    respuestaAbierta = respuestaAbierta + "null";
+
+            if (rangoDesde == null || rangoDesde.trim().equals("") || rangoHasta == null || rangoHasta.trim().equals("")) {
+            } else {
+                double descrip=0.0;
+                double rngDesde=0.0;
+                double rngHasta=0.0;
+                try {
+                    descrip = Double.parseDouble(tipoPreguntaAbiertaItem.getDescription());
+                    rngDesde = Double.parseDouble(rangoDesde);
+                    rngHasta = Double.parseDouble(rangoHasta);
+                }catch(NumberFormatException n){
+                    descrip=0.0;
+                }
+
+                if (descrip > rngHasta || descrip < rngDesde) {
+                    estado = false;
+                }
+
+                if(descrip == 0.0){
+                    estado = false;
+                }
+            }
+
+
+            System.out.println("******************  estado ******* : "+estado);
 
             //en caso el usuario no haya escrito nada
             if (nombresEncuestados.get(i).trim().equals(tipoPreguntaAbiertaItem.getDescription().trim())) {
                 respuestaAbierta = respuestaAbierta + "null";
             } else {
+                //int idPreguntaTemp = Integer.parseInt(idPregunta);
+                //String valorTemp = encuestaDAO.obtenerValorIdOpcion(PreguntasActivity.this,idPreguntaTemp,tipoPreguntaAbiertaItem.getDescription().trim());
                 respuestaAbierta = respuestaAbierta + tipoPreguntaAbiertaItem.getDescription();
+                //respuestaAbierta = respuestaAbierta + valorTemp;
             }
             if (i != TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size() - 1) {
                 respuestaAbierta = "" + respuestaAbierta + "&";
             }
         }
 
-        //guardar en base de datos la respuesta
-        TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
+        System.out.println("RESP TA: " + respuestaAbierta);
 
-        guardarRespuesta(respuestaAbierta);
+        if(estado == true) {
+            //guardar en base de datos la respuesta
+            System.out.println("RESP TA 2 : " + respuestaAbierta);
+            TipoPreguntaAbiertaAdapter.tipoPreguntaAbiertaAdapter.limpiarLista();
+            guardarRespuesta(respuestaAbierta);
+            respuestaAbierta = respuestaAbierta + "null";
+        }
+        return estado;
     }
 
     private void leerRespuestasTipoUnica() {
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
         String respuestaUnica = "";
 
         for (int i = 0; i < TipoPreguntaUnicaAdapter.myListPreguntaUnica.size(); i++) {
@@ -640,23 +790,29 @@ public class PreguntasActivity extends AppCompatActivity {
 
             //agregar el codigo de identificacion
             Formatter codIdent = new Formatter();
-            codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            codIdent.format("%02d", (i+1));
             respuestaUnica = respuestaUnica + "[" + codIdent + "]";
 
-            if (tipoPreguntaUnicaItem.getPos() == 0)
+            if (tipoPreguntaUnicaItem.getPos() == 0) {
                 respuestaUnica = respuestaUnica + "null";
-            else
-                respuestaUnica = respuestaUnica + tipoPreguntaUnicaItem.getRespuesta();
+            }else {
+                int idPreguntaTemp = Integer.parseInt(idPregunta);
+                String valorTemp = encuestaDAO.obtenerValorIdOpcion(PreguntasActivity.this, idPreguntaTemp, tipoPreguntaUnicaItem.getRespuesta().trim());
+                //respuestaUnica = respuestaUnica + tipoPreguntaUnicaItem.getRespuesta();
+                respuestaUnica = respuestaUnica + valorTemp;
+            }
 
             if (i != TipoPreguntaUnicaAdapter.myListPreguntaUnica.size() - 1)
                 respuestaUnica = "" + respuestaUnica + "&";
         }
         TipoPreguntaUnicaAdapter.tipoPreguntaUnicaAdapter.limpiarLista();
-
+        System.out.println("RESP TU: " + respuestaUnica);
         guardarRespuesta(respuestaUnica);
     }
 
     private void leerRespuestasTipoMultiple() {
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
         String respuestaMultiple = "";
         ArrayList<TipoPreguntaMultipleItem> tipoPreguntaMultipleItems = TipoPreguntaMultipleAdapter.myListPreguntaMultiple;
         int cont = 0;
@@ -664,11 +820,17 @@ public class PreguntasActivity extends AppCompatActivity {
 
         for (int i = 0; i < tipoPreguntaMultipleItems.size(); i++) {
             Formatter codIdent = new Formatter();
-            codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            codIdent.format("%02d", (i+1));
             respuestaMultiple = respuestaMultiple + "[" + codIdent + "]";
 
             for (int j = 0; j < tipoPreguntaMultipleItems.get(i).getRespuestas().size(); j++) {
-                respuestaMultiple = respuestaMultiple + tipoPreguntaMultipleItems.get(i).getRespuestas().get(j).trim();
+
+                int idPreguntaTemp = Integer.parseInt(idPregunta);
+                String valorTemp = encuestaDAO.obtenerValorIdOpcion(PreguntasActivity.this, idPreguntaTemp, tipoPreguntaMultipleItems.get(i).getRespuestas().get(j).trim());
+
+                //respuestaMultiple = respuestaMultiple + tipoPreguntaMultipleItems.get(i).getRespuestas().get(j).trim();
+                respuestaMultiple = respuestaMultiple + valorTemp;
 
                 if (j != tipoPreguntaMultipleItems.get(i).getRespuestas().size() - 1)
                     respuestaMultiple = "" + respuestaMultiple + "$";
@@ -683,11 +845,12 @@ public class PreguntasActivity extends AppCompatActivity {
         }
         //guardar en base de datos
         TipoPreguntaMultipleAdapter.tipoPreguntaMultipleAdapter.limpiarLista();
-
+        System.out.println("RESP TM: " + respuestaMultiple);
         guardarRespuesta(respuestaMultiple);
     }
 
     private void leerRespuestasTipoMixta() {
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
         String respuestaMixta = "";
         ArrayList<TipoPreguntaMixtaItem> tipoPreguntaMixtaItems = TipoPreguntaMixtaAdapter.myListPreguntaMixta;
         int cont = 0;
@@ -695,7 +858,8 @@ public class PreguntasActivity extends AppCompatActivity {
 
         for (int i = 0; i < tipoPreguntaMixtaItems.size(); i++) {
             Formatter codIdent = new Formatter();
-            codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            codIdent.format("%02d", (i+1));
             respuestaMixta = respuestaMixta + "[" + codIdent + "]";
 
             int sizeAlternativas = tipoPreguntaMixtaItems.get(i).getAlternativas().size();
@@ -709,7 +873,12 @@ public class PreguntasActivity extends AppCompatActivity {
                 } else {
                     rpta = tipoPreguntaMixtaItems.get(i).getRespuestas().get(j).trim();
                 }
-                respuestaMixta = respuestaMixta + rpta;
+                int idPreguntaTemp = Integer.parseInt(idPregunta);
+                String valorTemp = encuestaDAO.obtenerValorIdOpcion(PreguntasActivity.this, idPreguntaTemp, rpta.trim());
+
+                //respuestaMixta = respuestaMixta + rpta;
+                respuestaMixta = respuestaMixta + valorTemp;
+
                 if (j != tipoPreguntaMixtaItems.get(i).getRespuestas().size() - 1)
                     respuestaMixta = "" + respuestaMixta + "$";
                 cont++;
@@ -723,11 +892,12 @@ public class PreguntasActivity extends AppCompatActivity {
         }
         //guardar en base de datos
         TipoPreguntaMixtaAdapter.tipoPreguntaMixtaAdapter.limpiarLista();
-
+        System.out.println("RESP TMixta: " + respuestaMixta);
         guardarRespuesta(respuestaMixta);
     }
 
     private void leerRespuestasTipoMatrizSimple() {
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
         String respuestaMatrizS = "";
         System.out.println("dimension myListPreguntaMatrizSimple:" + TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz.size());
         ArrayList<TipoPreguntaMatrizSimpleItem> tipoPreguntaMatrizSimpleItems = TipoPreguntaMatrizSimpleAdapter.myListPreguntaMatriz;
@@ -737,7 +907,8 @@ public class PreguntasActivity extends AppCompatActivity {
         for (int i = 0; i < tipoPreguntaMatrizSimpleItems.size(); i++) {
             Formatter codIdent = new Formatter();
 
-            codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            codIdent.format("%02d", (i+1));
             respuestaMatrizS = respuestaMatrizS + "[" + codIdent + "]";
 
             for (int k = 0; k < tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size(); k++) {
@@ -745,12 +916,17 @@ public class PreguntasActivity extends AppCompatActivity {
                 System.out.println("respuesta " + k + " :" + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).trim());
 
                 respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getVertical().get(k).trim();
+
                 respuestaMatrizS = respuestaMatrizS + "%";
 
                 if (tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).trim().equals(""))
                     respuestaMatrizS = respuestaMatrizS + "null";
                 else {
-                    respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).trim();
+                    int idPreguntaTemp = Integer.parseInt(idPregunta);
+                    String valorTemp = encuestaDAO.obtenerValorIdItem(PreguntasActivity.this, idPreguntaTemp, tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).trim());
+
+                    //respuestaMatrizS = respuestaMatrizS + tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().get(k).trim();
+                    respuestaMatrizS = respuestaMatrizS + valorTemp.trim();
                 }
                 if (k != tipoPreguntaMatrizSimpleItems.get(i).getRespuestas().size() - 1)
                     respuestaMatrizS = "" + respuestaMatrizS + "$";
@@ -762,11 +938,13 @@ public class PreguntasActivity extends AppCompatActivity {
         //System.out.println("respuesta: {" + respuestaMatrizS + "}");
         //guardar en base de datos la respuesta
         TipoPreguntaMatrizSimpleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
-        //guardarRespuesta(respuestaMatrizS);
+        System.out.println("RESP TMatriz simple: " + respuestaMatrizS);
+        guardarRespuesta(respuestaMatrizS);
         System.out.println("---------FIN TOMA DE DATOS MATRIZ SIMPLE");
     }
 
     private void leerRespuestasTipoMatrizMultiple() {
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
         String respuestaMatrizM = "";
         System.out.println("dimension myListPreguntaMatrizMultiple:" + TipoPreguntaMatrizMultipleAdapter.myListPreguntaMatriz.size());
         ArrayList<TipoPreguntaMatrizMultipleItem> tipoPreguntaMatrizMultipleItems = TipoPreguntaMatrizMultipleAdapter.myListPreguntaMatriz;
@@ -774,7 +952,8 @@ public class PreguntasActivity extends AppCompatActivity {
 
         for (int i = 0; i < tipoPreguntaMatrizMultipleItems.size(); i++) {
             Formatter codIdent = new Formatter();
-            codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            //codIdent.format("%02d", codigosIdentEncuestados.get(i));
+            codIdent.format("%02d", (i+1));
             respuestaMatrizM = respuestaMatrizM + "[" + codIdent + "]";
 
             ArrayList<RespuestaItem> respuestas = tipoPreguntaMatrizMultipleItems.get(i).getRespuestas();
@@ -785,6 +964,7 @@ public class PreguntasActivity extends AppCompatActivity {
                 for (int j = 0; j < tipoPreguntaMatrizMultipleItems.get(i).getHorizontal().size(); j++) {
                     for (int k = 0; k < tipoPreguntaMatrizMultipleItems.get(i).getVertical().size(); k++) {
                         //nombre de opcion
+
                         respuestaMatrizM = respuestaMatrizM + tipoPreguntaMatrizMultipleItems.get(i).getVertical().get(k);
 
                         if (respuestas.get(l).getCol() == j && respuestas.get(l).getRow() == k) {
@@ -793,7 +973,13 @@ public class PreguntasActivity extends AppCompatActivity {
                             System.out.println("multiple usuario " + (i + 1) + ": " + respuestas.get(l).getTexto());
 
                             respuestaMatrizM = respuestaMatrizM + "%";
-                            respuestaMatrizM = respuestaMatrizM + respuestas.get(l).getTexto();
+
+                            int idPreguntaTemp = Integer.parseInt(idPregunta);
+                            String valorTemp = encuestaDAO.obtenerValorIdItem(PreguntasActivity.this, idPreguntaTemp, respuestas.get(l).getTexto());
+
+                            //respuestaMatrizM = respuestaMatrizM + respuestas.get(l).getTexto();
+                            respuestaMatrizM = respuestaMatrizM + valorTemp;
+
                             cont++;
                         }
                         if (cont == 0)
@@ -814,7 +1000,7 @@ public class PreguntasActivity extends AppCompatActivity {
 
         //guardar en base de datos la respuesta
         TipoPreguntaMatrizMultipleAdapter.tipoPreguntaMatrizAdapter.limpiarLista();
-
+        System.out.println("RESP TMatriz mult: " + respuestaMatrizM);
         guardarRespuesta(respuestaMatrizM);
     }
 
@@ -831,6 +1017,10 @@ public class PreguntasActivity extends AppCompatActivity {
             if (i == 0 && encuestarTodos == 1)
                 break;
         }
+
+        TipoPreguntaAbiertaAdapter.pre_subtipo = pre_subtipo;
+        TipoPreguntaAbiertaAdapter.pre_tiponumerico = pre_tiponumerico;
+
         System.out.println("miListaTipoPreguntaAbierta: " + TipoPreguntaAbiertaAdapter.myListPreguntaAbierta.size());
 
         lvRespuestas_tipoGeneral.setAdapter(new TipoPreguntaAbiertaAdapter(context, TipoPreguntaAbiertaAdapter.myListPreguntaAbierta));
@@ -915,13 +1105,19 @@ public class PreguntasActivity extends AppCompatActivity {
             System.out.println("ITEM " + (i + 1) + ": " + listPreguntaItems.get(i).getIte_nombre().trim());
             //
         }
-        horizontales.add("");
-
 
         ArrayList<String> verticales = new ArrayList<>();
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
             System.out.println("Vertical " + (i + 1) + ": " + listPreguntaAlterntiva.get(i).getOpc_nombre().trim());
-            verticales.add(listPreguntaAlterntiva.get(i).getOpc_nombre().trim());
+            String cadenTemp = listPreguntaAlterntiva.get(i).getOpc_nombre().trim();
+            String cadUtl = "";
+            cadUtl = cadenTemp;
+            /*if(cadenTemp.length()>50){
+                cadUtl = cadenTemp.substring(0,50) + "\n" + cadenTemp.substring(50,cadenTemp.length());
+            }else{
+                cadUtl = cadenTemp;
+            }*/
+            verticales.add(cadUtl);
         }
 
         System.out.println("Len horizontales: " + horizontales.size());
@@ -947,7 +1143,7 @@ public class PreguntasActivity extends AppCompatActivity {
         for (int i = 0; i < listPreguntaItems.size(); i++) {
             horizontales.add(listPreguntaItems.get(i).getIte_nombre().trim());
         }
-        horizontales.add("");
+
 
         ArrayList<String> verticales = new ArrayList<>();
         for (int i = 0; i < listPreguntaAlterntiva.size(); i++) {
@@ -1036,7 +1232,7 @@ public class PreguntasActivity extends AppCompatActivity {
                 idPregunta = respuesta.get(2); // se asigna el id de la Pregunta que no ha sido respondida
             //}
 
-            //setear los datos en las variables globales
+            //setear los datos en las variables globalesu
             leerSiguientePregunta();
 
             //invocar al metodo para mostrar las preguntas a responder
@@ -1085,6 +1281,14 @@ public class PreguntasActivity extends AppCompatActivity {
                         .setNegativeButton("Continuar encuesta", alertaCancelarOnClickListener)
                         .setCancelable(false).show();
                 return true;
+
+            case R.id.tomarFoto:
+                try {
+                    getCamara();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return true;
         }
         return true;
     }
@@ -1111,6 +1315,60 @@ public class PreguntasActivity extends AppCompatActivity {
         }
 
         return false;
+    }
+
+
+    /** FOTO ADICIONAL*/
+    private String foto;
+    private File file;
+    private File carp;
+    private Uri output;
+    private Bitmap bmp;
+    private ImageView imagen;
+
+    private void getCamara() throws IOException {
+        CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
+        EncuestaDAO encuestaDAO = new EncuestaDAO();
+
+        String numEncuesta = cabeceraRespuestaDAO.obtenerUltNumeroEncuesta(PreguntasActivity.this);
+        String codEncuesta = encuestaDAO.obtenerCodigoEncuesta(PreguntasActivity.this);
+        System.out.println("NuM ENC : "+numEncuesta);
+
+        String dirCarpeta = Environment.getExternalStorageDirectory() +"/SISGENE_FOTO/";
+
+        foto = Environment.getExternalStorageDirectory() +"/SISGENE_FOTO/"+codEncuesta+"_"+numEncuesta+".jpg";
+        System.out.println("RUTA FOTO: "+foto);
+
+        carp = new File(dirCarpeta);
+        carp.mkdir();
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if(carp.exists()){
+            file = new File(foto);
+            file.createNewFile();
+
+            output = Uri.fromFile(file);
+            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, output);
+            startActivityForResult(intent, 1);
+        }else{
+            Toast.makeText(PreguntasActivity.this, "NO EXISTE ARCHIVO SISGENE_FOTO ",
+            Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode,resultCode,data);
+
+        if(resultCode == MainActivity.RESULT_OK){
+
+            Toast.makeText(PreguntasActivity.this, "FOTO GUARDADO EN : "+foto,
+                    Toast.LENGTH_LONG).show();
+        }
+
     }
 }
 

@@ -1,4 +1,4 @@
-package com.instituto.cuanto.sisgene.adapter;
+package com.instituto.cuanto.sisgene.adapter.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -97,9 +97,7 @@ public class TipoPreguntaMatrizSimpleAdapter extends BaseAdapter {
             final RadioGroup group = new RadioGroup(context);
             final LinearLayout linear= new LinearLayout(context);
 
-            System.out.println("TAM : "+currentTipoPreguntaMatrizItem.getHorizontal().size());
-
-            for (int j = 0; j <= currentTipoPreguntaMatrizItem.getHorizontal().size(); j++) {
+            for (int j = 0; j < currentTipoPreguntaMatrizItem.getHorizontal().size(); j++) {
                 if (i!=0 && j != 0) {
                     final RadioButton radio = new RadioButton(context);
                     radio.setText(currentTipoPreguntaMatrizItem.getHorizontal().get(j - 1));

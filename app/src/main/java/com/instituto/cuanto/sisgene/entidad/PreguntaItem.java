@@ -10,6 +10,7 @@ public class PreguntaItem {
     private String pre_id;
     private String ite_id;
     private String pri_numeralItem;
+    private String pri_valor;
     
     public PreguntaItem(){
         //Constructor de la clase PreguntaItem
@@ -45,5 +46,13 @@ public class PreguntaItem {
 
     public void setPri_numeralItem(String pri_numeralItem) {
         this.pri_numeralItem = pri_numeralItem;
+    }
+
+    public String getPri_valor() {
+        return pri_valor;
+    }
+
+    public void setPri_valor(String pri_valor) {
+        this.pri_valor = pri_valor;
     }
 }

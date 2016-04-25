@@ -57,7 +57,8 @@ public class EncuestaDAO {
                 " sus1.sus_id,sus1.sus_nombre,sus1.sus_nota,sus1.sus_numero_subseccion," +
                 " pre.pre_id,pre.pre_numero,pre.pre_enunciado,pre.pre_explicativo,pre.pre_comentario," +
                 " pre.pre_guia_rpta,pre.pre_tipo_rpta,pre.pre_unica_persona,pre.pre_cant_maxima_items," +
-                " pre.pre_nummaxrptamu,pre.pre_importarordenrptamu" +
+                " pre.pre_nummaxrptamu,pre.pre_importarordenrptamu,pre.pre_subtipo, pre.pre_tiponumerico," +
+                " pre.pre_desde,pre.pre_hasta"+
                 " FROM  det_encuesta dee " +
                 " INNER JOIN estructura_encuesta ese ON ese.ese_id = dee.ese_id" +
                 " INNER JOIN seccion sec ON sec.sec_id = ese.sec_id" +
@@ -100,6 +101,10 @@ public class EncuestaDAO {
                 encuestaPregunta.setPre_cant_maxima_items((cursor.getString(16) != null) ? cursor.getString(16) : "");
                 encuestaPregunta.setPre_nummaxrptamu((cursor.getString(17) != null) ? cursor.getString(17) : "");
                 encuestaPregunta.setPre_importarordenrptamu((cursor.getString(18) != null) ? cursor.getString(18) : "");
+                encuestaPregunta.setPre_subtipo((cursor.getString(19) != null) ? cursor.getString(19) : "");
+                encuestaPregunta.setPre_tiponumerico((cursor.getString(20) != null) ? cursor.getString(20) : "");
+                encuestaPregunta.setPre_desde((cursor.getString(21) != null) ? cursor.getString(21) : "");
+                encuestaPregunta.setPre_hasta((cursor.getString(22) != null) ? cursor.getString(22) : "");
 
             }
             System.out.println("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
@@ -126,7 +131,8 @@ public class EncuestaDAO {
                 " sus1.sus_id,sus1.sus_nombre,sus1.sus_nota,sus1.sus_numero_subseccion," +
                 " pre.pre_id,pre.pre_numero,pre.pre_enunciado,pre.pre_explicativo,pre.pre_comentario," +
                 " pre.pre_guia_rpta,pre.pre_tipo_rpta,pre.pre_unica_persona,pre.pre_cant_maxima_items," +
-                " pre.pre_nummaxrptamu,pre.pre_importarordenrptamu" +
+                " pre.pre_nummaxrptamu,pre.pre_importarordenrptamu, pre.pre_subtipo, pre.pre_tiponumerico," +
+                " pre.pre_desde,pre.pre_hasta" +
                 " FROM  det_encuesta dee " +
                 " INNER JOIN estructura_encuesta ese ON ese.ese_id = dee.ese_id" +
                 " INNER JOIN seccion sec ON sec.sec_id = ese.sec_id" +
@@ -165,6 +171,10 @@ public class EncuestaDAO {
                 encuestaPregunta.setPre_cant_maxima_items((cursor.getString(16) != null) ? cursor.getString(16) : "");
                 encuestaPregunta.setPre_nummaxrptamu((cursor.getString(17) != null) ? cursor.getString(17) : "");
                 encuestaPregunta.setPre_importarordenrptamu((cursor.getString(18) != null) ? cursor.getString(18) : "");
+                encuestaPregunta.setPre_subtipo((cursor.getString(19) != null) ? cursor.getString(19) : "");
+                encuestaPregunta.setPre_tiponumerico((cursor.getString(20) != null) ? cursor.getString(20) : "");
+                encuestaPregunta.setPre_desde((cursor.getString(21) != null) ? cursor.getString(21) : "");
+                encuestaPregunta.setPre_hasta((cursor.getString(22) != null) ? cursor.getString(22) : "");
 
             }
             System.out.println("return OK");
@@ -276,7 +286,8 @@ public class EncuestaDAO {
                 " sus1.sus_id,sus1.sus_nombre,sus1.sus_nota,sus1.sus_numero_subseccion," +
                 " pre.pre_id,pre.pre_numero,pre.pre_enunciado,pre.pre_explicativo,pre.pre_comentario," +
                 " pre.pre_guia_rpta,pre.pre_tipo_rpta,pre.pre_unica_persona,pre.pre_cant_maxima_items," +
-                " pre.pre_nummaxrptamu,pre.pre_importarordenrptamu" +
+                " pre.pre_nummaxrptamu,pre.pre_importarordenrptamu,pre.pre_subtipo, pre.pre_tiponumerico," +
+                " pre.pre_desde,pre.pre_hasta" +
                 " FROM  det_encuesta dee " +
                 " INNER JOIN estructura_encuesta ese ON ese.ese_id = dee.ese_id" +
                 " INNER JOIN seccion sec ON sec.sec_id = ese.sec_id" +
@@ -314,6 +325,10 @@ public class EncuestaDAO {
                 encuestaPregunta.setPre_cant_maxima_items((cursor.getString(16) != null) ? cursor.getString(16) : "");
                 encuestaPregunta.setPre_nummaxrptamu((cursor.getString(17) != null) ? cursor.getString(17) : "");
                 encuestaPregunta.setPre_importarordenrptamu((cursor.getString(18) != null) ? cursor.getString(18) : "");
+                encuestaPregunta.setPre_subtipo((cursor.getString(19) != null) ? cursor.getString(19) : "");
+                encuestaPregunta.setPre_tiponumerico((cursor.getString(20) != null) ? cursor.getString(20) : "");
+                encuestaPregunta.setPre_desde((cursor.getString(21) != null) ? cursor.getString(21) : "");
+                encuestaPregunta.setPre_hasta((cursor.getString(22) != null) ? cursor.getString(22) : "");
 
             }
             System.out.println("return OK");
@@ -354,4 +369,123 @@ public class EncuestaDAO {
         return response;
     }
 
+    public String obtenerValorIdItem(Context context, int idPregunta, String valorItem) {
+
+        String response = "";
+
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        try {
+
+            String sql = " select pri.pri_valor "+
+                        " from pregunta p "+
+                        " inner join pregunta_item pri on p.pre_id = pri.pre_id "+
+                        " inner join item i on pri.ite_id = i.ite_id "+
+                        " where p.pre_id =  "+idPregunta+" "+
+                        " and i.ite_nombre = '"+valorItem+"' ";
+
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                response = cursor.getString(0);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return response;
+    }
+
+    public String obtenerValorIdOpcion(Context context, int idPregunta, String valorOpc) {
+
+        String response = "";
+
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        try {
+
+            String sql = " select pro.pro_valor "+
+                    " from pregunta p "+
+                    " inner join pregunta_opcion pro on p.pre_id = pro.pre_id "+
+                    " inner join opcion o on pro.opc_id = o.opc_id "+
+                    " where p.pre_id =  "+idPregunta+" "+
+                    " and o.opc_nombre = '"+valorOpc+"' ";
+
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                response = cursor.getString(0);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return response;
+    }
+
+    public String obtenerFechaIni(Context context) {
+
+        String response = "";
+
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        try {
+
+            String sql = " select cae.cae_finicio "+
+                    " from caratula_encuesta cae ";
+
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                response = cursor.getString(0);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return response;
+    }
+
+    public String obtenerFechaFin(Context context) {
+
+        String response = "";
+
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        try {
+
+            String sql = " select cae.cae_ffin "+
+                    " from caratula_encuesta cae ";
+
+            cursor = dataBaseHelper.db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                response = cursor.getString(0);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+
+        return response;
+    }
 }

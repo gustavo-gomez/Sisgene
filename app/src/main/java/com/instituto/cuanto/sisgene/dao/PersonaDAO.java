@@ -3,6 +3,8 @@ package com.instituto.cuanto.sisgene.dao;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.instituto.cuanto.sisgene.entidad.Allegado;
+
 /**
  * Created by Jesus on 08/11/2015.
  */
@@ -132,15 +134,15 @@ public class PersonaDAO {
 
     }
 
-    public boolean insertarAllegado(Context context, String nombre, String appaterno, String apmaterno) {
+    public boolean insertarAllegado(Context context, String nombre, String appaterno, String apmaterno, String caer_id, String codIden) {
         Cursor cursor = null;
         DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
-        String arg[] = {nombre, appaterno, apmaterno};
+        String arg[] = {nombre, appaterno, apmaterno, caer_id, codIden};
         boolean response = false;
 
         try {
-            String sql = " INSERT INTO allegado (all_nombre,all_appaterno,all_apmaterno)" +
-                    " VALUES(?,?,?)";
+            String sql = " INSERT INTO allegado (all_nombre,all_appaterno,all_apmaterno,caer_id, all_codigo_identificacion)" +
+                    " VALUES(?,?,?,?,?)";
 
             dataBaseHelper.db.execSQL(sql, arg);
 
@@ -178,6 +180,36 @@ public class PersonaDAO {
         }
         System.out.println("obtenerUltIdAlle: ERROR ");
         return 0;
+
+
+    }
+
+    public Allegado obtenerUltAlle(Context context) {
+        Cursor cursor = null;
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+
+        int response = 0;
+        Allegado allegado = new Allegado();
+
+        try {
+
+            cursor = dataBaseHelper.db.rawQuery("select alle.all_nombre, alle.all_appaterno, alle.all_apmaterno from allegado alle order by alle.all_id desc", null);
+
+            if (cursor.moveToFirst()) {
+
+                allegado.setNombres(cursor.getString(0));
+                allegado.setApellido_paterno(cursor.getString(1));
+                allegado.setApellido_materno(cursor.getString(2));
+            }
+
+            return allegado;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return allegado;
 
 
     }

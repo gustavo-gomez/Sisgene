@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,9 +20,11 @@ import com.instituto.cuanto.sisgene.dao.CabeceraRespuestaDAO;
 import com.instituto.cuanto.sisgene.dao.EncuestaDAO;
 import com.instituto.cuanto.sisgene.dao.PersonaDAO;
 import com.instituto.cuanto.sisgene.dao.UsuarioDAO;
+import com.instituto.cuanto.sisgene.entidad.Allegado;
 import com.instituto.cuanto.sisgene.util.Util;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 /**
@@ -55,6 +59,8 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
 
     public static String KEY_ARG_NOMBRES_ENCUESTADOS = "KEY_ARG_NOMBRES_ENCUESTADOS";
     public static String KEY_ARG_ID_ENCUESTADOS = "KEY_ARG_ID_ENCUESTADOS";
+
+    TextView etNombre0,etApellidoPat0,etApellidoMat0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +159,11 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         edApellidoMat19 = (EditText) findViewById(R.id.edApellidoMat19);
         edApellidoMat20 = (EditText) findViewById(R.id.edApellidoMat20);
 
+
+        etNombre0 = (TextView) findViewById(R.id.etNombre0);
+        etApellidoPat0 = (TextView) findViewById(R.id.etApellidoPat0);
+        etApellidoMat0 = (TextView) findViewById(R.id.etApellidoMat0);
+
         tvFechaVigenciaFinal = (TextView) findViewById(R.id.tvFechaVigenciaFinal);
         tvNombreSupervisor = (TextView) findViewById(R.id.tvNombreSupervisor);
         tvCodigoEncuesta = (TextView) findViewById(R.id.tvCodigoEncuesta);
@@ -206,8 +217,18 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         tvNombreUsuario.setText(nombreUsu);
 
         //grupo
-        String grupo = usuarioDAO.obtenerGrupoPorUsuario(NombresPersonasEncuestadasActivity.this, userUsu);
+        String idSupervisor = usuarioDAO.obtenerIDSupervisorXEncuestador(NombresPersonasEncuestadasActivity.this, userUsu);
+        System.out.println("ID_SUPERVISOR : " + idSupervisor);
+        String grupo = usuarioDAO.obtenerNumeroGrupo(NombresPersonasEncuestadasActivity.this, idSupervisor);
+        if(grupo == null || grupo.equals("")){
+            grupo = "";
+        }
+        System.out.println("GRUPOOOOOO : "+grupo);
         tvGrupo.setText(grupo);
+
+
+        /*String grupo = usuarioDAO.obtenerGrupoPorUsuario(NombresPersonasEncuestadasActivity.this, userUsu);
+        tvGrupo.setText(grupo);*/
 
         //fechas
         tvFecha.setText(Util.obtenerFecha());
@@ -224,13 +245,40 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         //else
         //  tvFechaVigenciaFinal.setText(fechas.get(1).toString().trim());
 
+        String finicio = encuestaDAO.obtenerFechaIni(NombresPersonasEncuestadasActivity.this);
+
+        String ano = finicio.substring(0, 4);
+        String me = finicio.substring(5,7);
+        String d = finicio.substring(8, 10);
+
+        finicio  = d+"/"+me+"/"+ano;
+
+        tvFechaVigenciaInicio.setText(finicio);
+
+        String ffin = encuestaDAO.obtenerFechaFin(NombresPersonasEncuestadasActivity.this);
+
+        ano = ffin.substring(0, 4);
+        me = ffin.substring(5,7);
+        d = ffin.substring(8, 10);
+
+        ffin  = d+"/"+me+"/"+ano;
+        tvFechaVigenciaFinal.setText(ffin);
+
 
         //Nombre del supervisor
-        String idSupervisor = usuarioDAO.obtenerIDSupervisorXEncuestador(NombresPersonasEncuestadasActivity.this, userUsu);
+        //String idSupervisor = usuarioDAO.obtenerIDSupervisorXEncuestador(NombresPersonasEncuestadasActivity.this, userUsu);
         System.out.println("ID_SUPERVISOR : " + idSupervisor);
         String nombreSupervisor = usuarioDAO.obtenerNombreSupervisor(NombresPersonasEncuestadasActivity.this, idSupervisor);
         tvNombreSupervisor.setText(nombreSupervisor);
 
+
+        //llENAR DATOS JEFE FAMILIA
+
+        PersonaDAO personaDAO = new PersonaDAO();
+        Allegado alleg = personaDAO.obtenerUltAlle(NombresPersonasEncuestadasActivity.this);
+        etNombre0.setText(alleg.getNombres());
+        etApellidoPat0.setText(alleg.getApellido_paterno());
+        etApellidoMat0.setText(alleg.getApellido_materno());
     }
 
     DialogInterface.OnClickListener alertaAceptarOnClickListener = new DialogInterface.OnClickListener() {
@@ -284,6 +332,27 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         nombresEdits.add(etNombre19);
         nombresEdits.add(etNombre20);
 
+        pasarTextoMayucula(etNombre1);
+        pasarTextoMayucula(etNombre2);
+        pasarTextoMayucula(etNombre3);
+        pasarTextoMayucula(etNombre4);
+        pasarTextoMayucula(etNombre5);
+        pasarTextoMayucula(etNombre6);
+        pasarTextoMayucula(etNombre7);
+        pasarTextoMayucula(etNombre8);
+        pasarTextoMayucula(etNombre9);
+        pasarTextoMayucula(etNombre10);
+        pasarTextoMayucula(etNombre11);
+        pasarTextoMayucula(etNombre12);
+        pasarTextoMayucula(etNombre13);
+        pasarTextoMayucula(etNombre14);
+        pasarTextoMayucula(etNombre15);
+        pasarTextoMayucula(etNombre16);
+        pasarTextoMayucula(etNombre17);
+        pasarTextoMayucula(etNombre18);
+        pasarTextoMayucula(etNombre19);
+        pasarTextoMayucula(etNombre20);
+
 
         apellidosPatEdits.add(edApellidoPat1);
         apellidosPatEdits.add(edApellidoPat2);
@@ -306,6 +375,28 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         apellidosPatEdits.add(edApellidoPat19);
         apellidosPatEdits.add(edApellidoPat20);
 
+        pasarTextoMayucula(edApellidoPat1);
+        pasarTextoMayucula(edApellidoPat2);
+        pasarTextoMayucula(edApellidoPat3);
+        pasarTextoMayucula(edApellidoPat4);
+        pasarTextoMayucula(edApellidoPat5);
+        pasarTextoMayucula(edApellidoPat6);
+        pasarTextoMayucula(edApellidoPat7);
+        pasarTextoMayucula(edApellidoPat8);
+        pasarTextoMayucula(edApellidoPat9);
+        pasarTextoMayucula(edApellidoPat10);
+        pasarTextoMayucula(edApellidoPat11);
+        pasarTextoMayucula(edApellidoPat12);
+        pasarTextoMayucula(edApellidoPat13);
+        pasarTextoMayucula(edApellidoPat14);
+        pasarTextoMayucula(edApellidoPat15);
+        pasarTextoMayucula(edApellidoPat16);
+        pasarTextoMayucula(edApellidoPat17);
+        pasarTextoMayucula(edApellidoPat18);
+        pasarTextoMayucula(edApellidoPat19);
+        pasarTextoMayucula(edApellidoPat20);
+
+
         apellidosMatEdits.add(edApellidoMat1);
         apellidosMatEdits.add(edApellidoMat2);
         apellidosMatEdits.add(edApellidoMat3);
@@ -326,6 +417,28 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
         apellidosMatEdits.add(edApellidoMat18);
         apellidosMatEdits.add(edApellidoMat19);
         apellidosMatEdits.add(edApellidoMat20);
+
+        pasarTextoMayucula(edApellidoMat1);
+        pasarTextoMayucula(edApellidoMat2);
+        pasarTextoMayucula(edApellidoMat3);
+        pasarTextoMayucula(edApellidoMat4);
+        pasarTextoMayucula(edApellidoMat5);
+        pasarTextoMayucula(edApellidoMat6);
+        pasarTextoMayucula(edApellidoMat7);
+        pasarTextoMayucula(edApellidoMat8);
+        pasarTextoMayucula(edApellidoMat9);
+        pasarTextoMayucula(edApellidoMat10);
+        pasarTextoMayucula(edApellidoMat11);
+        pasarTextoMayucula(edApellidoMat12);
+        pasarTextoMayucula(edApellidoMat13);
+        pasarTextoMayucula(edApellidoMat14);
+        pasarTextoMayucula(edApellidoMat15);
+        pasarTextoMayucula(edApellidoMat16);
+        pasarTextoMayucula(edApellidoMat17);
+        pasarTextoMayucula(edApellidoMat18);
+        pasarTextoMayucula(edApellidoMat19);
+        pasarTextoMayucula(edApellidoMat20);
+
     }
 
 
@@ -364,6 +477,8 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
             //Si se ingresan 0 personas, se manda solo el nombre del jefe de familia
             if (numerodePersonasEncuestadas == 0) {
                 Intent intent = new Intent(NombresPersonasEncuestadasActivity.this, PreguntasActivity.class);
+                intent.putStringArrayListExtra(KEY_ARG_NOMBRES_ENCUESTADOS, null);
+                intent.putIntegerArrayListExtra(KEY_ARG_ID_ENCUESTADOS, null);
                 intent.putStringArrayListExtra(KEY_ARG_NOMBRES_ENCUESTADOS, nombresEncuestados);
                 intent.putIntegerArrayListExtra(KEY_ARG_ID_ENCUESTADOS, codigosIdentEncuestados);
                 startActivity(intent);
@@ -407,11 +522,19 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                     nombresEncuestados.add(nombresEdits.get(i).getText().toString().trim() + " " + apellidosPatEdits.get(i).getText().toString().trim() +
                             " " + apellidosMatEdits.get(i).getText().toString().trim());
 
+                    CabeceraRespuestaDAO cabRespDAO = new CabeceraRespuestaDAO();
+                    String caer_id_ult = cabRespDAO.obteneridUltimaCabeceraString(NombresPersonasEncuestadasActivity.this);
+
                     //guardar todos los nombres en la base de datos
+                    Formatter codIdent = new Formatter();
+                    codIdent.format("%02d", (i+2));
+
                     boolean insertarAllegado = personaDAO.insertarAllegado(NombresPersonasEncuestadasActivity.this,
                             nombresEdits.get(i).getText().toString().trim(),
                             apellidosPatEdits.get(i).getText().toString().trim(),
-                            apellidosMatEdits.get(i).getText().toString().trim());
+                            apellidosMatEdits.get(i).getText().toString().trim(),
+                            caer_id_ult,
+                            codIdent+"");
 
                     if (insertarAllegado == false) {
                         Toast.makeText(NombresPersonasEncuestadasActivity.this, "Error. Consulte su Adm", Toast.LENGTH_LONG).show();
@@ -435,6 +558,8 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
                     //System.out.println("id " + i + " : " + codigosIdentEncuestados.get(i).toString());
                 }
                 Intent intent = new Intent(NombresPersonasEncuestadasActivity.this, PreguntasActivity.class);
+                intent.putStringArrayListExtra(KEY_ARG_NOMBRES_ENCUESTADOS, null);
+                intent.putIntegerArrayListExtra(KEY_ARG_ID_ENCUESTADOS, null);
                 intent.putStringArrayListExtra(KEY_ARG_NOMBRES_ENCUESTADOS, nombresEncuestados);
                 intent.putIntegerArrayListExtra(KEY_ARG_ID_ENCUESTADOS, codigosIdentEncuestados);
                 startActivity(intent);
@@ -462,6 +587,32 @@ public class NombresPersonasEncuestadasActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+    }
+
+    public void pasarTextoMayucula(EditText et2){
+        final EditText et = et2;
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String cadena = s.toString();
+                if(!cadena.equals(cadena.toUpperCase())){
+                    cadena = cadena.toUpperCase();
+                    et.setText(cadena);
+                }
+                int textLength = et.getText().length();
+                et.setSelection(textLength, textLength);
+            }
+        });
     }
 
 }

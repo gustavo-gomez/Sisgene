@@ -257,7 +257,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Número de Personas "
+                android:text="¿Cuántas personas conforman su hogar aparte de usted?"
                 android:textColor="@color/color_texto"
                 android:textSize="20dp" />
 
@@ -308,7 +308,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="NOMBRES Y APELLIDOS DE LOS ENCUESTADOS"
+                android:text="NOMBRES Y APELLIDOS DE LOS MIEMBROS DEL HOGAR"
                 android:textColor="@color/color_texto"
                 android:textSize="20dp"
                 android:textStyle="bold|italic" />
@@ -332,6 +332,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/lyNombre0"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Nombre "
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/etNombre0"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="Nombre"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/etApellidoPat0"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="Apellido Paterno"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/etApellidoMat0"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="Apellido Materno"
+                        android:textColor="@color/color_texto"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/lyNombre1"
